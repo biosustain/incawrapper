@@ -1,5 +1,5 @@
-# AutoFlow-OmicsDataHandling
-Big Data Omics handling for campaign and autonomous science.
+# BFAIR
+Big and F.A.I.R. Omics Data.
 
 ## Installation
 TODO

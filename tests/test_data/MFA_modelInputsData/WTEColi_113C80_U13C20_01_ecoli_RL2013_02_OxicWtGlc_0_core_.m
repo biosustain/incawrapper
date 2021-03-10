@@ -685,6 +685,8 @@ x.data_ms = d;
 % assing all the previous values to a specific experiment
 m.expts(1) = x;
 
+m.expts(1).id = {'WTEColi_113C80_U13C20_01'};
+
 % add experimental data for annotated fragments
 m.expts(1).data_ms(1).mdvs.id(1,1) = {'3pg_c_C3H6O7P_MRM_0_0_WTEColi_113C80_U13C20_01'};
 m.expts(1).data_ms(1).mdvs.time(1,1) = 0;

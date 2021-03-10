@@ -1,12 +1,12 @@
 # generate test_data
-# Last date : 21.12.2020
+# Last date : 09.12.2021
 # By : Matthias Mattanovich (matmat@biosustain.dtu.dk)
 # This script is intended to generate sample data and save them into the
 # test_data file. The saved objects will then be used to test the
 # INCA_script_generator using unit testing.
 import pickle
 import pandas as pd
-from BFAIR.INCA_script_generator import INCA_script
+from BFAIR.INCA import INCA_script
 
 
 pd.set_option("mode.chained_assignment", None)
@@ -30,7 +30,7 @@ atomMappingMetabolite_data_I = pd.read_csv(
 measuredFluxes_data_I = pd.read_csv(
     "data_stage02_isotopomer_measuredFluxes.csv"
 )
-experimentalMS_data_I = pd.read_csv("data-1604345289079.csv")
+experimentalMS_data_I = pd.read_csv("Re-import/experimentalMS_data_I.csv")
 tracer_I = pd.read_csv("data_stage02_isotopomer_tracers.csv")
 
 # The files need to be limited by model id and mapping id, I picked

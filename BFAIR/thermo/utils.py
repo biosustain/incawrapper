@@ -4,6 +4,14 @@ Functions in this module ease the extraction of calculations from solved
 models.
 """
 
+__all__ = [
+    "adjust_model",
+    "get_flux",
+    "get_log_concentration",
+    "get_delta_g",
+    "get_mass_action_ratio",
+]
+
 import numpy as np
 import pandas as pd
 

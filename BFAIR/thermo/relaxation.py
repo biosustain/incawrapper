@@ -4,6 +4,8 @@ Includes function to relax the bounds of a constraint-based model with
 thermodynamic information.
 """
 
+__all__ = ["relax_dgo", "relax_lc"]
+
 import pandas as pd
 
 from cobra.exceptions import Infeasible
@@ -143,7 +145,7 @@ def relax(tmodel: ThermoModel, reactions_to_relax, metabolites_to_relax, destruc
     return cons_table, vars_table
 
 
-def relax_dgo(tmodel: ThermoModel, reactions_to_ignore=[], destructive=True):
+def relax_dgo(tmodel: ThermoModel, reactions_to_ignore=None, destructive=True):
     """
     Uses the Gurobi subroutines to relax the standard Gibbs free energy bounds.
 
@@ -168,15 +170,16 @@ def relax_dgo(tmodel: ThermoModel, reactions_to_ignore=[], destructive=True):
     Infeasible
         If the feasibility relaxation fails.
     """
+    if reactions_to_ignore is None:
+        reactions_to_ignore = []
     reactions_to_relax = [con.id for con in tmodel.negative_delta_g if con.id not in reactions_to_ignore]
-    metabolites_to_relax = []
 
-    relax_table, _ = relax(tmodel, reactions_to_relax, metabolites_to_relax, destructive)
+    relax_table, _ = relax(tmodel, reactions_to_relax, [], destructive)
 
     return relax_table
 
 
-def relax_lc(tmodel: ThermoModel, metabolites_to_ignore=[], destructive=True):
+def relax_lc(tmodel: ThermoModel, metabolites_to_ignore=None, destructive=True):
     """
     Uses the Gurobi subroutines to relax the log concentration bounds.
 
@@ -201,15 +204,16 @@ def relax_lc(tmodel: ThermoModel, metabolites_to_ignore=[], destructive=True):
     Infeasible
         If the feasibility relaxation fails.
     """
-    reactions_to_relax = []
+    if metabolites_to_ignore is None:
+        metabolites_to_ignore = []
     metabolites_to_relax = [var.id for var in tmodel.log_concentration if var.id not in metabolites_to_ignore]
 
-    _, relax_table = relax(tmodel, reactions_to_relax, metabolites_to_relax, destructive)
+    _, relax_table = relax(tmodel, [], metabolites_to_relax, destructive)
 
     return relax_table
 
 
-def pytfa_relax_dgo(tmodel: ThermoModel, reactions_to_ignore=[]):
+def pytfa_relax_dgo(tmodel: ThermoModel, reactions_to_ignore=None):
     """
     Uses the pytfa algorithm to relax the standard Gibbs free energy bounds.
 
@@ -235,6 +239,8 @@ def pytfa_relax_dgo(tmodel: ThermoModel, reactions_to_ignore=[]):
     """
     from pytfa.optim.relaxation import relax_dgo
 
+    if reactions_to_ignore is None:
+        reactions_to_ignore = []
     relaxed_model, _, relax_table = relax_dgo(tmodel, reactions_to_ignore)
     if relax_table is None:
         raise Infeasible("Failed to create the feasibility relaxation!")

@@ -1,0 +1,1 @@
+{"rules_hs.db": ["https://ndownloader.figshare.com/files/26690771", "80b63a249f175b6cf78e069e2b5e2ec0", 187068416]}

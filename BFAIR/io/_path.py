@@ -1,5 +1,7 @@
 # Private module to obtain static path
 
+__all__ = []
+
 from pathlib import Path
 
 from BFAIR.io import static
@@ -17,7 +19,6 @@ def static_path(*args) -> str:
     Returns
     -------
     str
-        Path to the static folder.
     """
     # Output must be str to be compatible with cobra/pytfa
     return str(Path(static.__file__).parent.joinpath(*args))

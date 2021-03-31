@@ -1,55 +1,107 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@0.2.1
   win: circleci/windows@2.2.0
 
+commands:
+  install-conda:
+    steps:
+      - run:
+          name: Installing Miniconda
+          command: |
+            MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
+            curl -sSL -O "https://repo.continuum.io/miniconda/${MINICONDA_FILE}"
+            bash "${MINICONDA_FILE}" -b -p ~/miniconda3
+            rm -rf "${MINICONDA_FILE}"
+            eval "$(~/miniconda3/bin/conda shell.bash hook)"
+            conda init
+  setup-env:
+    parameters:
+      os:
+        type: enum
+        default: "linux"
+        enum: ["linux", "win"]
+    steps:
+      - restore_cache:
+          key: conda-{{ arch }}-{{ checksum "env.yml" }}
+      - when:
+          condition:
+            equal: [ "linux", << parameters.os >> ]
+          steps:
+            - run:
+                name: Installing libXrender
+                command: |
+                  sudo apt-get update
+                  sudo apt-get install libxrender1
+            - run: 
+                name: Setting up environment
+                command: |
+                  eval "$(~/miniconda3/bin/conda shell.bash hook)"
+                  conda env create -f env.yml
+      - when:
+          condition:
+            equal: [ "win", << parameters.os >> ]
+          steps:
+            - run:
+                name: Setting up environment
+                command: |
+                  conda init powershell
+                  conda env create -f env.yml
+      - save_cache:
+          key: conda-{{ arch }}-{{ checksum "env.yml" }}
+          paths:
+            - ~/miniconda
+  test:
+    parameters:
+      os:
+        type: enum
+        default: "linux"
+        enum: ["linux", "win"]
+    steps:
+      - when:
+          condition:
+            equal: [ "linux", << parameters.os >> ]
+          steps:
+            - run:
+                name: Running tests
+                command: |
+                  eval "$(~/miniconda3/bin/conda shell.bash hook)"
+                  conda activate test
+                  python -m pytest --disable-warnings
+                  python -m flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
+      - when:
+          condition:
+            equal: [ "win", << parameters.os >> ]
+          steps:
+            - run: 
+                name: Running tests
+                command: |
+                  Set-StrictMode -Version Latest
+                  $ErrorActionPreference = 'Stop'
+                  function ThrowOnFailure($Msg) { if (-not $?) { throw $Msg } }
+                  conda activate test
+                  python -m pytest --disable-warnings
+                  ThrowOnFailure "Python test failed!"
+                  python -m flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
+
 jobs:
-  
-  # Linting and unit test
   unittest:
-    executor: 
-      name: python/default
-      tag: "3.7"
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: Install Python Dependencies
-          command : |
-            pip install -r requirements.txt
-
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "venv"
-      - run:
-          name : Run Unit Tests
-          command: |
-            pytest --disable-warnings
-            flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
-  
-  # The same as unittest but for Windows machine
+      - install-conda
+      - setup-env
+      - test
   win-unittest:
-    executor:
-      name: win/default
-      shell: powershell.exe
-
+    executor: win/default
     steps:
       - checkout
-      - run:
-          name: Install Python Dependencies
-          command : |
-            pip install -r requirements.txt
-      - save_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "venv"
-      - run:
-          name : Run Unit Tests
-          command: |
-            pytest --disable-warnings
-            flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
-  
+      - setup-env:
+          os: win
+      - test:
+          os: win
+
   # Linux integration 
   Integration-on-linux:
     executor: python/default
@@ -118,6 +170,7 @@ jobs:
             psql -f AutoFlow-OmicsDataHandling/IsaTab.sql Isatab_DB
 
 workflows:
+  version: 2
   main:
     jobs:
       - unittest

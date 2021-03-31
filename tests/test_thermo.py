@@ -48,7 +48,7 @@ class TestIO(unittest.TestCase):
     def test_create_model(self):
         tdata = io.load_data("small_ecoli")
         actual = io.create_model("small_ecoli", *tdata)
-        self.assertTrue(abs(actual.slim_optimize() - 0.8109972502600706) < 1e-5)
+        self.assertTrue(abs(actual.slim_optimize() - 0.8109732624850488) < 1e-4)
         self.assertRaises(ValueError, io.create_model, "small_ecoli", thermo_data=tdata[0])
         self.assertRaises(ValueError, io.create_model, "small_ecoli", lexicon=tdata[1])
         self.assertRaises(ValueError, io.create_model, "small_ecoli", compartment_data=tdata[2])

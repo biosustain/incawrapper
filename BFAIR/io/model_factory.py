@@ -1,42 +1,30 @@
-"""I/O.
+"""Model Factory.
 
 This module hosts functions to load cobra models, create and adjust tFBA-ready models.
 """
+
+__all__ = ["load_cbm", "load_data", "create_model", "models", "thermo_models"]
 
 import logging
 from pathlib import Path
 
 from cobra import Model
-from cobra.core.singleton import Singleton
 from cobra.io import load_json_model
 from pytfa import ThermoModel
 from pytfa.io import load_thermoDB, read_lexicon, read_compartment_data, annotate_from_lexicon, apply_compartment_data
 from pytfa.utils.logger import get_bistream_logger
 
+from BFAIR.io._base import _BaseFactory
 from BFAIR.io._path import static_path
 
 
-class _BaseFactory:
-    def __init__(self, factory_method):
-        self._factory_method = factory_method
-        self._list = []
-
-    def __dir__(self):
-        return self._list
-
-    def __getattr__(self, item):
-        if item in self._list:
-            return self._factory_method(item)
-        return super().__getattribute__(item)
-
-
-class _ModelFactory(_BaseFactory, metaclass=Singleton):
+class _ModelFactory(_BaseFactory):
     def __init__(self):
         super().__init__(load_cbm)
         self._list = [path.stem for path in Path(static_path()).glob("*.json")]
 
 
-class _ThermoModelFactory(_BaseFactory, metaclass=Singleton):
+class _ThermoModelFactory(_BaseFactory):
     def __init__(self):
         super().__init__(create_model)
         self._list = [path.stem for path in Path(static_path()).glob("*.json") if path.with_suffix("").exists()]
@@ -148,32 +136,44 @@ def create_model(model_name, thermo_data=None, lexicon=None, compartment_data=No
 
 
 models = _ModelFactory()
-models.__doc__ = """A factory class to load metabolic models.
+"""A factory class to load metabolic models.
 
-Example
--------
+Examples
+--------
+>>> from BFAIR.io import models
+
+Use the ``dir`` function to obtain a list of available models.
+
 >>> dir(models)
 ['iJO1366', 'small_ecoli', 'yeastGEM']
+
+Models can be loaded by accessing them as class attributes.
 
 >>> model = models.small_ecoli
 >>> model.slim_optimize()
 0.8109621653343296
 
-This is equivalent to ``BFAIR.io.load_cbm("small_ecoli")``.
+This is equivalent to ``load_cbm("small_ecoli")``.
 """
 
 
 thermo_models = _ThermoModelFactory()
-thermo_models.__doc__ = """A factory class to create pre-curated thermodynamics-based metabolic models.
+"""A factory class to create pre-curated thermodynamics-based metabolic models.
 
-Example
--------
+Examples
+--------
+>>> from BFAIR.io import thermo_models
+
+Use the ``dir`` function to obtain a list of available models.
+
 >>> dir(models)
 ['iJO1366', 'small_ecoli']
+
+Models can be loaded by accessing them as class attributes.
 
 >>> tmodel = thermo_models.small_ecoli
 >>> tmodel.slim_optimize()
 0.8109972502600706
 
-This is equivalent to ``BFAIR.io.create_model("small_ecoli")``.
+This is equivalent to ``create_model("small_ecoli")``.
 """

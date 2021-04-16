@@ -52,7 +52,10 @@ class test_methods(unittest.TestCase):
         min_max = self.min_max
         df = self.df
         min_max_ = normalization.min_max_norm(
-            df, columnname="Intensity", groupname_colname="sample_group_name"
+            df,
+            value_colname="Intensity",
+            groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         self.assertEqual(min_max, min_max_)
 
@@ -60,14 +63,20 @@ class test_methods(unittest.TestCase):
         tsi = self.tsi
         df = self.df
         tsi_ = normalization.tsi_norm(
-            df, columnname="Intensity", groupname_colname="sample_group_name"
+            df,
+            value_colname="Intensity",
+            groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         self.assertEqual(tsi, tsi_)
 
     def test_tsi_logic(self):
         df = self.df
         tsi_ = normalization.tsi_norm(
-            df, columnname="Intensity", groupname_colname="sample_group_name"
+            df,
+            value_colname="Intensity",
+            groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         num_samples = len(tsi_["sample_group_name"].unique())
         sum_samples = sum(tsi_["Intensity"])
@@ -80,8 +89,9 @@ class test_methods(unittest.TestCase):
         biomass_tsi_ = normalization.lim_tsi_norm(
             biomass_df['Metabolite'],
             df,
-            columnname="Intensity",
+            value_colname="Intensity",
             groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         self.assertEqual(biomass_tsi, biomass_tsi_)
 
@@ -94,8 +104,9 @@ class test_methods(unittest.TestCase):
             biomass_df,
             df,
             biomass_value=biomass_value,
-            columnname="Intensity",
+            value_colname="Intensity",
             groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         self.assertEqual(biomass_formula_tsi, biomass_formula_tsi_)
 
@@ -106,8 +117,9 @@ class test_methods(unittest.TestCase):
         amino_acid_tsi_ = normalization.lim_tsi_norm(
             amino_acids,
             df,
-            columnname="Intensity",
+            value_colname="Intensity",
             groupname_colname="sample_group_name",
+            element_name="Metabolite",
         )
         self.assertEqual(amino_acid_tsi, amino_acid_tsi_)
 
@@ -120,5 +132,6 @@ class test_methods(unittest.TestCase):
             value_colname="Intensity",
             corr_type="median",
             qc_vector=None,
+            element_name="Metabolite",
         )
         self.assertEqual(pqn, pqn_)

@@ -80,6 +80,9 @@ docs/_build/
 docs/*.bat
 docs/reference/io/generated
 docs/reference/pathways/generated
+docs/reference/FIA_MS/generated
+docs/reference/MFA_tools/generated
+docs/reference/normalization/generated
 
 # PyBuilder
 target/

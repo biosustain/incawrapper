@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding : utf-8 -*-
 """Data re-import module."""
 
 import time
@@ -31,12 +31,12 @@ class INCA_reimport:
 
         Parameters
         ----------
-        filename: str
+        filename : str
             name of the .mat file we want to get information about
 
         Returns
         -------
-        info: dict
+        info : dict
             a dict containing the file information, its size,
             the structure of the timestamp
             and the timestamp of when the simulation was run
@@ -54,7 +54,8 @@ class INCA_reimport:
             )
             info = {
                 "File_size": file_size,
-                "Simulation_timestamp_structure": simulation_dateAndTime_struct,
+                "Simulation_timestamp_structure":
+                simulation_dateAndTime_struct,
                 "Simulation_timestamp": simulation_dateAndTime,
             }
         return info
@@ -66,14 +67,14 @@ class INCA_reimport:
 
         Parameters
         ----------
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             The MS fragment file corresponding
             to the simulation
 
         Returns
         -------
-        parallel: bool
-        non_stationary: bool
+        parallel : bool
+        non_stationary : bool
             booleans that describe the type
             of experiment that was simulated
         """
@@ -94,14 +95,14 @@ class INCA_reimport:
 
         Parameters
         ----------
-        filename: str
+        filename : str
             name of the .mat file we want to get information about
 
         Returns
         -------
-        m: scipy.MatlabObject
+        m : scipy.MatlabObject
             the model used for the simulation
-        f: scipy.MatlabObject
+        f : scipy.MatlabObject
             the fit of the model
         """
         m = scipy.io.loadmat(filename)["m"]  # model
@@ -115,12 +116,12 @@ class INCA_reimport:
 
         Parameters
         ----------
-        m: scipy.MatlabObject
+        m : scipy.MatlabObject
             the model extracted from the file
 
         Returns
         -------
-        model_info: pandas.DataFrame
+        model_info : pandas.DataFrame
             a DataFrame containing the MS id,
             the id of the experiment and a boolean
             describing which experiments were used in the model
@@ -144,17 +145,17 @@ class INCA_reimport:
 
         Parameters
         ----------
-        simulation_id: str
+        simulation_id : str
             The name of the experiment used for
             the simulation as in the MS frament file
-        m: scipy.MatlabObject
+        m : scipy.MatlabObject
             the model extracted from the file
-        filename: str
+        filename : str
             name of the .mat file we want to get information about
 
         Returns
         -------
-        simulationParameters: pandas.DataFrame
+        simulationParameters : pandas.DataFrame
             the simulation parameters
         """
         simulation_dateAndTime = info["Simulation_timestamp"]
@@ -226,17 +227,17 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f: scipy.MatlabObject
+        f : scipy.MatlabObject
             the fit of the model
-        simulation_id: str
+        simulation_id : str
             The name of the experiment used for the
             simulation as in the MS frament file
-        info: dict
+        info : dict
             output of the "extract_file_info(filename)" function
 
         Returns
         -------
-        fittedData: pandas.DataFrame
+        fittedData : pandas.DataFrame
             base statistics describing the fit
         """
         f_Echi2 = None
@@ -273,12 +274,12 @@ class INCA_reimport:
 
          Parameters
          ----------
-         f: scipy.MatlabObject
+         f : scipy.MatlabObject
              the fit of the model
 
         Returns
         -------
-         f_mnt_info: dict
+         f_mnt_info : dict
              a dict containing the the reaction id of the fitted
              measurements, the sum of the squared residuals,
              the id of the experiment used for the simulation
@@ -316,20 +317,20 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f_mnt_info: dict
+        f_mnt_info : dict
             the output of the "get_fit_info(f)" function
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             The MS fragment file corresponding to the simulation
-        fittedData: pandas.DataFrame
+        fittedData : pandas.DataFrame
             the output of the "extract_base_stats(f, simulation_id, info)"
             function
 
         Returns
         -------
-        fittedMeasuredFluxes: pandas.DataFrame
+        fittedMeasuredFluxes : pandas.DataFrame
             info about the fluxes used as an input
             for the simulation
-        fittedMeasuredFragments: pandas.DataFrame
+        fittedMeasuredFragments : pandas.DataFrame
             info about the MS data used as an
             input for the simulation
         """
@@ -414,15 +415,15 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f: scipy.MatlabObject
+        f : scipy.MatlabObject
             the fit of the model
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             The MS fragment file corresponding to
             the simulation
 
         Returns
         -------
-        f_mnt_res_info: dict
+        f_mnt_res_info : dict
             a dict containing the residuals of the fit,
             the fit itself, the type of the current value (a measured flux
             or an MS measurement)
@@ -482,21 +483,21 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f_mnt_res_info: dict
+        f_mnt_res_info : dict
             the output of the "get_residuals_info(f)" function
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             the MS fragment file corresponding to
             the simulation
-        fittedData: pandas.DataFrame
+        fittedData : pandas.DataFrame
             the output of the
             "extract_base_stats(f, simulation_id, info)" function
 
         Returns
         -------
-        fittedMeasuredFluxResiduals: pandas.DataFrame
+        fittedMeasuredFluxResiduals : pandas.DataFrame
             info about the residuals of the
             fluxes used as an input for the simulation
-        fittedMeasuredFragmentResiduals: pandas.DataFrame
+        fittedMeasuredFragmentResiduals : pandas.DataFrame
             info about the residuals of
             the fragments in the MS data used as an input for
             the simulation
@@ -660,15 +661,15 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f: scipy.MatlabObject
+        f : scipy.MatlabObject
             the fit of the model
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             the MS fragment file corresponding to
             the simulation
 
         Returns
         -------
-        f_par_info: dict
+        f_par_info : dict
             a dict containing the reaction id,
             the corresponding flux value, the fluxes standard deviation,
             the type of the flux (net flux or norm), the lower and upper
@@ -779,22 +780,22 @@ class INCA_reimport:
 
         Parameters
         ----------
-        f_par_info: dict
+        f_par_info : dict
             output of the
             get_fitted_parameters(f, simulation_info) function
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             the MS fragment file corresponding to
             the simulation
-        fittedData: pandas.DataFrame
+        fittedData : pandas.DataFrame
             the output of the
             "extract_base_stats(f, simulation_id, info)" function
 
         Returns
         -------
-        fittedFluxes: pandas.DataFrame
+        fittedFluxes : pandas.DataFrame
             info about the parameters of the fluxes used
             as an input for the simulation
-        fittedFragments: pandas.DataFrame
+        fittedFragments : pandas.DataFrame
             info about the parameters of the MS data
             used as an input for the simulation
         """
@@ -919,33 +920,33 @@ class INCA_reimport:
 
         Parameters
         ----------
-        filename: str
+        filename : str
             name of the .mat file we want to get information about
-        simulation_info: pandas.DataFrame
+        simulation_info : pandas.DataFrame
             The MS fragment file corresponding to the simulation
-        simulation_id: str
+        simulation_id : str
             The name of the experiment used for the simulation as in the MS
             fragment file
 
         Returns
         -------
-        fittedData: pandas.DataFrame
+        fittedData : pandas.DataFrame
             base statistics describing the fit
-        fittedFluxes: pandas.DataFrame
+        fittedFluxes : pandas.DataFrame
             info about the fitted fluxes
-        fittedFragments: pandas.DataFrame
+        fittedFragments : pandas.DataFrame
             info about the fitted fragments
-        fittedMeasuredFluxes: pandas.DataFrame
+        fittedMeasuredFluxes : pandas.DataFrame
             info about the fluxes used as an input for the simulation
-        fittedMeasuredFragments: pandas.DataFrame
+        fittedMeasuredFragments : pandas.DataFrame
             info about the MS data used as an input for the simulation
-        fittedMeasuredFluxResiduals: pandas.DataFrame
+        fittedMeasuredFluxResiduals : pandas.DataFrame
             info about the residuals of the fluxes used as an input for
             the simulation
-        fittedMeasuredFragmentResiduals: pandas.DataFrame
+        fittedMeasuredFragmentResiduals : pandas.DataFrame
             info about the residuals of the fragments in the
             MS data used as an input for the simulation
-        simulationParameters: pandas.DataFrame
+        simulationParameters : pandas.DataFrame
             the simulation parameters
         """
         # Succession of functions
@@ -983,3 +984,21 @@ class INCA_reimport:
             fittedMeasuredFragmentResiduals,
             simulationParameters,
         )
+
+
+reimport_descr = INCA_reimport()
+"""A class to re-import the INCA output data.
+It is parsed from MATLAB to python DataFrames.
+
+Examples
+--------
+>>> from BFAIR.INCA import INCA_reimport
+
+After initialization, the data can either be re-imported all at once
+
+>>> reimport_data = INCA_reimport()
+>>> reimport_data.reimport(filename, simulation_info, simulation_id)
+
+Or sequentially (not shown)
+
+For more information on how to use this module or visualize the data, please check the example notebook in the BFAIR repository."""  # noqa E501

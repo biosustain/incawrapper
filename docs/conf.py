@@ -43,6 +43,4 @@ html_theme_options = {
 html_sidebars = {
     "**": ["globaltoc.html", "localtoc.html"]
 }
-html_static_path = ['_static']
-# html_css_files = ["style.css"]
 html_collapsible_definitions = True

@@ -1,5 +1,5 @@
 # generate test_data
-# Last date : 26.01.2021
+# Last date : 13.04.2021
 # By : Matthias Mattanovich (matmat@biosustain.dtu.dk)
 # This script is intended to generate sample data and save them into the
 # test_data file. The saved objects will then be used to test the
@@ -120,22 +120,38 @@ amino_acids = [
 
 
 min_max = normalization.min_max_norm(
-    df, columnname="Intensity", groupname_colname="sample_group_name"
+    df,
+    value_colname="Intensity",
+    groupname_colname="sample_group_name",
+    element_name="Metabolite",
 )
 tsi = normalization.tsi_norm(
-    df, columnname="Intensity", groupname_colname="sample_group_name"
+    df,
+    value_colname="Intensity",
+    groupname_colname="sample_group_name",
+    element_name="Metabolite",
 )
 biomass_tsi = normalization.lim_tsi_norm(
-    biomass_df['Metabolite'], df, columnname="Intensity"
+    biomass_df['Metabolite'],
+    df,
+    value_colname="Intensity",
+    groupname_colname="sample_group_name",
+    element_name="Metabolite",
 )
 biomass_formula_tsi = normalization.lim_tsi_norm(
     biomass_df,
     df,
     biomass_value=biomass_value,
-    columnname="Intensity",
+    value_colname="Intensity",
+    groupname_colname="sample_group_name",
+    element_name="Metabolite",
 )
 amino_acid_tsi = normalization.lim_tsi_norm(
-    amino_acids, df, columnname="Intensity"
+    amino_acids,
+    df,
+    value_colname="Intensity",
+    groupname_colname="sample_group_name",
+    element_name="Metabolite",
 )
 pqn = normalization.pqn_norm(
     df,
@@ -143,6 +159,7 @@ pqn = normalization.pqn_norm(
     value_colname="Intensity",
     corr_type="median",
     qc_vector=None,
+    element_name="Metabolite",
 )
 
 pickle.dump(

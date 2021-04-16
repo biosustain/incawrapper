@@ -12,12 +12,12 @@ def print_formula(elements):
 
     Parameters
     ----------
-    elements: dict
+    elements : dict
         The elements that form the metabolite and their corresponding amount
 
     Returns
     -------
-    formula: str
+    formula : str
         The formula of the metabolite
     """
     formula = "".join([f"{k}{int(v)}" for k, v in elements.items()])
@@ -31,13 +31,13 @@ def zero_charge(metabolite):
 
     Parameters
     ----------
-    metabolite: cobra.Metabolite
+    metabolite : cobra.Metabolite
         A metabolite in the cobra format including additional information
         (formula, charge, elements)
 
     Returns
     -------
-    formula: str
+    formula : str
         The formula of the metabolite
     """
     formula = Formula(metabolite.formula)
@@ -60,11 +60,11 @@ def is_valid(metabolite, INVALID_FORMULA_STR=["(", "Generic", "R", "X"]):
 
     Parameters
     ----------
-    metabolite: cobra.Metabolite
+    metabolite : cobra.Metabolite
         A metabolite in the cobra format including additional information
         (formula, charge, elements)
 
-    INVALID_FORMULA_STR: list
+    INVALID_FORMULA_STR : list
         A list of previously defined invalid symbol strings
 
     Returns
@@ -87,14 +87,14 @@ def make_struct(formulas, ids):
 
     Parameters
     ----------
-    formulas: list
+    formulas : list
         List of the formulas of the metabolites in the model
-    ids: list
+    ids : list
         List if the ids of the metabolites in the model
 
     Returns
     -------
-    df_formulas: pandas.DataFrame
+    df_formulas : pandas.DataFrame
         Dataframe with information about the metabolites in the model.
         The masses are all set to 0
     """
@@ -111,13 +111,13 @@ def make_mapping(df_formulas):
 
     Parameters
     ----------
-    df_formulas: pandas.DataFrame
+    df_formulas : pandas.DataFrame
         Dataframe with information about the metabolites in the model.
         The masses are all set to 0
 
     Returns
     -------
-    df_mapping: pandas.DataFrame
+    df_mapping : pandas.DataFrame
         Dataframe with information about overlapping metabolite formulas in
         the model. These include the same metabolites in different
         compartments and metabolites with the same composition but different
@@ -137,12 +137,12 @@ def store_struct(df_formulas, name, dirpath):
 
     Parameters
     ----------
-    df_formulas: pandas.DataFrame
+    df_formulas : pandas.DataFrame
         Dataframe with information about the metabolites in the model.
         The masses are all set to 0
-    name: str
+    name : str
         Name of the database
-    dirpath: path
+    dirpath : path
         Path to where the database should be saved
     """
     df_struct_mapping = pd.DataFrame(
@@ -165,14 +165,14 @@ def store_mapping(df_mapping, name, dirpath):
 
     Parameters
     ----------
-    df_mapping: pandas.DataFrame
+    df_mapping : pandas.DataFrame
         Dataframe with information about overlapping metabolite formulas
         in the model. These include the same metabolites in different
         compartments and metabolites with the same composition but
         different conformations
-    name: str
+    name : str
         Name of the database
-    dirpath: path
+    dirpath : path
         Path to where the database should be saved
     """
     filename_mapping_csv = f"{dirpath}/{name}_mapping_csv.tsv"
@@ -194,17 +194,17 @@ def import_mapping_tsv(file):
 
     Parameters
     ----------
-        file: str
+        file : str
             filename if needed + path
 
     Returns
     -------
-        df: pandas.DataFrame
+        df : pandas.DataFrame
             a dataframe containing the mapping.tsv file and nan in
             unused positions
     """
     # Loop the data lines
-    with open(file, 'r') as temp_f:
+    with open(file, "r") as temp_f:
         # get No of columns in each line
         col_count = [len(line.split("\t")) for line in temp_f.readlines()]
     # Generate column names  (names will be 0, 1, 2, ..., maximum columns - 1)
@@ -222,11 +222,11 @@ def create_database(metabolites, name, dirpath):
 
     Parameters
     ----------
-    metabolites: cobra.DictList or list
+    metabolites : cobra.DictList or list
         List of the metabolites in the model
-    name: str
+    name : str
         Name of the database
-    dirpath: path
+    dirpath : path
         Path to where the database should be saved
     """
     formulas = []

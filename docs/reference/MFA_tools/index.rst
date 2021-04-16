@@ -1,0 +1,8 @@
+MFA tools
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   input_parser
+   inca_tools

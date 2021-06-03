@@ -6,7 +6,7 @@
 # INCA_script_generator using unit testing.
 import pickle
 import pandas as pd
-from BFAIR.INCA import INCA_script
+from BFAIR.mfa.INCA import INCA_script
 
 
 pd.set_option("mode.chained_assignment", None)

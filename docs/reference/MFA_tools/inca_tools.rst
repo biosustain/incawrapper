@@ -1,7 +1,7 @@
 INCA
 ====
 
-.. currentmodule:: BFAIR.INCA
+.. currentmodule:: BFAIR.mfa.INCA
 
 Prerequisites
 -------------
@@ -49,17 +49,17 @@ That should do the trick.
 Modules
 -------
 
-.. currentmodule:: BFAIR.INCA.INCA_script_generator
+.. currentmodule:: BFAIR.mfa.INCA.INCA_script_generator
 
 .. autodata:: script_generator_descr
    :annotation:
 
-.. currentmodule:: BFAIR.INCA.INCA_reimport
+.. currentmodule:: BFAIR.mfa.INCA.INCA_reimport
 
 .. autodata:: reimport_descr
    :annotation:
 
-.. currentmodule:: BFAIR.INCA
+.. currentmodule:: BFAIR.mfa.INCA
 
 INCA script generation
 ----------------------

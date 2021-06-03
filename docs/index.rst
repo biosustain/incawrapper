@@ -12,6 +12,7 @@ Documentation
 
    install
    reference/index
+   examples/index
    developer/index
 
 

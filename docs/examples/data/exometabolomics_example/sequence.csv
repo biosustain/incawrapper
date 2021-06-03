@@ -1,0 +1,178 @@
+sample_name,sample_name_original,sample_type,sample_group_name,sequence_segment_name,original_filename,batch_name,rack_number,plate_number,pos_number,inj_number,dilution_factor,inj_volume,inj_volume_units,operator_name,acq_method_name,proc_method_name,acquisition_date_and_time,scan_polarity,scan_mass_low,scan_mass_high
+GA4_RI_1,Mix 1 STD A,Standard,MixStd,EcoliPputida,GA4_RI_1,b,,,,4,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA5_RI_1,Mix 1 STD B,Standard,MixStd,EcoliPputida,GA5_RI_1,b,,,,5,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA6_RI_1,Mix 1 STD C,Standard,MixStd,EcoliPputida,GA6_RI_1,b,,,,6,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA7_RI_1,Mix 1 STD D,Standard,MixStd,EcoliPputida,GA7_RI_1,b,,,,7,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA8_RI_1,Mix 1 STD E,Standard,MixStd,EcoliPputida,GA8_RI_1,b,,,,8,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA9_RI_1,Mix 1 STD F,Standard,MixStd,EcoliPputida,GA9_RI_1,b,,,,9,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA10_RI_1,Mix 2 STD A,Standard,MixStd,EcoliPputida,GA10_RI_1,b,,,,10,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA11_RI_1,Mix 2 STD B,Standard,MixStd,EcoliPputida,GA11_RI_1,b,,,,11,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA12_RI_1,Mix 2 STD C,Standard,MixStd,EcoliPputida,GA12_RI_1,b,,,,12,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB1_RI_1,Mix 2 STD D,Standard,MixStd,EcoliPputida,GB1_RI_1,b,,,,13,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB2_RI_1,Mix 2 STD E,Standard,MixStd,EcoliPputida,GB2_RI_1,b,,,,14,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB3_RI_1,Mix 2 STD F,Standard,MixStd,EcoliPputida,GB3_RI_1,b,,,,15,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA1_RI_1,Water,Blank,Water,EcoliPputida,GA1_RI_1,b,,,,1,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA2_RI_1,Water,Blank,Water,EcoliPputida,GA2_RI_1,b,,,,2,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GA3_RI_1,Water,Blank,Water,EcoliPputida,GA3_RI_1,b,,,,3,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB4_RI_1,Water,Blank,Water,EcoliPputida,GB4_RI_1,b,,,,16,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB5_RI_1,Water,Blank,Water,EcoliPputida,GB5_RI_1,b,,,,17,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB6_RI_1,E. coli Dilution 8,Unknown,Ecoli,EcoliPputida,GB6_RI_1,b,,,,18,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB7_RI_1,E. coli Dilution 8,Unknown,Ecoli,EcoliPputida,GB7_RI_1,b,,,,19,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB8_RI_1,E. coli Dilution 8,Unknown,Ecoli,EcoliPputida,GB8_RI_1,b,,,,20,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB9_RI_1,E. coli Dilution 8,Unknown,Ecoli,EcoliPputida,GB9_RI_1,b,,,,21,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB10_RI_1,E. coli Dilution 7,Unknown,Ecoli,EcoliPputida,GB10_RI_1,b,,,,22,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB11_RI_1,E. coli Dilution 7,Unknown,Ecoli,EcoliPputida,GB11_RI_1,b,,,,23,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GB12_RI_1,E. coli Dilution 7,Unknown,Ecoli,EcoliPputida,GB12_RI_1,b,,,,24,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC1_RI_1,E. coli Dilution 7,Unknown,Ecoli,EcoliPputida,GC1_RI_1,b,,,,25,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC2_RI_1,E. coli Dilution 6,Unknown,Ecoli,EcoliPputida,GC2_RI_1,b,,,,26,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC3_RI_1,E. coli Dilution 6,Unknown,Ecoli,EcoliPputida,GC3_RI_1,b,,,,27,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC4_RI_1,E. coli Dilution 6,Unknown,Ecoli,EcoliPputida,GC4_RI_1,b,,,,28,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC5_RI_1,E. coli Dilution 6,Unknown,Ecoli,EcoliPputida,GC5_RI_1,b,,,,29,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC6_RI_1,E. coli Dilution 5,Unknown,Ecoli,EcoliPputida,GC6_RI_1,b,,,,30,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC7_RI_1,E. coli Dilution 5,Unknown,Ecoli,EcoliPputida,GC7_RI_1,b,,,,31,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC8_RI_1,E. coli Dilution 5,Unknown,Ecoli,EcoliPputida,GC8_RI_1,b,,,,32,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC9_RI_1,E. coli Dilution 5,Unknown,Ecoli,EcoliPputida,GC9_RI_1,b,,,,33,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC10_RI_1,E. coli Dilution 4,Unknown,Ecoli,EcoliPputida,GC10_RI_1,b,,,,34,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC11_RI_1,E. coli Dilution 4,Unknown,Ecoli,EcoliPputida,GC11_RI_1,b,,,,35,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GC12_RI_1,E. coli Dilution 4,Unknown,Ecoli,EcoliPputida,GC12_RI_1,b,,,,36,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD1_RI_1,E. coli Dilution 4,Unknown,Ecoli,EcoliPputida,GD1_RI_1,b,,,,37,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD2_RI_1,E. coli Dilution 3,Unknown,Ecoli,EcoliPputida,GD2_RI_1,b,,,,38,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD3_RI_1,E. coli Dilution 3,Unknown,Ecoli,EcoliPputida,GD3_RI_1,b,,,,39,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD4_RI_1,E. coli Dilution 3,Unknown,Ecoli,EcoliPputida,GD4_RI_1,b,,,,40,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD5_RI_1,E. coli Dilution 3,Unknown,Ecoli,EcoliPputida,GD5_RI_1,b,,,,41,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD6_RI_1,E. coli Dilution 2,Unknown,Ecoli,EcoliPputida,GD6_RI_1,b,,,,42,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD7_RI_1,E. coli Dilution 2,Unknown,Ecoli,EcoliPputida,GD7_RI_1,b,,,,43,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD8_RI_1,E. coli Dilution 2,Unknown,Ecoli,EcoliPputida,GD8_RI_1,b,,,,44,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD9_RI_1,E. coli Dilution 2,Unknown,Ecoli,EcoliPputida,GD9_RI_1,b,,,,45,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD10_RI_1,E. coli Dilution 1,Unknown,Ecoli,EcoliPputida,GD10_RI_1,b,,,,46,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD11_RI_1,E. coli Dilution 1,Unknown,Ecoli,EcoliPputida,GD11_RI_1,b,,,,47,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GD12_RI_1,E. coli Dilution 1,Unknown,Ecoli,EcoliPputida,GD12_RI_1,b,,,,48,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE1_RI_1,E. coli Dilution 1,Unknown,Ecoli,EcoliPputida,GE1_RI_1,b,,,,49,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE2_RI_1,Water,Blank,Water,EcoliPputida,GE2_RI_1,b,,,,50,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE3_RI_1,Water ,Blank,Water,EcoliPputida,GE3_RI_1,b,,,,51,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE4_RI_1,P. putida Dilution 8,Unknown,Pputida,EcoliPputida,GE4_RI_1,b,,,,52,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE5_RI_1,P. putida Dilution 8,Unknown,Pputida,EcoliPputida,GE5_RI_1,b,,,,53,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE6_RI_1,P. putida Dilution 8,Unknown,Pputida,EcoliPputida,GE6_RI_1,b,,,,54,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE7_RI_1,P. putida Dilution 8,Unknown,Pputida,EcoliPputida,GE7_RI_1,b,,,,55,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE8_RI_1,P. putida Dilution 7,Unknown,Pputida,EcoliPputida,GE8_RI_1,b,,,,56,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE9_RI_1,P. putida Dilution 7,Unknown,Pputida,EcoliPputida,GE9_RI_1,b,,,,57,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE10_RI_1,P. putida Dilution 7,Unknown,Pputida,EcoliPputida,GE10_RI_1,b,,,,58,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE11_RI_1,P. putida Dilution 7,Unknown,Pputida,EcoliPputida,GE11_RI_1,b,,,,59,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GE12_RI_1,P. putida Dilution 6,Unknown,Pputida,EcoliPputida,GE12_RI_1,b,,,,60,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF1_RI_1,P. putida Dilution 6,Unknown,Pputida,EcoliPputida,GF1_RI_1,b,,,,61,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF2_RI_1,P. putida Dilution 6,Unknown,Pputida,EcoliPputida,GF2_RI_1,b,,,,62,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF3_RI_1,P. putida Dilution 6,Unknown,Pputida,EcoliPputida,GF3_RI_1,b,,,,63,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF4_RI_1,P. putida Dilution 5,Unknown,Pputida,EcoliPputida,GF4_RI_1,b,,,,64,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF5_RI_1,P. putida Dilution 5,Unknown,Pputida,EcoliPputida,GF5_RI_1,b,,,,65,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF6_RI_1,P. putida Dilution 5,Unknown,Pputida,EcoliPputida,GF6_RI_1,b,,,,66,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF7_RI_1,P. putida Dilution 5,Unknown,Pputida,EcoliPputida,GF7_RI_1,b,,,,67,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF8_RI_1,P. putida Dilution 4,Unknown,Pputida,EcoliPputida,GF8_RI_1,b,,,,68,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF9_RI_1,P. putida Dilution 4,Unknown,Pputida,EcoliPputida,GF9_RI_1,b,,,,69,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF10_RI_1,P. putida Dilution 4,Unknown,Pputida,EcoliPputida,GF10_RI_1,b,,,,70,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF11_RI_1,P. putida Dilution 4,Unknown,Pputida,EcoliPputida,GF11_RI_1,b,,,,71,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GF12_RI_1,P. putida Dilution 3,Unknown,Pputida,EcoliPputida,GF12_RI_1,b,,,,72,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG1_RI_1,P. putida Dilution 3,Unknown,Pputida,EcoliPputida,GG1_RI_1,b,,,,73,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG2_RI_1,P. putida Dilution 3,Unknown,Pputida,EcoliPputida,GG2_RI_1,b,,,,74,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG3_RI_1,P. putida Dilution 3,Unknown,Pputida,EcoliPputida,GG3_RI_1,b,,,,75,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG4_RI_1,P. putida Dilution 2,Unknown,Pputida,EcoliPputida,GG4_RI_1,b,,,,76,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG5_RI_1,P. putida Dilution 2,Unknown,Pputida,EcoliPputida,GG5_RI_1,b,,,,77,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG6_RI_1,P. putida Dilution 2,Unknown,Pputida,EcoliPputida,GG6_RI_1,b,,,,78,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG7_RI_1,P. putida Dilution 2,Unknown,Pputida,EcoliPputida,GG7_RI_1,b,,,,79,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG8_RI_1,P. putida Dilution 1,Unknown,Pputida,EcoliPputida,GG8_RI_1,b,,,,80,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG9_RI_1,P. putida Dilution 1,Unknown,Pputida,EcoliPputida,GG9_RI_1,b,,,,81,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG10_RI_1,P. putida Dilution 1,Unknown,Pputida,EcoliPputida,GG10_RI_1,b,,,,82,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG11_RI_1,P. putida Dilution 1,Unknown,Pputida,EcoliPputida,GG11_RI_1,b,,,,83,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GG12_RI_1,Water ,Blank,Water,EcoliPputida,GG12_RI_1,b,,,,84,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH1_RI_1,Water,Blank,Water,Scerevisiae,GH1_RI_1,b,,,,85,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH2_RI_1,Yeast Dilution 8,Unknown,Yeast,Scerevisiae,GH2_RI_1,b,,,,86,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH3_RI_1,Yeast Dilution 8,Unknown,Yeast,Scerevisiae,GH3_RI_1,b,,,,87,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH4_RI_1,Yeast Dilution 8,Unknown,Yeast,Scerevisiae,GH4_RI_1,b,,,,88,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH5_RI_1,Yeast Dilution 8,Unknown,Yeast,Scerevisiae,GH5_RI_1,b,,,,89,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH6_RI_1,Yeast Dilution 7,Unknown,Yeast,Scerevisiae,GH6_RI_1,b,,,,90,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH7_RI_1,Yeast Dilution 7,Unknown,Yeast,Scerevisiae,GH7_RI_1,b,,,,91,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH8_RI_1,Yeast Dilution 7,Unknown,Yeast,Scerevisiae,GH8_RI_1,b,,,,92,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH9_RI_1,Yeast Dilution 7,Unknown,Yeast,Scerevisiae,GH9_RI_1,b,,,,93,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH10_RI_1,Yeast Dilution 6,Unknown,Yeast,Scerevisiae,GH10_RI_1,b,,,,94,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH11_RI_1,Yeast Dilution 6,Unknown,Yeast,Scerevisiae,GH11_RI_1,b,,,,95,,20,uL,,HPLC_OA_RI,,,positive,0,0
+GH12_RI_1,Yeast Dilution 6,Unknown,Yeast,Scerevisiae,GH12_RI_1,b,,,,96,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA1_RI_1,Yeast Dilution 6,Unknown,Yeast,Scerevisiae,BA1_RI_1,b,,,,97,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA2_RI_1,Yeast Dilution 5,Unknown,Yeast,Scerevisiae,BA2_RI_1,b,,,,98,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA3_RI_1,Yeast Dilution 5,Unknown,Yeast,Scerevisiae,BA3_RI_1,b,,,,99,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA4_RI_1,Yeast Dilution 5,Unknown,Yeast,Scerevisiae,BA4_RI_1,b,,,,100,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA5_RI_1,Yeast Dilution 5,Unknown,Yeast,Scerevisiae,BA5_RI_1,b,,,,101,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA6_RI_1,Yeast Dilution 4,Unknown,Yeast,Scerevisiae,BA6_RI_1,b,,,,102,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA7_RI_1,Yeast Dilution 4,Unknown,Yeast,Scerevisiae,BA7_RI_1,b,,,,103,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA8_RI_1,Yeast Dilution 4,Unknown,Yeast,Scerevisiae,BA8_RI_1,b,,,,104,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA9_RI_1,Yeast Dilution 4,Unknown,Yeast,Scerevisiae,BA9_RI_1,b,,,,105,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA10_RI_1,Yeast Dilution 3,Unknown,Yeast,Scerevisiae,BA10_RI_1,b,,,,106,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA11_RI_1,Yeast Dilution 3,Unknown,Yeast,Scerevisiae,BA11_RI_1,b,,,,107,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BA12_RI_1,Yeast Dilution 3,Unknown,Yeast,Scerevisiae,BA12_RI_1,b,,,,108,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB1_RI_1,Yeast Dilution 3,Unknown,Yeast,Scerevisiae,BB1_RI_1,b,,,,109,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB2_RI_1,Yeast Dilution 2,Unknown,Yeast,Scerevisiae,BB2_RI_1,b,,,,110,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB3_RI_1,Yeast Dilution 2,Unknown,Yeast,Scerevisiae,BB3_RI_1,b,,,,111,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB4_RI_1,Yeast Dilution 2,Unknown,Yeast,Scerevisiae,BB4_RI_1,b,,,,112,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB5_RI_1,Yeast Dilution 2,Unknown,Yeast,Scerevisiae,BB5_RI_1,b,,,,113,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB6_RI_1,Yeast Dilution 1,Unknown,Yeast,Scerevisiae,BB6_RI_1,b,,,,114,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB7_RI_1,Yeast Dilution 1,Unknown,Yeast,Scerevisiae,BB7_RI_1,b,,,,115,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB8_RI_1,Yeast Dilution 1,Unknown,Yeast,Scerevisiae,BB8_RI_1,b,,,,116,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB9_RI_1,Yeast Dilution 1,Unknown,Yeast,Scerevisiae,BB9_RI_1,b,,,,117,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB10_RI_1,Water ,Blank,Water,Scerevisiae,BB10_RI_1,b,,,,118,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB11_RI_1,Water,Blank,Water,Scerevisiae,BB11_RI_1,b,,,,119,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BB12_RI_1,Mix Yeast 1 STD A,Standard,YeastMix,Scerevisiae,BB12_RI_1,b,,,,120,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC1_RI_1,Mix Yeast 1 STD B,Standard,YeastMix,Scerevisiae,BC1_RI_1,b,,,,121,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC2_RI_1,Mix Yeast 1 STD C,Standard,YeastMix,Scerevisiae,BC2_RI_1,b,,,,122,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC3_RI_1,Mix Yeast 1 STD D,Standard,YeastMix,Scerevisiae,BC3_RI_1,b,,,,123,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC4_RI_1,Mix Yeast 1 STD E,Standard,YeastMix,Scerevisiae,BC4_RI_1,b,,,,124,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC5_RI_1,Mix Yeast 1 STD F,Standard,YeastMix,Scerevisiae,BC5_RI_1,b,,,,125,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC6_RI_1,Mix Yeast 2 STD A,Standard,YeastMix,Scerevisiae,BC6_RI_1,b,,,,126,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC7_RI_1,Mix Yeast 2 STD B,Standard,YeastMix,Scerevisiae,BC7_RI_1,b,,,,127,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC8_RI_1,Mix Yeast 2 STD C,Standard,YeastMix,Scerevisiae,BC8_RI_1,b,,,,128,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC9_RI_1,Mix Yeast 2 STD D,Standard,YeastMix,Scerevisiae,BC9_RI_1,b,,,,129,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC10_RI_1,Mix Yeast 2 STD E,Standard,YeastMix,Scerevisiae,BC10_RI_1,b,,,,130,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC11_RI_1,Mix Yeast 2 STD F,Standard,YeastMix,Scerevisiae,BC11_RI_1,b,,,,131,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BC12_RI_1,Mix Yeast 3 STD A,Standard,YeastMix,Scerevisiae,BC12_RI_1,b,,,,132,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD1_RI_1,Mix Yeast 3 STD B,Standard,YeastMix,Scerevisiae,BD1_RI_1,b,,,,133,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD2_RI_1,Mix Yeast 3 STD C,Standard,YeastMix,Scerevisiae,BD2_RI_1,b,,,,134,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD3_RI_1,Mix Yeast 3 STD D,Standard,YeastMix,Scerevisiae,BD3_RI_1,b,,,,135,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD4_RI_1,Mix Yeast 3 STD E,Standard,YeastMix,Scerevisiae,BD4_RI_1,b,,,,136,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD5_RI_1,Mix Yeast 3 STD F,Standard,YeastMix,Scerevisiae,BD5_RI_1,b,,,,137,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD6_RI_1,Mix Yeast 4 STD A,Standard,YeastMix,Scerevisiae,BD6_RI_1,b,,,,138,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD7_RI_1,Mix Yeast 4 STD B,Standard,YeastMix,Scerevisiae,BD7_RI_1,b,,,,139,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD8_RI_1,Mix Yeast 4 STD C,Standard,YeastMix,Scerevisiae,BD8_RI_1,b,,,,140,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD9_RI_1,Mix Yeast 4 STD D,Standard,YeastMix,Scerevisiae,BD9_RI_1,b,,,,141,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD10_RI_1,Mix Yeast 4 STD E,Standard,YeastMix,Scerevisiae,BD10_RI_1,b,,,,142,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD11_RI_1,Mix Yeast 4 STD F,Standard,YeastMix,Scerevisiae,BD11_RI_1,b,,,,143,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BD12_RI_1,Water ,Blank,Water,Scerevisiae,BD12_RI_1,b,,,,144,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE1_RI_1,E. coli Anaerobic Dilution 8,Unknown,EcoliAn,EcoliPputida,BE1_RI_1,b,,,,145,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE2_RI_1,E. coli Anaerobic Dilution 8,Unknown,EcoliAn,EcoliPputida,BE2_RI_1,b,,,,146,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE3_RI_1,E. coli Anaerobic Dilution 8,Unknown,EcoliAn,EcoliPputida,BE3_RI_1,b,,,,147,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE4_RI_1,E. coli Anaerobic Dilution 8,Unknown,EcoliAn,EcoliPputida,BE4_RI_1,b,,,,148,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE5_RI_1,E. coli Anaerobic Dilution 7,Unknown,EcoliAn,EcoliPputida,BE5_RI_1,b,,,,149,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE6_RI_1,E. coli Anaerobic Dilution 7,Unknown,EcoliAn,EcoliPputida,BE6_RI_1,b,,,,150,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE7_RI_1,E. coli Anaerobic Dilution 7,Unknown,EcoliAn,EcoliPputida,BE7_RI_1,b,,,,151,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE8_RI_1,E. coli Anaerobic Dilution 7,Unknown,EcoliAn,EcoliPputida,BE8_RI_1,b,,,,152,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE9_RI_1,E. coli Anaerobic Dilution 6,Unknown,EcoliAn,EcoliPputida,BE9_RI_1,b,,,,153,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE10_RI_1,E. coli Anaerobic Dilution 6,Unknown,EcoliAn,EcoliPputida,BE10_RI_1,b,,,,154,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE11_RI_1,E. coli Anaerobic Dilution 6,Unknown,EcoliAn,EcoliPputida,BE11_RI_1,b,,,,155,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BE12_RI_1,E. coli Anaerobic Dilution 6,Unknown,EcoliAn,EcoliPputida,BE12_RI_1,b,,,,156,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF1_RI_1,E. coli Anaerobic Dilution 5,Unknown,EcoliAn,EcoliPputida,BF1_RI_1,b,,,,157,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF2_RI_1,E. coli Anaerobic Dilution 5,Unknown,EcoliAn,EcoliPputida,BF2_RI_1,b,,,,158,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF3_RI_1,E. coli Anaerobic Dilution 5,Unknown,EcoliAn,EcoliPputida,BF3_RI_1,b,,,,159,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF4_RI_1,E. coli Anaerobic Dilution 5,Unknown,EcoliAn,EcoliPputida,BF4_RI_1,b,,,,160,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF5_RI_1,E. coli Anaerobic Dilution 4,Unknown,EcoliAn,EcoliPputida,BF5_RI_1,b,,,,161,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF6_RI_1,E. coli Anaerobic Dilution 4,Unknown,EcoliAn,EcoliPputida,BF6_RI_1,b,,,,162,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF7_RI_1,E. coli Anaerobic Dilution 4,Unknown,EcoliAn,EcoliPputida,BF7_RI_1,b,,,,163,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF8_RI_1,E. coli Anaerobic Dilution 4,Unknown,EcoliAn,EcoliPputida,BF8_RI_1,b,,,,164,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF9_RI_1,E. coli Anaerobic Dilution 3,Unknown,EcoliAn,EcoliPputida,BF9_RI_1,b,,,,165,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF10_RI_1,E. coli Anaerobic Dilution 3,Unknown,EcoliAn,EcoliPputida,BF10_RI_1,b,,,,166,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF11_RI_1,E. coli Anaerobic Dilution 3,Unknown,EcoliAn,EcoliPputida,BF11_RI_1,b,,,,167,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BF12_RI_1,E. coli Anaerobic Dilution 3,Unknown,EcoliAn,EcoliPputida,BF12_RI_1,b,,,,168,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG1_RI_1,E. coli Anaerobic Dilution 2,Unknown,EcoliAn,EcoliPputida,BG1_RI_1,b,,,,169,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG2_RI_1,E. coli Anaerobic Dilution 2,Unknown,EcoliAn,EcoliPputida,BG2_RI_1,b,,,,170,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG3_RI_1,E. coli Anaerobic Dilution 2,Unknown,EcoliAn,EcoliPputida,BG3_RI_1,b,,,,171,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG4_RI_1,E. coli Anaerobic Dilution 2,Unknown,EcoliAn,EcoliPputida,BG4_RI_1,b,,,,172,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG5_RI_1,E. coli Anaerobic Dilution 1,Unknown,EcoliAn,EcoliPputida,BG5_RI_1,b,,,,173,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG6_RI_1,E. coli Anaerobic Dilution 1,Unknown,EcoliAn,EcoliPputida,BG6_RI_1,b,,,,174,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG7_RI_1,E. coli Anaerobic Dilution 1,Unknown,EcoliAn,EcoliPputida,BG7_RI_1,b,,,,175,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG8_RI_1,E. coli Anaerobic Dilution 1,Unknown,EcoliAn,EcoliPputida,BG8_RI_1,b,,,,176,,20,uL,,HPLC_OA_RI,,,positive,0,0
+BG9_RI_1,Water,Blank,Water,EcoliPputida,BG9_RI_1,b,,,,177,,20,uL,,HPLC_OA_RI,,,positive,0,0

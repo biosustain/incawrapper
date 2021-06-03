@@ -1,7 +1,7 @@
 MFA input data processing
 =========================
 
-.. currentmodule:: BFAIR.INCA
+.. currentmodule:: BFAIR.mfa.INCA
 
 Metabolic flux analysis prerequisites
 -------------------------------------

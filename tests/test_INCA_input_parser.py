@@ -1,7 +1,7 @@
 import unittest
 import pickle
 import pathlib
-from BFAIR.INCA import parse_cobra_model
+from BFAIR.mfa.INCA import parse_cobra_model
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
@@ -9,7 +9,8 @@ current_dir = str(pathlib.Path(__file__).parent.absolute())
 class test_methods(unittest.TestCase):
     def setUp(self):
         file_obj = open(
-            current_dir + "/test_data/MFA_modelInputsData/input_parser_test_data.obj", "rb"
+            current_dir
+            + "/test_data/MFA_modelInputsData/input_parser_test_data.obj", "rb"
         )
         (
             coli_model,
@@ -43,7 +44,8 @@ class test_methods(unittest.TestCase):
         """
         celegans_model_ = self.celegans_model
         celegans_model = parse_cobra_model(
-            current_dir + '/test_data/MFA_modelInputsData/Models/wormjam-20180125.sbml',
+            current_dir
+            + '/test_data/MFA_modelInputsData/Models/wormjam-20180125.sbml',
             'wormjam-20180125',
             'today',
         )

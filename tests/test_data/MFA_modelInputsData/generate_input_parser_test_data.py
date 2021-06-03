@@ -7,7 +7,7 @@
 import pickle
 import pandas as pd
 import pathlib
-from BFAIR.INCA import parse_cobra_model
+from BFAIR.mfa.INCA import parse_cobra_model
 
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
@@ -18,7 +18,8 @@ filehandler = open("input_parser_test_data.obj", "wb")
 
 coli_model = parse_cobra_model('Models/iJO1366.json', 'iJO1366', 'today')
 
-celegans_model = parse_cobra_model('Models/wormjam-20180125.sbml', 'wormjam-20180125', 'today')
+celegans_model = parse_cobra_model('Models/wormjam-20180125.sbml',
+                                   'wormjam-20180125', 'today')
 
 pickle.dump(
     [

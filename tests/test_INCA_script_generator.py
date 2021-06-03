@@ -4,7 +4,7 @@ import sys
 import pathlib
 
 sys.path.insert(1, "../")
-from BFAIR.INCA.INCA_script_generator import (  # noqa E402
+from BFAIR.mfa.INCA import (  # noqa E402
     INCA_script
 )
 

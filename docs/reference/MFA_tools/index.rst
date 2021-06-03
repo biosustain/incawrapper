@@ -6,3 +6,6 @@ MFA tools
 
    input_parser
    inca_tools
+   sampling
+   visualization
+   utils

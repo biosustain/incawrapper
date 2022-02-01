@@ -4,6 +4,7 @@ import pathlib
 import cobra
 import matplotlib
 import pandas as pd
+from numpy import ndarray
 from BFAIR.mfa.visualization import (
     reshape_fluxes_escher,
     sampled_fluxes_minrange,
@@ -24,6 +25,43 @@ current_dir = str(pathlib.Path(__file__).parent.absolute())
 class test_methods(unittest.TestCase):
 
     maxDiff = None
+
+    # Add method for dictionary AlmostEqual assertion
+    def assertDeepAlmostEqual(self, expected, actual, *args, **kwargs):
+        """
+        Assert that two complex structures have almost equal contents.
+
+        Compares lists, dicts and tuples recursively. Checks numeric values
+        using test_case's :py:meth:`unittest.TestCase.assertAlmostEqual` and
+        checks all other values with :py:meth:`unittest.TestCase.assertEqual`.
+        Accepts additional positional and keyword arguments and pass those
+        intact to assertAlmostEqual() (that's how you specify comparison
+        precision).
+        """
+        is_root = '__trace' not in kwargs
+        trace = kwargs.pop('__trace', 'ROOT')
+        try:
+            if isinstance(expected, (int, float, complex)):
+                self.assertAlmostEqual(expected, actual, *args, **kwargs)
+            elif isinstance(expected, (list, tuple, ndarray)):
+                self.assertEqual(len(expected), len(actual))
+                for index in range(len(expected)):
+                    v1, v2 = expected[index], actual[index]
+                    self.assertDeepAlmostEqual(v1, v2,
+                                               __trace=repr(index), *args, **kwargs)
+            elif isinstance(expected, dict):
+                self.assertEqual(set(expected), set(actual))
+                for key in expected:
+                    self.assertDeepAlmostEqual(expected[key], actual[key],
+                                               __trace=repr(key), *args, **kwargs)
+            else:
+                self.assertEqual(expected, actual)
+        except AssertionError as exc:
+            exc.__dict__.setdefault('traces', []).append(trace)
+            if is_root:
+                trace = ' -> '.join(reversed(exc.traces))
+                exc = AssertionError("%s\nTRACE: %s" % (exc.message, trace))
+            raise exc
 
     # Create method to compare dataframes
     def assertDataframeEqual(self, a, b, msg):
@@ -71,7 +109,7 @@ class test_methods(unittest.TestCase):
         self.assertEqual(self.fluxes_relaxed, fluxes_relaxed_)
         relaxed_fluxes_sampling_ = reshape_fluxes_escher(
             self.relaxed_sampled_fluxes)
-        self.assertEqual(
+        self.assertDeepAlmostEqual(
             self.relaxed_fluxes_sampling, relaxed_fluxes_sampling_)
 
     def test_sampled_fluxes_minrange(self):

@@ -6,9 +6,6 @@ import cobra
 import pandas as pd
 from molmass.molmass import Formula
 
-# BFAIR dependencies
-from BFAIR.FIA_MS.database_construction import is_valid
-
 
 def parse_cobra_model(model_file_name, model_id, date):
     """
@@ -165,3 +162,30 @@ def _parse_json_sbml_cobra_model(
     metabolite_data = pd.DataFrame.from_dict(metabolite_data_tmp, "index")
 
     return model_data, reaction_data, metabolite_data
+
+
+def is_valid(metabolite, INVALID_FORMULA_STR=["(", "Generic", "R", "X"]):
+    """
+    The validity of the input metabolites is checked. It's invalid if it
+    does not have any formula annotated or if the formula includes previously
+    defined invalid symbols
+    Svetlana Kutozova wrote this function
+
+    Parameters
+    ----------
+    metabolite : cobra.Metabolite
+        A metabolite in the cobra format including additional information
+        (formula, charge, elements)
+    INVALID_FORMULA_STR : list
+        A list of previously defined invalid symbol strings
+    Returns
+    -------
+    boolean
+        Valid or invalid metabolite
+    """
+    if not metabolite.formula:
+        return False
+    for string in INVALID_FORMULA_STR:
+        if string in metabolite.formula:
+            return False
+    return True

@@ -4,7 +4,8 @@ when provided a metabolic model with suitable annotations.
 Relies heavily on:
 Reaction Decoder Tool (RDT) (https://github.com/asad/ReactionDecoder)
 to map the reactions;
-CADD Group Chemoinformatics Tools and User Services (https://cactus.nci.nih.gov/chemical/structure)
+CADD Group Chemoinformatics Tools and User Services
+(https://cactus.nci.nih.gov/chemical/structure)
 to resolve InChI strings from given InChI keys;
 Java, to run RDT"""
 
@@ -14,9 +15,15 @@ import glob
 import platform
 import subprocess
 import pandas as pd
-from rdkit import Chem, RDLogger
 from pymatgen.symmetry import analyzer
 from pymatgen.core import structure
+try:
+    from rdkit import Chem, RDLogger
+except ModuleNotFoundError:
+    print(
+        'RDKit is not installed. Please install '
+        'RDKit to use the atom mapping module.'
+        )
 
 __version__ = "0.0.1"
 
@@ -116,13 +123,18 @@ class MolfileDownloader:
                     continue
 
         print(
-            f"Successfully fetched {len(os.listdir('metabolites'))}/{self.metabolite_data.shape[0]} metabolites")
+            f"Successfully fetched {len(os.listdir('metabolites'))}/"
+            f"{self.metabolite_data.shape[0]} metabolites"
+            )
 
     def get_from_inchi_key(self):
         """ Helper method to obtain InChI string from InChI key,
         and generate the Molfile from the string.
         """
-        url = f'https://cactus.nci.nih.gov/chemical/structure/{self.inchi_key}/stdinchi'
+        url = (
+            f'https://cactus.nci.nih.gov/chemical/'
+            f'structure/{self.inchi_key}/stdinchi'
+            )
         r = requests.get(url, allow_redirects=False)
         inchi_string = r.text
 
@@ -137,7 +149,10 @@ class MolfileDownloader:
         """ Helper method to obtain Molfile from KEGG Compound database
         """
         for keggID in self.keggIDs:
-            url = f'https://www.genome.jp/dbget-bin/www_bget?-f+m+compound+{keggID}'
+            url = (
+                f'https://www.genome.jp/dbget-bin/'
+                f'www_bget?-f+m+compound+{keggID}'
+                )
             r = requests.get(url, allow_redirects=False)
             open(f'metabolites/{self.filename}', 'wb').write(r.content)
             if os.path.getsize(f'metabolites/{self.filename}') != 0:
@@ -157,7 +172,10 @@ class MolfileDownloader:
         """ Helper method to obtain Molfile from CHEBI database
         """
         for chebiID in self.chebiIDs:
-            url = f'https://www.ebi.ac.uk/chebi/saveStructure.do?defaultImage=true&chebiId={chebiID}&imageId=0'
+            url = (
+                f'https://www.ebi.ac.uk/chebi/saveStructure.do'
+                f'?defaultImage=true&chebiId={chebiID}&imageId=0'
+            )
             r = requests.get(url, allow_redirects=False)
             open(f'metabolites/{self.filename}', 'wb').write(r.content)
             if os.path.getsize(f'metabolites/{self.filename}') != 0:
@@ -225,7 +243,9 @@ def write_rxn_files(rxn_data):
 
         # Check if all metabolite structures are present
         if not all(
-                [os.path.isfile(f'metabolites/{met}.mol') for met in metabolites]):
+                [os.path.isfile(
+                    f'metabolites/{met}.mol'
+                    ) for met in metabolites]):
             print(
                 f"Metabolite structures missing for reaction {rxn.rxn_id}")
             continue
@@ -237,7 +257,8 @@ def write_rxn_files(rxn_data):
                 # Write export reactions (1 reactant)
                 if not products_st and abs(int(sum(reactants_st))) == 1:
                     f.write(
-                        f'{abs(int(sum(reactants_st)))} {int(sum(reactants_st))}\n')
+                        f'{abs(int(sum(reactants_st)))} '
+                        f'{int(sum(reactants_st))}\n')
                     met = metabolites[0]
                     with open(f'metabolites/{met}.mol', 'r') as wf:
                         structure = wf.read()
@@ -248,7 +269,8 @@ def write_rxn_files(rxn_data):
                 # each side
                 else:
                     f.write(
-                        f'{abs(int(sum(reactants_st)))} {int(sum(products_st))}\n')
+                        f'{abs(int(sum(reactants_st)))} '
+                        f'{int(sum(products_st))}\n')
                     for s, met in zip(metabolites_st, metabolites):
                         with open(f'metabolites/{met}.mol', 'r') as wf:
                             structure = wf.read()
@@ -286,7 +308,10 @@ def obtain_atom_mappings(max_time=120):
 
     # Check if RDT is present in working dir, download if not
     if not os.path.isfile('RDT.jar'):
-        url = 'https://github.com/asad/ReactionDecoder/releases/download/v2.4.1/rdt-2.4.1-jar-with-dependencies.jar'
+        url = (
+            'https://github.com/asad/ReactionDecoder/'
+            'releases/download/v2.4.1/rdt-2.4.1-jar-with-dependencies.jar'
+        )
         r = requests.get(url)
         open(os.getcwd() + '/RDT.jar', 'wb').write(r.content)
 
@@ -336,7 +361,8 @@ def obtain_atom_mappings(max_time=120):
         os.chdir(owd)
 
     print(
-        f"Reactions mapped in total: {len(os.listdir('rxnFiles'))}/{len(rxn_list)}")
+        f"Reactions mapped in total: "
+        f"{len(os.listdir('rxnFiles'))}/{len(rxn_list)}")
     # Change working dir back to original
     os.chdir(owd)
 
@@ -363,7 +389,9 @@ def parse_reaction_mappings():
 
     rxn_list = sorted(os.listdir('unmappedRxns'))
     # Compile list of reactions that do not have any mapping
-    unmapped_list = list(set(os.listdir('unmappedRxns')) - set(os.listdir('mappedRxns/rxnFiles')))
+    unmapped_list = list(
+        set(os.listdir('unmappedRxns')) - set(
+            os.listdir('mappedRxns/rxnFiles')))
 
     keys = ['Unnamed: 0',
             'Unnamed: 0.1',
@@ -407,7 +435,8 @@ def parse_reaction_mappings():
                     if line.rstrip() == '$MOL':
                         met_id = lines[j + 1].rstrip()
 
-                    # Hard-coded, since 16 columns is standard for Molfile atom rows,
+                    # Hard-coded, since 16 columns is standard for Molfile
+                    # atom rows,
                     # and 15 can occur if we have >100 atoms on one side (cols
                     # merge)
                     if len(line.split()) in (15, 16):
@@ -427,13 +456,17 @@ def parse_reaction_mappings():
                                 if met_mapping:
                                     c_tracked = ['C' for atom in met_mapping]
                                     pos_tracked = list(range(len(met_mapping)))
-                                    mapping_dict['reactants_ids_tracked'].append(
+                                    mapping_dict[
+                                        'reactants_ids_tracked'].append(
                                         met_id)
-                                    mapping_dict['reactants_mapping'].append(
+                                    mapping_dict[
+                                        'reactants_mapping'].append(
                                         met_mapping)
-                                    mapping_dict['reactants_elements_tracked'].append(
+                                    mapping_dict[
+                                        'reactants_elements_tracked'].append(
                                         c_tracked)
-                                    mapping_dict['reactants_positions_tracked'].append(
+                                    mapping_dict[
+                                        'reactants_positions_tracked'].append(
                                         pos_tracked)
                                 react_cnt += 1
                                 if react_cnt == react_lim:
@@ -445,23 +478,32 @@ def parse_reaction_mappings():
                                 if met_mapping:
                                     c_tracked = ['C' for atom in met_mapping]
                                     pos_tracked = list(range(len(met_mapping)))
-                                    mapping_dict['products_ids_tracked'].append(
+                                    mapping_dict[
+                                        'products_ids_tracked'].append(
                                         met_id)
-                                    mapping_dict['products_mapping'].append(
+                                    mapping_dict[
+                                        'products_mapping'].append(
                                         met_mapping)
-                                    mapping_dict['products_elements_tracked'].append(
+                                    mapping_dict[
+                                        'products_elements_tracked'].append(
                                         c_tracked)
-                                    mapping_dict['products_positions_tracked'].append(
+                                    mapping_dict[
+                                        'products_positions_tracked'].append(
                                         pos_tracked)
                                 prod_cnt += 1
 
                                 if prod_cnt == prod_lim:
                                     react_stoich = [
-                                        '-1' for met in range(len(mapping_dict['reactants_mapping']))]
+                                        '-1' for met in range(len(mapping_dict[
+                                            'reactants_mapping']))]
                                     prod_stoich = ['1' for met in range(
                                         len(mapping_dict['products_mapping']))]
-                                    mapping_dict['reactants_stoichiometry_tracked'] = react_stoich
-                                    mapping_dict['products_stoichiometry_tracked'] = prod_stoich
+                                    mapping_dict[
+                                        'reactants_stoichiometry_tracked'
+                                        ] = react_stoich
+                                    mapping_dict[
+                                        'products_stoichiometry_tracked'
+                                        ] = prod_stoich
 
                             met_mapping = []
 
@@ -482,8 +524,9 @@ def parse_reaction_mappings():
 
     # alphabet for number-letter matching. Max capacity is 63 characters,
     # which is a limit set in INCA for this format.
-    alphabet = list(map(chr, range(97, 123))) + list(map(chr,
-                                                         range(65, 91))) + list(map(chr, range(48, 58))) + ['_']
+    alphabet = list(map(chr, range(97, 123))) + list(map(
+        chr,
+        range(65, 91))) + list(map(chr, range(48, 58))) + ['_']
 
     # Loop through all reactions
     for i, rxn in mapping_data.iterrows():
@@ -515,7 +558,8 @@ def parse_reaction_mappings():
         except KeyError:
             if len(carbons_list) > 63:
                 print(
-                    f'Reaction {rxn["rxn_id"]} contains more than 63 carbon atoms')
+                    f'Reaction {rxn["rxn_id"]} contains '
+                    f'more than 63 carbon atoms')
             else:
                 # Mostly happens when one of the metabolites has (R)
                 # group in the Molfile, and other has a C in that spot
@@ -593,7 +637,9 @@ def parse_metabolite_mappings():
             # Check if the metabolite is symmetrical
             if check_symmetry(met):
                 carbon_count_range_rev = '{%s}' % (
-                    ','.join([str(x) for x in range(carbon_count - 1, -1, -1)]))
+                    ','.join(
+                        [str(x) for x in range(carbon_count - 1, -1, -1)]
+                        ))
                 met_dict["met_symmetry_elements"] = carbon_count_string
                 met_dict['met_symmetry_atompositions'] = carbon_count_range_rev
 

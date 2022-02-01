@@ -158,6 +158,7 @@ def _parse_json_sbml_cobra_model(
             "charge": met.charge,
             "compartment": met.compartment,
             "bound": met._bound,
+            "annotations": met.annotation,
             "used_": True,
         }
         metabolite_data_tmp[cnt] = metabolite_data_dict

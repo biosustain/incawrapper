@@ -1,31 +1,108 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@0.2.1
   win: circleci/windows@2.2.0
 
+commands:
+  install-conda:
+    steps:
+      - run:
+          name: Installing Miniconda
+          command: |
+            MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
+            curl -sSL -O "https://repo.continuum.io/miniconda/${MINICONDA_FILE}"
+            bash "${MINICONDA_FILE}" -b -p ~/miniconda3
+            rm -rf "${MINICONDA_FILE}"
+            eval "$(~/miniconda3/bin/conda shell.bash hook)"
+            conda init
+  setup-env:
+    parameters:
+      os:
+        type: enum
+        default: "linux"
+        enum: ["linux", "win"]
+    steps:
+      - restore_cache:
+          key: conda-{{ arch }}-{{ checksum "env.yml" }}
+      - when:
+          condition:
+            equal: [ "linux", << parameters.os >> ]
+          steps:
+            - run:
+                name: Installing libXrender
+                command: |
+                  sudo apt-get update
+                  sudo apt-get install libxrender1
+            - run: 
+                name: Setting up environment
+                command: |
+                  eval "$(~/miniconda3/bin/conda shell.bash hook)"
+                  conda env create -f env.yml
+      - when:
+          condition:
+            equal: [ "win", << parameters.os >> ]
+          steps:
+            - run:
+                name: Setting up environment
+                command: |
+                  conda init powershell
+                  conda env create -f env.yml
+      - save_cache:
+          key: conda-{{ arch }}-{{ checksum "env.yml" }}
+          paths:
+            - ~/miniconda
+  test:
+    parameters:
+      os:
+        type: enum
+        default: "linux"
+        enum: ["linux", "win"]
+    steps:
+      - when:
+          condition:
+            equal: [ "linux", << parameters.os >> ]
+          steps:
+            - run:
+                name: Running tests
+                command: |
+                  eval "$(~/miniconda3/bin/conda shell.bash hook)"
+                  conda activate test
+                  python -m pytest --disable-warnings
+                  python -m flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
+      - when:
+          condition:
+            equal: [ "win", << parameters.os >> ]
+          steps:
+            - run: 
+                name: Running tests
+                command: |
+                  Set-StrictMode -Version Latest
+                  $ErrorActionPreference = 'Stop'
+                  function ThrowOnFailure($Msg) { if (-not $?) { throw $Msg } }
+                  conda activate test
+                  python -m pytest --disable-warnings
+                  ThrowOnFailure "Python test failed!"
+                  python -m flake8 --max-line-length=120 --ignore=PT009,E203,W503,W601
+
 jobs:
-  #Linting and unit test
   unittest:
-    executor: python/default
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: Install Python Dependencies
-          command : |
-            pip install -r requirements.txt
+      - install-conda
+      - setup-env
+      - test
+  win-unittest:
+    executor: win/default
+    steps:
+      - checkout
+      - setup-env:
+          os: win
+      - test:
+          os: win
 
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "venv"
-      - run:
-          name : Run Unit Tests
-          command: |
-            python3 -m unittest tests/test_linting.py
-            flake8 --max-line-length=120 --ignore=PT009
-
-  #Linux integration 
+  # Linux integration 
   Integration-on-linux:
     executor: python/default
     steps:
@@ -45,7 +122,7 @@ jobs:
             psql -c "create database Isatab_DB" -U postgres -h localhost -p 5432
             psql -f AutoFlow-OmicsDataHandling/IsaTab.sql Isatab_DB
 
-  #Windows integration
+  # Windows integration
   Integration-on-windows:
     executor:
       name: win/default
@@ -70,7 +147,7 @@ jobs:
             psql -c "create database Isatab_DB" -U postgres -h localhost -p 5432
             psql -h localhost -U biosustain -d biosustaindb -f AutoFlow-OmicsDataHandling/IsaTab.sql
               
-  #MacOS integration
+  # MacOS integration
   Integration-on-macos:
     macos:
       xcode: 11.3.0
@@ -93,9 +170,11 @@ jobs:
             psql -f AutoFlow-OmicsDataHandling/IsaTab.sql Isatab_DB
 
 workflows:
+  version: 2
   main:
     jobs:
       - unittest
+      - win-unittest
       #- Integration-on-linux
       #- Integration-on-windows
       #- Integration-on-macos

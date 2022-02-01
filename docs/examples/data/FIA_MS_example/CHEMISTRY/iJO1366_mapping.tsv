@@ -1,0 +1,802 @@
+database_name	iJO1366
+database_version	iJO1366
+0	C20H23N7O7	10fthf_c	5fthf_c
+0	C27H52O5	12dgr120_c	12dgr120_p
+0	C31H60O5	12dgr140_c	12dgr140_p
+0	C31H56O5	12dgr141_c	12dgr141_p
+0	C35H68O5	12dgr160_c	12dgr160_p
+0	C35H64O5	12dgr161_c	12dgr161_p
+0	C39H76O5	12dgr180_c	12dgr180_p
+0	C39H72O5	12dgr181_c	12dgr181_p
+0	C3H8O2	12ppd__R_c	12ppd__S_c	12ppd__R_e	12ppd__S_e	12ppd__R_p	12ppd__S_p
+0	C3H8O10P2	13dpg_c
+0	C32H42N7O19P3S1	14dhncoa_c
+0	C36H62O31	14glucan_c	malthx_c	14glucan_e	malthx_e	14glucan_p	malthx_p
+0	C5H14N2	15dap_c	15dap_e	15dap_p
+0	C15H31O7P1	1ddecg3p_c	2ddecg3p_c	1ddecg3p_p	2ddecg3p_p
+0	C19H37O7P1	1hdec9eg3p_c	2hdec9eg3p_c	1hdec9eg3p_p	2hdec9eg3p_p
+0	C19H39O7P1	1hdecg3p_c	2hdecg3p_c	1hdecg3p_p	2hdecg3p_p
+0	C21H41O7P1	1odec11eg3p_c	2odec11eg3p_c	1odec11eg3p_p	2odec11eg3p_p
+0	C21H43O7P1	1odecg3p_c	2odecg3p_c	1odecg3p_p	2odecg3p_p
+0	C5H7N1O2	1pyr5c_c
+0	C6H8O7	5dh4dglc_c	23doguln_c	25dkglcn_c	cit_c	icit_c	cit_e	cit_p
+0	C17H33O7P1	2tdec7eg3p_c	1tdec7eg3p_c	1tdec7eg3p_p	2tdec7eg3p_p
+0	C5H10O4	5drib_c	23dhmb_c	dxyl_c
+0	C17H35O7P1	2tdecg3p_c	1tdecg3p_c	1tdecg3p_p	2tdecg3p_p
+0	C26H46N7O26P5S1	2tpr3dpcoa_c
+0	C3H8N2O2	23dappa_c	23dappa_e	23dappa_p
+0	C11H15N5O3S	5mta_c
+0	C9H8O4	34hpp_c	dhcinnm_c
+0	C7H8O4	23ddhb_c
+0	C10H12N5O7P1	35cgmp_c	23cgmp_e	23cgmp_p
+0	C20H25N7O6	5mthf_c
+0	C27H42N7O19P3S1	23dhacoa_c
+0	C6H12O4S	5mtr_c	5mtr_e	5mtr_p
+0	C3H5N1O2	3amac_c
+0	C7H6O4	23dhb_c
+0	C7H12O5	3c2hmp_c	3c3hmp_c
+0	C14H19N2O7P1	5prdmbz_c
+0	C17H18N5O10P1	23dhba_c
+0	C7H9N5O2	6hmhpt_c
+0	C10H11N1O6	23dhbzs_c
+0	C7H10O5	3c4mop_c	skm_c	skm_e	skm_p
+0	C7H11N5O8P2	6hmhptpp_c
+0	C7H7N1O4	23dhdp_c
+0	C6H10O7	3dhguln_c	2dhguln_c	5dglcn_c	fruur_c	galur_c	glcur_c	5dglcn_e	tagur_c	fruur_e	galur_e	glcur_e	5dglcn_p	galur_p	glcur_p	fruur_p
+0	C6H11O10P1	3dhgulnp_c	glcur1p_e	glcur1p_p
+0	C6H13O10P1	6pgc_c
+0	C6H12O4	23dhmp_c	pant__R_c
+0	C6H11O9P1	6pgl_c	2ddg6p_c	2dh3dgal6p_c
+0	C7H10O6	3dhq_c
+0	C7H8O5	3dhsk_c
+0	C9H17NO3	8aonn_c
+0	C13H19N4O12P1	25aics_c
+0	S4Fe3	3fe4s_c
+0	C8H14N2O5	LalaDglu_c	LalaLglu_c	LalaDglu_e	LalaLglu_e	LalaDglu_p	LalaLglu_p
+0	C9H16N5O8P1	25drapp_c
+0	C15H26N4O8	LalaDgluMdap_c	LalaDgluMdap_e	LalaDgluMdap_p
+0	C27H44N7O20P3S1	3hadpcoa_c
+0	C7H14N2O4	26dap_LL_c	26dap__M_c	26dap__M_e	26dap__M_p
+0	C25H42N7O18P3S1	3hbcoa_c
+0	C18H31N5O9	LalaDgluMdapDala_c	LalaDgluMdapDala_e	LalaDgluMdapDala_p
+0	C9H21N3O1	N1aspmd_c	n8aspmd_c
+0	C9H8O3	3hcinnm_c	phpyr_c	3hcinnm_e	3hcinnm_p
+0	C17H36NO7P1	2agpe120_c	2agpe120_p	1agpe120_p
+0	C12H14N2O2	Nmtrp_c
+0	C11H17N3O7S1	Sfglutth_c
+0	C19H40NO7P1	2agpe140_c	2agpe140_p	1agpe140_p
+0	C2H5N1O1	aacald_c
+0	C19H38NO7P1	2agpe141_c	2agpe141_p	1agpe141_p
+0	C31H54N7O18P3S1	3hdcoa_c
+0	C25H40N7O18P3S1	aacoa_c
+0	C21H44NO7P1	2agpe160_c	2agpe160_p	1agpe160_p
+0	C3H7N1O1	aact_c
+0	C2H4O2	ac_c	gcald_c	ac_e	ac_p
+0	C33H58N7O18P3S1	3hddcoa_c
+0	C27H46N7O18P3S1	3hhcoa_c
+0	C21H42NO7P1	2agpe161_c	2agpe161_p	1agpe161_p
+0	C37H66N7O18P3S1	3hhdcoa_c
+0	C23H48NO7P1	2agpe180_c	2agpe180_p	1agpe180_p
+0	C4H6O3	acac_c	2obut_c	sucsal_c	acac_e	acac_p
+0	C23H46NO7P1	2agpe181_c	2agpe181_p	1agpe181_p
+0	C29H50N7O18P3S1	3hocoa_c
+0	C2H4O	acald_c	acald_e	acald_p
+0	C18H37O9P1	2agpg120_c	2agpg120_p	1agpg120_p
+0	C9H9N1O3	acanth_c
+0	C20H41O9P1	2agpg140_c	2agpg140_p	1agpg140_p
+0	C23H38N7O17P3S1	accoa_c
+0	C20H39O9P1	2agpg141_c	2agpg141_p	1agpg141_p
+0	C39H70N7O18P3S1	3hodcoa_c
+0	C22H45O9P1	2agpg160_c	2agpg160_p	1agpg160_p
+0	C3H6O2	acetol_c	ppa_c	lald__D_c	lald__L_c	ppa_e	ppa_p
+0	C7H12N1O8P1	acg5p_c
+0	C22H43O9P1	2agpg161_c	2agpg161_p	1agpg161_p
+0	C7H11N1O4	acg5sa_c
+0	C3H6O3	3hpp_c	dha_c	glyald_c	lac__D_c	lac__L_c	3hpp_e	dha_e	lac__D_e	lac__L_e	glyald_e	3hpp_p	dha_p	glyald_p	lac__D_p	lac__L_p
+0	C9H10O3	3hpppn_c	3hpppn_e	3hpppn_p
+0	C24H49O9P1	2agpg180_c	2agpg180_p	1agpg180_p
+0	C8H15NO6	acgam_c	acmana_c	acgal_e	acgam_e	acmana_e	acgal_p	acgam_p	acmana_p
+0	C8H16N1O9P1	acgam1p_c	acgam6p_c	acmanap_c	acgal1p_e	acgam1p_e	acgal1p_p	acgam1p_p
+0	C35H62N7O18P3S1	3htdcoa_c
+0	C24H47O9P1	2agpg181_c	2agpg181_p	1agpg181_p
+0	C11H14N1O6P1	3ig3p_c
+0	C6H10O4	2ahbut_c	2dhp_c
+0	C8H14O7	acglc__D_c
+0	C5H8O3	3mob_c
+0	C3H5NO3	2amsa_c	poaac_c
+0	C6H10O3	3mop_c	4mop_c
+0	C7H11N1O5	acglu_c
+0	C4H7NO3	2aobut_c	aspsa_c
+0	C14H24O12	acmalt_c
+0	C12H16N1O9P1	2cpr5p_c	pran_c
+0	C7H13O10P1	2dda7p_c
+0	C11H20N1O11P1	acmum6p_c
+0	C11H19N1O9	acnam_c	acnam_e	acnam_p
+0	C31H52N7O18P3S1	3odcoa_c
+0	C33H56N7O18P3S1	3oddcoa_c
+0	C6H10O6	2ddglcn_c	2dh3dgal_c	2ddglcn_e	2ddglcn_p
+0	C6H6O6	acon_C_c	acon_T_c
+0	C7H8O6	aconm_c	2mcacn_c
+0	C27H44N7O18P3S1	3ohcoa_c
+0	C7H14N2O3	acorn_c
+0	C37H64N7O18P3S1	3ohdcoa_c
+0	C50H70O2	2dmmq8_c
+0	C5H9NO4	acser_c	acser_e	acser_p
+0	C50H72O2	2dmmql8_c
+0	C29H48N7O18P3S1	3oocoa_c
+0	C5H11O7P1	2dr1p_c	2dr5p_c	dxyl5p_c
+0	C2H5O5P1	actp_c
+0	C5H5N5	ade_c	ade_e	ade_p
+0	S2Fe2	2fe1s_c
+0	C39H68N7O18P3S1	3ohodcoa_c
+0	S2Fe2	2fe2s_c
+0	C10H13N5O4	adn_c	dgsn_c	adn_e	dgsn_e	adn_p	dgsn_p
+0	C58H83Co1N16O11	adocbi_c
+0	C47H70O3	3ophb_c
+0	C35H60N7O18P3S1	3otdcoa_c
+0	C3H4O4	2h3oppan_c	hpyr_c
+0	C29H44N7O20P3S1	3oxdhscoa_c
+0	C58H84Co1N16O14P1	adocbip_c
+0	C72H100CoN18O17P	adocbl_c	adocbl_e	adocbl_p
+0	C3H7O7P1	3pg_c	2pg_c
+0	C3H5O7P1	3php_c
+0	C10H15N5O10P2	adp_c	dgdp_c	pap_c
+0	C7H10O4	2ippm_c
+0	C10H13O10P1	3psme_c
+0	C6H11N3O7P2	2mahmp_c
+0	C3H7N1O4S1	3sala_c
+0	C16H25N5O15P2	adpglc_c	gdpfuc_c
+0	C17H27N5O16P2	adphep_DD_c	adphep_LD_c
+0	C4H9NO2	4abut_c	4abut_e	4abut_p
+0	C4H9N1O1	4abutn_c
+0	C7H10O7	2mcit_c	micit_c
+0	C15H23N5O14P2	adprib_c	prbamp_c
+0	C5H13O7P1	2me4p_c
+0	Ag	ag_c	ag_e
+0	C7H7N1O2	4abz_c	anth_c
+0	C10H11N1O5	4adcho_c
+0	C5H12O9P2	2mecdp_c
+0	C68H96Co1N21O21P2	agdpcbi_c
+0	C5H14N4	agm_c	agm_e	agm_p
+0	C6H9N3O	4ahmmp_c
+0	C6H10N3O4P1	4ampm_c
+0	C14H20N6O5S	ahcys_c
+0	C9H16N5O13P3	ahdt_c	dhmptp_c
+0	C14H25N3O14P2	4c2me_c
+0	C7H8O	4crsol_c
+0	C46H70O2	2ohph_c
+0	S4Fe4	4fe4s_c
+0	C9H15N4O8P1	aicar_c
+0	C8H14N3O7P1	air_c
+0	C47H72O3	2ombzl_c
+0	C5H6O5	akg_c	akg_e	akg_p
+0	C5H8O4	4h2opntn_c	alac__S_c	dhptd_c	mdhdhf_c
+0	C48H74O4	2omhmbl_c
+0	C7H6O3	4hbz_c
+0	C3H7NO2	ala_B_c	ala__D_c	ala__L_c	sarcs_c	ala_B_e	ala__D_e	ala__L_e	ala_B_p	ala__D_p	ala__L_p
+0	C48H74O3	2ommbl_c
+0	C4H9NO4	4hthr_c
+0	C47H72O2	2omph_c
+0	C6H9NOS	4mhetz_c
+0	C46H70O	2oph_c
+0	C6H12N2O3	alaala_c	alaala_e	alaala_p
+0	C29H42N7O18P3S1	2oxpaccoa_c	rephaccoa_c
+0	C6H10N1O4P1S1	4mpetz_c
+0	C14H26N3O17P3	2p4c2me_c
+0	C6H12O6	all__D_c	fru_c	gal_c	glc__D_c	man_c	inost_c	all__D_e	inost_e	fru_e	gal_e	gal_bD_e	man_e	glc__D_e	gal_p	gal_bD_p	glc__D_p	all__D_p	inost_p	fru_p	man_p
+0	C4H8N1O7P1	4pasp_c
+0	C4H9O8P1	4per_c
+0	C6H13O9P1	all6p_c	allul6p_c	f1p_c	f6p_c	g1p_c	g6p_c	gal1p_c	man1p_c	man6p_c	mi1p__D_c	tag6p__D_c	f6p_e	g1p_e	g6p_e	gal1p_e	man6p_e	g6p_p	gal1p_p	f6p_p	g1p_p	man6p_p
+0	C9H18N1O8P1	4ppan_c
+0	C2H5O6P1	2pglyc_c
+0	C12H23N2O9P1S1	4ppcys_c
+0	C4H6N4O3	alltn_c	alltn_e	alltn_p
+0	C4H8N4O4	alltt_c
+0	C14H16O9	2sephchc_c
+0	C9H16N4O6	4r5au_c
+0	C11H12O6	2shchc_c
+0	C6H12O7	altrn_c	galctn__D_c	galctn__L_c	glcn_c	mana_c	idon__L_c	idon__L_e	galctn__D_e	galctn__L_e	glcn_e	galctn__D_p	galctn__L_p	glcn_p	idon__L_p
+0	C4H6N2O2	56dura_c
+0	C48H93O11P1	apg140_c
+0	C9H14N3O9P1	5aizc_c	5caiz_c
+0	C5H9NO3	5aop_c	glu1sa_c	glu5sa_c
+0	C9H17N4O9P1	5aprbu_c
+0	C15H22N6O5S1	amet_c
+0	C14H22N6O3S1	ametam_c
+0	C15H19N5O6S	amob_c
+0	C48H87O11P1	apg141_c
+0	C10H14N5O7P1	amp_c	dgmp_c	3amp_e	amp_e	dgmp_e	3amp_p	dgmp_p	amp_p
+0	C9H15N4O9P1	5apru_c
+0	C54H105O11P1	apg160_c
+0	C19H30N2O12	anhgm_c	anhgm_e	anhgm_p
+0	C54H99O11P1	apg161_c
+0	C34H54N6O19	anhgm3p_c	anhgm3p_p
+0	C37H59N7O20	anhgm4p_c	anhgm4p_p
+0	C11H17N1O7	anhm_c
+0	C60H117O11P1	apg180_c
+0	C26H41N5O14	anhm3p_c
+0	C29H46N6O15	anhm4p_c
+0	C60H111O11P1	apg181_c
+0	C20H28N10O19P4	ap4a_c
+0	C20H29N10O22P5	ap5a_c
+0	C42H81O11P1	apg120_c
+0	C3H9N1O1	appl_c
+0	C10H14N5O10P1S1	aps_c
+0	C5H11O8P1	ara5p_c	r1p_c	r5p_c	xu5p__D_c	xu5p__L_c	ru5p__D_c	ru5p__L_c	r5p_e	r5p_p
+0	C5H10O5	arab__L_c	lyx__L_c	mththf_c	rbl__L_c	rib__D_c	xyl__D_c	xylu__D_c	xylu__L_c	arab__L_e	rib__D_e	lyx__L_e	xyl__D_e	xylu__L_e	arab__L_p	lyx__L_p	xyl__D_p	xylu__L_p	rib__D_p
+0	C71H117N1O17P2	aragund_c
+0	C12H17O10P1	arbt6p_c
+0	C22H36N4O13	arbtn_c	arbtn_e	arbtn_p
+0	C22H33FeN4O13	arbtn_fe3_c	arbtn_fe3_e	arbtn_fe3_p
+0	C2H6O3S1	ethso3_c	ethso3_e	ethso3_p
+0	C7H15NO3	crn__D_c	crn_c	crn_e	crn__D_e	crn_p	crn__D_p
+0	C6H14N4O2	arg__L_c	arg__L_e	arg__L_p
+0	C28H49N8O18P3S1	crnDcoa_c	crncoa_c
+0	C2H6O	etoh_c	etoh_e	etoh_p
+0	C10H18N4O6	argsuc_c
+0	C4H5N3O	csn_c	csn_e	csn_p
+0	C6H9O9P1	ascb6p_c
+0	C27H33N9O15P2	fad_c
+0	C7H13NO2	ctbt_c	ctbt_p
+0	C28H47N8O17P3S1	ctbtcoa_c
+0	C4H8N2O3	asn__L_c	asn__L_e	asn__L_p
+0	C9H16N3O14P3	ctp_c
+0	C27H35N9O15P2	fadh2_c
+0	CH2O	fald_c	fald_e	fald_p
+0	C6H13O8P1	fc1p_c	rml1p_c
+0	Cu	cu_c	cu2_c	cu_e	cu2_e	cu_p	cu2_p
+0	AsO3	aso3_c	aso3_e	aso3_p
+0	C6H12O5	fcl__L_c	fuc__L_c	rml_c	rmn_c	rmn_e	fuc__L_e	fuc__L_p	rmn_p
+0	AsO4	aso4_c
+0	C6H14O12P2	fdp_c	tagdp__D_c
+0	CHN	cyan_c	cyan_e	cyan_p
+0	C4H7N1O4	asp__L_c	asp__L_e	asp__L_p
+0	CNO	cynt_c	cynt_e	cynt_p
+0	Fe	fe2_c	fe3_c	fe2_e	fe3_e	fe2_p	fe3_p
+0	C10H8N1O6Fe1	fe3dhbzs_c	fe3dhbzs_e	fe3dhbzs_p
+0	C3H7NO2S	cys__D_c	cys__L_c	cys__D_e	cys__L_e	cys__D_p	cys__L_p
+0	C9H18O6N3Fe	fe3hox_c	fe3hox_e	fe3hox_p
+0	C4H9NO3	athr__L_c	hom__L_c	thr__L_c	hom__L_e	thr__L_e	hom__L_p	thr__L_p
+0	C9H21O6N3	fe3hox_un_c	fe3hox_un_e	fe3hox_un_p
+0	C7H14N2O4S	cyst__L_c
+0	C22H30N9O13P3S1	athtp_c
+0	C27H42FeN9O12	fecrm_c	fecrm_e	fecrm_p
+0	C10H16N5O13P3	atp_c	dgtp_c
+0	C27H45N9O12	fecrm_un_c	fecrm_un_e	fecrm_un_p
+0	C30H24Fe1N3O15	feenter_c	feenter_e	feenter_p
+0	C9H13N3O5	cytd_c	cytd_e	cytd_p
+0	C10H13N5O3	dad_2_c	dad_5_c	dad_2_e	dad_2_p
+0	C25H40N7O17P3S1	b2coa_c
+0	C25H45Fe1N6O8	feoxam_c	feoxam_e	feoxam_p
+0	C28H49N8O17P3S1	bbtcoa_c
+0	C25H48N6O8	feoxam_un_c	feoxam_un_e	feoxam_un_p
+0	C8H15N2O9P1	fgam_c
+0	C10H15N5O9P2	dadp_c
+0	C5H11N1O1	betald_c
+0	C10H14N5O6P1	damp_c	damp_e	damp_p
+0	C6H10O5	bglycogen_c	glycogen_c
+0	C9H20N2O2	dann_c
+0	C20H24N10O13P2S4Mo1	bmoco_c
+0	C10H16N5O12P3	datp_c
+0	C30H36N15O20P3S4Mo1	bmoco1gdp_c
+0	C17H21N4O9P1	fmn_c
+0	C4H9O6P1	db4p_c
+0	C40H48N20O27P4S4Mo1	bmocogdp_c
+0	C31H52N7O17P3S1	dc2coa_c
+0	C17H23N4O9P1	fmnh2_c
+0	C4H8O	btal_c
+0	C1H2O2	for_c	for_e	for_p
+0	C10H20O2	dca_c	dca_e	dca_p
+0	C25H42N7O17P3S1	btcoa_c
+0	C22H36N7O17P3S1	forcoa_c
+0	C10H16N2O3S1	btn_c	btn_e	btn_p
+0	C8H16N3O8P1	fpram_c
+0	C31H54N7O17P3S1	dcacoa_c
+0	C10H16N2O4S1	btnso_c
+0	C14H18N5O11P1	dcamp_c
+0	C10H15N4O9P1	fprica_c
+0	C4H8O2	but_c	but_e	but_p
+0	C15H28O7P2	frdp_c
+0	C9H15N3O10P2	dcdp_c
+0	C9H14N3O7P1	dcmp_c	dcmp_e	dcmp_p
+0	C9H16N3O13P3	dctp_c
+0	C9H13N3O4	dcyt_c	dcyt_e	dcyt_p
+0	C12H24N2O7	frulys_c	psclys_c	psclys_e	frulys_e	frulys_p	psclys_p
+0	C12H25N2O10P1	frulysp_c
+0	C33H56N7O17P3S1	dd2coa_c
+0	C4H10O3S1	butso3_c	butso3_e	butso3_p
+0	C12H24O2	ddca_c	ddca_e	ddca_p
+0	C20H24N10O13P2S4W1	bwco_c
+0	C4H4O4	fum_c	fum_e	fum_p
+0	C30H36N15O20P3S4W1	bwco1gdp_c
+0	C33H58N7O17P3S1	ddcacoa_c
+0	C40H48N20O27P4S4W1	bwcogdp_c
+0	C3H7O6P1	g3p_c	dhap_c
+0	C12H25O5P1	ddcap_c
+0	Ca	ca2_c	ca2_e	ca2_p
+0	C8H20NO6P	g3pc_c	g3pc_e	g3pc_p
+0	C10H12N5O6P1	camp_c	23camp_e	23camp_p
+0	C5H14NO6P	g3pe_c	g3pe_e	g3pe_p
+0	C5H8N2O5	cbasp_c
+0	C20H32N6O12S2Se1	dgslnt_c
+0	C6H15O8P1	g3pg_c	g3pg_e	g3pg_p
+0	C48H72CoN11O8	cbi_c	cbi_e	cbi_p
+0	C9H19O11P1	g3pi_c	g3pi_e	g3pi_p
+0	C62H89Co1N13O14P1	cbl1_c	cbl1_e	cbl1_p
+0	C6H14N1O8P1	g3ps_c	gam1p_c	gam6p_c	g3ps_e	gam6p_e	gam6p_p	g3ps_p
+0	C1H3N1O2	cbm_c
+0	C1H4N1O5P1	cbp_c
+0	Cd	cd2_c	cd2_e	cd2_p
+0	C157H282N2O84P4	gagicolipa_c
+0	C19H21N7O6	dhf_c
+0	C6H10O8	galct__D_c	glcr_c	galct__D_e	glcr_e	galct__D_p	glcr_p
+0	C2H3N1O2	dhgly_c
+0	C7H6N4O3	cdg_c
+0	C9H13N5O4	dhmpt_c	dhnpt_c
+0	C9H15N3O11P2	cdp_c
+0	C36H65N3O15P2	cdpdddecg_c
+0	C11H8O4	dhna_c
+0	C6H15O9P1	galt1p_c	mnl1p_c	sbt6p_c
+0	C44H77N3O15P2	cdpdhdec9eg_c
+0	C44H81N3O15P2	cdpdhdecg_c
+0	C5H6N2O4	dhor__S_c
+0	C48H85N3O15P2	cdpdodec11eg_c
+0	C9H14N5O7P1	dhpmp_c
+0	C48H89N3O15P2	cdpdodecg_c
+0	C9H10O4	dhpppn_c	cenchddd_c
+0	C7H15N2O8P1	gar_c
+0	C40H69N3O15P2	cdpdtdec7eg_c
+0	C77H127N1O22P2	garagund_c
+0	C14H14N6O3	dhpt_c
+0	C7H15NO2	gbbtn_c	gbbtn_e	gbbtn_p
+0	C40H73N3O15P2	cdpdtdecg_c
+0	C9H12O4	cechddd_c
+0	C6H6N4	dhptdn_c
+0	C10H15N5O11P2	gdp_c	gdp_e	gdp_p
+0	C16H23N5O15P2	gdpddman_c	gdpofuc_c
+0	C10H14N4O10P2	didp_c
+0	C5H10N2O3S	cgly_c	cgly_e	cgly_p
+0	C10H13N4O7P1	dimp_c	dimp_e	dimp_p
+0	C5H13N1O1	chol_c	chol_e	chol_p
+0	C16H25N5O16P2	gdpmann_c
+0	C10H12N4O4	din_c	din_e	din_p
+0	C10H10O6	chor_c	ichor_c	pphn_c
+0	C16H29N2O14P1	chtbs6p_c
+0	C10H18N5O20P5	gdptp_c
+0	C10H15N4O13P3	ditp_c
+0	C9H8O2	cinnm_c
+0	C9H10N2	dmbzid_c
+0	C83H137N1O27P2	gfgaragund_c
+0	C9H16O5N2	gg4abut_c
+0	C163H292N2O89P4	ggagicolipa_c
+0	C13H18N4O6	dmlz_c
+0	C5H12O7P2	dmpp_c	ipdp_c
+0	C2H6S	dms_c	dms_e	dms_p
+0	C9H16O4N2	ggbutal_c
+0	C169H302N2O94P4	gggagicolipa_c
+0	C6H13N3O3	citr__L_c
+0	C9H19O3N3	ggptrc_c
+0	C2H6OS	dmso_c	dmso_e	dmso_p
+0	C17H26N3O15P1	ckdo_c
+0	C21H26N6O15P2	dnad_c
+0	C4H8O3	ghb_c
+0	Cl	cl_c	cl_e	cl_p
+0	C151H272N2O79P4	gicolipa_c
+0	C21H35N7O13P2S1	dpcoa_c
+0	C9H14N3O8P1	cmp_c	3cmp_e	cmp_e	3cmp_p	cmp_p
+0	CO2	co2_c	co2_e	co2_p
+0	C21H36N7O16P3S1	coa_c
+0	C42H48N4O16	dscl_c
+0	Co	cobalt2_c	cobalt2_e	cobalt2_p
+0	C10H18N2O3	dtbt_c
+0	C176H314N2O100P4	colipa_c	colipa_e	colipa_p
+0	C10H16N2O11P2	dtdp_c
+0	C5H10N2O3	gln__L_c	gln__L_e	gln__L_p
+0	C39H74N1O8P1	cpe160_c
+0	C18H29N3O15P2	dtdp4aaddg_c
+0	C16H27N3O14P2	dtdp4addg_c
+0	C43H82N1O8P1	cpe180_c
+0	C16H24N2O15P2	dtdp4d6dg_c	dtdp4d6dm_c
+0	C5H9N1O4	glu__D_c	glu__L_c	glu__L_e	glu__L_p
+0	C40H75O10P1	cpg160_c
+0	C44H83O10P1	cpg180_c
+0	C16H26N2O16P2	dtdpglu_c
+0	C5H10N1O7P1	glu5p_c
+0	C35H53N6O13Fe1	cpgn_c	cpgn_e	cpgn_p
+0	C16H26N2O15P2	dtdprmn_c
+0	C35H56N6O13	cpgn_un_c	cpgn_un_e	cpgn_un_p
+0	C10H15N2O8P1	dtmp_c	dtmp_e	dtmp_p
+0	C8H14N2O5S1	glucys_c
+0	C7H9N5O3	cph4_c
+0	C10H17N2O14P3	dttp_c
+0	C10H14N5O8P1	cpmp_c	gmp_c	3gmp_e	gmp_e	3gmp_p	gmp_p
+0	C9H14N2O11P2	dudp_c
+0	C2H2O3	glx_c
+0	C2H5NO2	gly_c	gly_e	gly_p
+0	C36H44N4O8	cpppg3_c
+0	C9H13N2O8P1	dump_c	dump_e	dump_p
+0	C9H12N2O5	duri_c	duri_e	duri_p
+0	C5H11NO2	glyb_c	val__L_c	glyb_e	val__L_e	glyb_p	val__L_p
+0	C3H9O6P1	glyc2p_c	glyc3p_c	glyc2p_e	glyc3p_e	glyc2p_p	glyc3p_p
+0	C3H8O3	glyc_c	glyc_e	glyc_p
+0	C3H6O4	glyc__R_c	glyc__R_e	glyc__R_p
+0	C9H15N2O14P3	dutp_c
+0	C4H9O7P1	e4p_c
+0	C2H4O3	glyclt_c	glyclt_e	glyclt_p
+0	C6H11N2O6P1	eig3p_c
+0	C30H27N3O15	enter_c	enter_e	enter_p
+0	C12H22O11	lcts_c	malt_c	melib_c	tre_c	lcts_e	sucr_e	malt_e	melib_e	tre_e	lcts_p	malt_p	sucr_p	melib_p	tre_p
+0	C6H13NO2	leu__L_c	ile__L_c	ile__L_e	leu__L_e	ile__L_p	leu__L_p
+0	C2H7N1O1	etha_c	etha_e	etha_p
+0	C7H16O13P2	gmhep17bp_c	s17bp_c
+0	C7H15O10P1	gmhep1p_c	gmhep7p_c	s7p_c
+0	C13H21N3O8S1	lgt__S_c
+0	C110H202N2O39P2	lipa_c	lipa_e	lipa_p
+0	C114H208N2O39P2	lipa_cold_c	lipa_cold_e	lipa_cold_p
+0	C20H28N10O21P4	gp4g_c
+0	C68H130N2O23P2	lipidA_c
+0	C68H129N2O20P1	lipidAds_c
+0	C10H20O7P2	grdp_c
+0	C34H66N1O12P1	lipidX_c
+0	C18H26N5O8P1S2	lipoamp_c
+0	C18H37O5P1	ocdcap_c
+0	C18H34O2	ocdcea_c	ocdcea_e	ocdcea_p
+0	C18H35O5P1	ocdceap_c
+0	C8H16O2	octa_c	octa_e	octa_p
+0	C8H14O2S2	lipoate_c	lipoate_e	lipoate_p
+0	C8H12O1S2	lipopb_c
+0	C6H14N2O2	lys__L_c	lys__L_e	lys__L_p
+0	C10H17N3O6S1Se1	gslnt_c
+0	C8H14O1	octapb_c
+0	C40H68O7P2	octdp_c
+0	C10H13N5O5	gsn_c	gsn_e	gsn_p
+0	C4H6O5	mal__D_c	mal__L_c	mal__D_e	mal__L_e	mal__D_p	mal__L_p
+0	C20H32N6O12S2	gthox_c	gthox_e	gthox_p
+0	C39H68N7O17P3S1	od2coa_c	odecoa_c
+0	C10H17N3O6S1	gthrd_c	gthrd_e	gthrd_p
+0	C10H16N5O14P3	gtp_c	gtp_e	gtp_p
+0	C24H38N7O19P3S1	malcoa_c
+0	C17H34N6O5S1	gtspmd_c
+0	C4H7O8P1	ohpb_c
+0	C25H40N7O19P3S1	malcoame_c	mmcoa__S_c	succoa_c
+0	C5H5N5O	gua_c	gua_e	gua_p
+0	C12H23O14P1	malt6p_c	tre6p_c	suc6p_c
+0	C5H6O3	op4en_c
+0	H0	h_c	h_e	h_p
+0	C42H72O36	malthp_c
+0	H2	h2_c	h2_e	h2_p
+0	C5H12N2O2	orn_c	orn_e	orn_p
+0	C5H4N2O4	orot_c	orot_e	orot_p
+0	C30H52O26	maltpt_c	maltpt_e	maltpt_p
+0	C5H12O8P2	h2mb4p_c
+0	C10H13N2O11P1	orot5p_c
+0	H2O	h2o_c	h2o_e	h2o_p
+0	C2O4	oxa_c
+0	C18H32O16	malttr_c	malttr_e	malttr_p
+0	C24H42O21	maltttr_c	maltttr_e	maltttr_p
+0	H2O2	h2o2_c	h2o2_e	h2o2_p
+0	C27H42N7O20P3S1	oxadpcoa_c
+0	H2S	h2s_c	h2s_e	h2s_p
+0	C1H2O3	hco3_c
+0	C23H36N7O19P3S1	oxalcoa_c
+0	C4H9NO2S	hcys__L_c
+0	C2H3N1O3	oxam_c
+0	C9H17O12P1	man6pglyc_c
+0	C16H32O2	hdca_c	hdca_e	hdca_p
+0	C3H4N2O4	oxur_c
+0	C16H33O5P1	hdcap_c
+0	C27H53O8P1	pa120_c	pa120_p
+0	C16H30O2	hdcea_c	hdcea_e	hdcea_p
+0	CH4O1	meoh_c	meoh_e	meoh_p
+0	C31H61O8P1	pa140_c	pa140_p
+0	C16H31O5P1	hdceap_c
+0	C31H57O8P1	pa141_c	pa141_p
+0	C3H4O3S1	mercppyr_c
+0	C35H69O8P1	pa160_c	pa160_p
+0	C37H64N7O17P3S1	hdcoa_c	hdd2coa_c
+0	C35H65O8P1	pa161_c	pa161_p
+0	C5H10NO2S	met__D_c	met__D_e	met__D_p
+0	C5H11NO2S	met__L_c	met__L_e	met__L_p
+0	C20H21N7O6	methf_c
+0	C39H77O8P1	pa180_c	pa180_p
+0	C39H73O8P1	pa181_c	pa181_p
+0	C5H11NO3S	metsox_R__L_c	metsox_S__L_c	metsox_R__L_e	metsox_S__L_e	metsox_R__L_p	metsox_S__L_p
+0	C8H8O2	pac_c	4hoxpacd_e	4hoxpacd_p
+0	C49H58Fe1N4O5	hemeO_c
+0	C8H8O	pacald_c	pacald_e	pacald_p
+0	Mg	mg2_c	mg2_e	mg2_p
+0	Hg	hg2_c	hg2_e	hg2_p
+0	C11H23N2O7P1S1	pan4p_c
+0	C124H226N2O51P2	hhlipa_c
+0	C20H23N7O6	mlthf_c
+0	C6H9N3O2	his__L_c	his__L_e	his__L_p
+0	C10H15N5O13P2S1	paps_c
+0	C6H12N3O4P1	hisp_c
+0	C8H12N1O6P1	pdx5p_c
+0	C6H13N1O2S1	mmet_c	mmet_e	mmet_p
+0	Mn	mn2_c	mn2_e	mn2_p
+0	C6H11N3O1	histd_c
+0	C29H58N1O8P1	pe120_c	pe120_p
+0	C33H66N1O8P1	pe140_c	pe140_p
+0	C33H62N1O8P1	pe141_c	pe141_p
+0	C37H74N1O8P1	pe160_c	pe160_p
+0	C37H70N1O8P1	pe161_c	pe161_p
+0	C9H10O6	hkndd_c
+0	C41H82N1O8P1	pe180_c	pe180_p
+0	MoO4	mobd_c	mobd_e	mobd_p
+0	C9H8O6	hkntd_c
+0	C10H12N5O8P1S2Mo1	moco_c
+0	C41H78N1O8P1	pe181_c	pe181_p
+0	C117H214N2O45P2	hlipa_c
+0	C3H5O6P1	pep_c
+0	C19H24N8O15P2S2Mo1	mococdp_c
+0	C20H24N10O15P2S2Mo1	mocogdp_c
+0	C40H46N4O17	hmbil_c
+0	C10H12N5O6P1S2Cu1	mpt_c
+0	C30H59O10P1	pg120_c	pg120_p
+0	C11H19N3O7S1	hmgth_c
+0	C34H67O10P1	pg140_c	pg140_p
+0	C20H24N10O12P2S2Cu1	mptamp_c
+0	C51H74O2	mql8_c
+0	C34H63O10P1	pg141_c	pg141_p
+0	C131H239N2O60P3	hphhlipa_c
+0	C38H75O10P1	pg160_c	pg160_p
+0	C51H72O2	mqn8_c
+0	C38H71O10P1	pg161_c	pg161_p
+0	C42H83O10P1	pg180_c	pg180_p
+0	C3H4O3	msa_c	pyr_c	pyr_e	pyr_p
+0	C1H4O3S1	mso3_c	mso3_e	mso3_p
+0	C3H4O2	mthgxl_c
+0	C42H79O10P1	pg181_c	pg181_p
+0	C6H6O2	hqn_c
+0	C30H60O13P2	pgp120_c	pgp120_p
+0	C27H44N7O17P3S1	hx2coa_c
+0	C34H68O13P2	pgp140_c	pgp140_p
+0	C6H12O2	hxa_c	hxa_e	hxa_p
+0	N2O	n2o_c	n2o_e	n2o_p
+0	C5H4N4O	hxan_c	hxan_e	hxan_p
+0	Na	na1_c	na1_e	na1_p
+0	C34H64O13P2	pgp141_c	pgp141_p
+0	C27H46N7O17P3S1	hxcoa_c
+0	C38H76O13P2	pgp160_c	pgp160_p
+0	C38H72O13P2	pgp161_c	pgp161_p
+0	C8H21N3	na15dap_c
+0	C4H5N1O4	iasp_c
+0	C6H5N1O2	nac_c	nac_e	nac_p
+0	C42H84O13P2	pgp180_c	pgp180_p
+0	C42H80O13P2	pgp181_c	pgp181_p
+0	C21H27N7O14P2	nad_c
+0	C21H29N7O14P2	nadh_c
+0	C29H42N7O17P3S1	phaccoa_c
+0	C145H262N2O74P4	icolipa_c
+0	C9H11NO2	phe__L_c	phe__L_e	phe__L_p
+0	C21H28N7O17P3	nadp_c
+0	C21H30N7O17P3	nadph_c
+0	C6H6N2O	ncam_c
+0	C34H32Fe1N4O4	pheme_c	pheme_e	pheme_p
+0	C10H14N4O11P2	idp_c
+0	C124H227N2O54P3	phhlipa_c
+0	H3N1	nh4_c	nh4_e	nh4_p
+0	Ni	ni2_c	ni2_e	ni2_p
+0	C4H10N1O6P1	phom_c	thrp_e	thrp_p
+0	C131H240N2O63P4	phphhlipa_c
+0	C11H14N1O9P1	nicrnt_c
+0	C6H9N2O5P1	imacp_c
+0	C11H15N2O8P1	nmn_c	nmn_e	nmn_p
+0	C10H13N4O8P1	imp_c	imp_e	imp_p
+0	C4H10N1O7P1	phthr_c
+0	NO	no_c	no_e	no_p
+0	C8H7N	indole_c	indole_e	indole_p
+0	NO2	no2_c	no2_e	no2_p
+0	NO3	no3_c	no3_e	no3_p
+0	H3O4P1	pi_c	pi_e	pi_p
+0	C89H147N1O32P2	o16aund_c	o16aund_p
+0	C10H12N4O5	ins_c	ins_e	ins_p
+0	C37H66N7O17P3S1	pmtcoa_c
+0	C9H17N1O5	pnto__R_c	pnto__R_e	pnto__R_p
+0	O2	o2_c	o2s_c	o2_e	o2s_e	o2_p	o2s_p
+0	C4H4O5	oaa_c
+0	C29H48N7O17P3S1	oc2coa_c
+0	C3H6O	ppal_c	ppal_e	ppal_p
+0	C3H7O5P1	ppap_c
+0	C29H50N7O17P3S1	occoa_c
+0	C10H14N2O4	ppbng_c
+0	C24H40N7O17P3S1	ppcoa_c
+0	C18H36O2	ocdca_c	ocdca_e	ocdca_p
+0	C10H17N5O17P4	ppgpp_c
+0	C2H6O4S1	isetac_c	isetac_e	isetac_p
+0	H4O7P2	ppi_c
+0	C10H15N4O14P3	itp_c
+0	C34H34N4O4	ppp9_c
+0	C5H9NO2	pro__L_c	pro__L_e	pro__L_p
+0	C34H40N4O4	pppg9_c
+0	K	k_c	k_e	k_p
+0	H5O10P3	pppi_c
+0	C7H12N2O3	progly_c	progly_e	progly_p
+0	C8H14O8	kdo_c
+0	C9H10O2	pppn_c	pppn_e	pppn_p
+0	C84H154N2O37P2	kdo2lipid4_c	kdo2lipid4_e	kdo2lipid4_p
+0	C5H12N1O7P1	pram_c
+0	C5H13O14P3	prpp_c
+0	C30H58N1O10P1	ps120_c
+0	C96H176N2O38P2	kdo2lipid4L_c
+0	C34H66N1O10P1	ps140_c
+0	C100H182N2O38P2	kdo2lipid4p_c
+0	C34H62N1O10P1	ps141_c
+0	C8H15O11P1	kdo8p_c
+0	C38H74N1O10P1	ps160_c
+0	C15H25N5O20P4	prbatp_c
+0	C76H142N2O30P2	kdolipid4_c
+0	C7H5N5O	preq0_c
+0	C38H70N1O10P1	ps161_c
+0	C139H252N2O70P4	kphphhlipa_c
+0	C42H82N1O10P1	ps180_c
+0	C7H9N5O1	preq1_c
+0	C15H25N5O15P2	prfp_c	prlp_c
+0	C42H78N1O10P1	ps181_c
+0	C3H8N1O6P1	pser__L_c	pser__L_e	pser__L_p
+0	C4H12N2	ptrc_c	ptrc_e	ptrc_p
+0	C8H13N2O5P1	pyam5p_c
+0	C4H4N2O2	ura_c	ura_e	ura_p
+0	C8H12N2O2	pydam_c	pydam_e	pydam_p
+0	C8H9NO3	pydx_c	pydx_e	pydx_p
+0	C8H10N1O6P1	pydx5p_c
+0	C2H7NO3S	taur_c	taur_e	taur_p
+0	CNS	tcynt_c	tcynt_e	tcynt_p
+0	C35H60N7O17P3S1	td2coa_c	tdecoa_c
+0	C35H62N7O17P3S1	tdcoa_c
+0	C4H6N2O4	uracp_c
+0	C8H11NO3	pydxn_c	pydxn_e	pydxn_p
+0	C5H4N4O3	urate_c
+0	C49H74O4	q8_c
+0	C3H6N2O4	urdglyc_c
+0	C49H76O4	q8h2_c
+0	CH4N2O	urea_c	urea_e	urea_p
+0	C7H9N1O4	thdp_c
+0	C7H12O6	quin_c	quin_e	quin_p
+0	C9H12N2O6	uri_c	uri_e	uri_p
+0	C7H5N1O4	quln_c
+0	C5H12O11P2	r15bp_c
+0	C9H15N2O15P3	utp_c
+0	C19H23N7O6	thf_c
+0	C12H16N4O1S1	thm_c	thm_e	thm_p
+0	C12H17N4O4P1S1	thmmp_c
+0	C69H115N1O16P2	ragund_c
+0	C17H22N4O6	rbflvrd_c
+0	C9H15N5O4	thmnp_c
+0	C12H18N4O7P2S1	thmpp_c
+0	C10H12N5O8P1S2W1	wco_c
+0	C14H18N2O4	rdmbzi_c
+0	C6H8N4	thptdn_c
+0	C5H4N4O2	xan_c	xan_e	xan_p
+0	C10H14N4O12P2	xdp_c
+0	C9H17NO6S	rhcys_c
+0	C10H13N4O9P1	xmp_c	xmp_e	xmp_p
+0	C10H15N4O15P3	xtp_c
+0	C17H20N4O6	ribflv_c
+0	C10H12N4O6	xtsn_c	xtsn_e	xtsn_p
+0	C5H6N2O2	thym_c	thym_e	thym_p
+0	C10H14N2O5	thymd_c	thymd_e	thymd_p
+0	C3H9N1	tma_c	tma_e	tma_p
+0	C3H9NO	tmao_c	tmao_e	tmao_p
+0	Zn	zn2_c	zn2_e	zn2_p
+0	C32H44N7O20P3S1	sbzcoa_c
+0	C42H46N4O16	scl_c
+0	O4Se	sel_c	sel_e	sel_p
+0	H2Se1	seln_c
+0	C9H12N3O7P1	23ccmp_e	23ccmp_p
+0	H3O3P1Se1	selnp_c
+0	C3H7NO3	ser__D_c	ser__L_c	ser__D_e	ser__L_e	ser__D_p	ser__L_p
+0	C9H11N2O8P1	23cump_e	23cump_p
+0	C13H19N6O9P	seramp_c
+0	C42H44Fe1N4O16	sheme_c
+0	C8H8O3	34dhpac_e	34dhpac_p
+0	C7H11O8P1	skm5p_c
+0	C11H18N2O7	sl26da_c
+0	C11H15N1O8	sl2a6o_c
+0	O3Se	slnt_c	slnt_e	slnt_p
+0	O2S	so2_c	so2_e	so2_p
+0	O3S	so3_c	so3_e	so3_p
+0	O4S	so4_c	so4_e	so4_p
+0	C7H19N3	spmd_c	spmd_e	spmd_p
+0	C9H13N2O9P1	3ump_e	ump_c	ump_e	3ump_p	ump_p
+0	C39H70N7O17P3S1	stcoa_c
+0	C10H18N4O5	sucarg_c
+0	C11H10O5	sucbz_c
+0	C11H12N2O2	trp__L_c	trp__L_e	trp__L_p
+0	C4H6O4	succ_c	succ_e	succ_p
+0	C9H13N1O7	sucglu_c
+0	C9H13N1O6	sucgsa_c
+0	C8H13N1O6	suchms_c
+0	O3S2	tsul_c	tsul_e	tsul_p
+0	C14H28O2	ttdca_c	ttdca_e	ttdca_p
+0	C14H29O5P1	ttdcap_c
+0	C9H16N2O5	sucorn_c
+0	C14H26O2	ttdcea_c	ttdcea_e	ttdcea_p
+0	C14H27O5P1	ttdceap_c
+0	O4W1	tungs_c	tungs_e	tungs_p
+0	C9H11NO3	tyr__L_c	tyr__L_e	tyr__L_p
+0	C43H77N3O20P2	u23ga_c
+0	C31H53N3O19P2	u3aga_c
+0	C2H4O5S1	sulfac_c	sulfac_e	sulfac_p
+0	C29H51N3O18P2	u3hga_c
+0	C61H100N1O8P1	uLa4fn_c
+0	C60H100N1O7P1	uLa4n_c	uLa4n_p
+0	C95H156N8O28P2	uaagmda_c
+0	C20H29N3O19P2	uaccg_c
+0	C11H19N1O8	acmum_e	acmum_p
+0	C17H27N3O17P2	uacgam_c	uacmam_c	uacgam_e	udpacgal_e	uacgam_p	udpacgal_p
+0	C4H6O6	tartr__D_c	tartr__L_c	tartr__D_e	tartr__L_e	tartr__D_p	tartr__L_p
+0	C17H25N3O18P2	uacmamu_c
+0	C181H323N3O103P4	acolipa_e	acolipa_p
+0	C87H143N7O23P2	uagmda_c
+0	C23H36N4O20P2	uama_c
+0	C28H43N5O23P2	uamag_c
+0	C20H31N3O19P2	uamr_c
+0	C55H92O7P2	udcpdp_c	udcpdp_p
+0	C55H91O4P1	udcpp_c	udcpp_p
+0	C9H14N2O12P2	udp_c
+0	C15H23N3O16P2	udpLa4fn_c
+0	C16H28N2O11	chtbs_e	chtbs_p
+0	C14H23N3O15P2	udpLa4n_c
+0	C14H20N2O16P2	udpLa4o_c
+0	C15H24N2O17P2	udpg_c	udpgal_c	udpgalfur_c	udpg_e	udpgal_e	udpg_p	udpgal_p
+0	C11H12Cl2N2O5	cm_e	cm_p
+0	C15H22N2O18P2	udpglcur_c	udpglcur_e	udpglcur_p
+0	C35H55N7O26P2	ugmd_c
+0	C41H65N9O28P2	ugmda_c
+0	C38H60N8O27P2	um4p_c
+0	C176H315N2O103P5	colipap_e	colipap_p
+0	C12H16O7	arbt_e	arbt_p
+0	C63H105N1O12P2	unaga_c
+0	C71H116N2O18P2	unagamu_c
+0	C79H129N3O22P2	unagamuf_c	unagamuf_p
+0	C6H8O6	ascb__L_e	ascb__L_p
+0	C40H44N4O16	uppg3_c
+0	H3O3P1	ppt_e	ppt_p
+0	C8H11N1O2	dopa_e	dopa_p
+0	C27H29NO11	doxrbcn_e	doxrbcn_p
+0	C192H344N2O101P4	hacolipa_e
+0	C126H232N2O40P2	halipa_e
+0	C272H462N14O160P4	eca4colipa_e	eca4colipa_p
+0	C112H208N3O42P3	enlipa_e	enlipa_p
+0	C43H58N4O12	rfamp_e	rfamp_p
+0	C12H13Fe1O14	fe3dcit_e	fe3dcit_p
+0	C6H14O6	sbt__D_e	galt_e	mnl_e	galt_p	mnl_p	sbt__D_p
+0	C31H48O5	fusa_e	fusa_p
+0	C9H16O9	manglyc_e	manglyc_p
+0	C6H13N1O5	gam_e	gam_p
+0	C23H27N3O7	mincyc_e	mincyc_p
+0	C6H18O24P6	minohp_e	minohp_p
+0	C22H24N2O8	ttrcyc_e	ttrcyc_p
+0	C8H11N1O1	tym_e	tym_p
+0	C9H12N1O6P1	tyrp_e	tyrp_p
+0	C31H36N2O11	novbcn_e	novbcn_p
+0	C312H534N6O200P4	o16a4colipa_e	o16a4colipa_p
+0	C8H11N1	peamn_e	peamn_p
+0	C57H110O17P2	clpn120_p
+0	C65H126O17P2	clpn140_p
+0	C65H118O17P2	clpn141_p
+0	C73H142O17P2	clpn160_p
+0	C73H134O17P2	clpn161_p
+0	C81H158O17P2	clpn180_p
+0	C81H150O17P2	clpn181_p
+0	C103H166N6O37P2	eca2und_p
+0	C127H203N9O52P2	eca3und_p
+0	C151H240N12O67P2	eca4und_p
+0	C71H113N13O39	murein4p3p_p
+0	C74H118N14O40	murein4p4p_p	murein5p3p_p
+0	C74H116N14O39	murein4px4p_p	murein5px3p_p
+0	C111H175N21O59	murein4px4p4p_p
+0	C111H173N21O58	murein4px4px4p_p
+0	C77H123N15O41	murein5p4p_p
+0	C80H128N16O42	murein5p5p_p
+0	C120H192N24O63	murein5p5p5p_p
+0	C77H121N15O40	murein5px4p_p
+0	C114H178N22O59	murein5px4px4p_p
+0	C123H202N2O57P2	o16a2und_p
+0	C157H257N3O82P2	o16a3und_p
+0	C191H312N4O107P2	o16a4und_p
+0	C68H108N12O38	murein3p3p_p
+0	C68H106N12O37	murein3px3p_p
+0	C71H111N13O38	murein3px4p_p

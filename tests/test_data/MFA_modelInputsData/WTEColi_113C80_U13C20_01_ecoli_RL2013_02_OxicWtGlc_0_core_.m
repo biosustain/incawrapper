@@ -98,17 +98,95 @@ r = reaction({...
 'g3p_c (abc) -> dhap_c (abc) ';...
 'e4p_c (lmno) + gln_DASH_L_c (stuvw) + nadph_c + r5p_c (defgh) + 3.0 atp_c + ser_DASH_L_c (abc) + pep_c (ijk) + pep_c (pqr) -> pyr_c (pqr) + glu_DASH_L_c (stuvw) + g3p_c (fgh) + co2_c (i) + trp_DASH_L_c (abcedklmnoj) ';...
 'e4p_c (ghij) + glu_DASH_L_c (klmno) + nadph_c + atp_c + pep_c (abc) + pep_c (def) -> nadh_c + tyr_DASH_L_c (abcefghij) + co2_c (d) + akg_c (klmno) ';...
-'glu_DASH_L_c (ghijk) + pyr_c (abc) + pyr_c (def) + nadph_c -> co2_c (d) + akg_c (ghijk) + val_DASH_L_c (abcdef) ';...
+'glu_DASH_L_c (ghijk) + pyr_c (abc) + pyr_c (def) + nadph_c -> co2_c (d) + akg_c (ghijk) + val_DASH_L_c (abcef) ';...
 });
 
-m = model(r); % set up model
+% define tracers used in the experiments
+t = tracer({...
+'1-13C_D-Glucose: glc_DASH_D_e.EX @ 1';...
+'U-13C_D-Glucose: glc_DASH_D_e.EX @ 1 2 3 4 5 6';...
+});
+
+% define fractions of tracers used
+t.frac = [0.8,0.2];
+
+% flux measurements
+% define experiments for fit data
+f = data(' Ec_Biomass_INCA EX_ac_LPAREN_e_RPAREN_ EX_glc_LPAREN_e_RPAREN_ ');
+% add fit values
+f.val = [...
+0.7040000000000001,...
+2.13,...
+7.4,...
+];
+
+% add fit stds
+f.std = [...
+0.008,...
+0.5,...
+0.2,...
+];
+
+% define which fragments of molecules were measured in which experiment
+d = msdata({...
+'3pg_c_C3H6O7P_MRM: 3pg_c @ 1 2 3';
+'6pgc_c_C6H12O10P_MRM: 6pgc_c @ 1 2 3 4 5 6';
+'akg_c_C4H5O3_MRM: akg_c @ 1 2 3 4';
+'akg_c_C5H5O5_MRM: akg_c @ 1 2 3 4 5';
+'asp_DASH_L_c_C3H6NO2_MRM: asp_DASH_L_c @ 2 3 4';
+'asp_DASH_L_c_C4H6NO4_MRM: asp_DASH_L_c @ 1 2 3 4';
+'dhap_c_C3H6O6P_MRM: dhap_c @ 1 2 3';
+'fdp_c_C6H13O12P2_MRM: fdp_c @ 1 2 3 4 5 6';
+'g6p_c_C6H12O9P_MRM: g6p_c @ 1 2 3 4 5 6';
+'glc_DASH_D_c_C2H3O2_MRM: glc_DASH_D_c @ 5 6';
+'glc_DASH_D_c_C6H11O6_MRM: glc_DASH_D_c @ 1 2 3 4 5 6';
+'glu_DASH_L_c_C5H6NO3_MRM: glu_DASH_L_c @ 1 2 3 4 5';
+'glu_DASH_L_c_C5H8NO4_MRM: glu_DASH_L_c @ 1 2 3 4 5';
+'icit_c_C5H3O3_MRM: icit_c @ 1 2 3 4 5';
+'icit_c_C6H7O7_MRM: icit_c @ 1 2 3 4 5 6';
+'mal_DASH_L_c_C4H3O4_MRM: mal_DASH_L_c @ 1 2 3 4';
+'mal_DASH_L_c_C4H5O5_MRM: mal_DASH_L_c @ 1 2 3 4';
+'met_DASH_L_c_C5H10NO2S_MRM: met_DASH_L_c @ 1 2 3 4 5';
+'met_DASH_L_c_CH3S_MRM: met_DASH_L_c @ 5C';
+'pep_c_C3H4O6P_MRM: pep_c @ 1 2 3';
+'phe_DASH_L_c_C9H10NO2_MRM: phe_DASH_L_c @ 1 2 3 4 5 6 7 8 9';
+'phe_DASH_L_c_C9H7O2_MRM: phe_DASH_L_c @ 1 2 3 4 5 6 7 8 9';
+'prpp_c_C5H12O14P3_MRM: prpp_c @ 1 2 3 4 5';
+'pyr_c_C3H3O3_MRM: pyr_c @ 1 2 3';
+'s7p_c_C7H14O10P_MRM: s7p_c @ 1 2 3 4 5 6 7';
+'succ_c_C4H3O3_MRM: succ_c @ 1 2 3 4';
+'succ_c_C4H5O4_MRM: succ_c @ 1 2 3 4';
+'thr_DASH_L_c_C2H4NO2_MRM: thr_DASH_L_c @ 1 2';
+'thr_DASH_L_c_C4H8NO3_MRM: thr_DASH_L_c @ 1 2 3 4';
+});
+
+% create default IDVs, which will be replaced by measured IDVs later.
+d.idvs = idv; 
+
+% initialize experiment with t and add f and d
+x = experiment(t);
+x.data_flx = f;
+x.data_ms = d;
+% assigning all the previous values to a specific experiment
+m.expts = x;
+
+% m = model(r); % set up model (unnecessary) 
 
 % take care of symmetrical metabolites
 m.mets{'succ_c'}.sym = list('rotate180', atommap('1:4 2:3 3:2 4:1'));
 m.mets{'fum_c'}.sym = list('rotate180', atommap('1:4 2:3 3:2 4:1'));
 
-% define unbalanced reactions
+% input of MS measurements
+nmts = 8;                               % number of total measurements
+samp = 8/60/60;                         % spacing between measurements in hours
+m.options.int_tspan = 0:samp:(samp*nmts);   % time points in hours
+m.options.sim_tunit = 'h';              % hours are unit of time
+m.options.fit_reinit = true;
+m.options.sim_ss = false;
+m.options.sim_sens = true;
 
+% define unbalanced reactions
+% m.states('gly')
 % define lower bounds
 m.rates.flx.lb = zeros(1, 97);
 m.rates.flx.lb([12 15 18]) = [ 0.6336 1.9169999999999998 6.66 ];
@@ -126,7 +204,6 @@ m.rates.on = ones(1, 97);
 excluded_reaction_indexes = [  ]; % Enter reaction indexes to be excluded, separated by a space
 % e.g. to exclude reaction 5, 15 and 77 write `[5 15 77]`
 m.rates.on(excluded_reaction_indexes) = zeros(1, length(excluded_reaction_indexes));
-
 
 % define reaction ids
 m.rates.id = {...
@@ -232,82 +309,10 @@ m.rates.id = {...
 m.rates.flx.val = mod2stoich(m); % make sure the fluxes are feasible
 m.options.fit_starts = 10; % 10 restarts during the estimation procedure
 
-% define which fragments of molecules were measured in which experiment
-d = msdata({...
-'3pg_c_C3H6O7P_MRM: 3pg_c @ 1 2 3';
-'6pgc_c_C6H12O10P_MRM: 6pgc_c @ 1 2 3 4 5 6';
-'akg_c_C4H5O3_MRM: akg_c @ 1 2 3 4';
-'akg_c_C5H5O5_MRM: akg_c @ 1 2 3 4 5';
-'asp_DASH_L_c_C3H6NO2_MRM: asp_DASH_L_c @ 2 3 4';
-'asp_DASH_L_c_C4H6NO4_MRM: asp_DASH_L_c @ 1 2 3 4';
-'dhap_c_C3H6O6P_MRM: dhap_c @ 1 2 3';
-'fdp_c_C6H13O12P2_MRM: fdp_c @ 1 2 3 4 5 6';
-'g6p_c_C6H12O9P_MRM: g6p_c @ 1 2 3 4 5 6';
-'glc_DASH_D_c_C2H3O2_MRM: glc_DASH_D_c @ 5 6';
-'glc_DASH_D_c_C6H11O6_MRM: glc_DASH_D_c @ 1 2 3 4 5 6';
-'glu_DASH_L_c_C5H6NO3_MRM: glu_DASH_L_c @ 1 2 3 4 5';
-'glu_DASH_L_c_C5H8NO4_MRM: glu_DASH_L_c @ 1 2 3 4 5';
-'icit_c_C5H3O3_MRM: icit_c @ 1 2 3 4 5';
-'icit_c_C6H7O7_MRM: icit_c @ 1 2 3 4 5 6';
-'mal_DASH_L_c_C4H3O4_MRM: mal_DASH_L_c @ 1 2 3 4';
-'mal_DASH_L_c_C4H5O5_MRM: mal_DASH_L_c @ 1 2 3 4';
-'met_DASH_L_c_C5H10NO2S_MRM: met_DASH_L_c @ 1 2 3 4 5';
-'met_DASH_L_c_CH3S_MRM: met_DASH_L_c @ 5C';
-'pep_c_C3H4O6P_MRM: pep_c @ 1 2 3';
-'phe_DASH_L_c_C9H10NO2_MRM: phe_DASH_L_c @ 1 2 3 4 5 6 7 8 9';
-'phe_DASH_L_c_C9H7O2_MRM: phe_DASH_L_c @ 1 2 3 4 5 6 7 8 9';
-'prpp_c_C5H12O14P3_MRM: prpp_c @ 1 2 3 4 5';
-'pyr_c_C3H3O3_MRM: pyr_c @ 1 2 3';
-'s7p_c_C7H14O10P_MRM: s7p_c @ 1 2 3 4 5 6 7';
-'succ_c_C4H3O3_MRM: succ_c @ 1 2 3 4';
-'succ_c_C4H5O4_MRM: succ_c @ 1 2 3 4';
-'thr_DASH_L_c_C2H4NO2_MRM: thr_DASH_L_c @ 1 2';
-'thr_DASH_L_c_C4H8NO3_MRM: thr_DASH_L_c @ 1 2 3 4';
-});
-
-% initialize mass distribution vector
-% d.mdvs = mdv;
-% create default IDVs, which will be replaced by simulated IDVs later.
-d.idvs = idv; 
-
-% define tracers used in the experiments
-t = tracer({...
-'1-13C_D-Glucose: glc_DASH_D_e.EX @ 1';...
-'U-13C_D-Glucose: glc_DASH_D_e.EX @ 1 2 3 4 5 6';...
-});
-
-% define fractions of tracers used
-t.frac = [ 0.8,0.2 ];
-
-% define experiments for fit data
-f = data(' Ec_Biomass_INCA EX_ac_LPAREN_e_RPAREN_ EX_glc_LPAREN_e_RPAREN_ ');
-
-% add fit values
-f.val = [...
-0.7040000000000001,...
-2.13,...
-7.4,...
-];
-
-% add fit stds
-f.std = [...
-0.008,...
-0.5,...
-0.2,...
-];
-
-% initialize experiment with t and add f and d
-x = experiment(t);
-x.data_flx = f;
-x.data_ms = d;
-
-% assing all the previous values to a specific experiment
-m.expts = x;
-
 m.expts.id = {'WTEColi_113C80_U13C20_01'};
 
 % add experimental data for annotated fragments 
-% (fragments are represented % by 1,1 / 2,1 / 3,1 etc)
+% (fragments are represented by (1,1) / (2,1) / (3,1) etc)
 m.expts.data_ms(1).idvs.id(1,1) = {'3pg_c_C3H6O7P_MRM_0_0_WTEColi_113C80_U13C20_01'};
 m.expts.data_ms(1).idvs.time(1,1) = 0;
 m.expts.data_ms(1).idvs.val(1,1) = 0.434465;
@@ -694,10 +699,10 @@ m.expts.data_ms(29).idvs.std(5,1) = 0.007105;
 % estimates parameters of the partially specified ARIMA(p,D,q) model m
 % given the observed univariate time series y using maximum likelihood. 
 % f is the corresponding fully specified ARIMA model that stores the parameter estimates
+% f = simulate(m);
+f=estimate(m,10);
 
-%f=estimate(m,10);
-
-%f=continuate(f,m);
+f=continuate(f,m);
 
 %filename = 'TestFile.mat';
 %save(filename,'f','m')

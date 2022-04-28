@@ -47,7 +47,12 @@ class test_methods(unittest.TestCase):
                 self.assertEqual(set(expected), set(actual))
                 for key in expected:
                     self.assertDeepAlmostEqual(
-                        expected[key], actual[key], __trace=repr(key), *args, **kwargs)
+                        expected[key],
+                        actual[key],
+                        __trace=repr(key),
+                        *args,
+                        **kwargs
+                        )
             else:
                 self.assertEqual(expected, actual)
         except AssertionError as exc:
@@ -161,7 +166,8 @@ class test_methods(unittest.TestCase):
 
         mapped_rxns_ = sorted(os.listdir(current_dir + '/mappedRxns/rxnFiles'))
         for i, rxn_file in enumerate(mapped_rxns_):
-            with open(current_dir + f'/mappedRxns/rxnFiles/{rxn_file}', 'r') as f:
+            with open(current_dir
+                      + f'/mappedRxns/rxnFiles/{rxn_file}', 'r') as f:
                 lines = f.readlines()
                 atom_rows = []
                 for j, line in enumerate(lines):

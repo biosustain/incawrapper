@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@2.2.0
-  linux: cloudesire/openjdk-install@1.2.3
+  #linux: cloudesire/openjdk-install@1.2.3
 
 commands:
   install-conda:

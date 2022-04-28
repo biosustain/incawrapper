@@ -170,7 +170,7 @@ x.data_ms = d;
 % assigning all the previous values to a specific experiment
 m.expts = x;
 
-% m = model(r); % set up model (unnecessary) 
+m = model(r); % set up model (unnecessary) 
 
 % take care of symmetrical metabolites
 m.mets{'succ_c'}.sym = list('rotate180', atommap('1:4 2:3 3:2 4:1'));
@@ -308,6 +308,8 @@ m.rates.id = {...
 
 m.rates.flx.val = mod2stoich(m); % make sure the fluxes are feasible
 m.options.fit_starts = 10; % 10 restarts during the estimation procedure
+
+m.expts = x;
 
 m.expts.id = {'WTEColi_113C80_U13C20_01'};
 

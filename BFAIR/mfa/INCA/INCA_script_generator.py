@@ -921,7 +921,7 @@ class INCA_script:
             tmp_script = tmp_script + "});\n"
             tmp_script = (
                 tmp_script
-                + "\n% initialize mass distribution vector\nd.mdvs = mdv;\n"
+                + "\n% initialize mass distribution vector\nd.idvs = idv;\n"
             )
             mat_script = mat_script + tmp_script
 
@@ -1086,7 +1086,7 @@ class INCA_script:
                                     ms_data_norm_ave_int
                                 ):
                                     # each column is a seperate time point
-                                    # each row is a seperate mdv
+                                    # each row is a seperate idv
                                     if cnt == 0:
                                         # Assign names and times
                                         name = (
@@ -1099,7 +1099,7 @@ class INCA_script:
                                             + str(experiment)
                                         )
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.id(%d,%d) = {'%s'};\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.id(%d,%d) = {'%s'};\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1109,7 +1109,7 @@ class INCA_script:
                                             )
                                         )
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.time(%d,%d) = %s;\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.time(%d,%d) = %s;\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1126,7 +1126,7 @@ class INCA_script:
                                     if ave <= 1e-6:
                                         ave = "NaN"
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.val(%d,%d) = %s;\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.val(%d,%d) = %s;\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1137,7 +1137,7 @@ class INCA_script:
                                         )
                                     else:
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.val(%d,%d) = %f;\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.val(%d,%d) = %f;\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1152,7 +1152,7 @@ class INCA_script:
                                         else:
                                             stdev = 0.001
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.std(%d,%d) = %s;\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.std(%d,%d) = %s;\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1163,7 +1163,7 @@ class INCA_script:
                                         )
                                     else:
                                         tmp_script = tmp_script + (
-                                            "m.expts(%d).data_ms(%d).mdvs.std(%d,%d) = %f;\n"  # noqa E501
+                                            "m.expts(%d).data_ms(%d).idvs.std(%d,%d) = %f;\n"  # noqa E501
                                             % (
                                                 experiment_cnt + 1,
                                                 i + 1,
@@ -1176,7 +1176,7 @@ class INCA_script:
                                 ave == "NaN"
                                 stdev = "NaN"
                                 tmp_script = tmp_script + (
-                                    "m.expts(%d).data_ms(%d).mdvs.std(%d,%d) = %s;\n"  # noqa E501
+                                    "m.expts(%d).data_ms(%d).idvs.std(%d,%d) = %s;\n"  # noqa E501
                                     % (
                                         experiment_cnt + 1,
                                         i + 1,

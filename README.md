@@ -24,7 +24,7 @@ We welcome all contributions.  Please follow the guidelines below when contribut
 1. Fork the repository
 2. Clone the repository
 3. Make a new branch from `develop` (see git model below) with your feature or fix
-4. Submita pull request
+4. Submit a pull request
 
 ### Git model
 Please use the [GitFlow model](https://datasift.github.io/gitflow/IntroducingGitFlow.html#:~:text=GitFlow%20is%20a%20branching%20model,and%20scaling%20the%20development%20team)

@@ -96,7 +96,8 @@ def split_lumped_rxns(lumped_rxns, fittedFluxes):
                 df_row_index = list(fittedFluxes["rxn_id"]).index(split_name)
             else:
                 row = fittedFluxes.iloc[df_row_index]
-                fittedFluxes = fittedFluxes.append(row, ignore_index=True)
+                fittedFluxes = pd.concat([fittedFluxes, row], ignore_index=True)
+                #fittedFluxes.append(row, ignore_index=True)
                 fittedFluxes.at[len(fittedFluxes) - 1, "rxn_id"] = split_name
     return fittedFluxes
 
@@ -141,7 +142,8 @@ def split_lumped_reverse_rxns(lumped_reverse_rxns, fittedFluxes):
                 )
             else:
                 row = fittedFluxes.iloc[df_row_index]
-                fittedFluxes = fittedFluxes.append(row, ignore_index=True)
+                fittedFluxes = pd.concat([fittedFluxes, row], ignore_index=True)
+                #fittedFluxes.append(row, ignore_index=True)
                 fittedFluxes.at[len(fittedFluxes) - 1, "rxn_id"] = (
                     split_name + "_reverse"
                 )

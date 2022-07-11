@@ -19,4 +19,3 @@ Functions
     get_subsytem_reactions
     show_subsystems
     plot_subsystem_fluxes
-]

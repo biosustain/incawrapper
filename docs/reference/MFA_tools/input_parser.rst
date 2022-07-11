@@ -28,3 +28,15 @@ a ``.sbml`` file.
    :toctree: generated/
 
    parse_cobra_model
+
+Standard input parsers
+----------------------
+
+Parsers for standard input formats are provided.
+
+.. currentmodule:: BFAIR.parsers
+
+.. autosummary::
+   :toctree: generated/
+
+   data_import_parsers

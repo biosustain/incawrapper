@@ -1,9 +1,7 @@
 """Visualization.
 Tools to visualize flux distributions"""
 
-from BFAIR.mfa.visualization.visualization import (
-    reshape_fluxes_escher,
-)
+from BFAIR.mfa.visualization.visualization import reshape_fluxes_escher
 
 from BFAIR.mfa.visualization.distributions import (
     sampled_fluxes_minrange,

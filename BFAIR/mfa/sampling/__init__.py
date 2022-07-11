@@ -23,9 +23,7 @@ from BFAIR.mfa.sampling.preparation import (
     replace_biomass_rxn_name,
 )
 
-from BFAIR.mfa.sampling.relaxation import (
-    bound_relaxation,
-)
+from BFAIR.mfa.sampling.relaxation import bound_relaxation
 
 
 __all__ = [

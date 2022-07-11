@@ -65,9 +65,7 @@ def get_min_solution_val(fittedFluxes, biomass_string="Biomass"):
 
 
 def replace_biomass_rxn_name(
-    fittedFluxes,
-    biomass_rxn_name,
-    biomass_string="Biomass",
+    fittedFluxes, biomass_rxn_name, biomass_string="Biomass",
 ):
     """
     Replaces the biomass function name in the INCA simulation results

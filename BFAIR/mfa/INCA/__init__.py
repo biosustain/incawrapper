@@ -9,11 +9,9 @@ from BFAIR.mfa.INCA.INCA_reimport import (
     INCA_reimport,
     reimport_descr,
 )
-from BFAIR.mfa.INCA.INCA_input_parser import (
-    parse_cobra_model,
-)
+from BFAIR.mfa.INCA.INCA_input_parser import parse_cobra_model
 
-__version__ = "0.0.1"
+__version__ = "1.0.0"
 
 __all__ = [
     "INCA_script",

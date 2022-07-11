@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from BFAIR.mfa.visualization.distributions import (
-    _reduce_sampled_fluxes
-)
+from BFAIR.mfa.visualization.distributions import _reduce_sampled_fluxes
 
 
 def _prepare_input_fluxes(sampled_fluxes, flux):
@@ -142,15 +140,11 @@ def plot_split_ratio(
             }
         )
         plot_title = (
-            f'{influx.name} / {split_flux1.name} vs.\n'
-            f'{influx.name} / {split_flux2.name}'
+            f"{influx.name} / {split_flux1.name} vs.\n"
+            f"{influx.name} / {split_flux2.name}"
         )
     else:
-        split_df = pd.DataFrame(
-            {
-                split_flux1.name: abs(split_flux1 / influx),
-            }
-        )
+        split_df = pd.DataFrame({split_flux1.name: abs(split_flux1 / influx), })
         plot_title = f"{influx.name} / {split_flux1.name}"
 
     re_arranged_df = _reduce_sampled_fluxes(split_df, split_df.columns)

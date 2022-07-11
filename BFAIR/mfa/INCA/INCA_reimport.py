@@ -11,7 +11,7 @@ import pandas as pd
 from datetime import datetime
 from stat import ST_SIZE, ST_MTIME
 
-__version__ = "0.0.1"
+__version__ = "1.0.0"
 
 
 class INCA_reimport:
@@ -54,8 +54,7 @@ class INCA_reimport:
             )
             info = {
                 "File_size": file_size,
-                "Simulation_timestamp_structure":
-                simulation_dateAndTime_struct,
+                "Simulation_timestamp_structure": simulation_dateAndTime_struct,
                 "Simulation_timestamp": simulation_dateAndTime,
             }
         return info

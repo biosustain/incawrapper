@@ -43,14 +43,14 @@ def _adjust_bounds(model, rxn, bounds):
             model.reactions.get_by_id(rxn).lower_bound = round(bounds[0], 1)
             model.reactions.get_by_id(rxn).upper_bound = round(bounds[1], 1)
         except KeyError:
-            print(f'Did not work for {rxn}')
+            print(f"Did not work for {rxn}")
             skip = True
     else:
         try:
             model.reactions.get_by_id(rxn).upper_bound = round(bounds[0], 1)
             model.reactions.get_by_id(rxn).lower_bound = round(bounds[1], 1)
         except KeyError:
-            print(f'Did not work for {rxn}')
+            print(f"Did not work for {rxn}")
             skip = True
     return model, skip
 

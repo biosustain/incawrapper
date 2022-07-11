@@ -864,12 +864,10 @@ class INCA_script:
                                 ms_data["met_atompositions"], "Curly"
                             )
                         ]
-                        atomMapping_atompositions_row = (
-                            atomMappingMetabolite_data_I[
-                                atomMappingMetabolite_data_I["met_id"]
-                                == ms_data["met_id"]
-                            ]
-                        )
+                        atomMapping_atompositions_row = atomMappingMetabolite_data_I[
+                            atomMappingMetabolite_data_I["met_id"]
+                            == ms_data["met_id"]
+                        ]
                         if (
                             len(
                                 list(

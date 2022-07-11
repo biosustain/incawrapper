@@ -2,6 +2,7 @@ from BFAIR.mfa.sampling.constraints import timer, _reshape_fluxes
 import pandas as pd
 import re
 from cobra.exceptions import Infeasible
+
 try:
     from gurobipy import Model as GRBModel
 except ModuleNotFoundError:

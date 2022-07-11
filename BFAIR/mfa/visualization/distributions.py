@@ -31,7 +31,7 @@ def sampled_fluxes_minrange(sampled_fluxes, min_val, max_val):
     """
 
     def in_between(column):
-        return not all(column.between(min_val, max_val, inclusive=False))
+        return not all(column.between(min_val, max_val, inclusive="neither"))
 
     criteria = list(
         sampled_fluxes.apply(in_between, axis=0, result_type="reduce")

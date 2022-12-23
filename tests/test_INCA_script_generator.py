@@ -212,3 +212,7 @@ class test_methods(unittest.TestCase):
         )
         runner = self.runner
         self.assertEqual(runner_, runner)
+
+
+if __name__ == "__main__":
+    unittest.main()

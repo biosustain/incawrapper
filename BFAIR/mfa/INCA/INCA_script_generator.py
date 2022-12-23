@@ -52,9 +52,12 @@ class INCA_script:
                 if len(data_output) == 0:
                     data_output = pd.DataFrame.transpose(row.to_frame())
                 else:
-                    data_output = data_output.append(
+                    data_output = pd.concat([
+                        data_output,
                         pd.DataFrame.transpose(row.to_frame())
-                    )
+                        ]) #data_output.append(
+                        #pd.DataFrame.transpose(row.to_frame())
+                    #)
         data_input = data_output
         return data_input
 
@@ -85,9 +88,12 @@ class INCA_script:
                 if len(data_output) == 0:
                     data_output = pd.DataFrame.transpose(row.to_frame())
                 else:
-                    data_output = data_output.append(
+                    data_output = pd.concat([
+                        data_output,
                         pd.DataFrame.transpose(row.to_frame())
-                    )
+                        ]) #data_output.append(
+                        #pd.DataFrame.transpose(row.to_frame())
+                    #)
         data_input = data_output
         return data_input
 
@@ -202,10 +208,17 @@ class INCA_script:
             # initiate boolean for "while" loop
             duplicates_not_done = True
             duplicates_counter = 0
+            #### TESTING ####
+            add_plus = False
+            #### TESTING ####
             while duplicates_not_done:
                 # this little bit adds +s if it's not the first molecule
                 if molecule_cnt > 0:
                     rxn_equation += " + "
+                #### TESTING ####
+                if add_plus:
+                    rxn_equation += " + "
+                #### TESTING ####
                 if molecule in atomMapping_molecules_ids:
                     if molecule in dupes_molecule:
                         positions = [
@@ -234,6 +247,10 @@ class INCA_script:
                         + " ("
                     )
                     if type(atomMapping_molecules_elements) is tuple:
+                        #### TESTING ####
+                        if molecule_cnt == 0:
+                            add_plus = True
+                        #### TESTING ####
                         # here we go through the mapping, enumerate the atoms
                         # and add the corresponding mapping
                         for mapping_cnt, mapping in enumerate(
@@ -394,7 +411,7 @@ class INCA_script:
                         and atomMapping_products_stoichiometry[0] == ""
                     ):
                         print(
-                            "There is no stoichimetriy given for:",
+                            "There is no stoichiometry given for:",
                             model_rxn_id,
                         )
                         # Model
@@ -854,67 +871,129 @@ class INCA_script:
             tmp_script = "\n% define which fragments of molecules were measured in which experiment\nd = msdata({...\n"  # noqa E501
             for frg_cnt, fragment in enumerate(fragments):
                 for ms_cnt, ms_data in experimentalMS_data_I.iterrows():
-                    if (
-                        ms_data["fragment_id"] == fragment
-                        and ms_data["experiment_id"] == experiment
-                    ):
-                        met_positions = [
-                            int(x)
-                            for x in self.prepare_input(
-                                ms_data["met_atompositions"], "Curly"
-                            )
-                        ]
-                        atomMapping_atompositions_row = atomMappingMetabolite_data_I[
-                            atomMappingMetabolite_data_I["met_id"]
-                            == ms_data["met_id"]
-                        ]
+                    try:
                         if (
-                            len(
-                                list(
-                                    atomMapping_atompositions_row[
-                                        "met_atompositions"
-                                    ]
-                                )
-                            )
-                            > 0
+                            ms_data["fragment_id"] == fragment
+                            and ms_data["experiment_id"] == experiment
                         ):
-                            atomMapping_atompositions = [
+                            met_positions = [
                                 int(x)
                                 for x in self.prepare_input(
+                                    ms_data["met_atompositions"], "Curly"
+                                )
+                            ]
+                            atomMapping_atompositions_row = atomMappingMetabolite_data_I[
+                                atomMappingMetabolite_data_I["met_id"]
+                                == ms_data["met_id"]
+                            ]
+                            if (
+                                len(
                                     list(
                                         atomMapping_atompositions_row[
                                             "met_atompositions"
                                         ]
-                                    )[0],
-                                    "Curly",
+                                    )
                                 )
-                            ]
-                            if max(met_positions) <= max(
-                                atomMapping_atompositions
+                                > 0
                             ):
-                                fragments_used.append(ms_data["fragment_id"])
-                                tmp_script = (
-                                    tmp_script
-                                    + "'"
-                                    + ms_data["fragment_id"]
-                                    + ": "
-                                    + ms_data["met_id"]
-                                    + " @ "
-                                )
-                                met_elements = self.prepare_input(
-                                    ms_data["met_elements"], "Curly"
-                                )
-                                for pos_cnt, pos in enumerate(met_positions):
+                                atomMapping_atompositions = [
+                                    int(x)
+                                    for x in self.prepare_input(
+                                        list(
+                                            atomMapping_atompositions_row[
+                                                "met_atompositions"
+                                            ]
+                                        )[0],
+                                        "Curly",
+                                    )
+                                ]
+                                if max(met_positions) <= max(
+                                    atomMapping_atompositions
+                                ):
+                                    fragments_used.append(ms_data["fragment_id"])
                                     tmp_script = (
                                         tmp_script
-                                        + met_elements[pos_cnt]
-                                        + str(pos + 1)
-                                        + " "
+                                        + "'"
+                                        + ms_data["fragment_id"]
+                                        + ": "
+                                        + ms_data["met_id"]
+                                        + " @ "
                                     )
-                                tmp_script = tmp_script[:-1]
-                                tmp_script = tmp_script + "';\n"
+                                    met_elements = self.prepare_input(
+                                        ms_data["met_elements"], "Curly"
+                                    )
+                                    for pos_cnt, pos in enumerate(met_positions):
+                                        tmp_script = (
+                                            tmp_script
+                                            + met_elements[pos_cnt]
+                                            + str(pos + 1)
+                                            + " "
+                                        )
+                                    tmp_script = tmp_script[:-1]
+                                    tmp_script = tmp_script + "';\n"
+                                    break
+                            else:
                                 break
-                        else:
+                    except:
+                        if (
+                            ms_data["fragment_id"] == fragment
+                            and ms_data["experiment_id"] == experiment
+                            ):
+                            met_positions = [
+                                int(x)
+                                for x in self.prepare_input(
+                                    ms_data["met_atompositions"], "Curly"
+                                )
+                            ]
+                            atomMapping_atompositions_row = atomMappingMetabolite_data_I[
+                                atomMappingMetabolite_data_I["met_id"]
+                                == ms_data["met_id"]
+                            ]
+                            if (
+                                len(
+                                    list(
+                                        atomMapping_atompositions_row[
+                                            "met_atompositions"
+                                        ]
+                                    )
+                                )
+                                > 0
+                            ):
+                                atomMapping_atompositions = [
+                                    int(x)
+                                    for x in self.prepare_input(
+                                        list(
+                                            atomMapping_atompositions_row[
+                                                "met_atompositions"
+                                            ]
+                                        )[0],
+                                        "Curly",
+                                    )
+                                ]
+                                if max(met_positions) <= max(
+                                    atomMapping_atompositions
+                                ):
+                                    fragments_used.append(ms_data["fragment_id"])
+                            tmp_script = (
+                                tmp_script
+                                + "'"
+                                + ms_data["fragment_id"]
+                                + ": "
+                                + ms_data["met_id"]
+                                + " @ "
+                            )
+                            met_elements = self.prepare_input(
+                                ms_data["met_elements"], "Curly"
+                            )
+                            for pos_cnt, pos in enumerate(met_positions):
+                                tmp_script = (
+                                    tmp_script
+                                    + met_elements[pos_cnt]
+                                    + str(pos + 1)
+                                    + " "
+                                )
+                            tmp_script = tmp_script[:-1]
+                            tmp_script = tmp_script + "';\n"
                             break
             tmp_script = tmp_script + "});\n"
             tmp_script = (

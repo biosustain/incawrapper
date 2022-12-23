@@ -15,6 +15,7 @@ import glob
 import platform
 import subprocess
 import pandas as pd
+import shutil
 from pymatgen.symmetry import analyzer
 from pymatgen.core import structure
 
@@ -796,11 +797,11 @@ def clean_output(metabolites=True, reactions=True, mappings=True, csv=True):
         Removes MappingReactions.csv and MappingMetabolites.csv.
     """
     if metabolites:
-        os.rmdir("metabolites")
+        shutil.rmtree("metabolites")
     if reactions:
-        os.rmdir("unmappedRxns")
+        shutil.rmtree("unmappedRxns")
     if mappings:
-        os.rmdir("mappedRxns")
+        shutil.rmtree("mappedRxns")
     if csv:
         os.remove("MappingReactions.csv")
         os.remove("MappingMetabolites.csv")

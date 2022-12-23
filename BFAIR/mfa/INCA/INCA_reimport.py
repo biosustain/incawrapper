@@ -345,59 +345,65 @@ class INCA_reimport:
         ]
         for cnt, x_type in enumerate(expt_type):
             if x_type == "Flux":
-                if expt_name[cnt] in list(simulation_info["experiment_id"]):
-                    fittedMeasuredFluxes[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": expt_name[cnt],
-                        "sample_name_abbreviation": simulation_info[
-                            "sample_name_abbreviation"
-                        ][0],
-                        "rxn_id": rxn_id[cnt],
-                        "fitted_sres": rss[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
-                elif expt_name[cnt] in list(
-                    simulation_info["sample_name_abbreviation"]
-                ):
-                    fittedMeasuredFluxes[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": simulation_info["experiment_id"][0],
-                        "sample_name_abbreviation": expt_name[cnt],
-                        "rxn_id": rxn_id[cnt],
-                        "fitted_sres": rss[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
+                try:
+                    if expt_name[cnt] in list(simulation_info["experiment_id"]):
+                        fittedMeasuredFluxes[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": expt_name[cnt],
+                            "sample_name_abbreviation": simulation_info[
+                                "sample_name_abbreviation"
+                            ][0],
+                            "rxn_id": rxn_id[cnt],
+                            "fitted_sres": rss[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
+                    elif expt_name[cnt] in list(
+                        simulation_info["sample_name_abbreviation"]
+                    ):
+                        fittedMeasuredFluxes[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": simulation_info["experiment_id"][0],
+                            "sample_name_abbreviation": expt_name[cnt],
+                            "rxn_id": rxn_id[cnt],
+                            "fitted_sres": rss[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
+                except:
+                    print("No fluxes found")
             elif x_type == "MS":
-                if expt_name[cnt] in list(simulation_info["experiment_id"]):
-                    fittedMeasuredFragments[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": expt_name[cnt],
-                        "sample_name_abbreviation": simulation_info[
-                            "sample_name_abbreviation"
-                        ][0],
-                        "fragment_id": rxn_id[cnt],
-                        "fitted_sres": rss[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
-                elif expt_name[cnt] in list(
-                    simulation_info["sample_name_abbreviation"]
-                ):
-                    fittedMeasuredFragments[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": simulation_info["experiment_id"][0],
-                        "sample_name_abbreviation": expt_name[cnt],
-                        "fragment_id": rxn_id[cnt],
-                        "fitted_sres": rss[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
+                try:
+                    if expt_name[cnt] in list(simulation_info["experiment_id"]):
+                        fittedMeasuredFragments[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": expt_name[cnt],
+                            "sample_name_abbreviation": simulation_info[
+                                "sample_name_abbreviation"
+                            ][0],
+                            "fragment_id": rxn_id[cnt],
+                            "fitted_sres": rss[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
+                    elif expt_name[cnt] in list(
+                        simulation_info["sample_name_abbreviation"]
+                    ):
+                        fittedMeasuredFragments[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": simulation_info["experiment_id"][0],
+                            "sample_name_abbreviation": expt_name[cnt],
+                            "fragment_id": rxn_id[cnt],
+                            "fitted_sres": rss[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
+                except:
+                    print("No MS data found")
             else:
                 print("type not recognized")
         fittedMeasuredFluxes = pd.DataFrame.from_dict(
@@ -520,132 +526,135 @@ class INCA_reimport:
         ]
 
         for cnt, x_type in enumerate(expt_type):
-            if x_type == "Flux":
-                if experiment_id[cnt] in list(
-                    simulation_info["experiment_id"]
-                ):
-                    fittedMeasuredFluxResiduals[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": experiment_id[cnt],
-                        "sample_name_abbreviation": simulation_info[
-                            "sample_name_abbreviation"
-                        ][0],
-                        "time_point": time_point[cnt],
-                        "rxn_id": rxn_id[cnt],
-                        "res_data": float(res_data[cnt]),
-                        "res_fit": float(res_fit[cnt]),
-                        "res_peak": res_peak[cnt],
-                        "res_stdev": float(res_stdev[cnt]),
-                        "res_val": float(res_val[cnt]),
-                        "res_msens": None,
-                        "res_esens": None,
-                        "used_": True,
-                        "comment_": None,
-                    }
-                elif experiment_id[cnt] in list(
-                    simulation_info["sample_name_abbreviation"]
-                ):
-                    fittedMeasuredFluxResiduals[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": simulation_info["experiment_id"][0],
-                        "sample_name_abbreviation": experiment_id[cnt],
-                        "time_point": time_point[cnt],
-                        "rxn_id": rxn_id[cnt],
-                        "res_data": float(res_data[cnt]),
-                        "res_fit": float(res_fit[cnt]),
-                        "res_peak": res_peak[cnt],
-                        "res_stdev": float(res_stdev[cnt]),
-                        "res_val": float(res_val[cnt]),
-                        "res_msens": None,
-                        "res_esens": None,
-                        "used_": True,
-                        "comment_": None,
-                    }
-            elif x_type == "MS":
-                # parse the id into fragment_id and mass
-                fragment_string = rxn_id[cnt]
-                fragment_string = re.sub("_DASH_", "-", fragment_string)
-                fragment_string = re.sub(
-                    "_LPARANTHES_", "[(]", fragment_string
-                )
-                fragment_string = re.sub(
-                    "_RPARANTHES_", "[)]", fragment_string
-                )
-                fragment_list = fragment_string.split("_")
-                if not len(fragment_list) > 5 or not (
-                    "MRM" in fragment_list or "EPI" in fragment_list
-                ):
-                    fragment_id = "_".join(
-                        [fragment_list[0], fragment_list[1], fragment_list[2]]
+            try:
+                if x_type == "Flux":
+                    if experiment_id[cnt] in list(
+                        simulation_info["experiment_id"]
+                    ):
+                        fittedMeasuredFluxResiduals[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": experiment_id[cnt],
+                            "sample_name_abbreviation": simulation_info[
+                                "sample_name_abbreviation"
+                            ][0],
+                            "time_point": time_point[cnt],
+                            "rxn_id": rxn_id[cnt],
+                            "res_data": float(res_data[cnt]),
+                            "res_fit": float(res_fit[cnt]),
+                            "res_peak": res_peak[cnt],
+                            "res_stdev": float(res_stdev[cnt]),
+                            "res_val": float(res_val[cnt]),
+                            "res_msens": None,
+                            "res_esens": None,
+                            "used_": True,
+                            "comment_": None,
+                        }
+                    elif experiment_id[cnt] in list(
+                        simulation_info["sample_name_abbreviation"]
+                    ):
+                        fittedMeasuredFluxResiduals[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": simulation_info["experiment_id"][0],
+                            "sample_name_abbreviation": experiment_id[cnt],
+                            "time_point": time_point[cnt],
+                            "rxn_id": rxn_id[cnt],
+                            "res_data": float(res_data[cnt]),
+                            "res_fit": float(res_fit[cnt]),
+                            "res_peak": res_peak[cnt],
+                            "res_stdev": float(res_stdev[cnt]),
+                            "res_val": float(res_val[cnt]),
+                            "res_msens": None,
+                            "res_esens": None,
+                            "used_": True,
+                            "comment_": None,
+                        }
+                elif x_type == "MS":
+                    # parse the id into fragment_id and mass
+                    fragment_string = rxn_id[cnt]
+                    fragment_string = re.sub("_DASH_", "-", fragment_string)
+                    fragment_string = re.sub(
+                        "_LPARANTHES_", "[(]", fragment_string
                     )
-                    fragment_mass = Formula(fragment_list[2]).mass + float(
-                        fragment_list[3]
+                    fragment_string = re.sub(
+                        "_RPARANTHES_", "[)]", fragment_string
                     )
-                    time_point = fragment_list[4]
+                    fragment_list = fragment_string.split("_")
+                    if not len(fragment_list) > 5 or not (
+                        "MRM" in fragment_list or "EPI" in fragment_list
+                    ):
+                        fragment_id = "_".join(
+                            [fragment_list[0], fragment_list[1], fragment_list[2]]
+                        )
+                        fragment_mass = Formula(fragment_list[2]).mass + float(
+                            fragment_list[3]
+                        )
+                        time_point = fragment_list[4]
+                    else:
+                        fragment_id = "_".join(
+                            [
+                                fragment_list[0],
+                                fragment_list[1],
+                                fragment_list[2],
+                                fragment_list[3],
+                            ]
+                        )
+                        fragment_mass = Formula(fragment_list[2]).mass + float(
+                            fragment_list[4]
+                        )
+                        time_point = fragment_list[5]
+                    fragment_id = re.sub("-", "_DASH_", fragment_id)
+                    fragment_id = re.sub("[(]", "_LPARANTHES_", fragment_id)
+                    fragment_id = re.sub("[)]", "_RPARANTHES_", fragment_id)
+                    if experiment_id[cnt] in list(
+                        simulation_info["experiment_id"]
+                    ):
+                        fittedMeasuredFragmentResiduals[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": experiment_id[cnt],
+                            "sample_name_abbreviation": simulation_info[
+                                "sample_name_abbreviation"
+                            ][0],
+                            "time_point": time_point,
+                            "fragment_id": fragment_id,
+                            "fragment_mass": fragment_mass,
+                            "res_data": float(res_data[cnt]),
+                            "res_fit": float(res_fit[cnt]),
+                            "res_peak": res_peak[cnt],
+                            "res_stdev": float(res_stdev[cnt]),
+                            "res_val": float(res_val[cnt]),
+                            "res_msens": None,
+                            "res_esens": None,
+                            "used_": True,
+                            "comment_": None,
+                        }
+                    elif experiment_id[cnt] in list(
+                        simulation_info["sample_name_abbreviation"]
+                    ):
+                        fittedMeasuredFragmentResiduals[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": simulation_info["experiment_id"][0],
+                            "sample_name_abbreviation": experiment_id[cnt],
+                            "time_point": time_point[cnt],
+                            "fragment_id": fragment_id,
+                            "fragment_mass": fragment_mass,
+                            "res_data": float(res_data[cnt]),
+                            "res_fit": float(res_fit[cnt]),
+                            "res_peak": res_peak[cnt],
+                            "res_stdev": float(res_stdev[cnt]),
+                            "res_val": float(res_val[cnt]),
+                            "res_msens": None,
+                            "res_esens": None,
+                            "used_": True,
+                            "comment_": None,
+                        }
                 else:
-                    fragment_id = "_".join(
-                        [
-                            fragment_list[0],
-                            fragment_list[1],
-                            fragment_list[2],
-                            fragment_list[3],
-                        ]
-                    )
-                    fragment_mass = Formula(fragment_list[2]).mass + float(
-                        fragment_list[4]
-                    )
-                    time_point = fragment_list[5]
-                fragment_id = re.sub("-", "_DASH_", fragment_id)
-                fragment_id = re.sub("[(]", "_LPARANTHES_", fragment_id)
-                fragment_id = re.sub("[)]", "_RPARANTHES_", fragment_id)
-                if experiment_id[cnt] in list(
-                    simulation_info["experiment_id"]
-                ):
-                    fittedMeasuredFragmentResiduals[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": experiment_id[cnt],
-                        "sample_name_abbreviation": simulation_info[
-                            "sample_name_abbreviation"
-                        ][0],
-                        "time_point": time_point,
-                        "fragment_id": fragment_id,
-                        "fragment_mass": fragment_mass,
-                        "res_data": float(res_data[cnt]),
-                        "res_fit": float(res_fit[cnt]),
-                        "res_peak": res_peak[cnt],
-                        "res_stdev": float(res_stdev[cnt]),
-                        "res_val": float(res_val[cnt]),
-                        "res_msens": None,
-                        "res_esens": None,
-                        "used_": True,
-                        "comment_": None,
-                    }
-                elif experiment_id[cnt] in list(
-                    simulation_info["sample_name_abbreviation"]
-                ):
-                    fittedMeasuredFragmentResiduals[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": simulation_info["experiment_id"][0],
-                        "sample_name_abbreviation": experiment_id[cnt],
-                        "time_point": time_point[cnt],
-                        "fragment_id": fragment_id,
-                        "fragment_mass": fragment_mass,
-                        "res_data": float(res_data[cnt]),
-                        "res_fit": float(res_fit[cnt]),
-                        "res_peak": res_peak[cnt],
-                        "res_stdev": float(res_stdev[cnt]),
-                        "res_val": float(res_val[cnt]),
-                        "res_msens": None,
-                        "res_esens": None,
-                        "used_": True,
-                        "comment_": None,
-                    }
-            else:
-                print("type not recognized")
+                    print("type not recognized")
+            except:
+                print("Error retriving information, check input files")
         fittedMeasuredFluxResiduals = pd.DataFrame.from_dict(
             fittedMeasuredFluxResiduals, "index"
         )
@@ -820,94 +829,97 @@ class INCA_reimport:
         ]
 
         for cnt, p_type in enumerate(par_type):
-            if p_type == "Net flux":
-                fittedFluxes[cnt] = {
-                    "simulation_id": simulation_id,
-                    "simulation_dateAndTime": simulation_dateAndTime,
-                    "rxn_id": rxn_id[cnt],
-                    "flux": flux[cnt],
-                    "flux_stdev": flux_stdev[cnt],
-                    "flux_lb": flux_lb[cnt],
-                    "flux_ub": flux_ub[cnt],
-                    "flux_units": flux_units[cnt],
-                    "fit_alf": fit_alf[cnt],
-                    "fit_chi2s": None,
-                    "fit_cor": None,
-                    "fit_cov": None,
-                    "free": free[cnt],
-                    "used_": True,
-                    "comment_": None,
-                }
-            elif p_type == "Norm":
-                # parse the id
-                id_list = rxn_id[cnt].split(" ")
-                expt = id_list[0]
-                fragment_id = id_list[1]
-                fragment_string = id_list[2]
-                units = id_list[3]
-                # parse the id into fragment_id and mass
-                fragment_string = re.sub("_DASH_", "-", fragment_string)
-                fragment_string = re.sub(
-                    "_LPARANTHES_", "[(]", fragment_string
-                )
-                fragment_string = re.sub(
-                    "_RPARANTHES_", "[)]", fragment_string
-                )
-                fragment_list = fragment_string.split("_")
-                if not len(fragment_list) > 5 or not (
-                    "MRM" in fragment_list or "EPI" in fragment_list
-                ):
-                    fragment_mass = Formula(fragment_list[2]).mass + float(
-                        fragment_list[3]
+            try:
+                if p_type == "Net flux":
+                    fittedFluxes[cnt] = {
+                        "simulation_id": simulation_id,
+                        "simulation_dateAndTime": simulation_dateAndTime,
+                        "rxn_id": rxn_id[cnt],
+                        "flux": flux[cnt],
+                        "flux_stdev": flux_stdev[cnt],
+                        "flux_lb": flux_lb[cnt],
+                        "flux_ub": flux_ub[cnt],
+                        "flux_units": flux_units[cnt],
+                        "fit_alf": fit_alf[cnt],
+                        "fit_chi2s": None,
+                        "fit_cor": None,
+                        "fit_cov": None,
+                        "free": free[cnt],
+                        "used_": True,
+                        "comment_": None,
+                    }
+                elif p_type == "Norm":
+                    # parse the id
+                    id_list = rxn_id[cnt].split(" ")
+                    expt = id_list[0]
+                    fragment_id = id_list[1]
+                    fragment_string = id_list[2]
+                    units = id_list[3]
+                    # parse the id into fragment_id and mass
+                    fragment_string = re.sub("_DASH_", "-", fragment_string)
+                    fragment_string = re.sub(
+                        "_LPARANTHES_", "[(]", fragment_string
                     )
-                    time_point = fragment_list[4]
+                    fragment_string = re.sub(
+                        "_RPARANTHES_", "[)]", fragment_string
+                    )
+                    fragment_list = fragment_string.split("_")
+                    if not len(fragment_list) > 5 or not (
+                        "MRM" in fragment_list or "EPI" in fragment_list
+                    ):
+                        fragment_mass = Formula(fragment_list[2]).mass + float(
+                            fragment_list[3]
+                        )
+                        time_point = fragment_list[4]
+                    else:
+                        fragment_mass = Formula(fragment_list[2]).mass + float(
+                            fragment_list[4]
+                        )
+                        time_point = fragment_list[5]
+                    if expt in list(simulation_info["experiment_id"]):
+                        fittedFragments[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": expt,
+                            "sample_name_abbreviation": simulation_info[
+                                "sample_name_abbreviation"
+                            ][0],
+                            "time_point": time_point,
+                            "fragment_id": fragment_id,
+                            "fragment_mass": fragment_mass,
+                            "fit_val": flux[cnt],
+                            "fit_stdev": flux_stdev[cnt],
+                            "fit_units": units,
+                            "fit_alf": fit_alf[cnt],
+                            "fit_cor": None,
+                            "fit_cov": None,
+                            "free": free[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
+                    elif expt in list(simulation_info["sample_name_abbreviation"]):
+                        fittedFragments[cnt] = {
+                            "simulation_id": simulation_id,
+                            "simulation_dateAndTime": simulation_dateAndTime,
+                            "experiment_id": simulation_info["experiment_id"][0],
+                            "sample_name_abbreviation": expt,
+                            "time_point": time_point,
+                            "fragment_id": fragment_id,
+                            "fragment_mass": fragment_mass,
+                            "fit_val": flux[cnt],
+                            "fit_stdev": flux_stdev[cnt],
+                            "fit_units": units,
+                            "fit_alf": fit_alf[cnt],
+                            "fit_cor": None,
+                            "fit_cov": None,
+                            "free": free[cnt],
+                            "used_": True,
+                            "comment_": None,
+                        }
                 else:
-                    fragment_mass = Formula(fragment_list[2]).mass + float(
-                        fragment_list[4]
-                    )
-                    time_point = fragment_list[5]
-                if expt in list(simulation_info["experiment_id"]):
-                    fittedFragments[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": expt,
-                        "sample_name_abbreviation": simulation_info[
-                            "sample_name_abbreviation"
-                        ][0],
-                        "time_point": time_point,
-                        "fragment_id": fragment_id,
-                        "fragment_mass": fragment_mass,
-                        "fit_val": flux[cnt],
-                        "fit_stdev": flux_stdev[cnt],
-                        "fit_units": units,
-                        "fit_alf": fit_alf[cnt],
-                        "fit_cor": None,
-                        "fit_cov": None,
-                        "free": free[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
-                elif expt in list(simulation_info["sample_name_abbreviation"]):
-                    fittedFragments[cnt] = {
-                        "simulation_id": simulation_id,
-                        "simulation_dateAndTime": simulation_dateAndTime,
-                        "experiment_id": simulation_info["experiment_id"][0],
-                        "sample_name_abbreviation": expt,
-                        "time_point": time_point,
-                        "fragment_id": fragment_id,
-                        "fragment_mass": fragment_mass,
-                        "fit_val": flux[cnt],
-                        "fit_stdev": flux_stdev[cnt],
-                        "fit_units": units,
-                        "fit_alf": fit_alf[cnt],
-                        "fit_cor": None,
-                        "fit_cov": None,
-                        "free": free[cnt],
-                        "used_": True,
-                        "comment_": None,
-                    }
-            else:
-                print("type not recognized")
+                    print("type not recognized")
+            except:
+                print("Error retriving information, check input files")
         fittedFluxes = pd.DataFrame.from_dict(fittedFluxes, "index")
         fittedFragments = pd.DataFrame.from_dict(fittedFragments, "index")
         return fittedFluxes, fittedFragments

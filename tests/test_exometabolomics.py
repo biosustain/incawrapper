@@ -127,3 +127,7 @@ class test_methods(unittest.TestCase):
         self.assertEqual(len(df_results), len(df_results_))
         self.assertEqual(len(df_results.columns), len(df_results_.columns))
         self.assertEqual(df_results, df_results_)
+
+
+if __name__ == "__main__":
+    unittest.main()

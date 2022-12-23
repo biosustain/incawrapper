@@ -3,6 +3,7 @@ Methods to prepare  reaction input data to fit the BFAIR INCA tools format.
 """
 
 import pandas as pd
+from more_itertools import locate
 
 
 def reaction_parser(equation_string):
@@ -67,7 +68,7 @@ def reaction_parser(equation_string):
             reactant_and_carbon = reactant_and_carbon.strip()
             stoichiometry = stoichiometry.strip()
             # Convert the stoichiometry to an int
-            stoichiometry = float(stoichiometry)
+            stoichiometry = abs(float(stoichiometry))
         else:
             stoichiometry = 1.0
             reactant_and_carbon = reactant.strip()
@@ -159,6 +160,34 @@ def modelReactions_file_parser(
     ):
         try:
             reactants, products, reversible = reaction_parser(equation)
+            reactant_names = [reactant[0] for reactant in reactants]
+            product_names = [product[0] for product in products]
+            if len(reactant_names) != len(set(reactant_names)):
+                dups = [x for i, x in enumerate(reactant_names) if i != reactant_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in reactants]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    #dup_mappings = [reactants[i][2] for i in dup_indices]
+                    #if dup_mappings[0] == dup_mappings[1][::-1]:
+                    stoic_coef = sum([reactants[i][1] for i in dup_indices[1:]])
+                    tuple_to_change = list(reactants[dup_indices[0]])
+                    tuple_to_change[1] += stoic_coef
+                    reactants[dup_indices[0]] = tuple(tuple_to_change)
+                    for i in dup_indices[1:]:
+                        reactants.pop(i)
+            if len(product_names) != len(set(product_names)):
+                dups = [x for i, x in enumerate(product_names) if i != product_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in products]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    #dup_mappings = [products[i][2] for i in dup_indices]
+                    #if dup_mappings[0] == dup_mappings[1][::-1]:
+                    stoic_coef = sum([products[i][1] for i in dup_indices[1:]])
+                    tuple_to_change = list(products[dup_indices[0]])
+                    tuple_to_change[1] += stoic_coef
+                    products[dup_indices[0]] = tuple(tuple_to_change)
+                    for i in dup_indices[1:]:
+                        products.pop(i)
         except ValueError:
             # Raise an error if the equation is not a valid reaction
             raise ValueError(
@@ -185,29 +214,30 @@ def modelReactions_file_parser(
             "id": reaction_id,
             "model_id": model_id,
             "rxn_id": reaction_id,
-            "rxn_name": "NULL",
+            "rxn_name": None,
             "equation": f"{left_side} {'<-->' if reversible else '-->'} {right_side}",
             "subsystem": "",
             "gpr": "",
             "genes": "{}",
-            "reactant_stoichiometry": f"{{{reaction_stoichiometry}}}",
-            "product_stoichiometry": f"{{{product_stoichiometry}}}",
+            "reactants_stoichiometry": f"{{{reaction_stoichiometry}}}",
+            "products_stoichiometry": f"{{{product_stoichiometry}}}",
             "reactants_ids": f"{{{','.join([reactant[0] for reactant in reactants])}}}",
             "products_ids": f"{{{','.join([product[0] for product in products])}}}",
             "lower_bound": "0",
             "upper_bound": "1000",
             "objective_coefficient": "0",
             "flux_units": "mmol*gDW-1*hr-1",
-            "fixed": "NULL",
-            "free": "NULL",
+            "fixed": None,
+            "free": None,
             "reversibility": f"{reversible}",
-            "weight": "NULL",
-            "used": "True",
+            "weight": None,
+            "used_": "True",
             "comment_": "",
         }
         model_reaction_data.append(model_reaction_output_dict)
 
     return pd.DataFrame(model_reaction_data)
+
 
 def atomMapping_reactions2_file_parser(
     file_path,
@@ -272,6 +302,34 @@ def atomMapping_reactions2_file_parser(
     ):
         try:
             reactants, products, reversible = reaction_parser(equation)
+            reactant_names = [reactant[0] for reactant in reactants]
+            product_names = [product[0] for product in products]
+            if len(reactant_names) != len(set(reactant_names)):
+                dups = [x for i, x in enumerate(reactant_names) if i != reactant_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in reactants]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    dup_mappings = [reactants[i][2] for i in dup_indices]
+                    if dup_mappings[0] == dup_mappings[1][::-1]:
+                        stoic_coef = sum([reactants[i][1] for i in dup_indices[1:]])
+                        tuple_to_change = list(reactants[dup_indices[0]])
+                        tuple_to_change[1] += stoic_coef
+                        reactants[dup_indices[0]] = tuple(tuple_to_change)
+                        for i in dup_indices[1:]:
+                            reactants.pop(i)
+            if len(product_names) != len(set(product_names)):
+                dups = [x for i, x in enumerate(product_names) if i != product_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in products]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    dup_mappings = [products[i][2] for i in dup_indices]
+                    if dup_mappings[0] == dup_mappings[1][::-1]:
+                        stoic_coef = sum([products[i][1] for i in dup_indices[1:]])
+                        tuple_to_change = list(products[dup_indices[0]])
+                        tuple_to_change[1] += stoic_coef
+                        products[dup_indices[0]] = tuple(tuple_to_change)
+                        for i in dup_indices[1:]:
+                            products.pop(i)
         except ValueError:
             # Raise an error if the equation is not a valid reaction
             raise ValueError(
@@ -295,12 +353,40 @@ def atomMapping_reactions2_file_parser(
         right_side = " + ".join(
             [f"{product[1]} {product[0]}" for product in products]
         )
-        tracked_Cs_reactants = [
-            len(reactant[2]) * ['"C"'] for reactant in reactants_with_carbon
-        ]
-        tracked_Cs_products = [
-            len(product[2]) * ['"C"'] for product in products_with_carbon
-        ]
+        #tracked_Cs_reactants = [
+        #    len(reactant[2]) * ['C'] for reactant in reactants_with_carbon
+        #]
+        #tracked_Cs_products = [
+        #    len(product[2]) * ['C'] for product in products_with_carbon
+        #]
+        tracked_Cs_reactants = '['
+        for i, reactant in enumerate(reactants_with_carbon):
+            reactant = reactant[2]
+            if i == 0:
+                if len(reactant) == 1:
+                    tracked_Cs_reactants += '[' + '"C"' + ']'
+                else:
+                    tracked_Cs_reactants += '[' + ', '.join(len(reactant) * ['"C"']) + ']'
+            else:
+                if len(reactant) == 1:
+                    tracked_Cs_reactants += ', [' + '"C"' + ']'
+                else:
+                    tracked_Cs_reactants += ', [' + ', '.join(len(reactant) * ['"C"']) + ']'
+        tracked_Cs_reactants += ']'
+        tracked_Cs_products = '['
+        for i, product in enumerate(products_with_carbon):
+            product = product[2]
+            if i == 0:
+                if len(product) == 1:
+                    tracked_Cs_products += '[' + '"C"' + ']'
+                else:
+                    tracked_Cs_products += '[' + ', '.join(len(product) * ['"C"']) + ']'
+            else:
+                if len(product) == 1:
+                    tracked_Cs_products += ', [' + '"C"' + ']'
+                else:
+                    tracked_Cs_products += ', [' + ', '.join(len(product) * ['"C"']) + ']'
+        tracked_Cs_products += ']'
         reactants_positions_tracked = [
             list(range(len(reactant[2]))) for reactant in reactants_with_carbon
         ]
@@ -313,10 +399,12 @@ def atomMapping_reactions2_file_parser(
             "mapping_id": model_id,
             "rxn_id": reaction_id,
             "rxn_description": "",
-            "reactants_stoichiometry": f"{{{','.join([str(-reactant[1]) for reactant in reactants_with_carbon])}}}",
-            "products_stoichiometry": f"{{{','.join([str(product[1]) for product in products_with_carbon])}}}",
-            "reactants_ids": f"{{{','.join([reactant[0] for reactant in reactants_with_carbon])}}}",
-            "products_ids": f"{{{','.join([product[0] for product in products_with_carbon])}}}",
+            #"reactants_stoichiometry_tracked": f"{{{','.join([str(-reactant[1]) for reactant in reactants_with_carbon])}}}",
+            #"products_stoichiometry_tracked": f"{{{','.join([str(product[1]) for product in products_with_carbon])}}}",
+            "reactants_stoichiometry_tracked": f"{{{','.join([str(-reactant[1]) for reactant in reactants_with_carbon])}}}",
+            "products_stoichiometry_tracked": f"{{{','.join([str(product[1]) for product in products_with_carbon])}}}",
+            "reactants_ids_tracked": f"{{{','.join([reactant[0] for reactant in reactants_with_carbon])}}}",
+            "products_ids_tracked": f"{{{','.join([product[0] for product in products_with_carbon])}}}",
             "reactants_mapping": f"{{{','.join([reactant[2] for reactant in reactants_with_carbon])}}}",
             "products_mapping": f"{{{','.join([product[2] for product in products_with_carbon])}}}",
             "rxn_equation": left_side
@@ -334,6 +422,7 @@ def atomMapping_reactions2_file_parser(
         atom_mapping_data.append(atom_mapping_output_dict)
 
     return pd.DataFrame(atom_mapping_data)
+
 
 def atom_mapping_metabolites_file_parser(
     file_path,
@@ -399,6 +488,7 @@ def atom_mapping_metabolites_file_parser(
     metabolite_data = []
     reactants_list = []
     products_list = []
+    symmetrical_metabolites = []
     # Loop over each row
     for reaction_id, equation in zip(
         df[reaction_id_col_name], df[equation_col_name]
@@ -407,6 +497,24 @@ def atom_mapping_metabolites_file_parser(
             reactants, products, _reversible = reaction_parser(equation)
             reactants_list += reactants
             products_list += products
+            reactant_names = [reactant[0] for reactant in reactants]
+            product_names = [product[0] for product in products]
+            if len(reactant_names) != len(set(reactant_names)):
+                dups = [x for i, x in enumerate(reactant_names) if i != reactant_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in reactants]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    dup_mappings = [reactants[i][2] for i in dup_indices]
+                    if dup_mappings[0] == dup_mappings[1][::-1]:
+                        symmetrical_metabolites.append(dup)
+            if len(product_names) != len(set(product_names)):
+                dups = [x for i, x in enumerate(product_names) if i != product_names.index(x)]
+                for dup in dups:
+                    temp = [t[0] for t in products]
+                    dup_indices = list(locate(temp, lambda x: x == dup))
+                    dup_mappings = [products[i][2] for i in dup_indices]
+                    if dup_mappings[0] == dup_mappings[1][::-1]:
+                        symmetrical_metabolites.append(dup)
         except ValueError:
             # Raise an error if the equation is not a valid reaction
             raise ValueError(
@@ -424,6 +532,7 @@ def atom_mapping_metabolites_file_parser(
         product for product in products_list if product[2] is not None
     ]
     all_metabolites = reactants_with_carbon + products_with_carbon
+    symmetrical_metabolites = list(set(symmetrical_metabolites))
 
     # Make a list of all unique metabolites by name
     unique_metabolites_index = set([])
@@ -434,22 +543,33 @@ def atom_mapping_metabolites_file_parser(
             unique_metabolites.append(metabolite)
 
     for i, metabolite in enumerate(unique_metabolites):
+        met_elements = f"{{{','.join(['C']*len(metabolite[2]))}}}"
+        met_atompositions = f"{{{ ','.join([str(j) for j in range(len(metabolite[2]))])}}}"
+
+        if metabolite[0] in symmetrical_metabolites:
+            met_symmetry_atompositions = f"{{{ ','.join([str(j) for j in range(len(metabolite[2]))][::-1])}}}"
+            met_symmetry_elements = met_elements
+        else:
+            met_symmetry_atompositions = None
+            met_symmetry_elements = None
+
         metabolite_mapping_output_dict = {
             "id": i + 1,
             "mapping_id": model_id,
             "met_id": metabolite[0],
-            "met_elements": f"{{{','.join(['C']*len(metabolite[2]))}}}",
-            "met_atompositions": f"{{{ ','.join([str(j) for j in range(len(metabolite[2]))])}}}",
-            "met_symmetry_atompositions": "NULL",
+            "met_elements": met_elements,
+            "met_atompositions": met_atompositions,
+            "met_symmetry_atompositions": met_symmetry_atompositions,
+            "met_symmetry_elements": met_symmetry_elements,
             "used_": "True",
-            "comment_": "NULL",
-            "met_mapping": "NULL",
-            "base_met_ids": "NULL",
-            "base_met_elements": "NULL",
-            "base_met_atompositions": "NULL",
-            "base_met_symmetry_elements": "NULL",
-            "base_met_symmetry_atompositions": "NULL",
-            "base_met_indices": "NULL",
+            "comment_": None,
+            "met_mapping": None,
+            "base_met_ids": None,
+            "base_met_elements": None,
+            "base_met_atompositions": None,
+            "base_met_symmetry_elements": None,
+            "base_met_symmetry_atompositions": None,
+            "base_met_indices": None,
         }
 
         metabolite_data.append(metabolite_mapping_output_dict)

@@ -4,7 +4,11 @@ Methods to prepare  reaction input data to fit the BFAIR INCA tools format.
 
 import pandas as pd
 from more_itertools import locate
+from collections import Counter
+import logging
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 def reaction_parser(equation_string):
     """
@@ -96,6 +100,34 @@ def reaction_parser(equation_string):
     # Return the parsed reaction tuple
     return (reactant_list, product_list, reversible)
 
+def combine_duplicated_compounds(compounds):
+    """Combine compounds with the same name. When duplicated compounds 
+    are combined the carbon map is no longer valid and is set to None
+    for all compounds.
+
+    Parameters
+    ----------
+    compounds : list of tuples
+        A list of tuples containing the compound name, the compound
+        stoichiometry, and the carbon map.
+
+    Returns
+    -------
+    list of tuples
+        A list of tuples containing the compound name, the compound
+        stoichiometry, and None in the possition of the carbon map. 
+        Where duplicate compounds are combined into a single compound 
+        with increased stoichiometry. 
+
+
+    """
+
+    compound_names = [compound[0] for compound in compounds]
+    compound_counts = Counter(compound_names)
+    out = [(name, stoich_coef, None) for name, stoich_coef in compound_counts.items()]
+    return out
+
+
 
 def modelReactions_file_parser(
     file_path,
@@ -163,31 +195,9 @@ def modelReactions_file_parser(
             reactant_names = [reactant[0] for reactant in reactants]
             product_names = [product[0] for product in products]
             if len(reactant_names) != len(set(reactant_names)):
-                dups = [x for i, x in enumerate(reactant_names) if i != reactant_names.index(x)]
-                for dup in dups:
-                    temp = [t[0] for t in reactants]
-                    dup_indices = list(locate(temp, lambda x: x == dup))
-                    #dup_mappings = [reactants[i][2] for i in dup_indices]
-                    #if dup_mappings[0] == dup_mappings[1][::-1]:
-                    stoic_coef = sum([reactants[i][1] for i in dup_indices[1:]])
-                    tuple_to_change = list(reactants[dup_indices[0]])
-                    tuple_to_change[1] += stoic_coef
-                    reactants[dup_indices[0]] = tuple(tuple_to_change)
-                    for i in dup_indices[1:]:
-                        reactants.pop(i)
+                reactants = combine_duplicated_compounds(reactants)
             if len(product_names) != len(set(product_names)):
-                dups = [x for i, x in enumerate(product_names) if i != product_names.index(x)]
-                for dup in dups:
-                    temp = [t[0] for t in products]
-                    dup_indices = list(locate(temp, lambda x: x == dup))
-                    #dup_mappings = [products[i][2] for i in dup_indices]
-                    #if dup_mappings[0] == dup_mappings[1][::-1]:
-                    stoic_coef = sum([products[i][1] for i in dup_indices[1:]])
-                    tuple_to_change = list(products[dup_indices[0]])
-                    tuple_to_change[1] += stoic_coef
-                    products[dup_indices[0]] = tuple(tuple_to_change)
-                    for i in dup_indices[1:]:
-                        products.pop(i)
+                products = combine_duplicated_compounds(products)
         except ValueError:
             # Raise an error if the equation is not a valid reaction
             raise ValueError(
@@ -310,7 +320,15 @@ def atomMapping_reactions2_file_parser(
                     temp = [t[0] for t in reactants]
                     dup_indices = list(locate(temp, lambda x: x == dup))
                     dup_mappings = [reactants[i][2] for i in dup_indices]
+                    if None in dup_mappings:
+                        # TODO
+                        # This is a temporary fix to protect if statement below 
+                        # from NoneType error. 
+                        # Currently, if a symmetric metabolite is present in a 
+                        # reaction with a missing atom map is not detected.
+                        continue
                     if dup_mappings[0] == dup_mappings[1][::-1]:
+                        logger.debug(f"atomMapping_reactions2_file_parser: Duplicate with symmetric mapping: {dup}")
                         stoic_coef = sum([reactants[i][1] for i in dup_indices[1:]])
                         tuple_to_change = list(reactants[dup_indices[0]])
                         tuple_to_change[1] += stoic_coef
@@ -500,11 +518,21 @@ def atom_mapping_metabolites_file_parser(
             reactant_names = [reactant[0] for reactant in reactants]
             product_names = [product[0] for product in products]
             if len(reactant_names) != len(set(reactant_names)):
+                logger.debug(f"Duplicates in reactants: {reactants}")
                 dups = [x for i, x in enumerate(reactant_names) if i != reactant_names.index(x)]
+                logger.debug(f"Duplicates: {dups}")
                 for dup in dups:
                     temp = [t[0] for t in reactants]
                     dup_indices = list(locate(temp, lambda x: x == dup))
                     dup_mappings = [reactants[i][2] for i in dup_indices]
+                    logger.debug(f"Duplicate mappings: {dup_mappings}")
+                    if None in dup_mappings: 
+                        # TODO
+                        # This is a temporary fix to protect if statement below 
+                        # from NoneType error. 
+                        # Currently, if a symmetric metabolite is present in a 
+                        # reaction with a missing atom map is not detected.
+                        continue
                     if dup_mappings[0] == dup_mappings[1][::-1]:
                         symmetrical_metabolites.append(dup)
             if len(product_names) != len(set(product_names)):

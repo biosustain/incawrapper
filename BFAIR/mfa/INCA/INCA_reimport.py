@@ -10,9 +10,14 @@ import os
 import pandas as pd
 from datetime import datetime
 from stat import ST_SIZE, ST_MTIME
+import logging
+import traceback
 
 __version__ = "1.0.0"
 
+# Setup logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 class INCA_reimport:
     def __init__(self):
@@ -654,7 +659,7 @@ class INCA_reimport:
                 else:
                     print("type not recognized")
             except:
-                print("Error retriving information, check input files")
+                logger.warning(f"Error retriving information from {x_type}, check input files")
         fittedMeasuredFluxResiduals = pd.DataFrame.from_dict(
             fittedMeasuredFluxResiduals, "index"
         )
@@ -867,6 +872,7 @@ class INCA_reimport:
                     if not len(fragment_list) > 5 or not (
                         "MRM" in fragment_list or "EPI" in fragment_list
                     ):
+                        logging.DEBUG(f"Fragment list: {str(fragment_list)}")
                         fragment_mass = Formula(fragment_list[2]).mass + float(
                             fragment_list[3]
                         )
@@ -918,8 +924,9 @@ class INCA_reimport:
                         }
                 else:
                     print("type not recognized")
-            except:
-                print("Error retriving information, check input files")
+            except Exception as e:
+                logger.warning(f"Error retriving parameter information from {p_type}, check input files")
+                logger.debug(f"Recived error:\n{traceback.format_exc()}")
         fittedFluxes = pd.DataFrame.from_dict(fittedFluxes, "index")
         fittedFragments = pd.DataFrame.from_dict(fittedFragments, "index")
         return fittedFluxes, fittedFragments

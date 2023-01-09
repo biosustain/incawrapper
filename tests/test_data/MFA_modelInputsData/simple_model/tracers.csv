@@ -1,0 +1,2 @@
+"id","experiment_id","sample_name_abbreviation","met_id","met_name","isotopomer_formula","met_elements","met_atompositions","ratio","supplier","supplier_reference","purity","comment_"
+7,"exp1","sample1","A","[1-13C]A","{[13C]HO,CH1O,CH2O}","{C}","{1}","1",NULL,NULL,"1",NULL

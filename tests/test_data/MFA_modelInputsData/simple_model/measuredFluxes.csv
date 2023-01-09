@@ -1,0 +1,2 @@
+"id","experiment_id","model_id","sample_name_abbreviation","rxn_id","flux_average","flux_stdev","flux_lb","flux_ub","flux_units","used_","comment_"
+1,"exp1","simple_model","sample1","R1","100","0.0001","99","101","hr-1",True,NULL

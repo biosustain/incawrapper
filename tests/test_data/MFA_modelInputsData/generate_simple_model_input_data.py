@@ -18,10 +18,10 @@ os.chdir(dotenv.find_dotenv().replace('.env', ''))
 print(os.getcwd())
 # %%
 # setup the input and output files
-filename_input = 'tests/test_data/simple_model/reactions.csv'
-reaction_data = 'tests/test_data/simple_model/modelReactions.csv'
-reaction_atom_mapping = 'tests/test_data/simple_model/atomMappingReaction2.csv'
-metabolite_atom_mapping = 'tests/test_data/simple_model/atomMappingMetabolites.csv'
+filename_input = 'tests/test_data/MFA_modelInputsData/simple_model/reactions.csv'
+reaction_data = 'tests/test_data/MFA_modelInputsData/simple_model/modelReactions.csv'
+reaction_atom_mapping = 'tests/test_data/MFA_modelInputsData/simple_model/atomMappingReaction2.csv'
+metabolite_atom_mapping = 'tests/test_data/MFA_modelInputsData/simple_model/atomMappingMetabolites.csv'
 
 # make reactions mapping file
 bfair_reactions_input = modelReactions_file_parser(filename_input, 'simple_model', 'reaction_id', 'reaction_equation')

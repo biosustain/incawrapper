@@ -51,6 +51,19 @@ def atomMappingReactions_data_simple():
     )
     return atomMappingReactions_data_I
 
+@pytest.fixture
+def atomMappingMetabolites_data_simple():
+    """Load the atomMappingMetabolite_data from the simple model."""
+    atomMappingMetabolite_data_I = pd.read_csv(
+        os.path.join(
+            "tests",
+            "test_data",
+            "MFA_modelInputsData",
+            "simple_model",
+            "atomMappingMetabolites.csv",
+        )
+    )
+    return atomMappingMetabolite_data_I
 
 @pytest.fixture
 def reaction_ids(
@@ -77,6 +90,34 @@ def measuredFluxes_data_simple():
         )
     )
     return measuredFluxes_data_I
+
+@pytest.fixture
+def experimentalMS_data_simple():
+    """Load the the experimentalMS_data from the simple model."""
+    experimentalMS_data_I = pd.read_csv(
+        os.path.join(
+            "tests",
+            "test_data",
+            "MFA_modelInputsData",
+            "simple_model",
+            "experimentalMS.csv",
+        )
+    )
+    return experimentalMS_data_I
+    
+@pytest.fixture
+def tracers_data_simple():
+    """Load the tracers from the simple model."""
+    tracers_data_I = pd.read_csv(
+        os.path.join(
+            "tests",
+            "test_data",
+            "MFA_modelInputsData",
+            "simple_model",
+            "tracers.csv",
+        )
+    )
+    return tracers_data_I
 
 def test_add_reactions_to_script(
     inca_script, modelReaction_data_simple, atomMappingReactions_data_simple
@@ -161,3 +202,96 @@ m.rates.id = {...
 
     assert script == expected_script
 
+def test_add_experiment_parameters(
+    inca_script,
+    experimentalMS_data_simple,
+    tracers_data_simple,
+    measuredFluxes_data_simple,
+    atomMappingMetabolites_data_simple,
+):
+    """Test the add_experiment_parameters function against a simple model.
+    This function has two outputs (script and fragments_used) both of which are tested."""
+
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    expected_script = """
+% define which fragments of molecules were measured in which experiment
+d = msdata({...
+'F1: F @ C1 C2 C3';
+});
+
+% initialize mass distribution vector
+d.idvs = idv;
+
+% define tracers used in the experiments
+t = tracer({...
+'[1-13C]A: A.EX @ C1';...
+});
+
+% define fractions of tracers used
+t.frac = [ 1 ];
+
+% define experiments for fit data
+f = data(' R1 ');
+
+% add fit values
+f.val = [...
+100,...
+];
+% add fit stds
+f.std = [...
+0.0001,...
+];
+
+% initialize experiment with t and add f and d
+x = experiment(t);
+x.data_flx = f;
+x.data_ms = d;
+
+% assing all the previous values to a specific experiment
+m.expts(1) = x;
+
+m.expts(1).id = {'exp1'};
+"""
+
+    expected_fragments_used = ['F1']
+
+    # Calling the function
+    script, fragments_used = inca_script.add_experimental_parameters(
+        experimentalMS_data_simple,
+        tracers_data_simple,
+        measuredFluxes_data_simple,
+        atomMappingMetabolites_data_simple,
+    )
+
+    assert script == expected_script
+    assert fragments_used == expected_fragments_used
+
+def test_script_generator(
+        inca_script,
+        modelReaction_data_simple,
+        atomMappingReactions_data_simple,
+        atomMappingMetabolites_data_simple,
+        measuredFluxes_data_simple,
+        experimentalMS_data_simple,
+        tracers_data_simple,
+    ):
+    """Test the script_generator function against a simple model."""
+    script = inca_script.script_generator(
+        modelReaction_data_simple,
+        atomMappingReactions_data_simple,
+        atomMappingMetabolites_data_simple,
+        measuredFluxes_data_simple,
+        experimentalMS_data_simple,
+        tracers_data_simple,
+    )
+    # Generate updated test script:
+    # inca_script.save_INCA_script(script=script, scriptname="testscript_simple")
+    # Run the following in the terminal: mv ../testscript_simple.m test_data/MFA_modelInputsData/simple_model 
+    
+
+    # read the testscript_simple file
+    filename = os.path.join("tests","test_data","MFA_modelInputsData","simple_model","testscript_simple.m")
+    with open(filename, "r") as f:
+        expected_script = f.read()
+    assert script == expected_script

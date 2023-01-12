@@ -51,6 +51,34 @@ def atomMappingReactions_data_simple():
     )
     return atomMappingReactions_data_I
 
+
+@pytest.fixture
+def atomMappingMetabolites_symmetric_metabolite():
+    """A dataFrame which contains a symmetric metabolite used to test
+    correct parsing symmetric metabolites from the atomMappingMetabolites
+    file."""
+
+    data = [{
+        "id":1,
+        "mapping_id":"simple_model",
+        "met_id":"A",
+        "met_elements":"{C,C,C}",
+        "met_atompositions":"{0,1,2}",
+        "met_symmetry_atompositions":"{3,2,1}",
+        "met_symmetry_elements":"{C,C,C}",
+        "used_":True,
+        "comment_":pd.NA,
+        "met_mapping":pd.NA,
+        "base_met_ids":pd.NA,
+        "base_met_elements":pd.NA,
+        "base_met_atompositions":pd.NA,
+        "base_met_symmetry_elements":pd.NA,
+        "base_met_symmetry_atompositions":pd.NA,
+        "base_met_indices":pd.NA,
+    }]
+    return pd.DataFrame.from_records(data)
+
+
 @pytest.fixture
 def atomMappingMetabolites_data_simple():
     """Load the atomMappingMetabolite_data from the simple model."""
@@ -65,17 +93,19 @@ def atomMappingMetabolites_data_simple():
     )
     return atomMappingMetabolite_data_I
 
+
 @pytest.fixture
 def reaction_ids(
     inca_script, modelReaction_data_simple, atomMappingReactions_data_simple
 ):
-    """The reaction ids are produced by the add_reactions_to_script function, 
-    which is tested benieth, but they are also a require input for 
+    """The reaction ids are produced by the add_reactions_to_script function,
+    which is tested benieth, but they are also a require input for
     .add_reaction_parameters therefore this fixture is produced."""
     _, reaction_ids = inca_script.add_reactions_to_script(
         modelReaction_data_simple, atomMappingReactions_data_simple
     )
     return reaction_ids
+
 
 @pytest.fixture
 def measuredFluxes_data_simple():
@@ -91,6 +121,7 @@ def measuredFluxes_data_simple():
     )
     return measuredFluxes_data_I
 
+
 @pytest.fixture
 def experimentalMS_data_simple():
     """Load the the experimentalMS_data from the simple model."""
@@ -104,7 +135,8 @@ def experimentalMS_data_simple():
         )
     )
     return experimentalMS_data_I
-    
+
+
 @pytest.fixture
 def tracers_data_simple():
     """Load the tracers from the simple model."""
@@ -118,6 +150,7 @@ def tracers_data_simple():
         )
     )
     return tracers_data_I
+
 
 def test_add_reactions_to_script(
     inca_script, modelReaction_data_simple, atomMappingReactions_data_simple
@@ -145,8 +178,10 @@ def test_add_reactions_to_script(
     assert reaction_ids == expected_reaction_ids
 
 
-def test_add_reaction_parameters(inca_script, modelReaction_data_simple, reaction_ids, measuredFluxes_data_simple):
-    
+def test_add_reaction_parameters(
+    inca_script, modelReaction_data_simple, reaction_ids, measuredFluxes_data_simple
+):
+
     expected_script = """
 % define lower bounds
 m.rates.flx.lb = [...
@@ -202,6 +237,7 @@ m.rates.id = {...
 
     assert script == expected_script
 
+
 def test_add_experiment_parameters(
     inca_script,
     experimentalMS_data_simple,
@@ -254,7 +290,7 @@ m.expts(1) = x;
 m.expts(1).id = {'exp1'};
 """
 
-    expected_fragments_used = ['F1']
+    expected_fragments_used = ["F1"]
 
     # Calling the function
     script, fragments_used = inca_script.add_experimental_parameters(
@@ -267,15 +303,16 @@ m.expts(1).id = {'exp1'};
     assert script == expected_script
     assert fragments_used == expected_fragments_used
 
+
 def test_script_generator(
-        inca_script,
-        modelReaction_data_simple,
-        atomMappingReactions_data_simple,
-        atomMappingMetabolites_data_simple,
-        measuredFluxes_data_simple,
-        experimentalMS_data_simple,
-        tracers_data_simple,
-    ):
+    inca_script,
+    modelReaction_data_simple,
+    atomMappingReactions_data_simple,
+    atomMappingMetabolites_data_simple,
+    measuredFluxes_data_simple,
+    experimentalMS_data_simple,
+    tracers_data_simple,
+):
     """Test the script_generator function against a simple model."""
     script = inca_script.script_generator(
         modelReaction_data_simple,
@@ -287,11 +324,28 @@ def test_script_generator(
     )
     # Generate updated test script:
     # inca_script.save_INCA_script(script=script, scriptname="testscript_simple")
-    # Run the following in the terminal: mv ../testscript_simple.m test_data/MFA_modelInputsData/simple_model 
-    
+    # Run the following in the terminal: mv ../testscript_simple.m test_data/MFA_modelInputsData/simple_model
 
     # read the testscript_simple file
-    filename = os.path.join("tests","test_data","MFA_modelInputsData","simple_model","testscript_simple.m")
+    filename = os.path.join(
+        "tests",
+        "test_data",
+        "MFA_modelInputsData",
+        "simple_model",
+        "testscript_simple.m",
+    )
     with open(filename, "r") as f:
         expected_script = f.read()
+    assert script == expected_script
+
+def test_symmetrical_metabolites(inca_script, atomMappingMetabolites_symmetric_metabolite):
+    """Test if the add_symmetric_metabolites function correctly writes the matlab script."""
+
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    expected_script = """% take care of symmetrical metabolites
+m.mets{'A'}.sym = list('rotate180', atommap('C1:C4 C2:C3 C3:C2'));
+
+"""
+    script = inca_script.symmetrical_metabolites(atomMappingMetabolites_symmetric_metabolite)
     assert script == expected_script

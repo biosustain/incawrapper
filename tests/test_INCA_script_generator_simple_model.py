@@ -58,24 +58,26 @@ def atomMappingMetabolites_symmetric_metabolite():
     correct parsing symmetric metabolites from the atomMappingMetabolites
     file."""
 
-    data = [{
-        "id":1,
-        "mapping_id":"simple_model",
-        "met_id":"A",
-        "met_elements":"{C,C,C}",
-        "met_atompositions":"{0,1,2}",
-        "met_symmetry_atompositions":"{3,2,1}",
-        "met_symmetry_elements":"{C,C,C}",
-        "used_":True,
-        "comment_":pd.NA,
-        "met_mapping":pd.NA,
-        "base_met_ids":pd.NA,
-        "base_met_elements":pd.NA,
-        "base_met_atompositions":pd.NA,
-        "base_met_symmetry_elements":pd.NA,
-        "base_met_symmetry_atompositions":pd.NA,
-        "base_met_indices":pd.NA,
-    }]
+    data = [
+        {
+            "id": 1,
+            "mapping_id": "simple_model",
+            "met_id": "A",
+            "met_elements": "{C,C,C}",
+            "met_atompositions": "{0,1,2}",
+            "met_symmetry_atompositions": "{3,2,1}",
+            "met_symmetry_elements": "{C,C,C}",
+            "used_": True,
+            "comment_": pd.NA,
+            "met_mapping": pd.NA,
+            "base_met_ids": pd.NA,
+            "base_met_elements": pd.NA,
+            "base_met_atompositions": pd.NA,
+            "base_met_symmetry_elements": pd.NA,
+            "base_met_symmetry_atompositions": pd.NA,
+            "base_met_indices": pd.NA,
+        }
+    ]
     return pd.DataFrame.from_records(data)
 
 
@@ -135,6 +137,26 @@ def experimentalMS_data_simple():
         )
     )
     return experimentalMS_data_I
+
+
+@pytest.fixture
+def fragments_used_simple(
+    inca_script,
+    experimentalMS_data_simple,
+    tracers_data_simple,
+    measuredFluxes_data_simple,
+    atomMappingMetabolites_data_simple,
+):
+    """Fragments_used is produced by the add_experimental_parameters method,
+    but the .mapping() method fragements_used as an input. Therefore a separate
+    fixture is produced."""
+    _, fragments_used = inca_script.add_experimental_parameters(
+        experimentalMS_data_simple,
+        tracers_data_simple,
+        measuredFluxes_data_simple,
+        atomMappingMetabolites_data_simple,
+    )
+    return fragments_used
 
 
 @pytest.fixture
@@ -338,7 +360,10 @@ def test_script_generator(
         expected_script = f.read()
     assert script == expected_script
 
-def test_symmetrical_metabolites(inca_script, atomMappingMetabolites_symmetric_metabolite):
+
+def test_symmetrical_metabolites(
+    inca_script, atomMappingMetabolites_symmetric_metabolite
+):
     """Test if the add_symmetric_metabolites function correctly writes the matlab script."""
 
     # Defines the expected experiment script.
@@ -347,5 +372,29 @@ def test_symmetrical_metabolites(inca_script, atomMappingMetabolites_symmetric_m
 m.mets{'A'}.sym = list('rotate180', atommap('C1:C4 C2:C3 C3:C2'));
 
 """
-    script = inca_script.symmetrical_metabolites(atomMappingMetabolites_symmetric_metabolite)
+    script = inca_script.symmetrical_metabolites(
+        atomMappingMetabolites_symmetric_metabolite
+    )
+    assert script == expected_script
+
+
+def test_mapping(inca_script, experimentalMS_data_simple, fragments_used_simple):
+    """Test if the add_mapping function correctly writes the matlab script."""
+
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    script = inca_script.mapping(experimentalMS_data_simple, fragments_used_simple)
+    expected_script = """
+% add experimental data for annotated fragments
+m.expts(1).data_ms(1).idvs.id(1,1) = {'F1_0_0_exp1'};
+m.expts(1).data_ms(1).idvs.time(1,1) = 0;
+m.expts(1).data_ms(1).idvs.val(1,1) = 0.000100;
+m.expts(1).data_ms(1).idvs.std(1,1) = 0.001;
+m.expts(1).data_ms(1).idvs.val(2,1) = 0.800800;
+m.expts(1).data_ms(1).idvs.std(2,1) = 0.002402;
+m.expts(1).data_ms(1).idvs.val(3,1) = 0.198300;
+m.expts(1).data_ms(1).idvs.std(3,1) = 0.001;
+m.expts(1).data_ms(1).idvs.val(4,1) = 0.000900;
+m.expts(1).data_ms(1).idvs.std(4,1) = 0.001;
+"""
     assert script == expected_script

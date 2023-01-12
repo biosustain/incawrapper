@@ -140,6 +140,23 @@ def experimentalMS_data_simple():
 
 
 @pytest.fixture
+def experimentalMS_data_multiple_experiments():
+    """Load the experimentalMS_data for in instance with multiple
+    experiments."""
+
+    experimentalMS_data_I = pd.read_csv(
+        os.path.join(
+            "tests",
+            "test_data",
+            "MFA_modelInputsData",
+            "simple_model",
+            "experimentalMS_data_multiple_experiments.csv",
+        )
+    )
+    return experimentalMS_data_I
+
+
+@pytest.fixture
 def fragments_used_simple(
     inca_script,
     experimentalMS_data_simple,
@@ -397,4 +414,44 @@ m.expts(1).data_ms(1).idvs.std(3,1) = 0.001;
 m.expts(1).data_ms(1).idvs.val(4,1) = 0.000900;
 m.expts(1).data_ms(1).idvs.std(4,1) = 0.001;
 """
+    assert script == expected_script
+
+
+def test_mapping_multiple_experiments(
+    inca_script, experimentalMS_data_multiple_experiments, fragments_used_simple
+):
+    """Test if the add_mapping function correctly writes the matlab script for multiple experiments."""
+
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    expected_script = """
+% add experimental data for annotated fragments
+m.expts(1).data_ms(1).idvs.id(1,1) = {'F1_0_0_exp1'};
+m.expts(1).data_ms(1).idvs.time(1,1) = 0;
+m.expts(1).data_ms(1).idvs.val(1,1) = 0.000100;
+m.expts(1).data_ms(1).idvs.std(1,1) = 0.001;
+m.expts(1).data_ms(1).idvs.val(2,1) = 0.800800;
+m.expts(1).data_ms(1).idvs.std(2,1) = 0.002402;
+m.expts(1).data_ms(1).idvs.val(3,1) = 0.198300;
+m.expts(1).data_ms(1).idvs.std(3,1) = 0.001;
+m.expts(1).data_ms(1).idvs.val(4,1) = 0.000900;
+m.expts(1).data_ms(1).idvs.std(4,1) = 0.001;
+
+% add experimental data for annotated fragments
+m.expts(2).data_ms(1).idvs.id(1,1) = {'F1_0_0_exp2'};
+m.expts(2).data_ms(1).idvs.time(1,1) = 0;
+m.expts(2).data_ms(1).idvs.val(1,1) = NaN;
+m.expts(2).data_ms(1).idvs.std(1,1) = 0.001;
+m.expts(2).data_ms(1).idvs.val(2,1) = 0.900000;
+m.expts(2).data_ms(1).idvs.std(2,1) = 0.002402;
+m.expts(2).data_ms(1).idvs.val(3,1) = 0.100000;
+m.expts(2).data_ms(1).idvs.std(3,1) = 0.001;
+m.expts(2).data_ms(1).idvs.val(4,1) = NaN;
+m.expts(2).data_ms(1).idvs.std(4,1) = 0.001;
+"""
+
+    script = inca_script.mapping(
+        experimentalMS_data_multiple_experiments, fragments_used_simple
+    )
+
     assert script == expected_script

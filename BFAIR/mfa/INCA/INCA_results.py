@@ -231,3 +231,12 @@ class INCA_results:
         """
         metabolites = pd.DataFrame.from_records(self.matlab_obj["m"]["mets"])
         return metabolites["id"].to_list()
+
+    def get_states(self) -> pd.DataFrame:
+        """
+        Return the states, from the fitted model.
+
+        Returns:
+            pd.DataFrame: Dataframe with the states
+        """
+        return pd.DataFrame.from_records(self.matlab_obj["m"]["states"])

@@ -17,3 +17,10 @@ def test_get_metabolite_ids(inca_results):
         'A', 'B', 'C', 'D', 'E', 'F'
     ]
     assert inca_results.get_metabolite_ids() == expected_metabolite_ids
+
+def test_wrong_file_type():
+    """
+    Tests if the correct error is raised if the file is not a .mat file
+    """
+    with pytest.raises(ValueError):
+        INCA_results(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.m"))

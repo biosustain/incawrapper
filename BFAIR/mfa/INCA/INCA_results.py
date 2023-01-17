@@ -82,7 +82,7 @@ class INCA_results:
             else:
                 return ndarray
 
-        data = loadmat(self.inca_matlab_file, struct_as_record=False, squeeze_me=True)
+        data = loadmat(self.inca_matlab_file, struct_as_record=False, squeeze_me=True, appendmat=False)
         return _check_vars(data)
 
     def _parse_fitted_parameters(self):

@@ -11,12 +11,13 @@ def inca_results():
 
 def test_get_metabolite_ids(inca_results):
     """
-    Tests if the metabolite ids are correctly extracted
+    Tests if the inca model is properly loaded and thus the metabolite ids are 
+    correctly extracted from the model object.
     """
     expected_metabolite_ids = [
         'A', 'B', 'C', 'D', 'E', 'F'
     ]
-    assert inca_results.get_metabolite_ids() == expected_metabolite_ids
+    assert inca_results.model.get_metabolite_ids() == expected_metabolite_ids
 
 def test_wrong_file_type():
     """

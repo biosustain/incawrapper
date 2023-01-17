@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-from BFAIR.mfa.INCA import INCA_reimport
+from BFAIR.mfa.INCA import load_matlab_file
+from BFAIR.mfa.INCA.INCA_model import INCA_model
 from dataclasses import dataclass
 import pathlib
-from scipy.io import loadmat, matlab
 from typing import Literal, Dict, List
 
 
@@ -12,78 +12,20 @@ class INCA_results:
     """
     This class parses the output from INCA and stores the data in a dataclass. On init the class
     loads the matlab file and parses the data into several pandas dataframe, which can be accessed
-    via the class attributes.
+    via the class attributes. The class also contains the INCA_model class, which can be accessed
+    via the model attribute. This contains information about the model which was fitted.
     """
 
     inca_matlab_file: pathlib.Path
 
     def __post_init__(self):
-        self.matlab_obj: Dict = self._load_mat()
-        self.inca_options: Dict = self.matlab_obj["m"]["options"]
+        self.matlab_obj: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)
+        self.model: INCA_model = INCA_model(self.inca_matlab_file)
         self.fitted_parameters: pd.DataFrame = self._parse_fitted_parameters()
         self.fit_overview: pd.DataFrame = self._parse_fit_overview()
         self.fit_detailed_fluxes: pd.DataFrame = self._parse_fit_detailed_fluxes()
         self.fit_detailed_ms: pd.DataFrame = self._parse_fit_detailed_ms()
 
-    def _load_mat(self):
-        """
-        This function should be called instead of direct scipy.io.loadmat
-        as it cures the problem of not properly recovering python dictionaries
-        from mat files. It calls the function check keys to cure all entries
-        which are still mat-objects
-
-        Thanks to Jeff Lin for this solution
-        From: https://stackoverflow.com/questions/48970785/complex-matlab-struct-mat-file-read-by-python
-        """
-
-        def _check_vars(d):
-            """
-            Checks if entries in dictionary are mat-objects. If yes
-            todict is called to change them to nested dictionaries
-            """
-            for key in d:
-                if isinstance(d[key], matlab.mat_struct):
-                    d[key] = _todict(d[key])
-                elif isinstance(d[key], np.ndarray):
-                    d[key] = _toarray(d[key])
-            return d
-
-        def _todict(matobj):
-            """
-            A recursive function which constructs from matobjects nested dictionaries
-            """
-            d = {}
-            for strg in matobj._fieldnames:
-                elem = matobj.__dict__[strg]
-                if isinstance(elem, matlab.mat_struct):
-                    d[strg] = _todict(elem)
-                elif isinstance(elem, np.ndarray):
-                    d[strg] = _toarray(elem)
-                else:
-                    d[strg] = elem
-            return d
-
-        def _toarray(ndarray):
-            """
-            A recursive function which constructs ndarray from cellarrays
-            (which are loaded as numpy ndarrays), recursing into the elements
-            if they contain matobjects.
-            """
-            if ndarray.dtype != "float64":
-                elem_list = []
-                for sub_elem in ndarray:
-                    if isinstance(sub_elem, matlab.mat_struct):
-                        elem_list.append(_todict(sub_elem))
-                    elif isinstance(sub_elem, np.ndarray):
-                        elem_list.append(_toarray(sub_elem))
-                    else:
-                        elem_list.append(sub_elem)
-                return np.array(elem_list)
-            else:
-                return ndarray
-
-        data = loadmat(self.inca_matlab_file, struct_as_record=False, squeeze_me=True, appendmat=False)
-        return _check_vars(data)
 
     def _parse_fitted_parameters(self):
         """
@@ -221,22 +163,3 @@ class INCA_results:
 
     def _parse_fit_detailed_pools(self):
         raise (NotImplementedError)
-
-    def get_metabolite_ids(self) -> List:
-        """
-        Return the metabolite ids, from the fitted model.
-
-        Returns:
-            List: List of metabolite ids
-        """
-        metabolites = pd.DataFrame.from_records(self.matlab_obj["m"]["mets"])
-        return metabolites["id"].to_list()
-
-    def get_states(self) -> pd.DataFrame:
-        """
-        Return the states, from the fitted model.
-
-        Returns:
-            pd.DataFrame: Dataframe with the states
-        """
-        return pd.DataFrame.from_records(self.matlab_obj["m"]["states"])

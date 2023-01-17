@@ -1,0 +1,26 @@
+import pytest
+import pathlib
+import os 
+from BFAIR.mfa.INCA.INCA_model import INCA_model
+
+current_dir = str(pathlib.Path(__file__).parent.absolute())
+
+@pytest.fixture
+def inca_model():
+    return INCA_model(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.mat"))
+
+def test_get_metabolite_ids(inca_model):
+    """
+    Tests if the metabolite ids are correctly extracted
+    """
+    expected_metabolite_ids = [
+        'A', 'B', 'C', 'D', 'E', 'F'
+    ]
+    assert inca_model.get_metabolite_ids() == expected_metabolite_ids
+
+def test_inca_options(inca_model):
+    """
+    Tests if the inca options are correctly extracted
+    """
+    assert type(inca_model.inca_options) == dict
+    assert inca_model.inca_options['cont_alpha'] == 0.05

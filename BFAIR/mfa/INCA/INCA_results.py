@@ -22,9 +22,8 @@ class INCA_results:
         self.matlab_obj: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)
         self.model: INCA_model = INCA_model(self.inca_matlab_file)
         self.fitted_parameters: pd.DataFrame = self._parse_fitted_parameters()
-        self.fit_overview: pd.DataFrame = self._parse_fit_overview()
-        self.fit_detailed_fluxes: pd.DataFrame = self._parse_fit_detailed_fluxes()
-        self.fit_detailed_ms: pd.DataFrame = self._parse_fit_detailed_ms()
+        self.measurements_and_fit_overview: pd.DataFrame = self._parse_measurements_and_fit_overview()
+        self.measurements_and_fit_detailed: pd.DataFrame = self._parse_measurements_and_fit_detailed()
 
 
     def _parse_fitted_parameters(self):
@@ -53,7 +52,7 @@ class INCA_results:
         )
         return df
 
-    def _parse_fit_overview(self):
+    def _parse_measurements_and_fit_overview(self):
         """
         This function parse an overview of the measurements and their overall fit,
         i.e. the conbined values accross all data points in the measurement. For
@@ -66,7 +65,7 @@ class INCA_results:
         )  # drop the residuals infomation. This is accessed seperatly
         return overview
 
-    def _parse_fit_detailed_quantity(self, quantity: Literal["Flux", "MS", "Pool"]):
+    def _parse_measurements_and_fit_detailed(self):
         """
         This function parses an overview of a specific quantity (Flux, MS, or Pool).
         It is used by specific functions to parse the fluxes, MS, and pools.
@@ -74,46 +73,23 @@ class INCA_results:
         Returns:
             df: pandas dataframe to be futher processed by the specific functions
         """
-        flux_residual_info = np.array([])
+        detailed_info = np.array([])
         for measurement in self.matlab_obj["f"]["mnt"]:
-            if measurement["type"] == quantity:
-                flux_residual_info = np.append(flux_residual_info, measurement["res"])
+            detailed_info = np.append(detailed_info, measurement["res"])
         df = (
-            pd.DataFrame.from_records(flux_residual_info)
+            pd.DataFrame.from_records(detailed_info)
             # drop the columns which are not needed
             # esens and msens are the sensitivity diagnostics, which are handled seperatly
-            .drop(columns=["esens", "msens"]).rename(
+            .drop(
+                columns=["esens", "msens", 'cont']
+            ).rename(
                 columns={"val": "weighted residual"}
-            )
-        )
-        return df
-
-    def _parse_fit_detailed_fluxes(self):
-        """
-        This function parses an overview of all individual flux measurements from the
-        measurements (mnt) array.
-
-        output:
-            df: pandas dataframe with the following columns:
-                expt: experiment id
-                id: measurement id
-                type: measurement type (Flux or Fragment)
-                time: time of measurement
-                data: measured data
-                std: standard deviation of the measurement
-                fit: fitted data
-                weigthed residual: residual value of the fit weighted by the standard deviation of the measurement
-                cont: contribution of the measurement to each fitted parameter.
-                base: DONT know what this is
-        """
-        df = (
-            self._parse_fit_detailed_quantity("Flux")
-            # peak is not relevant for fluxes.
-            .reindex(
+            ).reindex(
                 columns=[
                     "type",
                     "expt",
                     "id",
+                    "peak",
                     "time",
                     "data",
                     "std",
@@ -126,10 +102,10 @@ class INCA_results:
         )
         return df
 
-    def _parse_fit_detailed_ms(self):
+    def get_measurements_and_fit_detailed(self, quantity: Literal["Flux", "Fragment", "Pool"]):
         """
-        This function parses an overview of all individual MS (typical framgent) measurements from the
-        measurements (mnt) array.
+        Return a copy of the measurements and fit detailed dataframe which only contain 
+        the desired quantity. 
 
         output:
             df: pandas dataframe with the following columns:
@@ -144,22 +120,13 @@ class INCA_results:
                 cont: contribution of the measurement to each fitted parameter.
                 base: DONT know what this is
         """
-        df = self._parse_fit_detailed_quantity("MS").reindex(
-            columns=[
-                "type",
-                "expt",
-                "id",
-                "peak",
-                "time",
-                "data",
-                "std",
-                "fit",
-                "weighted residual",
-                "cont",
-                "base",
-            ]
+        df = (
+            self.measurements_and_fit_detailed
+            .query(f"type == '{quantity}'")
+            .copy()
         )
-        return df
 
-    def _parse_fit_detailed_pools(self):
-        raise (NotImplementedError)
+        if quantity in ["Flux", "Pool"]:
+            df = df.drop(columns=["peak"])
+        return df
+    

@@ -4,7 +4,8 @@ from BFAIR.mfa.INCA import load_matlab_file
 from BFAIR.mfa.INCA.INCA_model import INCA_model
 from dataclasses import dataclass
 import pathlib
-from typing import Literal, Dict, List
+from typing import Literal, Dict, Iterable, Callable
+import scipy.stats
 
 
 @dataclass
@@ -24,6 +25,10 @@ class INCA_results:
         self.fitted_parameters: pd.DataFrame = self._parse_fitted_parameters()
         self.measurements_and_fit_overview: pd.DataFrame = self._parse_measurements_and_fit_overview()
         self.measurements_and_fit_detailed: pd.DataFrame = self._parse_measurements_and_fit_detailed()
+        self.alpha: float = self.matlab_obj["f"]["alf"]
+        self.chi2: float = self.matlab_obj["f"]["chi2"]
+        self.degrees_of_freedom: int = self.matlab_obj["f"]["dof"]
+        self.expected_chi2: Iterable[float, float] = self.matlab_obj["f"]["Echi2"]
 
 
     def _parse_fitted_parameters(self):
@@ -129,4 +134,34 @@ class INCA_results:
         if quantity in ["Flux", "Pool"]:
             df = df.drop(columns=["peak"])
         return df
+
+    def get_goodness_of_fit(self)->None:
+        """
+        Return the goodness of fit for the model. This is the chi2 value divided by the degrees of freedom
+        """
+        fit_accepted = self.expected_chi2[0] <= self.chi2 <= self.expected_chi2[1]
+
+        print(
+        f'''Fit accepted: {fit_accepted}
+Confidence level: {self.alpha}
+Chi-square value (SSR): {self.chi2}
+Expected chi-square range: {self.expected_chi2}'''
+        )
     
+    def test_normality_of_residuals(self, test_function: Callable = scipy.stats.shapiro, alpha: float = None)->None:
+        """
+        Test the normality of the residuals of the model. This is done by default using the Shapiro-Wilk test.
+        The user can specify a different test using the test_function argument. The test function should take
+        an array of residuals as input and return a test statistic and a p-value. The p-value is compared to the
+        alpha value to determine if the residuals are normally distributed. The default alpha is the overall alpha
+        value for the model. This can be changed using the alpha argument.
+        """
+        if alpha is None:
+            alpha = self.alpha
+        
+        residuals = self.measurements_and_fit_detailed['weighted residual']
+        test_statistic, p_value = test_function(residuals)
+        # The shapiro test test the null hypothsis that the data is drawn from a normal distribution
+        # Therefore if the p-value is greater than the alpha value the null hypothesis is accepted, i.e. 
+        # residuals are normally distributed
+        print(f'Residuals are normally distributed: {p_value > alpha} on a {alpha} significance level')

@@ -5,9 +5,8 @@ from BFAIR.mfa.INCA.INCA_results import INCA_results
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
-@pytest.fixture
-def inca_results():
-    return INCA_results(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.mat"))
+# the fixtures used in the tests (e.g. inca_results) are defined in conftest.py
+
 
 def test_get_metabolite_ids(inca_results):
     """

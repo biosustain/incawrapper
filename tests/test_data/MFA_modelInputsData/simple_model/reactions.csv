@@ -1,0 +1,6 @@
+model,reaction_id,reaction_equation
+simple_model,R1,A (abc) -> B (abc)
+simple_model,R2,B (abc) <-> D (abc)
+simple_model,R3,B (abc) -> C (bc) + E (a)
+simple_model,R4,B (abc) + C (de) -> D (bcd) + E (a) + E(e)
+simple_model,R5,D (abc) -> F (abc)

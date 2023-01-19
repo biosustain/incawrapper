@@ -170,7 +170,7 @@ def modelReactions_file_parser(
         # Raise an error if the reaction id column name is not in the dataframe
         raise ValueError(
             f"""
-        Equation column name not in dataframe.
+        ID column name not in dataframe.
         Column names: {df.columns}
         """
         )

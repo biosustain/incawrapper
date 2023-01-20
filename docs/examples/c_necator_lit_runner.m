@@ -1,6 +1,4 @@
-f=estimate(m,10);
-
-f=continuate(f,m);
+f = estimate(m,100);
 
 filename = 'C_necator.mat';
-save(filename,'f','m')
+save(filename,'f','m');

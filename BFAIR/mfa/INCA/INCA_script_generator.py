@@ -1365,12 +1365,13 @@ class INCA_script:
             MATLAB script that will run the previously created
             INCA script
         """
+        # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
         runner = (
             "f=estimate(m,"
             + str(n_estimates)
-            + ");\n\nf=continuate(f,m);\n\nfilename = '"
+            + ");\n\nf=continuate(f,m);\n\ns=simulate(m)\n\nfilename = '"
             + output_filename
-            + ".mat';\nsave(filename,'f','m')"
+            + ".mat';\nsave(filename,'f','m','s')"
         )
         return runner
 

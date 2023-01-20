@@ -9,6 +9,6 @@ current_dir = str(pathlib.Path(__file__).parent.absolute())
 
 
 @pytest.fixture
-def inca_results(scope='package'):
+def inca_results_simple_model(scope='package'):
     return INCA_results(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.mat"))
 

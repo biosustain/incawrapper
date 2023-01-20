@@ -1347,7 +1347,7 @@ class INCA_script:
         file1.write(script)
         file1.close()
 
-    def runner_script_generator(self, output_filename, n_estimates=10, run_continuation: bool=True):
+    def runner_script_generator(self, output_filename, n_estimates=10, run_continuation: bool=True, run_simulation: bool=True):
         """
         Adds the functions needed to run the script and export the .mat file
 
@@ -1366,14 +1366,18 @@ class INCA_script:
             INCA script
         """
         estimation = f"f = estimate(m," + str(n_estimates) + ");\n\n"
-        continuation = "f=continuate(f,m);\n\n"
-        simulation = "s=simulate(m)\n\n" # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
+        continuation = "f=continuate(f,m);\n\n" if run_continuation else ""
+        simulation = "s=simulate(m);\n\n" if run_simulation else "" # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
         output = f"filename = '{output_filename}.mat';\n"
-        saving = "save(filename,'f','m','s');"
+
+        if run_simulation:
+            saving = "save(filename,'f','m','s');"
+        else:
+            saving = "save(filename,'f','m');"
 
         return (
             estimation + 
-            continuation if run_continuation else "" + 
+            continuation + 
             simulation + 
             output + 
             saving

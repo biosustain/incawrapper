@@ -8,6 +8,8 @@ import numpy as np
 import time
 import ast
 import sys
+import BFAIR.mfa.utils.chemical_formula as chemical_formula
+import collections
 
 try:
     import matlab.engine
@@ -1095,6 +1097,60 @@ class INCA_script:
             mat_script = mat_script + tmp_script
         return mat_script, fragments_used
 
+    def add_unlabelled_atoms(self, experimentalMS_data_I: pd.DataFrame)->str:
+        """
+        Adds unlabelled atoms to the experimentalMS_data_I
+
+        Parameters
+        ----------
+        experimentalMS_data_I : pandas.DataFrame
+            pre-processed
+            experimentalMS_data_I input data
+
+        Returns
+        -------
+        mat_script : string
+            addition to MATLAB script under construction
+        """
+        # add unlabelled atoms
+        unlabelled_atoms_script = "\n% add unlabelled atoms\nd.more = {...\n"
+
+        # iterate through the unique fragements
+        # calculate the unlabelled atoms
+        # add the unlabelled atoms to the MATLAB script
+        # unique_fragment_data = (experimentalMS_data_I
+        #     .drop_duplicates(
+        #         subset=["fragment_id"]
+        #     )
+        #     .copy()
+        # )
+
+        for idx, row in experimentalMS_data_I.iterrows():
+            fragment_formula = row["fragment_formula"]
+            labelled_atoms = self.prepare_input(
+                row["met_elements"],
+                "Curly",
+            )
+
+            # calculate the unlabelled atoms
+            formula_dict = chemical_formula._create_compound_dict(
+                fragment_formula
+            )
+            labelled_atoms_formula = chemical_formula.create_formula_from_dict(
+                collections.Counter(labelled_atoms)
+            )
+            unlabelled_atoms_formula = chemical_formula.subtract_formula(
+                fragment_formula,
+                labelled_atoms_formula,
+            )
+
+            # add the unlabelled atoms to the MATLAB script
+            unlabelled_atoms_script += f"'{unlabelled_atoms_formula}',...\n"
+
+        unlabelled_atoms_script += "};\n"
+
+        return unlabelled_atoms_script
+
     # check the stedv stuff before merging to main
     def mapping(self, experimentalMS_data_I, fragments_used):
         """
@@ -1325,6 +1381,7 @@ class INCA_script:
             atomMappingMetabolite_data_I,
         )
         script += script_temp
+        script += self.add_unlabelled_atoms(experimentalMS_data_I)
         script += self.mapping(experimentalMS_data_I, fragments_used)
         return script
 

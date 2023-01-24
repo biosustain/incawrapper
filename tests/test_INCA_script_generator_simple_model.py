@@ -455,3 +455,41 @@ m.expts(2).data_ms(1).idvs.std(4,1) = 0.001;
     )
 
     assert script == expected_script
+
+def test_add_unlabelled_atoms(inca_script, experimentalMS_data_simple):
+    """
+    Test if the add_unlabelled_atoms function correctly writes the matlab script.
+    """
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    expected_script = """
+% add unlabelled atoms
+d.more = {...
+'C7H12Si',...
+};
+"""
+    script = inca_script.add_unlabelled_atoms(experimentalMS_data_simple)
+    assert script == expected_script
+
+def test_add_unlabelled_atoms_multiple_compounds(inca_script):
+    """
+    Test if the add_unlabelled_atoms function correctly writes the matlab script.
+    """
+
+    mock_experimentedMS_data = pd.DataFrame({
+        'fragment_formula': ['C10H12Si', 'C10HSi'],
+        'met_elements' : ['{C,C,C}', '{C,C}'],
+    })
+
+    # Defines the expected experiment script.
+    # NB new lines and indentation with the string is important for passing the test
+    expected_script = """
+% add unlabelled atoms
+d.more = {...
+'C7H12Si',...
+'C8HSi',...
+};
+"""
+    script = inca_script.add_unlabelled_atoms(mock_experimentedMS_data)
+    assert script == expected_script
+

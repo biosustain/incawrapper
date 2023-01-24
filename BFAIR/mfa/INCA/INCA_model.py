@@ -10,8 +10,8 @@ class INCA_model:
     inca_matlab_file: pathlib.Path
 
     def __post_init__(self):
-        self.matlab_model_obj: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['m']
-        self.inca_options: Dict = self.matlab_model_obj["options"]
+        self.raw: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['m']
+        self.inca_options: Dict = self.raw["options"]
 
     def get_metabolite_ids(self) -> List:
         """
@@ -20,7 +20,7 @@ class INCA_model:
         Returns:
             List: List of metabolite ids
         """
-        metabolites = pd.DataFrame.from_records(self.matlab_model_obj["mets"])
+        metabolites = pd.DataFrame.from_records(self.raw["mets"])
         return metabolites["id"].to_list()
 
     def get_states(self) -> pd.DataFrame:
@@ -30,4 +30,4 @@ class INCA_model:
         Returns:
             pd.DataFrame: Dataframe with the states
         """
-        return pd.DataFrame.from_records(self.matlab_model_obj["states"])
+        return pd.DataFrame.from_records(self.raw["states"])

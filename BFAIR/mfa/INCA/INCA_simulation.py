@@ -10,4 +10,5 @@ class INCA_simulation:
     inca_matlab_file: pathlib.Path
 
     def __post_init__(self):
-        raise NotImplementedError
+        self.raw: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['s']
+

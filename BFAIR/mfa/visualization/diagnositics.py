@@ -6,8 +6,8 @@ from typing import Union, Tuple
 import scipy.stats
 import matplotlib.pyplot as plt
 
-def plot_residuals_vs_fitted(INCA_results: INCA_results) -> alt.Chart:
-    df = INCA_results.measurements_and_fit_detailed.drop(columns=["base"])
+def plot_residuals_vs_fitted(inca_results: INCA_results) -> alt.Chart:
+    df = inca_results.fitdata.measurements_and_fit_detailed.drop(columns=["base"])
     return (
         alt.Chart(df)
         .mark_point()
@@ -22,13 +22,13 @@ def plot_residuals_vs_fitted(INCA_results: INCA_results) -> alt.Chart:
 
 
 def plot_norm_probplot(
-    INCA_results: INCA_results, interactive: bool = False
+    inca_results: INCA_results, interactive: bool = False
 ) -> Union[alt.Chart, Tuple[plt.Figure, plt.Axes]]:
 
     if not interactive:
         fig, ax = plt.subplots()
         _, _ = scipy.stats.probplot(
-            INCA_results.measurements_and_fit_detailed["weighted residual"],
+            inca_results.fitdata.measurements_and_fit_detailed["weighted residual"],
             dist="norm",
             plot=ax,
         )
@@ -36,13 +36,13 @@ def plot_norm_probplot(
 
     # Making interactive plot with altair
     rankits, fit = scipy.stats.probplot(
-        INCA_results.measurements_and_fit_detailed["weighted residual"],
+        inca_results.fitdata.measurements_and_fit_detailed["weighted residual"],
         dist="norm",
         plot=None,
     )
 
     plot_df = (
-        INCA_results.measurements_and_fit_detailed.sort_values("weighted residual")
+        inca_results.fitdata.measurements_and_fit_detailed.sort_values("weighted residual")
         .drop(columns="base")
         .copy()
     )

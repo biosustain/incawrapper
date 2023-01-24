@@ -27,6 +27,6 @@ def test_wrong_file_type():
 
 def test_matlab_object_contains_all_parts(inca_results_simple_model):
     """Tests if the matlab object contains a model, a fit and a simulation parts."""
-    assert inca_results_simple_model.matlab_obj['m']
-    assert inca_results_simple_model.matlab_obj['f']
-    assert inca_results_simple_model.matlab_obj['s']
+    assert inca_results_simple_model.model
+    assert inca_results_simple_model.fitdata
+    assert inca_results_simple_model.simulation

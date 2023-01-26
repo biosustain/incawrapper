@@ -21,8 +21,25 @@ class INCA_fitdata:
 
     def __post_init__(self):
         self.raw: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['f']
+        """Dict: This attribute contains the raw fitdata from the INCA output."""
+
         self.fitted_parameters: pd.DataFrame = self._parse_fitted_parameters()
+        """pd.DataFrame: This attribute contains the fitted parameters from the INCA output.
+        
+        The columns of the dataframe are:
+        - type: type of the parameter (Flux, Pool, or MS)
+        - id: id of the parameter (flux, pool, or MS)
+        - eqn: reaction equation of the flux. For pools and MS this is empty
+        - val: fitted value of the parameter
+        - std: estimated standard deviation of the fitted value
+        - lb: lower bound of the fitted value (Obtained from continuation or monte carlo simulation)
+        - ub: upper bound of the fitted value (Obtained from continuation or monte carlo simulation)
+        - unit: unit of the parameter
+        - free: boolean indicating if the parameter was fitted or not"""
+
         self.measurements_and_fit_overview: pd.DataFrame = self._parse_measurements_and_fit_overview()
+        """pd.DataFrame: This attribute contains an overview of the measurements and their overall fit"""
+
         self.measurements_and_fit_detailed: pd.DataFrame = self._parse_measurements_and_fit_detailed()
         self.alpha: float = self.raw["alf"]
         self.chi2: float = self.raw["chi2"]

@@ -12,6 +12,8 @@ class INCA_model:
     def __post_init__(self):
         self.raw: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['m']
         self.inca_options: Dict = self.raw["options"]
+        self.inca_options_description: str = """The options are described in the INCA documentation. You can find it 
+in your local INCA installation folder: <PATH-TO-INCA-FOLDER>/doc/inca/class/@option/option.html"""
 
     def get_metabolite_ids(self) -> List:
         """

@@ -1021,7 +1021,6 @@ class INCA_script:
                         + tracer["met_name"]
                         + ": "
                         + tracer["met_id"]
-                        + ".EX"
                         + " @ "
                     )
                     tracer_met_atompositions = self.prepare_input(

@@ -70,6 +70,11 @@ d = msdata({...
 % initialize mass distribution vector
 d.idvs = idv;
 
+% add unlabelled atoms
+d.more = {...
+'C7H12Si',...
+};
+
 % define tracers used in the experiments
 t = tracer({...
 '[1-13C]A: A.EX @ C1';...
@@ -99,11 +104,6 @@ x.data_ms = d;
 m.expts(1) = x;
 
 m.expts(1).id = {'exp1'};
-
-% add unlabelled atoms
-d.more = {...
-'C7H12Si',...
-};
 
 % add experimental data for annotated fragments
 m.expts(1).data_ms(1).idvs.id(1,1) = {'F1_0_0_exp1'};

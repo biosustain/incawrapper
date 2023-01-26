@@ -1004,6 +1004,9 @@ class INCA_script:
             )
             mat_script = mat_script + tmp_script
 
+            # write unlabelled atoms
+            mat_script += self.add_unlabelled_atoms(experimentalMS_data_I)
+
             # write substrate labeling (i.e. tracer) information
             tmp_script = ""
             tmp_script = (
@@ -1381,7 +1384,6 @@ class INCA_script:
             atomMappingMetabolite_data_I,
         )
         script += script_temp
-        script += self.add_unlabelled_atoms(experimentalMS_data_I)
         script += self.mapping(experimentalMS_data_I, fragments_used)
         return script
 

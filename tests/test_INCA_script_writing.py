@@ -89,30 +89,30 @@ def test_tracers_wrong_type(tracer_df_test):
         define_tracers(tracer_df_test, 'exp1')
 
 def test_define_flux_measurements(flux_measurements_test):
-    expected = """% define flux measurements for experiment exp1
+    expected = """\n% define flux measurements for experiment exp1
 f_exp1 = [...
 data('r1', 'val', 1.0, 'std', 0.1),...
 data('r2', 'val', 2.0, 'std', 0.2),...
 data('r3', 'val', 3.0, 'std', 0.3),...
-];""" 
-    return define_flux_measurements(flux_measurements_test, "exp1") == expected
+];\n""" 
+    assert define_flux_measurements(flux_measurements_test, "exp1") == expected
 
 
 def test_define_possible_ms_fragments(ms_measurements_test):
-    expected = """% define mass spectrometry measurements for experiment exp1
+    expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1 = [...
 msdata('ms1: A @ 1 2', 'more', 'C7H19O'),...
 msdata('ms2: B @ C3 C4', 'more', 'CH4Si'),...
 msdata('ms3: C @ 3'),...
-];"""
-    return define_possible_ms_fragments(ms_measurements_test, "exp1") == expected
+];\n"""
+    assert define_possible_ms_fragments(ms_measurements_test, "exp1") == expected
 
 def test_define_ms_measurements(ms_measurements_test):
-    expected = """% define mass spectrometry measurements for experiment exp1
+    expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1{'ms1'}.idvs = idv([[1.0;0.4]], 'id', {'exp1_ms1_0_1'}, 'std', [[0.1;0.2]], 'time', 0)
 ms_exp1{'ms2'}.idvs = idv([[2.0]], 'id', {'exp1_ms2_1_1'}, 'std', [[0.2]], 'time', 1)
-ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_1','exp1_ms3_0_2'}, 'std', [[0.3;0.4],[0.1;0.5]], 'time', 0)"""
-    return define_ms_measurements(ms_measurements_test, "exp1") == expected
+ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_1','exp1_ms3_0_2'}, 'std', [[0.3;0.4],[0.1;0.5]], 'time', 0)\n"""
+    assert define_ms_measurements(ms_measurements_test, "exp1") == expected
 
 
 def test_make_experiment_data_config(ms_measurements_test, flux_measurements_test):

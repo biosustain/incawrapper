@@ -65,8 +65,9 @@ class INCA_script:
     def _generate_runner_script(
         self,
         output_filename: pathlib.Path,
-        run_continuation: bool = True,
+        run_estimate: bool = True,
         run_simulation: bool = True,
+        run_continuation: bool = False,
         run_montecarlo: bool = False,
     ) -> None:
         """
@@ -89,17 +90,20 @@ class INCA_script:
         if run_montecarlo:
             raise NotImplementedError("Monte Carlo sampling is not implemented yet.")
 
-        estimation = f"f = estimate(m);\n"
+        estimation = "f = estimate(m);\n" if run_estimate else ""
         continuation = "f=continuate(f,m);\n" if run_continuation else ""
         simulation = (
             "s=simulate(m);\n" if run_simulation else ""
         )  # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
         output = f"filename = '{output_filename}';\n"
 
+        saving = "save(filename, "
+        if run_estimate:
+            saving += "'f', "
         if run_simulation:
-            saving = "save(filename,'f','m','s');"
-        else:
-            saving = "save(filename,'f','m');"
+            saving += "'s', "
+
+        saving += "'m');\n"
 
         self.runner_script = estimation + continuation + simulation + output + saving
 
@@ -118,9 +122,10 @@ def run_inca(
     inca_script: INCA_script,
     INCA_base_directory: pathlib.Path,
     output_filename: pathlib.Path = None,
-    run_simulation: bool = True,
-    run_continuation: bool = False,
-    run_montecarlo: bool = False,
+    run_estimate: bool = None,
+    run_simulation: bool = None,
+    run_continuation: bool = None,
+    run_montecarlo: bool = None,
 ) -> None:
     """Run INCA with a given INCA script."""
 
@@ -141,7 +146,7 @@ def run_inca(
         # Write the runner script to a file
         runner_filename = "inca_runner.m"
         inca_script._generate_runner_script(
-            output_filename, run_continuation, run_simulation, run_montecarlo
+            output_filename.resolve(), run_estimate, run_continuation, run_simulation, run_montecarlo
         )
         inca_script.save_runner_script(temp_dir / runner_filename)
 
@@ -298,9 +303,6 @@ def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
 # run_inca(inca_script: str, inca_base_directry: pathlib.Path, output_filename: pathlib.Path=None, run_simulation: bool=True, run_continuation: bool=False, run_montecarlo: bool = False)
 
 
-
-
-
 #%%
 tracer_df = pd.read_csv(
     "../../../tests/test_data/MFA_modelInputsData/simple_model/tracers.csv"
@@ -309,7 +311,7 @@ tracer_df_test = pd.DataFrame(
     {
         "experiment_id": ["exp1", "exp1"],
         "met_name": ["[1-13C]A", "[1,2-13C]B"],
-        "met_id": ["A", "B"],
+        "met_id": ["A.ext", "B"],
         "labelled_atoms": ["[1]", "[1,2]"],
         "ratio": [0.5, 0.5],
     }
@@ -406,7 +408,15 @@ def get_unlabelled_atoms(molecular_formula: str, labelled_atoms: str) -> str:
     return unlabelled_atoms_formula
 
 
+Check_contain_lists = pa.Check(
+    lambda x: isinstance(x, list),
+    element_wise=True,
+    description="Check if all elements of the column are lists",
+)
 ms_measurements_schema = pa.DataFrameSchema(
+    # TODO: validate that data describing the fragments are the same multiple measurements
+    # of the same fragment. If grouping by ms_id colums met_id, molecular_formula and
+    # labelled_atoms should only one value.
     columns={
         "experiment_id": pa.Column(pa.String, required=True),
         "met_id": pa.Column(pa.String, required=True),
@@ -415,20 +425,40 @@ ms_measurements_schema = pa.DataFrameSchema(
             pa.String, required=True, nullable=True
         ),  # nullable=True allows null values as nan or None
         "labelled_atoms": pa.Column(pa.String, required=True),
-        #"idv": pa.Column(pa.Float, required=True),
-        #"idv_std_error": pa.Column(pa.Float, required=True),
+        "idv": pa.Column(
+            pa.Object, required=True, checks=Check_contain_lists
+        ),  # pandera does not support list type
+        "idv_std_error": pa.Column(
+            pa.Object, required=True, checks=Check_contain_lists
+        ),  # pandera does not support list type
     }
 )
 
+
 def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
-    """Create a string to instantiate an INCA class."""
+    """Create a string to instantiate an INCA class. An INCA class is instantiated
+    by calling the class with the arguments S and kwargs. The type of S depends on the
+    class, but in most cases it is a string. The kwargs defines the properties of the
+    class. The propeties are defined in INCA as two successive arguments, the first
+    argument is the name of the property and the second argument is the value of the 
+    property. The properties of a specific class' can be found in the INCA documentation
+    (<inca folder>/doc/inca/class)."""
+
     kwargs_str = ", ".join([f"'{k}', {v}" for k, v in kwargs.items()])
     if not kwargs:
         return f"{inca_class}({S})"
     return f"{inca_class}({S}, {kwargs_str})"
 
+
 @pa.check_input(ms_measurements_schema)
-def define_posible_ms_fragments(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
+def define_possible_ms_fragments(
+    ms_measurements: pd.DataFrame, experiment_id: str
+) -> str:
+    """INCA's data model distinguishes between the ms fragments and the measurements of
+    the fragments. This function defines the possible ms fragments that was measured,
+    in one experiment. Multiple experiments is handled in the define_experiments function.
+    """
+
     def create_ms(
         ms_id: str,
         met_id,
@@ -440,10 +470,10 @@ def define_posible_ms_fragments(ms_measurements: pd.DataFrame, experiment_id: st
         ms_fragment_string = f"'{ms_id}: {met_id} @ {labelled_atoms_string}'"
 
         if unlabelled_atoms is not None:
-            return instantiate_inca_class_call("msdata", ms_fragment_string, more=f"'{unlabelled_atoms}'")
+            return instantiate_inca_class_call(
+                "msdata", ms_fragment_string, more=f"'{unlabelled_atoms}'"
+            )
         return instantiate_inca_class_call("msdata", ms_fragment_string)
-
-        
 
     ms_measurements_subset = ms_measurements[
         ms_measurements["experiment_id"] == experiment_id
@@ -454,18 +484,21 @@ def define_posible_ms_fragments(ms_measurements: pd.DataFrame, experiment_id: st
         + " = [...\n"
     )
 
-    for _, ms in ms_measurements_subset.iterrows():
-        if ms["molecular_formula"] in [None, ""] or pd.isna(ms["molecular_formula"]):
+    for ms_id, ms_df in ms_measurements_subset.groupby("ms_id"):
+        ms_df = ms_df.iloc[0]
+        if ms_df["molecular_formula"] in [None, ""] or pd.isna(
+            ms_df["molecular_formula"]
+        ):
             unlabelled_atoms = None
         else:
             unlabelled_atoms = get_unlabelled_atoms(
-                ms["molecular_formula"], ms["labelled_atoms"]
+                ms_df["molecular_formula"], ms_df["labelled_atoms"]
             )
 
         tmp_script += create_ms(
-            ms["ms_id"],
-            ms["met_id"],
-            ms["labelled_atoms"],
+            ms_id,
+            ms_df["met_id"],
+            ms_df["labelled_atoms"],
             unlabelled_atoms,
         )
         tmp_script += ",...\n"
@@ -476,47 +509,93 @@ def define_posible_ms_fragments(ms_measurements: pd.DataFrame, experiment_id: st
 # make a test dataframe for ms measurements
 ms_measuremets_test = pd.DataFrame(
     {
-        "experiment_id": ["exp1", "exp1", "exp1"],
-        "ms_id": ["ms1", "ms2", "ms3"],
-        "met_id": ["A", "B", "C"],
-        "labelled_atoms": ["[1,2]", "[C3,C4]", "[3]"],
-        "molecular_formula": ["C7H19O", "C2H4Si", None],
-        "idv": [[1.0,0.4], [2.0], [3.0]],
-        "idv_std_error": [[0.1,0.2], [0.2], [0.3]],
-        "time":[0,0,0]
+        "experiment_id": ["exp1", "exp1", "exp1", "exp1"],
+        "ms_id": ["ms1", "ms2", "ms3", "ms3"],
+        "met_id": ["A", "B", "C", "C"],
+        "labelled_atoms": ["[1,2]", "[C3,C4]", "[3]", "[3]"],
+        "molecular_formula": ["C7H19O", "C2H4Si", None, None],
+        "idv": [[1.0, 0.4], [2.0], [3.0, 4.0], [1.0, 5.0]],
+        "idv_std_error": [[0.1, 0.2], [0.2], [0.3, 0.4], [0.1, 0.5]],
+        "time": [0, 1, 0, 0],
     }
 )
 
-print(define_posible_ms_fragments(ms_measuremets_test, "exp1"))
+print(define_possible_ms_fragments(ms_measuremets_test, "exp1"))
 #%%
 def define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
-    """Defines measurements of ms fragments. This is done by updating the msdata objects 
+    """Defines measurements of ms fragments. This is done by updating the msdata objects
     of the individuals ms fragements."""
 
     def add_idvs_to_msdata(
-        experiment_id: str, 
-        ms_id: str, 
-        idv, #: Union[List[float], pd.Series[List[float]]], 
-        idv_std_error, #: Union[List[float], pd.Series[List[float]]]
-        time,
+        experiment_id: pat.Series[str],
+        ms_id: pat.Series[str],
+        idv: pat.Series[List],
+        idv_std_error: pat.Series[List],
+        time: pat.Series[float],
     ) -> str:
-        """"""
-        if isinstance(idv, pd.Series):
-            # HERE
-            pass
-        else:
-            idv_str = "[" + ";".join([str(i) for i in idv]) + "]"
-            idv_std_error_str = "[" + ";".join([str(i) for i in idv_std_error]) + "]"
-            idv_id = "'" + experiment_id + "_" + ms_id + "'"
+        """Write a line of matlab code to add measurements of one ms fragment to the
+        msdata object. It is allowed to have multiple measurements of the same ms
+        fragment. The idv() INCA class interprets one idv as a column vector. Therefore
+        convert the python lists to matlab column vectors.
 
-        return f"ms_{experiment_id}{{'{ms_id}'}}.idvs = " + instantiate_inca_class_call("idv", idv_str, id=idv_id, std=idv_std_error_str, time=time)
+        Each measurement is given a unique id. This is done by concatenating the
+        experiment_id, ms_id, time and replicate number.
+        """
 
-    ms_measurements_subset = ms_measurements[ms_measurements["experiment_id"] == experiment_id]
-    tmp_script = f"\n% define mass spectrometry measurements for experiment {experiment_id}\n"
-    for _, ms in ms_measurements_subset.iterrows():
-        tmp_script += add_idvs_to_msdata(experiment_id, ms["ms_id"], ms["idv"], ms["idv_std_error"], ms["time"])
+        def matlab_column_vector(lst: List[float]) -> str:
+            """Convert a list to a matlab column vector string. These are of the fortmat
+            [1;2;3;4;5]"""
+            return "[" + ";".join([str(i) for i in lst]) + "]"
+
+        replicate_counter = 0
+        idv_id_lst = []
+        idv_str = "["
+        idv_std_error_str = "["
+        for idx, _ in idv.items():
+            idv_str += matlab_column_vector(idv[idx]) + ","
+            idv_std_error_str += matlab_column_vector(idv_std_error[idx]) + ","
+            replicate_counter += 1
+            idv_id_lst.append(
+                "'"
+                + experiment_id
+                + "_"
+                + ms_id
+                + "_"
+                + str(time)
+                + "_"
+                + str(replicate_counter)
+                + "'"
+            )
+
+        # remove last comma
+        idv_str = idv_str.rstrip(",")
+        idv_std_error_str = idv_std_error_str.rstrip(",")
+        idv_str += "]"
+        idv_std_error_str += "]"
+
+        idv_id = "{" + ",".join(idv_id_lst) + "}"
+
+        return f"ms_{experiment_id}{{'{ms_id}'}}.idvs = " + instantiate_inca_class_call(
+            "idv", idv_str, id=idv_id, std=idv_std_error_str, time=time
+        )
+
+    ms_measurements_subset = ms_measurements[
+        ms_measurements["experiment_id"] == experiment_id
+    ]
+    tmp_script = (
+        f"\n% define mass spectrometry measurements for experiment {experiment_id}\n"
+    )
+    for ms_id, ms_df in ms_measurements_subset.groupby("ms_id"):
+        tmp_script += add_idvs_to_msdata(
+            experiment_id,
+            ms_id,
+            ms_df["idv"],
+            ms_df["idv_std_error"],
+            ms_df["time"].iloc[0],
+        )
         tmp_script += "\n"
     return tmp_script
+
 
 print(define_ms_measurements(ms_measuremets_test, "exp1"))
 
@@ -531,38 +610,48 @@ def define_experiment(
     pool_measurements: Union[pd.DataFrame, None] = None,
     nmr_measurements: Union[pd.DataFrame, None] = None,
 ) -> str:
-    def experiment_is_in_measurement_type(experiment_id: Union[str, List[str]], s: pd.Series)-> bool:
+    def experiment_is_in_measurement_type(
+        experiment_id: Union[str, List[str]], s: pd.Series
+    ) -> bool:
         return experiment_id in s.unique()
-    
+
     def create_experiment(experiment_id: str, measurement_types: List) -> str:
         data_list = list()
         for measurement_type in measurement_types:
-            if measurement_type == 'data_flx':
+            if measurement_type == "data_flx":
                 data_list.extend(["'data_flx'", f"f_{experiment_id}"])
-            if measurement_type == 'data_ms':
+            if measurement_type == "data_ms":
                 data_list.extend(["'data_ms'", f"ms_{experiment_id}"])
-            if measurement_type == 'data_cxn':
+            if measurement_type == "data_cxn":
                 data_list.extend(["'data_cxn'", f"cxn_{experiment_id}"])
-            if measurement_type == 'data_nmr':
+            if measurement_type == "data_nmr":
                 data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
         data_list_str = ", ".join(data_list)
-        return f"experiment('{experiment_id}', {data_list_str})"
+        return f"experiment(t_{experiment_id}, {data_list_str})"
+
     tmp_script = "\n% define experimental data\n"
     # The following chunk adds the experimental data to the script
-    measurement_types_dict = dict() # dict collecting the measurement types for each experiment
+    measurement_types_dict = (
+        dict()
+    )  # dict collecting the measurement types for each experiment
     for experiment in experiment_id:
         measurement_types_dict[experiment] = list()
         if tracers is not None:
             tmp_script += define_tracers(tracers, experiment)
 
         if flux_measurements is not None:
-           if experiment_is_in_measurement_type(experiment, flux_measurements["experiment_id"]):
+            if experiment_is_in_measurement_type(
+                experiment, flux_measurements["experiment_id"]
+            ):
                 measurement_types_dict[experiment].append("data_flx")
                 tmp_script += define_flux_measurements(flux_measurements, experiment)
 
         if ms_measurements is not None:
-           if experiment_is_in_measurement_type(experiment, ms_measurements["experiment_id"]):
+            if experiment_is_in_measurement_type(
+                experiment, ms_measurements["experiment_id"]
+            ):
                 measurement_types_dict[experiment].append("data_ms")
+                tmp_script += define_possible_ms_fragments(ms_measurements, experiment)
                 tmp_script += define_ms_measurements(ms_measurements, experiment)
 
         if pool_measurements is not None:
@@ -570,7 +659,7 @@ def define_experiment(
             # if experiment_is_in_measurement_type(experiment, pool_measurements["experiment_id"]):
             #   measurement_types_dict[experiment].append("data_cxn")
             #   tmp_script += define_pool_measurements(pool_measurements, experiment)
-        
+
         if nmr_measurements is not None:
             raise NotImplementedError("NMR measurements not implemented yet.")
             # if experiment_is_in_measurement_type(experiment, nmr_measurements["experiment_id"]):
@@ -579,7 +668,7 @@ def define_experiment(
 
     # The following chunk defines which data is associated for which experiment
     tmp_script += "\n% define experiments\n"
-    tmp_script += "experiments = [...\n" 
+    tmp_script += "experiments = [...\n"
     for experiment in experiment_id:
         tmp_script += create_experiment(experiment, measurement_types_dict[experiment])
         tmp_script += ",...\n"
@@ -587,18 +676,38 @@ def define_experiment(
 
     return tmp_script
 
-print(define_experiment(["exp1"], tracer_df_test , flux_measurements_test, ms_measuremets_test))
+
+print(
+    define_experiment(
+        ["exp1"], tracer_df_test, flux_measurements_test, ms_measuremets_test
+    )
+)
 # %%
 
 reaction_test = pd.DataFrame(
-    {"reaction": ["A (C1:a C2:b) -> B (C1:b C2:a)", "B -> C", "C -> D"], "id": ["r1", "r2", "r3"]}
+    {
+        "reaction": ["A.ext (C1:a C2:b) -> A (C1:a C2:b)", "A (C1:a C2:b) -> B (C1:b C2:a)", "B -> C", "C -> D"],
+        "id": ["r1", "r2", "r3", "r4"],
+    }
 )
 inca_script = INCA_script()
 inca_script.add_to_block(define_reactions(reaction_test), "reaction")
-inca_script.add_to_block(define_experiment(["exp1"], tracer_df_test , flux_measurements_test, ms_measuremets_test), "experiments")
+inca_script.add_to_block(
+    define_experiment(
+        ["exp1"], tracer_df_test, flux_measurements_test, ms_measuremets_test
+    ),
+    "experiments",
+)
 inca_script.generate_script()
 inca_script.save_script("test_script.m")
-run_inca(inca_script, '/Users/s143838/inca2.1', "test_script.mat",)
+
+# %%
+run_inca(
+    inca_script,
+    "/Users/s143838/inca2.1",
+    "test_script.mat",
+    run_estimate=False
+)
 
 
 # %%

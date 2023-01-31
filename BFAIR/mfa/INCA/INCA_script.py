@@ -7,6 +7,7 @@ class INCA_script:
     def __init__(self):
         self.reaction = "% REACTION BLOCK\n"
         self.tracers = "% TRACERS BLOCK\n"
+        self.fluxes = "% FLUXES BLOCK\n"
         self.ms_fragments = "% MS_FRAGMENTS BLOCK\n"
         self.experimental_data = "% EXPERIMENTAL_DATA BLOCK\n"
         self.options = "% OPTIONS BLOCK\n"
@@ -20,13 +21,17 @@ class INCA_script:
     def add_to_block(
         self,
         matlab_script_block: str,
-        block_name: Literal["reaction", "ms_fragments", "experiments", "options"],
+        block_name: Literal["reactions", "tracers", "fluxes", "ms_fragments", "experiments", "options"],
     ):
         """Add a matlab script block to a specific block of the INCA script.
         This block workflow ensures that the structure of the INCA script is
         correct. The blocks are: reaction, tracers, ms_fragments, experimental_data, options."""
-        if block_name == "reaction":
+        if block_name == "reactions":
             self.reaction += matlab_script_block
+        elif block_name == "tracers":
+            self.tracers += matlab_script_block
+        elif block_name == "fluxes":
+            self.fluxes += matlab_script_block
         elif block_name == "ms_fragments":
             self.ms_fragments += matlab_script_block
         elif block_name == "experiments":
@@ -35,7 +40,7 @@ class INCA_script:
             self.options += matlab_script_block
         else:
             print(
-                f"Block name {block_name} not recognized. Has to be one of the following: reaction, tracers, ms_fragments, experiments, options."
+                f"Block name {block_name} not recognized. See type hints for possible block names."
             )
 
     def generate_script(self):
@@ -45,6 +50,7 @@ class INCA_script:
                 "clear functions",
                 self.reaction,
                 self.tracers,
+                self.fluxes,
                 self.ms_fragments,
                 self.experimental_data,
                 self.options,

@@ -13,12 +13,12 @@ from BFAIR.mfa.INCA.dataschemas import model_reactions_schema, tracer_schema, fl
 
 @pa.check_input(model_reactions_schema)
 def define_reactions(model_reactions: pd.DataFrame) -> str:
-    def create_reaction(reaction_string: str, reaction_id: str) -> str:
+    def create_reaction(reaction_equation: str, reaction_id: str) -> str:
         """Parse a reaction string into a function call of the INCA reaction."""
-        return f"reaction('{reaction_string}', ['id'], ['{reaction_id}'])"
+        return f"reaction('{reaction_equation}', ['id'], ['{reaction_id}'])"
 
     reaction_func_calls = model_reactions.apply(
-        lambda row: create_reaction(row["reaction"], row["id"]), axis=1
+        lambda row: create_reaction(row["rxn_eqn"], row["rxn_id"]), axis=1
     )
 
     script = "% Create reactions\nr = [...\n"
@@ -309,7 +309,7 @@ def make_experiment_data_config(
     return experimental_data_config
 
 #@pa.check_input() # make a pandera schema experimental_data_config dictionary
-def define_experiment(
+def define_experiments(
     experimental_data_config: Dict,
 ) -> str:
 

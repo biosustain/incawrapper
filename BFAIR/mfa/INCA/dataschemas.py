@@ -5,8 +5,8 @@ model_reactions_schema = pa.DataFrameSchema(
     # TODO: Add validation for reaction arrow
     # TODO: Add validation for id uniqueness
     columns={
-        "reaction": pa.Column(pa.String, required=True),
-        "id": pa.Column(pa.String, required=True),
+        "rxn_eqn": pa.Column(pa.String, required=True),
+        "rxn_id": pa.Column(pa.String, required=True),
     }
 )
 

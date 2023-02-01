@@ -327,10 +327,10 @@ def define_experiment(
             data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
     data_list_str = ", ".join(data_list)
 
-    return f"e_{experiment_id} = experiment(t_{experiment_id}, 'id', '{experiment_id}' ,{data_list_str})\n"
+    return f"e_{experiment_id} = experiment(t_{experiment_id}, 'id', '{experiment_id}', {data_list_str});\n"
 
 def define_model(
-    model_id: str, experiment_ids: List[str]
+    experiment_ids: List[str]
 ) -> str:
     """Write a line of matlab code to define a model. The model requires
     a tracer object to be instantiated earlier in the matlab script."""

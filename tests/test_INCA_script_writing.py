@@ -7,58 +7,6 @@ from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactio
 import pytest
 
 
-@pytest.fixture
-def inca_script():
-    return INCA_script()
-
-@pytest.fixture
-def reaction_test():
-    return pd.DataFrame(
-        {
-            "reaction": ["A.ext (C1:a C2:b) -> A (C1:a C2:b)", "A (C1:a C2:b) -> B (C1:b C2:a)", "B -> C", "C -> D"],
-            "id": ["r1", "r2", "r3", "r4"],
-        }
-    )
-
-@pytest.fixture
-def tracer_df_test():
-    return pd.DataFrame(
-        {
-            "experiment_id": ["exp1", "exp1"],
-            "met_name": ["[1-13C]A", "[1,2-13C]B"],
-            "met_id": ["A.ext", "B"],
-            "labelled_atoms": ["[1]", "[1,2]"],
-            "ratio": [0.5, 0.5],
-        }
-    )
-
-@pytest.fixture
-def flux_measurements_test():
-    return pd.DataFrame(
-        {
-            "experiment_id": ["exp1", "exp1", "exp1"],
-            "rxn_id": ["r1", "r2", "r3"],
-            "flux": [1.0, 2.0, 3.0],
-            "flux_std_error": [0.1, 0.2, 0.3],
-        }
-    )
-
-@pytest.fixture
-def ms_measurements_test():
-    return pd.DataFrame(
-        {
-            "experiment_id": ["exp1", "exp1", "exp1", "exp1"],
-            "ms_id": ["ms1", "ms2", "ms3", "ms3"],
-            "met_id": ["A", "B", "C", "C"],
-            "labelled_atoms": ["[1,2]", "[C3,C4]", "[3]", "[3]"],
-            "molecular_formula": ["C7H19O", "C2H4Si", None, None],
-            "idv": [[1.0, 0.4], [2.0], [3.0, 4.0], [1.0, 5.0]],
-            "idv_std_error": [[0.1, 0.2], [0.2], [0.3, 0.4], [0.1, 0.5]],
-            "time": [0, 1, 0, 0],
-        }
-    )
-
-
 def test_define_reactions(reaction_test):
     expected = """% Create reactions
 r = [...
@@ -126,3 +74,11 @@ def test_define_model():
     
     expected = "m = model(r, 'expts', [e_exp1,e_exp2]);\n"
     assert define_model(model_id, experiment_id) == expected
+
+
+def test_define_experiment():
+    experiment_id = "exp1"
+    measurement_types = ['data_flx', 'data_ms']
+
+    expected = "e_exp1 = experiment(t_exp1, 'id', 'exp1', 'data_flx', f_exp1, 'data_ms', ms_exp1);\n" 
+    assert define_experiment(experiment_id, measurement_types) == expected

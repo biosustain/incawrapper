@@ -28,8 +28,8 @@ flux_measurements_schema = pa.DataFrameSchema(
     columns={
         "experiment_id": pa.Column(pa.String, required=True),
         "rxn_id": pa.Column(pa.String, required=True),
-        "flux": pa.Column(pa.Float, required=True),
-        "flux_std_error": pa.Column(pa.Float, required=True),
+        "flux": pa.Column(pa.Float, required=True, coerce=True),
+        "flux_std_error": pa.Column(pa.Float, required=True, coerce=True),
     }
 )
 

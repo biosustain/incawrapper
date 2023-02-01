@@ -11,9 +11,9 @@ class INCA_script:
         self.ms_fragments = "% MS_FRAGMENTS BLOCK\n"
         self.experimental_data = "% EXPERIMENTAL_DATA BLOCK\n"
         self.options = "% OPTIONS BLOCK\n"
+        self.model = "% MODEL BLOCK\n"
 
         # The user is not intented to change these blocks
-        self._define_model = "m = model(r, 'expts', experiments)"
         self._verify_model = (
             "m.rates.flx.val = mod2stoich(m); % make sure the fluxes are feasible"
         )
@@ -38,6 +38,8 @@ class INCA_script:
             self.experimental_data += matlab_script_block
         elif block_name == "options":
             self.options += matlab_script_block
+        elif block_name == "model":
+            self.model += matlab_script_block
         else:
             print(
                 f"Block name {block_name} not recognized. See type hints for possible block names."
@@ -54,7 +56,7 @@ class INCA_script:
                 self.ms_fragments,
                 self.experimental_data,
                 self.options,
-                self._define_model,
+                self.model,
                 self._verify_model,
             ]
         )

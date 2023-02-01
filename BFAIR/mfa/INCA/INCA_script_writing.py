@@ -309,33 +309,38 @@ def make_experiment_data_config(
     return experimental_data_config
 
 #@pa.check_input() # make a pandera schema experimental_data_config dictionary
-def define_experiments(
-    experimental_data_config: Dict,
+def define_experiment(
+    experiment_id: str, measurement_types: List
 ) -> str:
+    """Write a line of matlab code to define an experiment. The experiment requires
+    a tracer object to be instantiated earlier in the matlab script."""
 
+    data_list = list()
+    for measurement_type in measurement_types:
+        if measurement_type == "data_flx":
+            data_list.extend(["'data_flx'", f"f_{experiment_id}"])
+        if measurement_type == "data_ms":
+            data_list.extend(["'data_ms'", f"ms_{experiment_id}"])
+        if measurement_type == "data_cxn":
+            data_list.extend(["'data_cxn'", f"cxn_{experiment_id}"])
+        if measurement_type == "data_nmr":
+            data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
+    data_list_str = ", ".join(data_list)
 
-    def create_experiment(experiment_id: str, measurement_types: List) -> str:
-        data_list = list()
-        for measurement_type in measurement_types:
-            if measurement_type == "data_flx":
-                data_list.extend(["'data_flx'", f"f_{experiment_id}"])
-            if measurement_type == "data_ms":
-                data_list.extend(["'data_ms'", f"ms_{experiment_id}"])
-            if measurement_type == "data_cxn":
-                data_list.extend(["'data_cxn'", f"cxn_{experiment_id}"])
-            if measurement_type == "data_nmr":
-                data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
-        data_list_str = ", ".join(data_list)
-        return f"experiment(t_{experiment_id}, {data_list_str})"
-    
-    tmp_script = "% define experiments\n"
-    tmp_script += "experiments = [...\n"
+    return f"e_{experiment_id} = experiment(t_{experiment_id}, 'id', '{experiment_id}' ,{data_list_str})\n"
 
-    for experiment_id, measurement_types in experimental_data_config.items():
-        tmp_script += create_experiment(experiment_id, measurement_types)
-        tmp_script += ",...\n"
-    tmp_script += "];"
-    return tmp_script
+def define_model(
+    model_id: str, experiment_ids: List[str]
+) -> str:
+    """Write a line of matlab code to define a model. The model requires
+    a tracer object to be instantiated earlier in the matlab script."""
+
+    experiment_list = list()
+    for experiment_id in experiment_ids:
+        experiment_list.extend([f"e_{experiment_id}"])
+    experiment_list_str = "[" + ",".join(experiment_list) + "]"
+
+    return f"m = model(r, 'expts', {experiment_list_str});\n"
 ##
 # make_experiment_data_config(flux_measurements, ms_measurements, pool_measurements, nmr_measurements)
 # dict(experiment_id = list[measurement_types])

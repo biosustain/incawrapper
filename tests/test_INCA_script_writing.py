@@ -3,7 +3,7 @@ import pandera as pa
 import pandera.typing as pat
 from typing import Iterable, Literal, Union, List
 from BFAIR.mfa.INCA.INCA_script import INCA_script
-from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactions, define_flux_measurements, define_possible_ms_fragments, define_ms_measurements, define_tracers, make_experiment_data_config
+from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactions, define_flux_measurements, define_possible_ms_fragments, define_ms_measurements, define_tracers, make_experiment_data_config, define_model
 import pytest
 
 
@@ -118,3 +118,11 @@ ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_1','exp1_ms3
 def test_make_experiment_data_config(ms_measurements_test, flux_measurements_test):
     expected = {'exp1': ['data_flx', 'data_ms']}
     assert make_experiment_data_config(ms_measurements_test, flux_measurements_test) == expected
+
+
+def test_define_model():
+    model_id = "m1"
+    experiment_id = ["exp1", "exp2"]
+    
+    expected = "m = model(r, 'expts', [e_exp1,e_exp2]);\n"
+    assert define_model(model_id, experiment_id) == expected

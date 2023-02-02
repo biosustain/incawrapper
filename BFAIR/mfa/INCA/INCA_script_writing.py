@@ -135,6 +135,9 @@ def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
     kwargs_str = ", ".join([f"'{k}', {v}" for k, v in kwargs.items()])
     if not kwargs:
         return f"{inca_class}({S})"
+    elif not S:
+        return f"{inca_class}({kwargs_str})"
+
     return f"{inca_class}({S}, {kwargs_str})"
 
 
@@ -341,10 +344,19 @@ def define_model(
     experiment_list_str = "[" + ",".join(experiment_list) + "]"
 
     return f"m = model(r, 'expts', {experiment_list_str});\n"
-##
-# make_experiment_data_config(flux_measurements, ms_measurements, pool_measurements, nmr_measurements)
-# dict(experiment_id = list[measurement_types])
 
 
+def define_options(**kwargs):
+    """Write a line of matlab code to define options for the model.
+    The available options can be found in the INCA documentation.
+    <inca-folder>/doc/inca/class/@option/option.html"""
+    for k, v in kwargs.items():
+        # matlab does not like True/False, it wants true/false
+        if isinstance(v, bool):
+            kwargs[k] = f"{str(v).lower()}"
+        # some options (e.g. oed_crit) require strings in the matlab script
+        if isinstance(v, str):
+            kwargs[k] = f"'{v}'"
+    return "m.options = " + instantiate_inca_class_call("option", S=None, **kwargs)
 
 

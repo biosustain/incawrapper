@@ -27,7 +27,7 @@ t_exp1 = tracer({...
 });
 
 % define fractions of tracers_subset used
-t_exp1.frac = [0.5,0.5 ];"""
+t_exp1.frac = [0.5,0.5 ];\n"""
     assert define_tracers(tracer_df_test, 'exp1') == expected
 
 def test_tracers_wrong_type(tracer_df_test):
@@ -73,7 +73,7 @@ def test_define_model():
     experiment_id = ["exp1", "exp2"]
     
     expected = "m = model(r, 'expts', [e_exp1,e_exp2]);\n"
-    assert define_model(model_id, experiment_id) == expected
+    assert define_model(experiment_id) == expected
 
 
 def test_define_experiment():

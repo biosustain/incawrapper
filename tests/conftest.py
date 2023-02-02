@@ -22,8 +22,8 @@ def inca_script():
 def reaction_test():
     return pd.DataFrame(
         {
-            "reaction": ["A.ext (C1:a C2:b) -> A (C1:a C2:b)", "A (C1:a C2:b) -> B (C1:b C2:a)", "B -> C", "C -> D"],
-            "id": ["r1", "r2", "r3", "r4"],
+            "rxn_eqn": ["A.ext (C1:a C2:b) -> A (C1:a C2:b)", "A (C1:a C2:b) -> B (C1:b C2:a)", "B -> C", "C -> D"],
+            "rxn_id": ["r1", "r2", "r3", "r4"],
         }
     )
 

@@ -37,7 +37,7 @@ def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
     tmp_script = (
         "% define tracers used in the experiments\n"
         + f"t_{experiment_id}"
-        + " = tracer({...\n"  # noqa E501
+        + " = tracer({...\n" 
     )
 
     def create_tracer(met_name: str, met_id: str, labelled_atoms: str) -> str:
@@ -62,7 +62,7 @@ def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
     )
 
     tmp_script += ",".join(tracers_subset["ratio"].astype(str).tolist())
-    tmp_script += " ];"
+    tmp_script += " ];\n"
     return tmp_script
 
 

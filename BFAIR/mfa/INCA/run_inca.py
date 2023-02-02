@@ -9,10 +9,6 @@ def run_inca(
     inca_script: INCA_script,
     INCA_base_directory: pathlib.Path,
     output_filename: pathlib.Path = None,
-    run_estimate: bool = None,
-    run_simulation: bool = None,
-    run_continuation: bool = None,
-    run_montecarlo: bool = None,
 ) -> None:
     """Run INCA with a given INCA script."""
 
@@ -30,12 +26,6 @@ def run_inca(
         script_filename = "inca_script.m"
         inca_script.save_script(temp_dir / script_filename)
         print(f"INCA script saved to {temp_dir / script_filename}.")
-        # Write the runner script to a file
-        runner_filename = "inca_runner.m"
-        inca_script._generate_runner_script(
-            output_filename.resolve(), run_estimate, run_continuation, run_simulation, run_montecarlo
-        )
-        inca_script.save_runner_script(temp_dir / runner_filename)
 
         # Run the INCA script
         start_time = time.time()
@@ -47,8 +37,6 @@ def run_inca(
         eng.cd(str(temp_dir.resolve()), nargout=0)
         _f = getattr(eng, str(script_filename.replace(".m", "")))
         _f(nargout=0)
-        _f2 = getattr(eng, str(runner_filename.replace(".m", "")))
-        _f2(nargout=0)
         eng.quit()
         print("--- %s seconds -" % (time.time() - start_time))
 

@@ -359,4 +359,49 @@ def define_options(**kwargs):
             kwargs[k] = f"'{v}'"
     return "m.options = " + instantiate_inca_class_call("option", S=None, **kwargs)
 
+def define_runner(        
+        output_filename: pathlib.Path,
+        run_estimate: bool = True,
+        run_simulation: bool = True,
+        run_continuation: bool = False,
+        run_montecarlo: bool = False,
+    ) -> str:
+        """
+        Generate a MATLAB script that specifies operations to be performed with the model defined in the INCA script.
+
+        Parameters
+        ----------
+        output_filename : pathlib.Path
+            Path to the output file. The output file will be a .mat file.
+        run_continuation : bool, optional
+            Whether to run parameter continuation with the settings defined in the INCA script, default True.
+        run_simulation : bool, optional
+            Whether to run a simulation with the settings defined in the INCA script, default True.
+            This is necessary for a fluxmap to be loaded into INCA.
+
+        Returns
+        -------
+        String
+        """
+        if run_montecarlo:
+            raise NotImplementedError("Monte Carlo sampling is not implemented yet.")
+
+        estimation = "f = estimate(m);\n" if run_estimate else ""
+        continuation = "f=continuate(f,m);\n" if run_continuation else ""
+        simulation = (
+            "s=simulate(m);\n" if run_simulation else ""
+        )  # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
+
+        output = f"filename = '{output_filename}';\n"
+
+        saving = "save(filename, "
+        if run_estimate:
+            saving += "'f', "
+        if run_simulation:
+            saving += "'s', "
+
+        saving += "'m');\n"
+
+        return estimation + continuation + simulation + output + saving
+    
 

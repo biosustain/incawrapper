@@ -10,6 +10,7 @@ import ast
 import BFAIR.mfa.utils.chemical_formula as chemical_formula
 import collections
 from BFAIR.mfa.INCA.dataschemas import model_reactions_schema, tracer_schema, flux_measurements_schema, ms_measurements_schema
+import warnings
 
 @pa.check_input(model_reactions_schema)
 def define_reactions(model_reactions: pd.DataFrame) -> str:
@@ -79,6 +80,11 @@ def define_flux_measurements(
     fluxes_subset = flux_measurements[
         flux_measurements["experiment_id"] == experiment_id
     ]
+
+    if fluxes_subset.empty:
+        warnings.warn(f"No flux measurements found for experiment {experiment_id}")
+        return "" 
+
     tmp_script = (
         f"\n% define flux measurements for experiment {experiment_id}\n"
         + f"f_{experiment_id}"
@@ -169,6 +175,11 @@ def define_possible_ms_fragments(
     ms_measurements_subset = ms_measurements[
         ms_measurements["experiment_id"] == experiment_id
     ]
+
+    if ms_measurements_subset.empty:
+        warnings.warn(f"No ms measurements found for experiment {experiment_id}. Skipping possible ms fragments.")
+        return "" 
+
     tmp_script = (
         f"\n% define mass spectrometry measurements for experiment {experiment_id}\n"
         + f"ms_{experiment_id}"
@@ -261,6 +272,11 @@ def define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) ->
     ms_measurements_subset = ms_measurements[
         ms_measurements["experiment_id"] == experiment_id
     ]
+
+    if ms_measurements_subset.empty:
+        warnings.warn(f"No ms measurements found for experiment {experiment_id}")
+        return "" 
+
     tmp_script = (
         f"\n% define mass spectrometry measurements for experiment {experiment_id}\n"
     )

@@ -50,16 +50,16 @@ def test_define_possible_ms_fragments(ms_measurements_test):
     expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1 = [...
 msdata('ms1: A @ 1 2', 'more', 'C7H19O'),...
-msdata('ms2: B @ C3 C4', 'more', 'CH4Si'),...
+msdata('ms2: B @ C3 C4', 'more', 'C2H4Si'),...
 msdata('ms3: C @ 3'),...
 ];\n"""
     assert define_possible_ms_fragments(ms_measurements_test, "exp1") == expected
 
 def test_define_ms_measurements(ms_measurements_test):
     expected = """\n% define mass spectrometry measurements for experiment exp1
-ms_exp1{'ms1'}.idvs = idv([[1.0;0.4]], 'id', {'exp1_ms1_0_1'}, 'std', [[0.1;0.2]], 'time', 0)
-ms_exp1{'ms2'}.idvs = idv([[2.0]], 'id', {'exp1_ms2_1_1'}, 'std', [[0.2]], 'time', 1)
-ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_1','exp1_ms3_0_2'}, 'std', [[0.3;0.4],[0.1;0.5]], 'time', 0)\n"""
+ms_exp1{'ms1'}.idvs = idv([[1.0;0.4]], 'id', {'exp1_ms1_0_0_1'}, 'std', [[0.1;0.2]], 'time', 0.0)
+ms_exp1{'ms2'}.idvs = idv([[2.0]], 'id', {'exp1_ms2_1_0_1'}, 'std', [[0.2]], 'time', 1.0)
+ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_0_1','exp1_ms3_0_0_2'}, 'std', [[0.3;0.4],[0.1;0.5]], 'time', 0.0)\n"""
     assert define_ms_measurements(ms_measurements_test, "exp1") == expected
 
 

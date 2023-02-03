@@ -51,15 +51,16 @@ ms_measurements_schema = pa.DataFrameSchema(
         "experiment_id": pa.Column(pa.String, required=True),
         "met_id": pa.Column(pa.String, required=True),
         "ms_id": pa.Column(pa.String, required=True),
-        "molecular_formula": pa.Column(
-            pa.String, required=True, nullable=True
+        "labelled_atom_ids": pa.Column(pa.Object, required=True, checks=Check_contain_lists),
+        "unlabelled_atoms": pa.Column(
+            pa.String, required=False, nullable=True
         ),  # nullable=True allows null values as nan or None
-        "labelled_atoms": pa.Column(pa.String, required=True),
         "idv": pa.Column(
             pa.Object, required=True, checks=Check_contain_lists
         ),  # pandera does not support list type
         "idv_std_error": pa.Column(
             pa.Object, required=True, checks=Check_contain_lists
         ),  # pandera does not support list type
+        "time": pa.Column(pa.Float, required=True, coerce=True),
     }
 )

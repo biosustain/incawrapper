@@ -1,7 +1,7 @@
 import pandas as pd
 import pandera as pa
 import pandera.typing as pat
-from typing import Dict, Iterable, Literal, Union, List
+from typing import Dict, Iterable, Literal, Union, List, Optional
 import pathlib
 import time
 import tempfile
@@ -125,7 +125,7 @@ def define_flux_measurements(
     return tmp_script
 
 
-def get_unlabelled_atoms(molecular_formula: str, labelled_atoms: str) -> str:
+def get_unlabelled_atom_ids(molecular_formula: str, labelled_atom_ids: str) -> str:
     """
     Get the unlabelled atoms in a molecule by substrating the labelled atoms.
 
@@ -133,24 +133,24 @@ def get_unlabelled_atoms(molecular_formula: str, labelled_atoms: str) -> str:
     ----------
         molecular_formula: str
             The molecular formula of the molecule.
-        labelled_atoms: str
+        labelled_atom_ids: str
             The labelled atoms in the molecule.
 
     Returns
     -------
-        unlabelled_atoms: str
+        unlabelled_atom_ids: str
             A molecular formula string of the unlabelled atoms.
     """
     formula_dict = chemical_formula._create_compound_dict(molecular_formula)
-    labelled_atoms_formula = chemical_formula.create_formula_from_dict(
-        collections.Counter(labelled_atoms)
+    labelled_atom_ids_formula = chemical_formula.create_formula_from_dict(
+        collections.Counter(labelled_atom_ids)
     )
-    unlabelled_atoms_formula = chemical_formula.subtract_formula(
+    unlabelled_atom_ids_formula = chemical_formula.subtract_formula(
         molecular_formula,
-        labelled_atoms_formula,
+        labelled_atom_ids_formula,
     )
 
-    return unlabelled_atoms_formula
+    return unlabelled_atom_ids_formula
 
 
 
@@ -185,13 +185,12 @@ def define_possible_ms_fragments(
 
     def create_ms(
         ms_id: str,
-        met_id,
-        labelled_atoms,
-        unlabelled_atoms,
+        met_id: str,
+        labelled_atom_ids: List,
+        unlabelled_atoms: Optional[str] = None,
     ) -> str:
-        labelled_atoms_parsed = labelled_atoms.strip("}{").strip("][").split(",")
-        labelled_atoms_string = " ".join(labelled_atoms_parsed)
-        ms_fragment_string = f"'{ms_id}: {met_id} @ {labelled_atoms_string}'"
+        labelled_atom_ids_string = " ".join(str(x) for x in labelled_atom_ids)
+        ms_fragment_string = f"'{ms_id}: {met_id} @ {labelled_atom_ids_string}'"
 
         if unlabelled_atoms is not None:
             return instantiate_inca_class_call(
@@ -215,21 +214,20 @@ def define_possible_ms_fragments(
 
     for ms_id, ms_df in ms_measurements_subset.groupby("ms_id"):
         ms_df = ms_df.iloc[0]
-        if ms_df["molecular_formula"] in [None, ""] or pd.isna(
-            ms_df["molecular_formula"]
-        ):
-            unlabelled_atoms = None
+        if not "unlabelled_atoms" in ms_df.index:
+            tmp_script += create_ms(
+                ms_id,
+                ms_df["met_id"],
+                ms_df["labelled_atom_ids"],
+            )
         else:
-            unlabelled_atoms = get_unlabelled_atoms(
-                ms_df["molecular_formula"], ms_df["labelled_atoms"]
+            tmp_script += create_ms(
+                ms_id,
+                ms_df["met_id"],
+                ms_df["labelled_atom_ids"],
+                ms_df["unlabelled_atoms"],
             )
 
-        tmp_script += create_ms(
-            ms_id,
-            ms_df["met_id"],
-            ms_df["labelled_atoms"],
-            unlabelled_atoms,
-        )
         tmp_script += ",...\n"
     tmp_script += "];\n"
     return tmp_script
@@ -275,7 +273,7 @@ def define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) ->
                 + "_"
                 + ms_id
                 + "_"
-                + str(time)
+                + str(time).replace(".", "_") # Dirty hack to avoid problems with . in the id
                 + "_"
                 + str(replicate_counter)
                 + "'"

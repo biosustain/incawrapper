@@ -20,18 +20,18 @@ reaction('C -> D', ['id'], ['r4']),...
 
 
 def test_define_tracers(tracer_df_test):
-    expected = """% define tracers used in the experiments
+    expected = """% define tracers used in exp1
 t_exp1 = tracer({...
-'[1-13C]A: A.ext @ 1',...
-'[1,2-13C]B: B @ 1 2',...
+'[1-13C]A: A.ext @ [ 1 ]',...
+'[1,2-13C]B: B @ [ 1 , 2 ]',...
 });
-
-% define fractions of tracers_subset used
-t_exp1.frac = [0.5,0.5 ];\n"""
+t_exp1.frac = [0.5,0.5 ];
+t_exp1.atoms.it(:,1) = [0.02,0.98];
+t_exp1.atoms.it(:,1) = [0.05,0.95];\n"""
     assert define_tracers(tracer_df_test, 'exp1') == expected
 
 def test_tracers_wrong_type(tracer_df_test):
-    tracer_df_test["ratio"] = ["0.5", "0.5"] # modify ratio to be a string
+    tracer_df_test["enrichment"] = "[0.5, 0.5]" # modify ratio to be a string
 
     with pytest.raises(pa.errors.SchemaError):
         define_tracers(tracer_df_test, 'exp1')

@@ -1,3 +1,3 @@
-"id","experiment_id","met_id","met_name",labelled_atoms,"ratio"
-"7","exp1","A","[1-13C]A",[1],1.0
-"7","exp2","A","[1-13C]A","[1,2]",0.5
+"experiment_id","met_id","tracer_id",atoms_id,"ratio","atoms_mdv"
+"exp1","A","[1-13C]A",[1],"1.0","0 1"
+"exp2","A","[1,2-13C]A","[1,2]","0.5","0 0 2"

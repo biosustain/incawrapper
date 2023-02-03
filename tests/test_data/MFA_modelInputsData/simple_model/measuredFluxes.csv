@@ -1,2 +1,2 @@
-"id","experiment_id","rxn_id","flux","flux_std_error"
-"1","exp1","R1",100.0,0.0001
+"experiment_id","rxn_id","flux","flux_std_error"
+"exp1","R1",10.0,0.00001

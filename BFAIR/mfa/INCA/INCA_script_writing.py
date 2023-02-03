@@ -34,35 +34,62 @@ def define_reactions(model_reactions: pd.DataFrame) -> str:
 def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
     """Define the tracers used in one experiment. Multiple experiments
     are handled in the define_experiments function."""
-    tmp_script = (
-        "% define tracers used in the experiments\n"
-        + f"t_{experiment_id}"
-        + " = tracer({...\n" 
-    )
 
-    def create_tracer(met_name: str, met_id: str, labelled_atoms: str) -> str:
+    def create_tracer(tracer_id: str, met_id: str, atom_ids: List) -> str:
         """Parse a tracer into a string format readable by INCA."""
-        labelled_atoms_parsed = labelled_atoms.strip("}{").strip("][").split(",")
-        labelled_atoms_string = " ".join(labelled_atoms_parsed)
-        return f"'{met_name}: {met_id} @ {labelled_atoms_string}'"
+        atom_ids_string = " ".join(str(x) for x in atom_ids)
+        return f"'{tracer_id}: {met_id} @ {atom_ids_string}'"
 
-    tracers_subset = tracers[tracers["experiment_id"] == experiment_id]
 
-    for _, tracer in tracers_subset.iterrows():
-        tracer_string = create_tracer(
-            tracer["met_name"],
-            tracer["met_id"],
-            tracer["labelled_atoms"],
-        )
-        tmp_script += f"{tracer_string},...\n"
-
-    tmp_script += "});\n"
-    tmp_script += (
-        f"\n% define fractions of tracers_subset used\nt_{experiment_id}.frac = ["
+    tracer_groups = (tracers
+        .query(f"experiment_id == '{experiment_id}'")
+        .groupby(['met_id', 'tracer_id','enrichment'])
     )
 
-    tmp_script += ",".join(tracers_subset["ratio"].astype(str).tolist())
-    tmp_script += " ];\n"
+    # Initialize strings for tracer definition
+    tracer_definition_str = f"t_{experiment_id}" + " = tracer({...\n" 
+    enrichment_definition_lst = []
+    mdv_definition_str = ""
+    for grp, df in tracer_groups:
+        # unpacking the group name, notice order is the same as in the groupby
+        # This gives on one value for the data that is common for all rows in the group
+        met_id, tracer_id, enrichment = grp
+
+        # Iterate over the labelling groups
+        labelling_group_count = 0
+        for df_index, row in df.iterrows():
+
+            # Create the tracer definitions
+            tracer_string = create_tracer(
+                tracer_id,
+                met_id,
+                row["atom_ids"],
+            )
+            tracer_definition_str += f"{tracer_string},...\n"
+
+            # Create the tracer enrichments
+            enrichment_definition_lst.append(str(enrichment))
+
+            # collect atom mdvs (purity)
+            labelling_group_count += 1
+            mdv_definition_str += f"t_{experiment_id}.atoms.it(:,{labelling_group_count}) = ["
+            mdv_definition_str += ",".join(str(x) for x in row["atom_mdv"])
+            mdv_definition_str += "];\n"
+
+    tracer_definition_str += "});\n"
+    
+    # Finalize the enrichment definition string
+    enrichment_definition_str = f"t_{experiment_id}.frac = ["
+    enrichment_definition_str += ",".join(enrichment_definition_lst)
+    enrichment_definition_str += " ];\n"
+
+    # Collect script
+    tmp_script = (
+        f"% define tracers used in {experiment_id}\n"
+        + tracer_definition_str
+        + enrichment_definition_str
+        + mdv_definition_str
+    )
     return tmp_script
 
 

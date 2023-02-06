@@ -67,5 +67,10 @@ class INCA_script:
 
     def save_script(self, filename: pathlib.Path):
         """Save the INCA script to a file."""
+        self.generate_script()
         with open(filename, "w") as f:
             f.write(self.matlab_script)
+
+    def __str__(self):
+        self.generate_script()
+        return self.matlab_script

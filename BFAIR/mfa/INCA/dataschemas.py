@@ -2,6 +2,7 @@ import pandera as pa
 Check_contain_lists = pa.Check(
     lambda x: isinstance(x, list),
     element_wise=True,
+    title='Contain lists',
     description="Check if all elements of the column are lists",
 )
 

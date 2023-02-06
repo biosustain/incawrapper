@@ -8,14 +8,11 @@ from BFAIR.mfa.INCA.INCA_script import INCA_script
 def run_inca(
     inca_script: INCA_script,
     INCA_base_directory: pathlib.Path,
-    output_filename: pathlib.Path = None,
 ) -> None:
     """Run INCA with a given INCA script."""
 
     # Create a temporary folder to store the INCA script and the runner script
     # The temporary folder will be deleted after the script is run
-    if type(output_filename) is not pathlib.Path:
-        output_filename = pathlib.Path(output_filename)
     if type(INCA_base_directory) is not pathlib.Path:
         INCA_base_directory = pathlib.Path(INCA_base_directory)
 

@@ -438,7 +438,12 @@ def define_runner(
             "s=simulate(m);\n" if run_simulation else ""
         )  # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
 
-        output = f"filename = '{output_filename}';\n"
+        # using pathlib.Path.resolve() to get the absolute path of the output file
+        # otherwise the output file will be save in the temporary directory created 
+        # during run_inca()
+        if type(output_filename) is not pathlib.Path:
+            output_filename = pathlib.Path(output_filename)
+        output = f"filename = '{output_filename.resolve()}';\n"
 
         saving = "save(filename, "
         if run_estimate:

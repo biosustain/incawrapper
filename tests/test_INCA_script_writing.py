@@ -3,7 +3,7 @@ import pandera as pa
 import pandera.typing as pat
 from typing import Iterable, Literal, Union, List
 from BFAIR.mfa.INCA.INCA_script import INCA_script
-from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactions, define_flux_measurements, define_possible_ms_fragments, define_ms_measurements, define_tracers, make_experiment_data_config, define_model
+from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactions, define_flux_measurements, _define_measured_ms_fragments, _define_ms_measurements, define_tracers, make_experiment_data_config, define_model
 import pytest
 
 
@@ -22,8 +22,8 @@ reaction('C -> D', ['id'], ['r4']),...
 def test_define_tracers(tracer_df_test):
     expected = """% define tracers used in exp1
 t_exp1 = tracer({...
-'[1-13C]A: A.ext @ [ 1 ]',...
-'[1,2-13C]B: B @ [ 1 , 2 ]',...
+'[1-13C]A: A.ext @ 1',...
+'[1,2-13C]B: B @ 1 2',...
 });
 t_exp1.frac = [0.5,0.5 ];
 t_exp1.atoms.it(:,1) = [0.02,0.98];
@@ -46,21 +46,21 @@ data('r3', 'val', 3.0, 'std', 0.3),...
     assert define_flux_measurements(flux_measurements_test, "exp1") == expected
 
 
-def test_define_possible_ms_fragments(ms_measurements_test):
+def test_define_measured_ms_fragments(ms_measurements_test):
     expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1 = [...
 msdata('ms1: A @ 1 2', 'more', 'C7H19O'),...
 msdata('ms2: B @ C3 C4', 'more', 'C2H4Si'),...
 msdata('ms3: C @ 3'),...
 ];\n"""
-    assert define_possible_ms_fragments(ms_measurements_test, "exp1") == expected
+    assert _define_measured_ms_fragments(ms_measurements_test, "exp1") == expected
 
 def test_define_ms_measurements(ms_measurements_test):
     expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1{'ms1'}.idvs = idv([[1.0;0.4]], 'id', {'exp1_ms1_0_0_1'}, 'std', [[0.1;0.2]], 'time', 0.0)
 ms_exp1{'ms2'}.idvs = idv([[2.0]], 'id', {'exp1_ms2_1_0_1'}, 'std', [[0.2]], 'time', 1.0)
 ms_exp1{'ms3'}.idvs = idv([[3.0;4.0],[1.0;5.0]], 'id', {'exp1_ms3_0_0_1','exp1_ms3_0_0_2'}, 'std', [[0.3;0.4],[0.1;0.5]], 'time', 0.0)\n"""
-    assert define_ms_measurements(ms_measurements_test, "exp1") == expected
+    assert _define_ms_measurements(ms_measurements_test, "exp1") == expected
 
 
 def test_make_experiment_data_config(ms_measurements_test, flux_measurements_test):

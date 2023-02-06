@@ -175,7 +175,7 @@ def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
 
 
 @pa.check_input(ms_measurements_schema)
-def define_possible_ms_fragments(
+def _define_measured_ms_fragments(
     ms_measurements: pd.DataFrame, experiment_id: str
 ) -> str:
     """INCA's data model distinguishes between the ms fragments and the measurements of
@@ -239,7 +239,7 @@ def matlab_column_vector(lst: List[float]) -> str:
     return "[" + ";".join([str(i) for i in lst]) + "]"
 
 @pa.check_input(ms_measurements_schema)
-def define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
+def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
     """Defines measurements of ms fragments. This is done by updating the msdata objects
     of the individuals ms fragements."""
     
@@ -316,6 +316,11 @@ def define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) ->
         tmp_script += "\n"
     return tmp_script
 
+def define_ms_data(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
+    """Wrapper function to define both the msdata objects and the ms measurements."""
+    tmp_script = _define_measured_ms_fragments(ms_measurements, experiment_id)
+    tmp_script += _define_ms_measurements(ms_measurements, experiment_id)
+    return tmp_script
 
 def _inverse_dict(d):
     """Return a dictionary with the keys as the elements of the lists and the values 

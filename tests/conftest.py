@@ -34,7 +34,7 @@ def tracer_df_test():
             "experiment_id": ["exp1", "exp1"],
             "tracer_id": ["[1-13C]A", "[1,2-13C]B"],
             "met_id": ["A.ext", "B"],
-            "atom_ids": ["[1]", "[1,2]"],
+            "atom_ids": [[1], [1,2]],
             "atom_mdv" : [[0.02, 0.98], [0.05, 0.95]],
             "enrichment": [0.5, 0.5],
         }

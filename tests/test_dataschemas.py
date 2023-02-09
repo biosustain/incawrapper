@@ -21,3 +21,24 @@ def test_invalid_experiment_id(flux_measurements_test):
     with pytest.raises(pa.errors.SchemaError):
         flux_measurements_schema.validate(df)
 
+
+def test_ms_measuremnts_schema(ms_measurements_test):
+    df = ms_measurements_test.copy()
+    assert isinstance(ms_measurements_schema.validate(df), pd.DataFrame)
+
+
+def test_invalid_length_idv_std_error(ms_measurements_test):
+    df = ms_measurements_test.copy()
+    df.loc[[0],'idv_std_error']= pd.Series([[0.1, 0.2, 0.3,0.4]]) # the [] around 0 is required
+    with pytest.raises(pa.errors.SchemaError, match="The length of idv and idv_std_error must be the same"):
+        ms_measurements_schema.validate(df)
+
+
+def test_short_idv_raises_warning(ms_measurements_test):
+    """Test that a warning is raised if the length of idv is shorter than the length of labelled_atom_ids"""
+    df = ms_measurements_test.copy()
+    df.loc[0,'idv'] = [0.1]
+    df.loc[0,'idv_std_error'] = [0.1]
+    with pytest.warns(UserWarning):
+        ms_measurements_schema.validate(df)
+

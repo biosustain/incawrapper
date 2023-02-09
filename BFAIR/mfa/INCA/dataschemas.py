@@ -4,6 +4,15 @@ Check_contain_lists = pa.Check(
     element_wise=True,
     title='Contain lists',
     description="Check if all elements of the column are lists",
+    error="The column must contain python lists",
+)
+
+# experiment_id column are used in multiple schemas therefore it is defined here
+Experiment_id_column = pa.Column(
+    pa.String, 
+    required=True, 
+    description="ID of the experiment. Must be a valid MATLAB variable name, legal characters are a-z, A-Z, 0-9, and the underscore character.",
+    checks=pa.Check.str_matches(r'[\w-]+$', error="The experiment_id must be a valid MATLAB variable name, legal characters are a-z, A-Z, 0-9, and the underscore character."),
 )
 
 
@@ -21,7 +30,7 @@ tracer_schema = pa.DataFrameSchema(
     # TODO: Add validation for reaction arrow
     # TODO: Add validation for id uniqueness
     columns={
-        "experiment_id": pa.Column(pa.String, required=True),
+        "experiment_id": Experiment_id_column,
         "tracer_id": pa.Column(pa.String, required=True, description="Name of the tracer"),
         "met_id": pa.Column(pa.String, required=True, description="ID of the metabolite"),
         "atom_ids": pa.Column(
@@ -36,7 +45,7 @@ Currently only supports one labelling group, e.i. all labelled atoms have the sa
 
 flux_measurements_schema = pa.DataFrameSchema(
     columns={
-        "experiment_id": pa.Column(pa.String, required=True),
+        "experiment_id": Experiment_id_column,
         "rxn_id": pa.Column(pa.String, required=True),
         "flux": pa.Column(pa.Float, required=True, coerce=True),
         "flux_std_error": pa.Column(pa.Float, required=True, coerce=True),
@@ -49,7 +58,7 @@ ms_measurements_schema = pa.DataFrameSchema(
     # of the same fragment. If grouping by ms_id colums met_id, molecular_formula and
     # labelled_atoms should only one value.
     columns={
-        "experiment_id": pa.Column(pa.String, required=True),
+        "experiment_id": Experiment_id_column,
         "met_id": pa.Column(pa.String, required=True),
         "ms_id": pa.Column(pa.String, required=True),
         "labelled_atom_ids": pa.Column(pa.Object, required=True, checks=Check_contain_lists),

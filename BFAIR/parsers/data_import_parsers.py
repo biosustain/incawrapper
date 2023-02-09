@@ -5,10 +5,7 @@ Methods to prepare  reaction input data to fit the BFAIR INCA tools format.
 import pandas as pd
 from more_itertools import locate
 from collections import Counter
-import logging
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
 
 def reaction_parser(equation_string):
     """

@@ -10,14 +10,12 @@ import os
 import pandas as pd
 from datetime import datetime
 from stat import ST_SIZE, ST_MTIME
-import logging
+import logging 
 import traceback
 
 __version__ = "1.0.0"
 
-# Setup logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
+
 
 class INCA_reimport:
     def __init__(self):

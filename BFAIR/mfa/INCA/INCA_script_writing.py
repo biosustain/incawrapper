@@ -462,41 +462,55 @@ def create_inca_script_from_data(
    tracer_data: tracer_schema, 
    flux_measurements: flux_measurements_schema = None, 
    ms_measurements: ms_measurements_schema = None, 
-   pool_measurements = None
+   pool_measurements = None,
+   experiment_ids: Optional[Union[str,List]] = 'All',
 )->INCA_script:
-   """Create an INCA_script object from dataframes with the data. The experiment configuration 
-   is inferred from the data.
-   
-   Parameters
-   ----------
-   reactions_data : dataschemas.model_reactions_schema
-      Dataframe with the reactions data
-   tracer_data : dataschemas.tracer_schema
-      Dataframe with the tracer data
-   flux_measurements : dataschemas.flux_measurements_schema, optional
-      Dataframe with the flux measurements, by default None
-   ms_measurements : dataschemas.ms_measurements_schema, optional
-      Dataframe with the MS measurements, by default None
-   pool_measurements : [type], optional
-      Not yet implemented, by default None
-   """
-   exp_config = make_experiment_data_config(flux_measurements, ms_measurements, pool_measurements)
+    """Create an INCA_script object from dataframes with the data. The experiment configuration 
+    is inferred from the data. The user can specify which experiments to include in the INCA script
+    by specifying the experiment_ids.
+    
+    Parameters
+    ----------
+    reactions_data : dataschemas.model_reactions_schema
+        Dataframe with the reactions data
+    tracer_data : dataschemas.tracer_schema
+        Dataframe with the tracer data
+    flux_measurements : dataschemas.flux_measurements_schema, optional
+        Dataframe with the flux measurements, by default None
+    ms_measurements : dataschemas.ms_measurements_schema, optional
+        Dataframe with the MS measurements, by default None
+    pool_measurements : [type], optional
+        Not yet implemented, by default None
+    experiment_ids : Optional(Union[str,List[str]]), optional
+        List of experiment ids to include in the INCA script, by default 'All'.
+    
+    Returns
+    -------
+    INCA_script
+        INCA_script object populated with reactions, tracers, experiments, model and measurements.
+    """
+    exp_config = make_experiment_data_config(flux_measurements, ms_measurements, pool_measurements)
+    if experiment_ids != 'All':
+        if isinstance(experiment_ids, list):
+            exp_config = {k:v for k,v in exp_config.items() if k in experiment_ids}
+        if isinstance(experiment_ids, str):
+            exp_config = exp_config[experiment_ids]
 
-   inca_script = INCA_script()
-   inca_script.add_to_block('reactions', define_reactions(reactions_data))
+    inca_script = INCA_script()
+    inca_script.add_to_block('reactions', define_reactions(reactions_data))
 
-   # Specify data
-   for exp_id, measurement_types in exp_config.items():
-      inca_script.add_to_block("tracers", define_tracers(tracer_data, exp_id))
-      if "data_flx" in measurement_types:
-         inca_script.add_to_block("fluxes", define_flux_measurements(flux_measurements, exp_id))
-      if "data_ms" in measurement_types:
-         inca_script.add_to_block("ms_fragments", define_ms_data(ms_measurements, exp_id))
-      if "data_pool" in measurement_types:
-         raise NotImplementedError("Pool measurements are not yet implemented in INCA_script")
-      inca_script.add_to_block("experiments", define_experiment(exp_id, measurement_types))
-      
-   inca_script.add_to_block('model', define_model(exp_config.keys()))
+    # Specify data
+    for exp_id, measurement_types in exp_config.items():
+        inca_script.add_to_block("tracers", define_tracers(tracer_data, exp_id))
+        if "data_flx" in measurement_types:
+            inca_script.add_to_block("fluxes", define_flux_measurements(flux_measurements, exp_id))
+        if "data_ms" in measurement_types:
+            inca_script.add_to_block("ms_fragments", define_ms_data(ms_measurements, exp_id))
+        if "data_pool" in measurement_types:
+            raise NotImplementedError("Pool measurements are not yet implemented in INCA_script")
+        inca_script.add_to_block("experiments", define_experiment(exp_id, measurement_types))
+        
+    inca_script.add_to_block('model', define_model(exp_config.keys()))
 
-   return inca_script
+    return inca_script
 

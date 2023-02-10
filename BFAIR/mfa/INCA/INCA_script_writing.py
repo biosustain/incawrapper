@@ -11,6 +11,7 @@ import BFAIR.mfa.utils.chemical_formula as chemical_formula
 import collections
 from BFAIR.mfa.INCA.INCA_script import INCA_script
 from BFAIR.mfa.INCA.dataschemas import model_reactions_schema, tracer_schema, flux_measurements_schema, ms_measurements_schema
+import logging
 import warnings
 
 @pa.check_input(model_reactions_schema)
@@ -154,7 +155,43 @@ def get_unlabelled_atom_ids(molecular_formula: str, labelled_atom_ids: str) -> s
     return unlabelled_atom_ids_formula
 
 
+def _fill_mass_isotope_gaps_in_group(ms_measurements):
+    """Fill gaps in mass_isotope column and add nan for intensity and intensity_std_error. 
+    Here a gap is defined as gaps in the mass_isotope column that are not consecutive 
+    intergers starting from 0. This does not consider the labelled_atom_ids. Missing 
+    values above the largest measured mass_isotope are handled by INCA.
+    
+    This function is meant to be used with pandas.DataFrame.groupby().apply().
+    
+    Parameters
+    ----------
+    ms_measurements : pandas.DataFrame
+        A sub-dataframe of ms_measurement data where all columns only have one unique
+        value except for intensity, intensity_std_error, and mass_isotope.
+    
+    Returns
+    -------
+    pandas.DataFrame
+        A dataframe with the same columns as the input dataframe but with the mass_isotope
+        column filled with consecutive integers starting from 0. The intensity and
+        intensity_std_error columns are filled with pd.NA for the missing values."""
 
+    largest_mass_isotope = ms_measurements['mass_isotope'].max()
+    fill_columns = [name for name in ms_measurements.columns if name not in ['intensity', 'intensity_std_error', 'mass_isotope']]
+    ms_measurements = ms_measurements.set_index("mass_isotope").reindex(range(0, largest_mass_isotope + 1), fill_value=pd.NA)
+    ms_measurements[fill_columns] = ms_measurements[fill_columns].ffill().bfill()
+    return ms_measurements
+
+@pa.check_input(ms_measurements_schema)
+def fill_all_mass_isotope_gaps(ms_measurements: pd.DataFrame) -> pd.DataFrame:
+    groupby_cols = ["experiment_id", "ms_id", "measurement_replicate"]
+    out = (ms_measurements
+        .groupby(groupby_cols)
+        .apply(_fill_mass_isotope_gaps_in_group)
+        .drop(columns=groupby_cols)
+        .reset_index()
+    )
+    return out
 
 
 def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
@@ -245,11 +282,10 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
     of the individuals ms fragements."""
     
     def add_idvs_to_msdata(
-        experiment_id: pat.Series[str],
-        ms_id: pat.Series[str],
-        idv: pat.Series[List],
-        idv_std_error: pat.Series[List],
-        time: pat.Series[float],
+		experiment_id: str,
+        ms_id: str,
+        time_value: float,
+        df: pat.DataFrame,
     ) -> str:
         """Write a line of matlab code to add measurements of one ms fragment to the
         msdata object. It is allowed to have multiple measurements of the same ms
@@ -260,38 +296,38 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
         experiment_id, ms_id, time and replicate number.
         """
 
-        replicate_counter = 0
-        idv_id_lst = []
+        # convert to matlab NaN
+        df_new = df.copy()
+        df_new[['intensity', 'intensity_std_error']] = df[['intensity', 'intensity_std_error']].fillna('NaN')
+
+        measurement_id_lst = []
         idv_str = "["
         idv_std_error_str = "["
-        for idx, _ in idv.items():
-            idv_str += matlab_column_vector(idv[idx]) + ","
-            idv_std_error_str += matlab_column_vector(idv_std_error[idx]) + ","
-            replicate_counter += 1
-            idv_id_lst.append(
+        for replicate, grp_df in df_new.groupby('measurement_replicate'):
+            grp_df = grp_df.sort_values('mass_isotope', ascending=True)
+            idv_str += matlab_column_vector(grp_df['intensity']) + ","
+            idv_std_error_str += matlab_column_vector(grp_df['intensity_std_error']) + ","
+
+            # create unique id for each measurement
+            measurement_id_lst.append(
+                "'" +
+                str(experiment_id) + "_" +
+                str(ms_id) + "_" + 
+                str(time_value).replace(".", "_") + "_" +
+                str(replicate) +
                 "'"
-                + experiment_id
-                + "_"
-                + ms_id
-                + "_"
-                + str(time).replace(".", "_") # Dirty hack to avoid problems with . in the id
-                + "_"
-                + str(replicate_counter)
-                + "'"
             )
 
         # remove last comma
-        idv_str = idv_str.rstrip(",")
-        idv_std_error_str = idv_std_error_str.rstrip(",")
-        idv_str += "]"
-        idv_std_error_str += "]"
+        idv_str = idv_str.rstrip(",") + "]"
+        idv_std_error_str = idv_std_error_str.rstrip(",") + "]"
 
-        idv_id = "{" + ",".join(idv_id_lst) + "}"
+        idv_id = "{" + ",".join(measurement_id_lst) + "}"
 
         return (
             f"ms_{experiment_id}{{'{ms_id}'}}.idvs = " + 
             instantiate_inca_class_call(
-                "idv", idv_str, id=idv_id, std=idv_std_error_str, time=time
+                "idv", idv_str, id=idv_id, std=idv_std_error_str, time=time_value
             )
         )
 
@@ -310,15 +346,15 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
         tmp_script += add_idvs_to_msdata(
             experiment_id,
             ms_id,
-            ms_df["idv"],
-            ms_df["idv_std_error"],
             ms_df["time"].iloc[0],
+            ms_df,
         )
         tmp_script += "\n"
     return tmp_script
 
 def define_ms_data(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
     """Wrapper function to define both the msdata objects and the ms measurements."""
+    ms_measurements = fill_all_mass_isotope_gaps(ms_measurements)
     tmp_script = _define_measured_ms_fragments(ms_measurements, experiment_id)
     tmp_script += _define_ms_measurements(ms_measurements, experiment_id)
     return tmp_script

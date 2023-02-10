@@ -61,28 +61,20 @@ ms_measurements_schema = pa.DataFrameSchema(
         "experiment_id": Experiment_id_column,
         "met_id": pa.Column(pa.String, required=True),
         "ms_id": pa.Column(pa.String, required=True),
+        "measurement_replicate": pa.Column(pa.Int, required=True, coerce=True, 
+            description="Replicate number of the measurement of the same fragment in the same experiment. "
+            "In most cases, the data will only have one measurement per fragment per experiment."
+        ),
         "labelled_atom_ids": pa.Column(pa.Object, required=True, checks=Check_contain_lists),
         "unlabelled_atoms": pa.Column(
-            pa.String, required=False, nullable=True
+            pa.String, required=False, nullable=False
         ),  # nullable=True allows null values as nan or None
-        "idv": pa.Column(
-            pa.Object, required=True, checks=Check_contain_lists,
-            description=("List of isotopomer distribution values. The first element is the abundance "
-            "of the mass isotopomer with no labelled atoms (M0). The second element is the abundance "
-            "of M1 and so on. The length of this list must be equal to or less than the length of "
-            "labelled_atom_ids + 1 (+1 comes from the M0 measurement). It is not possible to have "
-            "unmeasured mass isotopomers in the middle of the list. The elements of the list will be "
-            "interpreted in consecutive order starting from M0 and Nan values are not allowed."
-            ),
-        ),  # pandera does not support list type
-        "idv_std_error": pa.Column(
-            pa.Object, required=True, checks=Check_contain_lists
-        ),  # pandera does not support list type
+        "mass_isotope": pa.Column(pa.Int, required=True, coerce=True),
+        "intensity": pa.Column(pa.Float, required=True, coerce=True, nullable=True),
+        "intensity_std_error": pa.Column(pa.Float, required=True, coerce=True, nullable=True),
         "time": pa.Column(pa.Float, required=True, coerce=True),
     },
     checks=[
-        pa.Check(lambda row: len(row["idv"]) == len(row["idv_std_error"]), element_wise=True, error="The length of idv and idv_std_error must be the same"),
-        pa.Check(lambda row: len(row["idv"]) <= len(row["labelled_atom_ids"])+1, element_wise=True, error="The length of idv must be less or equal to the length of labelled_atom_ids + 1"),
-        pa.Check(lambda row: len(row["idv"]) == len(row["labelled_atom_ids"])+1, element_wise=True, raise_warning=True, error="There is not a measurement for all mass isotopes (len(idv)<len(labelled_atom_ids)+1). This is allowed and may as well be intended, but it could be a mistake in input data."),
+        # TODO: refactor to accomudate new long input data pa.Check(lambda row: len(row["idv"]) == len(row["labelled_atom_ids"])+1, element_wise=True, raise_warning=True, error="There is not a measurement for all mass isotopes (len(idv)<len(labelled_atom_ids)+1). This is allowed and may as well be intended, but it could be a mistake in input data."),
     ]
 )

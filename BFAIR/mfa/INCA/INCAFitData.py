@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from BFAIR.mfa.INCA import load_matlab_file
-from BFAIR.mfa.INCA.INCA_model import INCA_model
+from BFAIR.mfa.INCA.INCAModel import INCAModel
 from dataclasses import dataclass
 import pathlib
 from typing import Literal, Dict, Iterable, Callable
@@ -9,11 +9,11 @@ import scipy.stats
 
 
 @dataclass
-class INCA_fitdata:
+class INCAFitData:
     """
     This class parses the output from INCA and stores the data in a dataclass. On init the class
     loads the matlab file and parses the data into several pandas dataframe, which can be accessed
-    via the class attributes. The class also contains the INCA_model class, which can be accessed
+    via the class attributes. The class also contains the INCAModel class, which can be accessed
     via the model attribute. This contains information about the model which was fitted.
     """
 

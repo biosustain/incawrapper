@@ -1,12 +1,12 @@
 import altair as alt
-from BFAIR.mfa.INCA.INCA_results import INCA_results
+from BFAIR.mfa.INCA.INCAResults import INCAResults
 import numpy as np
 import pandas as pd
 from typing import Union, Tuple
 import scipy.stats
 import matplotlib.pyplot as plt
 
-def plot_residuals_vs_fitted(inca_results: INCA_results) -> alt.Chart:
+def plot_residuals_vs_fitted(inca_results: INCAResults) -> alt.Chart:
     df = inca_results.fitdata.measurements_and_fit_detailed.drop(columns=["base"])
     return (
         alt.Chart(df)
@@ -22,7 +22,7 @@ def plot_residuals_vs_fitted(inca_results: INCA_results) -> alt.Chart:
 
 
 def plot_norm_probplot(
-    inca_results: INCA_results, interactive: bool = False
+    inca_results: INCAResults, interactive: bool = False
 ) -> Union[alt.Chart, Tuple[plt.Figure, plt.Axes]]:
 
     if not interactive:

@@ -1,7 +1,7 @@
 import pytest
 import pathlib
 import os 
-from BFAIR.mfa.INCA.INCA_results import INCA_results
+from BFAIR.mfa.INCA.INCAResults import INCAResults
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
@@ -23,7 +23,7 @@ def test_wrong_file_type():
     Tests if the correct error is raised if the file is not a .mat file
     """
     with pytest.raises(ValueError):
-        INCA_results(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.m"))
+        INCAResults(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.m"))
 
 def test_matlab_object_contains_all_parts(inca_results_simple_model):
     """Tests if the matlab object contains a model, a fit and a simulation parts."""

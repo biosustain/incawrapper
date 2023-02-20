@@ -6,7 +6,7 @@ import pathlib
 from typing import Literal, Dict, List
 
 @dataclass
-class INCA_model:
+class INCAModel:
     inca_matlab_file: pathlib.Path
 
     def __post_init__(self):

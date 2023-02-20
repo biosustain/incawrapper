@@ -10,11 +10,11 @@ import ast
 import BFAIR.mfa.utils.chemical_formula as chemical_formula
 import collections
 from BFAIR.mfa.INCA.INCA_script import INCA_script
-from BFAIR.mfa.INCA.dataschemas import model_reactions_schema, tracer_schema, flux_measurements_schema, ms_measurements_schema
+from BFAIR.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema
 import logging
 import warnings
 
-@pa.check_input(model_reactions_schema)
+@pa.check_input(ReactionsSchema)
 def define_reactions(model_reactions: pd.DataFrame) -> str:
     def create_reaction(reaction_equation: str, reaction_id: str) -> str:
         """Parse a reaction string into a function call of the INCA reaction."""
@@ -32,7 +32,7 @@ def define_reactions(model_reactions: pd.DataFrame) -> str:
     return script
 
 
-@pa.check_input(tracer_schema)
+@pa.check_input(TracerSchema)
 def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
     """Define the tracers used in one experiment. Multiple experiments
     are handled in the define_experiments function."""
@@ -95,7 +95,7 @@ def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
     return tmp_script
 
 
-@pa.check_input(flux_measurements_schema)
+@pa.check_input(FluxMeasurementsSchema)
 def define_flux_measurements(
     flux_measurements: pd.DataFrame, experiment_id: str
 ) -> str:
@@ -182,7 +182,7 @@ def _fill_mass_isotope_gaps_in_group(ms_measurements):
     ms_measurements[fill_columns] = ms_measurements[fill_columns].ffill().bfill()
     return ms_measurements
 
-@pa.check_input(ms_measurements_schema)
+@pa.check_input(MSMeasurementsSchema)
 def fill_all_mass_isotope_gaps(ms_measurements: pd.DataFrame) -> pd.DataFrame:
     groupby_cols = ["experiment_id", "ms_id", "measurement_replicate"]
     out = (ms_measurements
@@ -212,7 +212,7 @@ def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
     return f"{inca_class}({S}, {kwargs_str})"
 
 
-@pa.check_input(ms_measurements_schema)
+@pa.check_input(MSMeasurementsSchema)
 def _define_measured_ms_fragments(
     ms_measurements: pd.DataFrame, experiment_id: str
 ) -> str:
@@ -230,7 +230,7 @@ def _define_measured_ms_fragments(
         labelled_atom_ids_string = " ".join(str(x) for x in labelled_atom_ids)
         ms_fragment_string = f"'{ms_id}: {met_id} @ {labelled_atom_ids_string}'"
 
-        if unlabelled_atoms is not None:
+        if unlabelled_atoms is not None and unlabelled_atoms != "" and not pd.isna(unlabelled_atoms):
             return instantiate_inca_class_call(
                 "msdata", ms_fragment_string, more=f"'{unlabelled_atoms}'"
             )
@@ -276,7 +276,7 @@ def matlab_column_vector(lst: List[float]) -> str:
     [1;2;3;4;5]"""
     return "[" + ";".join([str(i) for i in lst]) + "]"
 
-@pa.check_input(ms_measurements_schema)
+@pa.check_input(MSMeasurementsSchema)
 def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
     """Defines measurements of ms fragments. This is done by updating the msdata objects
     of the individuals ms fragements."""
@@ -388,7 +388,6 @@ def make_experiment_data_config(
         experiments_with_measurement_type['data_cxn'] = pool_measurements["experiment_id"].unique().tolist()
     if nmr_measurements is not None:
         experiments_with_measurement_type['data_nmr'] = nmr_measurements["experiment_id"].unique().tolist()
-    
 
     experimental_data_config = _inverse_dict(experiments_with_measurement_type)
 
@@ -494,10 +493,10 @@ def define_runner(
 
 
 def create_inca_script_from_data(
-   reactions_data: model_reactions_schema, 
-   tracer_data: tracer_schema, 
-   flux_measurements: flux_measurements_schema = None, 
-   ms_measurements: ms_measurements_schema = None, 
+   reactions_data: ReactionsSchema, 
+   tracer_data: TracerSchema, 
+   flux_measurements: FluxMeasurementsSchema = None, 
+   ms_measurements: MSMeasurementsSchema = None, 
    pool_measurements = None,
    experiment_ids: Optional[Union[str,List]] = 'All',
 )->INCA_script:
@@ -507,13 +506,13 @@ def create_inca_script_from_data(
     
     Parameters
     ----------
-    reactions_data : dataschemas.model_reactions_schema
+    reactions_data : dataschemas.ReactionsSchema
         Dataframe with the reactions data
-    tracer_data : dataschemas.tracer_schema
+    tracer_data : dataschemas.TracerSchema
         Dataframe with the tracer data
-    flux_measurements : dataschemas.flux_measurements_schema, optional
+    flux_measurements : dataschemas.FluxMeasurementsSchema, optional
         Dataframe with the flux measurements, by default None
-    ms_measurements : dataschemas.ms_measurements_schema, optional
+    ms_measurements : dataschemas.MSMeasurementsSchema, optional
         Dataframe with the MS measurements, by default None
     pool_measurements : [type], optional
         Not yet implemented, by default None

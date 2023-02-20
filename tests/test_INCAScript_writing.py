@@ -1,9 +1,10 @@
 import pandas as pd
+import numpy as np
 import pandera as pa
 import pandera.typing as pat
 from typing import Iterable, Literal, Union, List
 from BFAIR.mfa.INCA.INCAScript import INCAScript
-from BFAIR.mfa.INCA.INCAScript_writing import define_experiment, define_reactions, define_flux_measurements, _define_measured_ms_fragments, _define_ms_measurements, define_tracers, make_experiment_data_config, define_model
+from BFAIR.mfa.INCA.INCAScript_writing import define_experiment, define_reactions, define_flux_measurements, _define_measured_ms_fragments, _define_ms_measurements, define_tracers, make_experiment_data_config, define_model, fill_all_mass_isotope_gaps
 import pytest
 
 
@@ -82,3 +83,18 @@ def test_define_experiment():
 
     expected = "e_exp1 = experiment(t_exp1, 'id', 'exp1', 'data_flx', f_exp1, 'data_ms', ms_exp1);\n" 
     assert define_experiment(experiment_id, measurement_types) == expected
+
+
+def test_fill_all_mass_isotope_gaps(ms_measurements_test):
+    """General test the check consistent behaviour of fill_all_mass_isotope_gaps."""
+
+    out = fill_all_mass_isotope_gaps(ms_measurements_test)
+    assert out['mass_isotope'].unique().tolist() == [0, 1, 2, 3, 4]
+    assert out['intensity'].isna().sum() == 2
+    assert out['intensity_std_error'].isna().sum() == 2
+    assert out['intensity'].notna().sum() == 8
+    assert out['intensity_std_error'].notna().sum() == 8
+    assert all(out.loc[out['mass_isotope'] == 0, 'experiment_id'].values == ['exp1', 'exp2']), ("The mass_isotope 0 is missing " 
+    "from the exp2, thus this checks that experiment id is not filled with the previous "
+    "id.")
+

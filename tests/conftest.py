@@ -4,6 +4,7 @@ import pytest
 import pathlib
 import os 
 import pandas as pd
+import numpy as np
 from BFAIR.mfa.INCA.INCA_results import INCA_results
 from BFAIR.mfa.INCA.INCA_script import INCA_script
 current_dir = str(pathlib.Path(__file__).parent.absolute())
@@ -55,14 +56,15 @@ def flux_measurements_test():
 def ms_measurements_test():
     return pd.DataFrame(
         {
-            "experiment_id": ["exp1", "exp1", "exp1", "exp1"],
-            "ms_id": ["ms1", "ms2", "ms3", "ms3"],
-            "met_id": ["A", "B", "C", "C"],
-            "labelled_atom_ids": [[1,2], ["C3","C4"], [2,3], [2,3]],
-            "unlabelled_atoms": ["C7H19O", "C2H4Si", None, None],
-            "idv": [[0,1.0, 0.4], [1,0,2.0], [0,3.0, 4.0], [0,1.0, 5.0]],
-            "idv_std_error": [[0,0.1, 0.2], [0.2,0,0.2], [0,0.3, 0.4], [0,0.1, 0.5]],
-            "time": [0, 1, 0, 0],
+            "experiment_id": np.repeat(["exp1", "exp2"], 4),
+            "met_id": np.repeat(["A"], 8),
+            "ms_id": np.repeat(["A1"], 8),
+            "labelled_atom_ids": [list([1,2,3,4]) for _ in range(8)],
+            "measurement_replicate": np.repeat([1], 8),
+            "unlabelled_atoms": np.repeat([""], 8),
+            "mass_isotope": [0, 2, 3, 4, 1,2,3,4],
+            "intensity": np.repeat([0.1, 0.4, 0.3, 0.2], 2),
+            "intensity_std_error": np.repeat([0.01, 0.02, 0.03, 0.04], 2),
+            "time": np.repeat([0], 8),
         }
     )
-

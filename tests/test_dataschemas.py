@@ -25,3 +25,11 @@ def test_invalid_experiment_id(flux_measurements_test):
 def test_MSMeasurementsSchema(ms_measurements_test):
     df = ms_measurements_test.copy()
     assert isinstance(MSMeasurementsSchema.validate(df), pd.DataFrame)
+
+
+def test_MSMeasurementsSchema_null_value_in_unlabelled_atoms(ms_measurements_test):
+    """Test that the MSMeasurementsSchema accepts null values in the unlabelled_atoms column in the form 
+    of pd.NA, None, and "" (empty string)."""
+    df = ms_measurements_test.copy()
+    df["unlabelled_atoms"] = pd.Series([pd.NA, "", None])
+    assert isinstance(MSMeasurementsSchema.validate(df), pd.DataFrame)

@@ -1,4 +1,5 @@
 import pandera as pa
+from typing import Optional
 ContainListsCheck = pa.Check(
     lambda x: isinstance(x, list),
     element_wise=True,
@@ -67,7 +68,7 @@ MSMeasurementsSchema = pa.DataFrameSchema(
         ),
         "labelled_atom_ids": pa.Column(pa.Object, required=True, checks=ContainListsCheck),
         "unlabelled_atoms": pa.Column(
-            pa.String, required=False, nullable=False
+            pa.String, required=False, nullable=True, coerce=True,
         ),  # nullable=True allows null values as nan or None
         "mass_isotope": pa.Column(pa.Int, required=True, coerce=True),
         "intensity": pa.Column(pa.Float, required=True, coerce=True, nullable=True),

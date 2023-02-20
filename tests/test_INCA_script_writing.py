@@ -49,23 +49,23 @@ data('r3', 'val', 3.0, 'std', 0.3),...
 def test_define_measured_ms_fragments(ms_measurements_test):
     expected = """\n% define mass spectrometry measurements for experiment exp1
 ms_exp1 = [...
-msdata('ms1: A @ 1 2', 'more', 'C7H19O'),...
-msdata('ms2: B @ C3 C4', 'more', 'C2H4Si'),...
-msdata('ms3: C @ 2 3'),...
+msdata('A1: A @ 1 2 3 4'),...
 ];\n"""
     assert _define_measured_ms_fragments(ms_measurements_test, "exp1") == expected
 
 def test_define_ms_measurements(ms_measurements_test):
+    """Tests that the function writes the data to the correct format. Notice that the function _define_ms_measurements
+    does not automatically fill the gaps in the idv data. This is done using the fill_all_mass_isotope_gaps function, 
+    which is called before _define_ms_measurements in the usual workflow."""
+
     expected = """\n% define mass spectrometry measurements for experiment exp1
-ms_exp1{'ms1'}.idvs = idv([[0;1.0;0.4]], 'id', {'exp1_ms1_0_0_1'}, 'std', [[0;0.1;0.2]], 'time', 0.0)
-ms_exp1{'ms2'}.idvs = idv([[1;0;2.0]], 'id', {'exp1_ms2_1_0_1'}, 'std', [[0.2;0;0.2]], 'time', 1.0)
-ms_exp1{'ms3'}.idvs = idv([[0;3.0;4.0],[0;1.0;5.0]], 'id', {'exp1_ms3_0_0_1','exp1_ms3_0_0_2'}, 'std', [[0;0.3;0.4],[0;0.1;0.5]], 'time', 0.0)\n"""
+ms_exp1{'A1'}.idvs = idv([[0.1;0.1;0.4;0.4]], 'id', {'exp1_A1_0_0_1'}, 'std', [[0.01;0.01;0.02;0.02]], 'time', 0.0)\n"""
     assert _define_ms_measurements(ms_measurements_test, "exp1") == expected
 
 
-def test_make_experiment_data_config(ms_measurements_test, flux_measurements_test):
-    expected = {'exp1': ['data_flx', 'data_ms']}
-    assert make_experiment_data_config(ms_measurements_test, flux_measurements_test) == expected
+def test_make_experiment_data_config(flux_measurements_test, ms_measurements_test):
+    expected = {'exp1': ['data_flx', 'data_ms'], 'exp2': ['data_ms']}
+    assert make_experiment_data_config(flux_measurements_test, ms_measurements_test) == expected
 
 
 def test_define_model():

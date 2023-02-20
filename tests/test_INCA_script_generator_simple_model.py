@@ -8,7 +8,7 @@ import pytest
 
 os.chdir(dotenv.find_dotenv().replace(".env", ""))
 
-from BFAIR.mfa.INCA import INCA_script  # noqa E402
+from BFAIR.mfa.INCA import INCAScript  # noqa E402
 
 # setup logger
 logger = logging.getLogger(__name__)
@@ -17,8 +17,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 @pytest.fixture
 def inca_script():
-    """Create an instance of the INCA_script class."""
-    inca_script = INCA_script()
+    """Create an instance of the INCAScript class."""
+    inca_script = INCAScript()
     return inca_script
 
 
@@ -367,7 +367,7 @@ def test_script_generator(
         tracers_data_simple,
     )
     # Generate updated test script:
-    # inca_script.save_INCA_script(script=script, scriptname="testscript_simple")
+    # inca_script.save_INCAScript(script=script, scriptname="testscript_simple")
     # Run the following in the terminal: mv ../testscript_simple.m test_data/MFA_modelInputsData/simple_model
 
     # read the testscript_simple file

@@ -69,7 +69,7 @@ tracers_data_I = pd.read_csv(
 )
 
 # generate the INCA script
-inca_script = INCA.INCA_script()
+inca_script = INCA.INCAScript()
 
 simple_model_script = inca_script.script_generator(
     modelReaction_data_I,
@@ -84,7 +84,7 @@ simple_model_dir = os.path.join(os.getcwd(), "tests", "test_data", "MFA_modelInp
 matlab_script_filename = os.path.join(simple_model_dir, "simple_model")
 runner_script_filename = os.path.join(simple_model_dir, "simple_model")
 
-inca_script.save_INCA_script(simple_model_script, matlab_script_filename)
+inca_script.save_INCAScript(simple_model_script, matlab_script_filename)
 runner = inca_script.runner_script_generator("simple_model", 10)
 inca_script.save_runner_script(runner=runner, scriptname=runner_script_filename)
 

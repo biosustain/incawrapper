@@ -49,7 +49,7 @@ That should do the trick.
 Modules
 -------
 
-.. currentmodule:: BFAIR.mfa.INCA.INCA_script_generator
+.. currentmodule:: BFAIR.mfa.INCA.INCAScript_generator
 
 .. autodata:: script_generator_descr
    :annotation:
@@ -78,8 +78,8 @@ reduce them using these functions.
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.limit_to_one_model
-    INCA_script.limit_to_one_experiment
+    INCAScript.limit_to_one_model
+    INCAScript.limit_to_one_experiment
 
 Step-wise generation
 ^^^^^^^^^^^^^^^^^^^^
@@ -91,27 +91,27 @@ See below for the short-cut.
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.initiate_MATLAB_script
-    INCA_script.add_reactions_to_script
-    INCA_script.initialize_model
-    INCA_script.symmetrical_metabolites
-    INCA_script.unbalanced_reactions
-    INCA_script.add_reaction_parameters
-    INCA_script.verify_and_estimate
-    INCA_script.add_experimental_parameters
-    INCA_script.mapping
+    INCAScript.initiate_MATLAB_script
+    INCAScript.add_reactions_to_script
+    INCAScript.initialize_model
+    INCAScript.symmetrical_metabolites
+    INCAScript.unbalanced_reactions
+    INCAScript.add_reaction_parameters
+    INCAScript.verify_and_estimate
+    INCAScript.add_experimental_parameters
+    INCAScript.mapping
 
 Summary function
 ^^^^^^^^^^^^^^^^
 
-Both the ``INCA_script`` and the ``INCA_reimport`` module have summarizing functions
+Both the ``INCAScript`` and the ``INCA_reimport`` module have summarizing functions
 that run large parts of the workflows if the correct input is provided. The input
-script can be generated using the ``INCA_script.script_generator`` summary function.
+script can be generated using the ``INCAScript.script_generator`` summary function.
 
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.script_generator
+    INCAScript.script_generator
 
 Runner script generation
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -123,7 +123,7 @@ using the following functions.
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.runner_script_generator
+    INCAScript.runner_script_generator
 
 Save the scripts
 ^^^^^^^^^^^^^^^^
@@ -134,8 +134,8 @@ MATLAB scripts.
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.save_INCA_script
-    INCA_script.save_runner_script
+    INCAScript.save_INCAScript
+    INCAScript.save_runner_script
 
 INCA execution
 --------------
@@ -149,7 +149,7 @@ MATLAB engine execution function
 .. autosummary::
    :toctree: generated/
 
-    INCA_script.run_INCA_in_MATLAB
+    INCAScript.run_INCA_in_MATLAB
 
 INCA output re-import
 ---------------------

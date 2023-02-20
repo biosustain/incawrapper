@@ -1,2 +1,2 @@
 import pytest
-import BFAIR.mfa.INCA.INCA_script
+import BFAIR.mfa.INCA.INCAScript

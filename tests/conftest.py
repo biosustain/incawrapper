@@ -6,7 +6,7 @@ import os
 import pandas as pd
 import numpy as np
 from BFAIR.mfa.INCA.INCA_results import INCA_results
-from BFAIR.mfa.INCA.INCA_script import INCA_script
+from BFAIR.mfa.INCA.INCAScript import INCAScript
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
 
@@ -17,7 +17,7 @@ def inca_results_simple_model():
 
 @pytest.fixture
 def inca_script():
-    return INCA_script()
+    return INCAScript()
 
 @pytest.fixture
 def reaction_test():

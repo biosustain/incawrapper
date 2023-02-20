@@ -2,11 +2,11 @@ import pathlib
 import time
 import tempfile
 import matlab.engine
-from BFAIR.mfa.INCA.INCA_script import INCA_script
+from BFAIR.mfa.INCA.INCAScript import INCAScript
 
 
 def run_inca(
-    inca_script: INCA_script,
+    inca_script: INCAScript,
     INCA_base_directory: pathlib.Path,
 ) -> None:
     """Run INCA with a given INCA script."""

@@ -3,7 +3,7 @@
 # By : Matthias Mattanovich (matmat@biosustain.dtu.dk)
 # This script is intended to generate sample data and save them into the
 # test_data file. The saved objects will then be used to test the
-# INCA_script_generator using unit testing.
+# INCAScript_generator using unit testing.
 import pickle
 import pandas as pd
 import pathlib

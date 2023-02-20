@@ -1,8 +1,8 @@
 """INCA tools.
 Writes MATLAB scripts, executes them and reimports the data"""
 
-from BFAIR.mfa.INCA.INCA_script_generator import (
-    INCA_script,
+from BFAIR.mfa.INCA.INCAScript_generator import (
+    INCAScript,
     script_generator_descr,
 )
 from BFAIR.mfa.INCA.INCA_reimport import (
@@ -14,7 +14,7 @@ from BFAIR.mfa.INCA.INCA_input_parser import parse_cobra_model
 __version__ = "1.0.0"
 
 __all__ = [
-    "INCA_script",
+    "INCAScript",
     "INCA_reimport",
     "parse_cobra_model",
     "script_generator_descr",

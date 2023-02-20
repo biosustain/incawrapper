@@ -2,8 +2,8 @@ import pandas as pd
 import pandera as pa
 import pandera.typing as pat
 from typing import Iterable, Literal, Union, List
-from BFAIR.mfa.INCA.INCA_script import INCA_script
-from BFAIR.mfa.INCA.INCA_script_writing import define_experiment, define_reactions, define_flux_measurements, _define_measured_ms_fragments, _define_ms_measurements, define_tracers, make_experiment_data_config, define_model
+from BFAIR.mfa.INCA.INCAScript import INCAScript
+from BFAIR.mfa.INCA.INCAScript_writing import define_experiment, define_reactions, define_flux_measurements, _define_measured_ms_fragments, _define_ms_measurements, define_tracers, make_experiment_data_config, define_model
 import pytest
 
 

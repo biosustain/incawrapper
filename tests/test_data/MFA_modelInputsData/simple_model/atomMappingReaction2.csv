@@ -1,6 +1,0 @@
-id,mapping_id,rxn_id,rxn_description,reactants_stoichiometry_tracked,products_stoichiometry_tracked,reactants_ids_tracked,products_ids_tracked,reactants_mapping,products_mapping,rxn_equation,used_,comment_,reactants_elements_tracked,products_elements_tracked,reactants_positions_tracked,products_positions_tracked
-R1,simple_model,R1,,{-1.0},{1.0},{A},{B},{abc},{abc},1.0 A --> 1.0 B,True,,"[[""C"", ""C"", ""C""]]","[[""C"", ""C"", ""C""]]","[[0, 1, 2]]","[[0, 1, 2]]"
-R2,simple_model,R2,,{-1.0},{1.0},{B},{D},{abc},{abc},1.0 B <--> 1.0 D,True,,"[[""C"", ""C"", ""C""]]","[[""C"", ""C"", ""C""]]","[[0, 1, 2]]","[[0, 1, 2]]"
-R3,simple_model,R3,,{-1.0},"{1.0,1.0}",{B},"{C,E}",{abc},"{bc,a}",1.0 B --> 1.0 C + 1.0 E,True,,"[[""C"", ""C"", ""C""]]","[[""C"", ""C""], [""C""]]","[[0, 1, 2]]","[[0, 1], [0]]"
-R4,simple_model,R4,,"{-1.0,-1.0}","{1.0,1.0,1.0}","{B,C}","{D,E,E}","{abc,de}","{bcd,a,e}",1.0 B + 1.0 C --> 1.0 D + 1.0 E + 1.0 E,True,,"[[""C"", ""C"", ""C""], [""C"", ""C""]]","[[""C"", ""C"", ""C""], [""C""], [""C""]]","[[0, 1, 2], [0, 1]]","[[0, 1, 2], [0], [0]]"
-R5,simple_model,R5,,{-1.0},{1.0},{D},{F},{abc},{abc},1.0 D --> 1.0 F,True,,"[[""C"", ""C"", ""C""]]","[[""C"", ""C"", ""C""]]","[[0, 1, 2]]","[[0, 1, 2]]"

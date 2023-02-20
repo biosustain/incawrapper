@@ -1,7 +1,0 @@
-id,mapping_id,met_id,met_elements,met_atompositions,met_symmetry_atompositions,met_symmetry_elements,used_,comment_,met_mapping,base_met_ids,base_met_elements,base_met_atompositions,base_met_symmetry_elements,base_met_symmetry_atompositions,base_met_indices
-1,simple_model,A,"{C,C,C}","{0,1,2}",,,True,,,,,,,,
-2,simple_model,B,"{C,C,C}","{0,1,2}",,,True,,,,,,,,
-3,simple_model,C,"{C,C}","{0,1}",,,True,,,,,,,,
-4,simple_model,D,"{C,C,C}","{0,1,2}",,,True,,,,,,,,
-5,simple_model,E,{C},{0},,,True,,,,,,,,
-6,simple_model,F,"{C,C,C}","{0,1,2}",,,True,,,,,,,,

@@ -1,6 +1,0 @@
-id,model_id,rxn_id,rxn_name,equation,subsystem,gpr,genes,reactants_stoichiometry,products_stoichiometry,reactants_ids,products_ids,lower_bound,upper_bound,objective_coefficient,flux_units,fixed,free,reversibility,weight,used_,comment_
-R1,simple_model,R1,,1.0 A --> 1.0 B,,,{},{-1.0},{1.0},{A},{B},0,1000,0,mmol*gDW-1*hr-1,,,False,,True,
-R2,simple_model,R2,,1.0 B <--> 1.0 D,,,{},{-1.0},{1.0},{B},{D},0,1000,0,mmol*gDW-1*hr-1,,,True,,True,
-R3,simple_model,R3,,1.0 B --> 1.0 C + 1.0 E,,,{},{-1.0},"{1.0,1.0}",{B},"{C,E}",0,1000,0,mmol*gDW-1*hr-1,,,False,,True,
-R4,simple_model,R4,,1.0 B + 1.0 C --> 1 D + 2 E,,,{},"{-1.0,-1.0}","{1,2}","{B,C}","{D,E}",0,1000,0,mmol*gDW-1*hr-1,,,False,,True,
-R5,simple_model,R5,,1.0 D --> 1.0 F,,,{},{-1.0},{1.0},{D},{F},0,1000,0,mmol*gDW-1*hr-1,,,False,,True,

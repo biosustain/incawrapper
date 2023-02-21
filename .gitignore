@@ -144,3 +144,6 @@ dmypy.json
 
 # Mac
 .DS_Store
+
+# ignores files used during development
+dev_*

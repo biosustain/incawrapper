@@ -1,3 +1,11 @@
-experiment_id,met_id,ms_id,labelled_atom_ids,unlabelled_atoms,idv,idv_std_error,time
-exp1,A,A_260,"[1,2]",C7H19O,"[1.0, 0.4]","[0.1, 0.2]",0
-exp1,B,B_381,"['C3','C4']",C2H4Si,"[2.0]","[0.2]",1
+experiment_id,met_id,ms_id,measurement_replicate,labelled_atom_ids,unlabelled_atoms,mass_isotope,intensity,intensity_std_error,time
+exp1,tyr,tyr_302,1,"[1, 2]",C12H32O2NSi2,0,0.1000,0.0100,0
+exp1,tyr,tyr_302,1,"[1, 2]",C12H32O2NSi2,1,0.2000,0.0200,0
+exp1,tyr,tyr_302,1,"[1, 2]",C12H32O2NSi2,2,0.4000,0.0400,0
+exp1,ser,ser_390,1,"[1, 2, 3]",C14H40O3NSi3,0,0.2000,0.0200,0
+exp1,ser,ser_390,1,"[1, 2, 3]",C14H40O3NSi3,1,0.0001,0.0001,0
+exp1,ser,ser_390,1,"[1, 2, 3]",C14H40O3NSi3,2,0.0030,0.0030,0
+exp1,ser,ser_390,1,"[1, 2, 3]",C14H40O3NSi3,3,0.3000,0.0300,0
+exp1,ser,ser_362,1,"[2, 3]",C14H40O2NSi3,0,0.4000,0.0400,0
+exp1,ser,ser_362,1,"[2, 3]",C14H40O2NSi3,1,0.1000,0.0100,0
+exp1,ser,ser_362,1,"[2, 3]",C14H40O2NSi3,2,0.5000,0.0500,0

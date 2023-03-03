@@ -126,6 +126,27 @@ def define_flux_measurements(
     tmp_script += "];\n"
     return tmp_script
 
+def modify_flux(
+    rxn_id: str,
+    flux_properties: Dict,
+):
+    """Modify the flux of a reaction in the model. This is useful for
+    example to set the flux of a reaction to zero or specify a bounds 
+    for a reaction.
+
+    e.g. modify_flux('R_EX_glc__D_e', {'lb': -10, 'ub': 0}) or
+    modify_flux('R_EX_glc__D_e', {'val': 0, 'fix': TRUE})
+    
+    Look in the INCA documentation for a list of all possible flux properties 
+    (<path-to-inca-folder>/doc/inca/class/@flux/flux.html)."""
+
+    tmp_script = f"index_{rxn_id} = find(strcmp(m.rates.id, '{rxn_id}'));\n"
+    for k, v in flux_properties.items():
+        if isinstance(v, bool):
+            v = f"{str(v).lower()}"
+        tmp_script += f"m.rates(index_{rxn_id}).flx.{k} = {v};\n"
+
+    return tmp_script
 
 def get_unlabelled_atom_ids(molecular_formula: str, labelled_atom_ids: str) -> str:
     """

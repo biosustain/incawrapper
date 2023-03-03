@@ -486,14 +486,16 @@ def define_runner(
         -------
         String
         """
-        if run_montecarlo:
-            raise NotImplementedError("Monte Carlo sampling is not implemented yet.")
+
+        if run_montecarlo and not run_estimate:
+            raise ValueError("Monte Carlo analysis requires an estimate to be run.")
 
         estimation = "f = estimate(m);\n" if run_estimate else ""
         continuation = "f=continuate(f,m);\n" if run_continuation else ""
         simulation = (
             "s=simulate(m);\n" if run_simulation else ""
         )  # For a fluxmap to be loaded into INCA, the .mat file must have a simulation
+
 
         # using pathlib.Path.resolve() to get the absolute path of the output file
         # otherwise the output file will be save in the temporary directory created 
@@ -510,7 +512,14 @@ def define_runner(
 
         saving += "'m');\n"
 
-        return estimation + continuation + simulation + output + saving
+        montecarlo = ""
+        if run_montecarlo:
+            mc_filename = output_filename.with_name(output_filename.stem + "_mc.mat")
+            montecarlo += f"mc_filename = '{mc_filename.resolve()}';\n"
+            montecarlo += f"[K, CI] = montecarlo(f,m);\n"
+            montecarlo += "save(mc_filename, 'K','CI');\n"
+
+        return estimation + continuation + simulation + output + saving + montecarlo
 
 
 def create_inca_script_from_data(

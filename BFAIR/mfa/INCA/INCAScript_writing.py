@@ -516,7 +516,8 @@ def define_runner(
         if run_montecarlo:
             mc_filename = output_filename.with_name(output_filename.stem + "_mc.mat")
             montecarlo += f"mc_filename = '{mc_filename.resolve()}';\n"
-            montecarlo += f"[K, CI] = montecarlo(f,m);\n"
+            montecarlo += "m = fit2mod(m,f);\n" # the fit has to be added to the model for montecarlo to work properly
+            montecarlo += f"[K,CI] = montecarlo(f,m);\n"
             montecarlo += "save(mc_filename, 'K','CI');\n"
 
         return estimation + continuation + simulation + output + saving + montecarlo

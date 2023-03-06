@@ -12,7 +12,7 @@ current_dir = str(pathlib.Path(__file__).parent.absolute())
 
 @pytest.fixture
 def inca_results_simple_model():
-    return INCAResults(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.mat"))
+    return INCAResults(os.path.join(current_dir, "test_data", "simple_model_output.mat"))
 
 
 @pytest.fixture

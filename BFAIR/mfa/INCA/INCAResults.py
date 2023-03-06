@@ -20,19 +20,31 @@ class INCAResults:
     """
 
     inca_matlab_file: pathlib.Path
-    inca_mc_matlab_file: pathlib.Path = None
+    load_mc_data: bool = False
     
     def __post_init__(self):
-        self.model: INCAModel = INCAModel(self.inca_matlab_file)
-        self.fitdata: INCAFitData = INCAFitData(self.inca_matlab_file)
-        self.simulation: INCASimulation = INCASimulation(self.inca_matlab_file)
+        self._inca_matlab_file = self._coerce_pathlib(self.inca_matlab_file)
+        self.model: INCAModel = INCAModel(self._inca_matlab_file)
+        self.fitdata: INCAFitData = INCAFitData(self._inca_matlab_file)
+        self.simulation: INCASimulation = INCASimulation(self._inca_matlab_file)
         self.mc: INCAMonteCarloResults = self._load_mc_results() 
 
+    def _coerce_pathlib(self, path):
+        if isinstance(path, pathlib.Path):
+            return path
+        else:
+            return pathlib.Path(path)
     
     def _load_mc_results(self):
-        if self.inca_mc_matlab_file is None:
+        if not self.load_mc_data:
             return None
         else: 
+            try:
+                self.inca_mc_matlab_file = self.inca_matlab_file.with_name(self._inca_matlab_file.stem + "_mc.mat")
+                self.inca_mc_matlab_file.resolve(strict=True)
+            except FileNotFoundError:
+                print("Monte Carlo results not found. Please check the file name.")
+                return None
             parameter_names = self.fitdata.fitted_parameters['id'].tolist()
             return INCAMonteCarloResults(self.inca_mc_matlab_file, parameter_names)
 

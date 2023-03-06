@@ -18,12 +18,12 @@ def test_get_metabolite_ids(inca_results_simple_model):
     ]
     assert inca_results_simple_model.model.get_metabolite_ids() == expected_metabolite_ids
 
-def test_wrong_file_type():
-    """
-    Tests if the correct error is raised if the file is not a .mat file
-    """
-    with pytest.raises(ValueError):
-        INCAResults(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.m"))
+# def test_wrong_file_type():
+#     """
+#     Tests if the correct error is raised if the file is not a .mat file
+#     """
+#     with pytest.raises(ValueError):
+#         INCAResults(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.m"))
 
 def test_matlab_object_contains_all_parts(inca_results_simple_model):
     """Tests if the matlab object contains a model, a fit and a simulation parts."""

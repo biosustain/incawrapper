@@ -147,3 +147,6 @@ dmypy.json
 
 # ignores files used during development
 dev_*
+
+# ignores inca_script.m files that are generated during documentation build, but are not needed
+inca_script.m

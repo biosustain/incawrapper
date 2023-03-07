@@ -11,7 +11,6 @@ class INCAMonteCarloResults:
     parameter_names: List[str]
     
     def __post_init__(self):
-        
         self.mc = load_matlab_file(self.mcfile)
 
         if "CI" in self.mc.keys(): # test if the mc file is a finished mc file

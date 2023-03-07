@@ -58,5 +58,11 @@ def load_matlab_file(filename):
         else:
             return ndarray
 
-    data = loadmat(filename, struct_as_record=False, squeeze_me=True, appendmat=False)
+    # if the file is not found, load_matlab_file will raise an OSError. We catch this error and
+    # raise a FileNotFoundError instead, which is more informative.   
+    try:
+        data = loadmat(filename, struct_as_record=False, squeeze_me=True, appendmat=False)
+    except OSError:
+        raise FileNotFoundError(f"Could not find the file {filename}")
+        
     return _check_vars(data)

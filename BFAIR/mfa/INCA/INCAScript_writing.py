@@ -126,25 +126,34 @@ def define_flux_measurements(
     tmp_script += "];\n"
     return tmp_script
 
-def modify_flux(
-    rxn_id: str,
-    flux_properties: Dict,
+def modify_class_instance(
+    class_name: Literal['rates', 'states'],
+    sub_class_name: Literal[None, 'flx'],
+    instance_id: str,
+    properties: Dict,
 ):
-    """Modify the flux of a reaction in the model. This is useful for
+    """Modify properties of a class instance in the model. This is useful for
     example to set the flux of a reaction to zero or specify a bounds 
     for a reaction.
 
-    e.g. modify_flux('R_EX_glc__D_e', {'lb': -10, 'ub': 0}) or
-    modify_flux('R_EX_glc__D_e', {'val': 0, 'fix': TRUE})
+    e.g. 
+    modify_class('rates', 'flx', 'R_EX_glc__D_e', {'lb': -10, 'ub': 0})
+    modify_class('rates', 'flx', 'R_EX_glc__D_e', {'val': 0, 'fix': TRUE})
+    modify_class('states', None, 'glc__D_e', {'val': 0, 'fix': TRUE})
     
-    Look in the INCA documentation for a list of all possible flux properties 
-    (<path-to-inca-folder>/doc/inca/class/@flux/flux.html)."""
+    Look in the INCA documentation for a list of all possible properties for the class
+    (<path-to-inca-folder>/doc/inca/class/)."""
 
-    tmp_script = f"index_{rxn_id} = find(strcmp(m.rates.id, '{rxn_id}'));\n"
-    for k, v in flux_properties.items():
+
+    tmp_script = f"index_{instance_id} = find(strcmp(m.{class_name}.id, '{instance_id}'));\n"
+    for k, v in properties.items():
         if isinstance(v, bool):
             v = f"{str(v).lower()}"
-        tmp_script += f"m.rates(index_{rxn_id}).flx.{k} = {v};\n"
+        
+        if sub_class_name is not None:
+            tmp_script += f"m.{class_name}(index_{instance_id}).{sub_class_name}.{k} = {v};\n"
+        else:
+            tmp_script += f"m.{class_name}(index_{instance_id}).{k} = {v};\n"
 
     return tmp_script
 

@@ -9,6 +9,7 @@ class INCAScript:
         self.tracers = "% TRACERS BLOCK\n"
         self.fluxes = "% FLUXES BLOCK\n"
         self.ms_fragments = "% MS_FRAGMENTS BLOCK\n"
+        self.pool_sizes = "% POOL_SIZES BLOCK\n"
         self.experimental_data = "% EXPERIMENTAL_DATA BLOCK\n"
         self.options = "% OPTIONS BLOCK\n"
         self.model = "% MODEL BLOCK\n"
@@ -21,7 +22,7 @@ class INCAScript:
 
     def add_to_block(
         self,
-        block_name: Literal["reactions", "tracers", "fluxes", "ms_fragments", "experiments", "options", "model", "runner"],
+        block_name: Literal["reactions", "tracers", "fluxes", "ms_fragments", "pool_sizes", "experiments", "options", "model", "runner"],
         matlab_script_block: str,
     ):
         """Add a matlab script block to a specific block of the INCA script.
@@ -35,6 +36,8 @@ class INCAScript:
             self.fluxes += matlab_script_block
         elif block_name == "ms_fragments":
             self.ms_fragments += matlab_script_block
+        elif block_name == "pool_sizes":
+            self.pool_sizes += matlab_script_block
         elif block_name == "experiments":
             self.experimental_data += matlab_script_block
         elif block_name == "options":
@@ -57,6 +60,7 @@ class INCAScript:
                 self.tracers,
                 self.fluxes,
                 self.ms_fragments,
+                self.pool_sizes,
                 self.experimental_data,
                 self.model,
                 self.options,

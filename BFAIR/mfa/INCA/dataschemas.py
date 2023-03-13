@@ -20,6 +20,10 @@ ReactionIDColumn = pa.Column(
 )
 
 
+MetaboliteIdColumn = pa.Column(
+    pa.String, required=True, 
+    description="Metabolite ID of metabolite which is directly measured or from which the fragment is derived through a derivatization method.")
+
 # Define the schema for the model reactions
 ReactionsSchema = pa.DataFrameSchema(
     # TODO: Add validation for reaction arrow
@@ -70,7 +74,7 @@ MSMeasurementsSchema = pa.DataFrameSchema(
     # labelled_atoms should only one value.
     columns={
         "experiment_id": ExperimentIdColumn,
-        "met_id": pa.Column(pa.String, required=True, description="Metabolite ID of metabolite which is directly measured or from which the fragment is derived through a derivatization method."),
+        "met_id": MetaboliteIdColumn,
         "ms_id": pa.Column(pa.String, required=True, description="ID of the measured ms fragment - often multiple fragment can be measured from the same metabolite"),
         "measurement_replicate": pa.Column(pa.Int, required=True, coerce=True, 
             description="""Replicate number of the measurement of the same fragment in the same experiment. 
@@ -95,3 +99,13 @@ std error of missing isotopomers are filled with NaN before inserted in INCA."""
         # TODO: refactor to accomudate new long input data pa.Check(lambda row: len(row["idv"]) == len(row["labelled_atom_ids"])+1, element_wise=True, raise_warning=True, error="There is not a measurement for all mass isotopes (len(idv)<len(labelled_atom_ids)+1). This is allowed and may as well be intended, but it could be a mistake in input data."),
     ]
 )
+
+PoolSizeMeasurementsSchema = pa.DataFrameSchema(
+    columns={
+        "experiment_id": ExperimentIdColumn,
+        "met_id": MetaboliteIdColumn,
+        "pool_size": pa.Column(pa.Float, required=True, coerce=True, description="Measured pool size typically in mmol/gDW"),
+        "pool_size_std_error": pa.Column(pa.Float, required=True, coerce=True, description="Standard error of the measured pool size"),
+    }
+)
+

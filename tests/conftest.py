@@ -68,3 +68,14 @@ def ms_measurements_test():
             "time": np.repeat([0], 8),
         }
     )
+
+@pytest.fixture
+def pool_measurements_test():
+    return pd.DataFrame(
+        {
+            "experiment_id": ["exp1", "exp1", "exp1"],
+            "met_id": ["A", "B", "C"],
+            "pool_size": [1.0, 2.0, 3.0],
+            "pool_size_std_error": [0.1, 0.2, 0.3],
+        }
+    )

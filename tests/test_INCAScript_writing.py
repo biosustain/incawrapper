@@ -3,6 +3,7 @@ from BFAIR.mfa.INCA.INCAScript_writing import (
     define_experiment,
     define_reactions,
     define_flux_measurements,
+    define_pool_measurements,
     _define_measured_ms_fragments,
     _define_ms_measurements,
     define_tracers,
@@ -110,3 +111,13 @@ def test_fill_all_mass_isotope_gaps(ms_measurements_test):
         "The mass_isotope 0 is missing from the exp2, thus this checks that experiment "
         "id is not filled with the previous id."
     )
+
+
+def test_define_pool_measurements(pool_measurements_test):
+    expected = """\n% define pool measurements for experiment exp1
+p_exp1 = [...
+data('A', 'val', 1.0, 'std', 0.1),...
+data('B', 'val', 2.0, 'std', 0.2),...
+data('C', 'val', 3.0, 'std', 0.3),...
+];\n"""
+    assert define_pool_measurements(pool_measurements_test, "exp1") == expected

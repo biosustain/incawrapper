@@ -10,7 +10,7 @@ import ast
 import BFAIR.mfa.utils.chemical_formula as chemical_formula
 import collections
 from BFAIR.mfa.INCA.INCAScript import INCAScript
-from BFAIR.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema
+from BFAIR.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
 import logging
 import warnings
 
@@ -125,6 +125,39 @@ def define_flux_measurements(
         tmp_script += ",...\n"
     tmp_script += "];\n"
     return tmp_script
+
+pa.check_input(PoolSizeMeasurementsSchema)
+def define_pool_measurements(
+        pool_measurements: pd.DataFrame, experiment_id: str
+)-> str:
+    """Define the pool measurements used in one experiment. Multiple experiments
+    is handled in the define_experiments function."""
+
+    pools_subset = pool_measurements[
+        pool_measurements["experiment_id"] == experiment_id
+    ]
+
+    if pools_subset.empty:
+        warnings.warn(f"No pool measurements found for experiment {experiment_id}")
+        return ""
+    
+    tmp_script = (
+        f"\n% define pool measurements for experiment {experiment_id}\n"
+        + f"p_{experiment_id}"
+        + " = [...\n"
+    )
+
+    for _, pool in pools_subset.iterrows():
+        tmp_script += instantiate_inca_class_call(
+            inca_class='data', 
+            S="'" + pool["met_id"] + "'", 
+            val=pool["pool_size"], 
+            std=pool["pool_size_std_error"]
+        )
+        tmp_script += ",...\n"
+    tmp_script += "];\n"
+    return tmp_script
+
 
 def modify_class_instance(
     class_name: Literal['rates', 'states'],
@@ -437,7 +470,7 @@ def define_experiment(
         if measurement_type == "data_ms":
             data_list.extend(["'data_ms'", f"ms_{experiment_id}"])
         if measurement_type == "data_cxn":
-            data_list.extend(["'data_cxn'", f"cxn_{experiment_id}"])
+            data_list.extend(["'data_cxn'", f"p_{experiment_id}"])
         if measurement_type == "data_nmr":
             data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
     data_list_str = ", ".join(data_list)
@@ -581,8 +614,8 @@ def create_inca_script_from_data(
             inca_script.add_to_block("fluxes", define_flux_measurements(flux_measurements, exp_id))
         if "data_ms" in measurement_types:
             inca_script.add_to_block("ms_fragments", define_ms_data(ms_measurements, exp_id))
-        if "data_pool" in measurement_types:
-            raise NotImplementedError("Pool measurements are not yet implemented in INCAScript")
+        if "data_cxn" in measurement_types:
+            inca_script.add_to_block("pool_sizes", define_pool_measurements(pool_measurements, exp_id))
         inca_script.add_to_block("experiments", define_experiment(exp_id, measurement_types))
         
     inca_script.add_to_block('model', define_model(exp_config.keys()))

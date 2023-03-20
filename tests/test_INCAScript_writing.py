@@ -69,8 +69,15 @@ def test_define_ms_measurements(ms_measurements_test):
     which is called before _define_ms_measurements in the usual workflow."""
 
     expected = """\n% define mass spectrometry measurements for experiment exp1
-ms_exp1{'A1'}.idvs = idv([[0.1;0.1;0.4;0.4]], 'id', {'exp1_A1_0_0_1'}, 'std', [[0.01;0.01;0.02;0.02]], 'time', 0.0)\n"""
+ms_exp1{'A1'}.idvs = idv([[0.1;0.1;0.4;0.4]], 'id', {'exp1_A1_0_0_1'}, 'std', [[0.01;0.01;0.02;0.02]], 'time', [0.0])\n"""
     assert _define_ms_measurements(ms_measurements_test, "exp1") == expected
+
+
+def test_define_ms_measurements_multiple_timepoints(ms_measurements_multiple_timepoints_test):
+    """Tests that the function writes the data to the correct format, when there are multiple timepoints."""
+    expected = """\n% define mass spectrometry measurements for experiment exp1
+ms_exp1{'A1'}.idvs = idv([[0.1;0.1;0.4;0.4],[0.3;0.3;0.2;0.2]], 'id', {'exp1_A1_0_0_1','exp1_A1_5_0_1'}, 'std', [[0.01;0.01;0.02;0.02],[0.03;0.03;0.04;0.04]], 'time', [0.0,5.0])\n"""
+    assert _define_ms_measurements(ms_measurements_multiple_timepoints_test, "exp1") == expected
 
 
 def test_make_experiment_data_config(flux_measurements_test, ms_measurements_test):

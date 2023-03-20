@@ -247,7 +247,7 @@ def _fill_mass_isotope_gaps_in_group(ms_measurements):
 
 @pa.check_input(MSMeasurementsSchema)
 def fill_all_mass_isotope_gaps(ms_measurements: pd.DataFrame) -> pd.DataFrame:
-    groupby_cols = ["experiment_id", "ms_id", "measurement_replicate"]
+    groupby_cols = ["experiment_id", "ms_id", "measurement_replicate", 'time']
     out = (ms_measurements
         .groupby(groupby_cols)
         .apply(_fill_mass_isotope_gaps_in_group)
@@ -347,13 +347,14 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
     def add_idvs_to_msdata(
 		experiment_id: str,
         ms_id: str,
-        time_value: float,
         df: pat.DataFrame,
     ) -> str:
         """Write a line of matlab code to add measurements of one ms fragment to the
-        msdata object. It is allowed to have multiple measurements of the same ms
-        fragment. The idv() INCA class interprets one idv as a column vector. Therefore
-        convert the python lists to matlab column vectors.
+        msdata object. ALL measurements related that fragment has to be written in one
+        line. Theses multiple measurements can either originate from replicated 
+        measurements or from multiple time points. The idv() INCA class interprets 
+        one idv of a timepoint or replicate as a column vector. Therefore the python 
+        lists are converted into matlab column vectors.
 
         Each measurement is given a unique id. This is done by concatenating the
         experiment_id, ms_id, time and replicate number.
@@ -366,7 +367,8 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
         measurement_id_lst = []
         idv_str = "["
         idv_std_error_str = "["
-        for replicate, grp_df in df_new.groupby('measurement_replicate'):
+        # Create a column vector for each timepoint/replicate
+        for (replicate, time), grp_df in df_new.groupby(['measurement_replicate', 'time']):
             grp_df = grp_df.sort_values('mass_isotope', ascending=True)
             idv_str += matlab_column_vector(grp_df['intensity']) + ","
             idv_std_error_str += matlab_column_vector(grp_df['intensity_std_error']) + ","
@@ -376,7 +378,7 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
                 "'" +
                 str(experiment_id) + "_" +
                 str(ms_id) + "_" + 
-                str(time_value).replace(".", "_") + "_" +
+                str(time).replace(".", "_") + "_" +
                 str(replicate) +
                 "'"
             )
@@ -387,10 +389,11 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
 
         idv_id = "{" + ",".join(measurement_id_lst) + "}"
 
+        time_str = "[" + ",".join(df_new['time'].unique().astype(str)) + "]"
         return (
             f"ms_{experiment_id}{{'{ms_id}'}}.idvs = " + 
             instantiate_inca_class_call(
-                "idv", idv_str, id=idv_id, std=idv_std_error_str, time=time_value
+                "idv", idv_str, id=idv_id, std=idv_std_error_str, time=time_str
             )
         )
 
@@ -409,7 +412,6 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
         tmp_script += add_idvs_to_msdata(
             experiment_id,
             ms_id,
-            ms_df["time"].iloc[0],
             ms_df,
         )
         tmp_script += "\n"

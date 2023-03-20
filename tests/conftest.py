@@ -70,6 +70,24 @@ def ms_measurements_test():
     )
 
 @pytest.fixture
+def ms_measurements_multiple_timepoints_test():
+    return pd.DataFrame(
+        {
+            "experiment_id": np.repeat(["exp1"], 8),
+            "met_id": np.repeat(["A"], 8),
+            "ms_id": np.repeat(["A1"], 8),
+            "labelled_atom_ids": [list([1,2,3,4]) for _ in range(8)],
+            "measurement_replicate": np.repeat([1], 8),
+            "unlabelled_atoms": np.repeat([""], 8),
+            "mass_isotope": [0, 2, 3, 4, 1,2,3,4],
+            "intensity": np.repeat([0.1, 0.4, 0.3, 0.2], 2),
+            "intensity_std_error": np.repeat([0.01, 0.02, 0.03, 0.04], 2),
+            "time": np.repeat([0, 5], 4),
+        }
+    )
+
+
+@pytest.fixture
 def pool_measurements_test():
     return pd.DataFrame(
         {

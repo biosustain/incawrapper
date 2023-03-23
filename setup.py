@@ -17,14 +17,14 @@ version = re.search(
 setup(
     name="incawrapper",
     version=version,
-    author="AutoFlow",
+    author="AutoFlow, Matthias Mattonovish and Viktor Hesselberg-Thomsen",
     author_email="TBD",
     description=(
         "General Repository for Omics Data Handling tools"
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/AutoFlowResearch/incawrapper",
+    url="",
     packages=find_packages(),
     license="MIT",
     classifiers=[
@@ -32,8 +32,19 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    # install_requires=[
-    # ],
-    # dependency_links=
+    install_requires=[
+        "pandas",
+        "numpy",
+        "matplotlib",
+        "pandera",
+        "matlabengine", # matlab engine requires python 3.8 <
+        "scipy",
+    ],
+    extra_require={
+        "develop": [
+            "pytest",
+            "ipykernel",
+        ],
+    },
     include_package_data=True,
 )

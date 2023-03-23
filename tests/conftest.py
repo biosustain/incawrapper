@@ -5,14 +5,14 @@ import pathlib
 import os 
 import pandas as pd
 import numpy as np
-from incawrapper.mfa.INCA.INCAResults import INCAResults
-from incawrapper.mfa.INCA.INCAScript import INCAScript
-current_dir = str(pathlib.Path(__file__).parent.absolute())
+from incawrapper.core.INCAResults import INCAResults
+from incawrapper.core.INCAScript import INCAScript
+current_dir = pathlib.Path(__file__).parent
 
 
 @pytest.fixture
 def inca_results_simple_model():
-    return INCAResults(os.path.join(current_dir, "test_data", "simple_model_output.mat"))
+    return INCAResults(current_dir.parent / "docs"/"examples"/"Literature data"/"simple model"/"simple_model_quikstart.mat")
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-from incawrapper.atom_mapping.atom_mapping import (
+from incawrapper.atommapping.atom_mapping import (
     MolfileDownloader,
     write_rxn_files,
     obtain_atom_mappings,

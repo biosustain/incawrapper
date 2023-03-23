@@ -8,7 +8,7 @@ import pickle
 import pandas as pd
 import pathlib
 import cobra
-from incawrapper.mfa.INCA import INCA_reimport
+from incawrapper.core import INCA_reimport
 from incawrapper.mfa.sampling import (
     replace_biomass_rxn_name,
     add_constraints,

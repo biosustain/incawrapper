@@ -4,7 +4,7 @@ import sys
 import pathlib
 
 sys.path.insert(1, "../")
-from incawrapper.mfa.INCA import (  # noqa E402
+from incawrapper.core import (  # noqa E402
     INCAScript
 )
 

@@ -1,5 +1,5 @@
 import altair as alt
-from incawrapper.mfa.INCA.INCAResults import INCAResults
+from incawrapper.core.INCAResults import INCAResults
 import numpy as np
 import pandas as pd
 from typing import Union, Tuple
@@ -74,3 +74,5 @@ def plot_norm_probplot(
 
     line = alt.Chart(fit_df).mark_line().encode(x="x", y="y")
     return points + line
+
+__all__ = ["plot_residuals_vs_fitted", "plot_norm_probplot"]

@@ -1,14 +1,11 @@
-import pandas as pd
-import numpy as np
-from incawrapper.mfa.INCA import load_matlab_file
-from incawrapper.mfa.INCA.INCAModel import INCAModel
-from incawrapper.mfa.INCA.INCAFitData import INCAFitData
-from incawrapper.mfa.INCA.INCASimulation import INCASimulation
-from incawrapper.mfa.INCA.INCAMonteCarloResults import INCAMonteCarloResults
+from incawrapper.core.load_matlab_file import load_matlab_file
+from incawrapper.core.INCAModel import INCAModel
+from incawrapper.core.INCAFitData import INCAFitData
+from incawrapper.core.INCASimulation import INCASimulation
+from incawrapper.core.INCAMonteCarloResults import INCAMonteCarloResults
 from dataclasses import dataclass
 import pathlib
 from typing import Union
-import scipy.stats
 
 
 @dataclass
@@ -67,3 +64,4 @@ class INCAResults:
             return INCAMonteCarloResults(self.load_mc_data, parameter_names)
 
 
+__all__ = ["INCAResults"]

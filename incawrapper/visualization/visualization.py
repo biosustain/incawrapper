@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from incawrapper.mfa.INCA.INCAResults import INCAResults
+from incawrapper.core.INCAResults import INCAResults
 
-def idv_barplot(ax, grp: pd.DataFrame):
+def _idv_barplot(ax, grp: pd.DataFrame):
     # set width of bars
     barWidth = 0.25
     
@@ -36,6 +36,8 @@ def plot_idv_barplot(res: INCAResults, id: str, time: int = 0, ax: plt.Axes = No
     
     if ax is None:
         f, ax = plt.subplots()
-    ax = idv_barplot(ax, grp)
+    ax = _idv_barplot(ax, grp)
     ax.set_title(id)
     return ax
+
+__all__ = ["plot_idv_barplot"]

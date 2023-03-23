@@ -40,3 +40,5 @@ def present_schema_overview(
 
     df = schema_overview_df(schema, attributes)
     display(HTML(df.to_html()))
+
+__all__ = ["present_schema_overview"]

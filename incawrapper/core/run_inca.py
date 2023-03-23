@@ -2,8 +2,7 @@ import pathlib
 import time
 import tempfile
 import matlab.engine
-from incawrapper.mfa.INCA.INCAScript import INCAScript
-
+from incawrapper.core.INCAScript import INCAScript
 
 def run_inca(
     inca_script: INCAScript,
@@ -65,3 +64,5 @@ def _exercute_inca(inca_script: INCAScript, INCA_base_directory:pathlib.Path, di
     _f(nargout=0)
     eng.quit()
     print("--- %s seconds -" % (time.time() - start_time))
+
+__all__ = ["run_inca"]

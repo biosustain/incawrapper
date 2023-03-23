@@ -1,4 +1,3 @@
-#%%
 from typing import Literal
 import pathlib
 from collections import OrderedDict
@@ -58,3 +57,6 @@ class INCAScript:
 
     def __str__(self):
         return self.matlab_script
+
+
+__all__ = ["INCAScript"]

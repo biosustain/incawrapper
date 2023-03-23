@@ -5,7 +5,7 @@ import pathlib
 import os
 import shutil
 from numpy import ndarray
-from incawrapper.atom_mapping import (MolfileDownloader,
+from incawrapper.atommapping import (MolfileDownloader,
                                 write_rxn_files,
                                 obtain_atom_mappings,
                                 parse_reaction_mappings,

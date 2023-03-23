@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from incawrapper.mfa.INCA.load_matlab_file import load_matlab_file
+from incawrapper.core import load_matlab_file
 from typing import List
 import pathlib
 import pandas as pd
@@ -11,7 +11,7 @@ class INCAMonteCarloResults:
     parameter_names: List[str]
     
     def __post_init__(self):
-        self.mc = load_matlab_file(self.mcfile)
+        self.mc = load_matlab_file.load_matlab_file(self.mcfile)
 
         if "CI" in self.mc.keys(): # test if the mc file is a finished mc file
             self.ci = pd.DataFrame(self.mc["CI"], columns = self.parameter_names, index = ["lb", "ub"])

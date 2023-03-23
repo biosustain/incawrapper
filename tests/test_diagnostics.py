@@ -6,7 +6,7 @@ from typing import Tuple
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
-from incawrapper.mfa.visualization.diagnositics import plot_residuals_vs_fitted, plot_norm_probplot
+import incawrapper.visualization as incaviz
 
 
 def test_plot_residuals_vs_fitted(inca_results_simple_model):
@@ -14,14 +14,14 @@ def test_plot_residuals_vs_fitted(inca_results_simple_model):
     Tests if the plot_residuals_vs_fitted function runs without errors
     and returns an altair chart
     """
-    assert type(plot_residuals_vs_fitted(inca_results_simple_model)) == alt.Chart
+    assert type(incaviz.plot_residuals_vs_fitted(inca_results_simple_model)) == alt.Chart
 
 def test_plot_norm_probplot_standard_plot(inca_results_simple_model):
     """
     Tests if the plot_norm_probplot function runs without errors and 
     returns a matplotlib figure
     """
-    assert type(plot_norm_probplot(inca_results_simple_model)[0]) == plt.Figure
+    assert type(incaviz.plot_norm_probplot(inca_results_simple_model)[0]) == plt.Figure
 
 def test_plot_norm_probplot_interactive_plot(inca_results_simple_model):
     """
@@ -29,4 +29,4 @@ def test_plot_norm_probplot_interactive_plot(inca_results_simple_model):
     runs without errors and returns an altair chart
     """
 
-    assert type(plot_norm_probplot(inca_results_simple_model, interactive=True)) == alt.LayerChart
+    assert type(incaviz.plot_norm_probplot(inca_results_simple_model, interactive=True)) == alt.LayerChart

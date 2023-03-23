@@ -1,13 +1,13 @@
 import pytest
 import pathlib
 import os 
-from incawrapper.mfa.INCA.INCAModel import INCAModel
+from incawrapper.core.INCAModel import INCAModel
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
 @pytest.fixture
 def inca_model():
-    return INCAModel(os.path.join(current_dir, "test_data", "MFA_modelInputsData", "simple_model", "simple_model.mat"))
+    return INCAModel(os.path.join(current_dir,"..", "docs", "examples", "simple_model", "simple_model_quickstart.mat"))
 
 def test_get_metabolite_ids(inca_model):
     """

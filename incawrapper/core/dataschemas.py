@@ -42,7 +42,7 @@ TracerSchema = pa.DataFrameSchema(
         "tracer_id": pa.Column(pa.String, required=True, description="The unique id of the tracer compound."),
         "met_id": pa.Column(pa.String, required=True, description="The metabolite id of the labelled compound."),
         "atom_ids": pa.Column(
-            pa.String, required=True, 
+            pa.Object, required=True, 
             description="""Ids of the labelled atoms in the labelled atom group (equivalent to columns of the same name in the INCA GUI)""",
         ), 
         "atom_mdv": pa.Column(pa.Object, required=True, checks=ContainListsCheck, description="""mass/isotopomer distribution vector of the 

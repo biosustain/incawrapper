@@ -2,7 +2,7 @@
 import collections
 import pandas as pd
 import pandera as pa
-import incawrapper.mfa.INCA.dataschemas as dataschemas
+import incawrapper.core.dataschemas as dataschemas
 
 class Reaction():
     """Class to parse a reaction string into reactants and products. Only used for detection
@@ -63,3 +63,5 @@ def merge_reaverible_reaction(rxn_df: dataschemas.ReactionsSchema):
                     break
     print(f"Merged {n_merged} reactions")
     return rxn_df[rxn_df['rxn_eqn'] != '']
+
+__all__ = ["merge_reaverible_reaction"]

@@ -7,10 +7,10 @@ import time
 import tempfile
 import matlab.engine
 import ast
-import incawrapper.mfa.utils.chemical_formula as chemical_formula
+import incawrapper.utils.chemical_formula as chemical_formula
 import collections
-from incawrapper.mfa.INCA.INCAScript import INCAScript
-from incawrapper.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
+from incawrapper.core.INCAScript import INCAScript
+from incawrapper.core.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
 import logging
 import warnings
 
@@ -624,3 +624,15 @@ def create_inca_script_from_data(
 
     return inca_script
 
+__all__ = [
+    "define_reactions",
+    "define_tracers",
+    "define_experiment",
+    "define_model",
+    "define_flux_measurements",
+    "define_ms_data",
+    "define_pool_measurements",
+    "define_options",
+    "define_runner",
+    "create_inca_script_from_data",
+]

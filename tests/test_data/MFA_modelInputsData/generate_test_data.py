@@ -6,7 +6,7 @@
 # INCAScript_generator using unit testing.
 import pickle
 import pandas as pd
-from incawrapper.mfa.INCA import INCAScript
+from incawrapper.core import INCAScript
 
 
 pd.set_option("mode.chained_assignment", None)

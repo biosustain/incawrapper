@@ -9,7 +9,7 @@ import pandas as pd
 
 # import pathlib
 # import os
-from incawrapper.mfa.INCA import INCA_reimport
+from incawrapper.core import INCA_reimport
 
 
 pd.set_option("mode.chained_assignment", None)

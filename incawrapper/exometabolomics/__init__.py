@@ -1,4 +1,4 @@
-from BFAIR.exometabolomics.exometabolomics import (
+from incawrapper.exometabolomics.exometabolomics import (
     get_filename,
     extract_concentrations,
     extract_OD600,

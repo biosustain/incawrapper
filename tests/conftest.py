@@ -5,8 +5,8 @@ import pathlib
 import os 
 import pandas as pd
 import numpy as np
-from BFAIR.mfa.INCA.INCAResults import INCAResults
-from BFAIR.mfa.INCA.INCAScript import INCAScript
+from incawrapper.mfa.INCA.INCAResults import INCAResults
+from incawrapper.mfa.INCA.INCAScript import INCAScript
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
 

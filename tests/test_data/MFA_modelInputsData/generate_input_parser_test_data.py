@@ -7,7 +7,7 @@
 import pickle
 import pandas as pd
 import pathlib
-from BFAIR.mfa.INCA import parse_cobra_model
+from incawrapper.mfa.INCA import parse_cobra_model
 
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())

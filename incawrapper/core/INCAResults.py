@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-from BFAIR.mfa.INCA import load_matlab_file
-from BFAIR.mfa.INCA.INCAModel import INCAModel
-from BFAIR.mfa.INCA.INCAFitData import INCAFitData
-from BFAIR.mfa.INCA.INCASimulation import INCASimulation
-from BFAIR.mfa.INCA.INCAMonteCarloResults import INCAMonteCarloResults
+from incawrapper.mfa.INCA import load_matlab_file
+from incawrapper.mfa.INCA.INCAModel import INCAModel
+from incawrapper.mfa.INCA.INCAFitData import INCAFitData
+from incawrapper.mfa.INCA.INCASimulation import INCASimulation
+from incawrapper.mfa.INCA.INCAMonteCarloResults import INCAMonteCarloResults
 from dataclasses import dataclass
 import pathlib
 from typing import Union

@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path("..").resolve()))
 
 # -- Project information -----------------------------------------------------
 
-project = 'BFAIR'
+project = 'incawrapper'
 copyright = '2021, AutoFlowResearch'
 author = 'AutoFlowResearch'
 
@@ -32,11 +32,11 @@ numpydoc_show_class_members = False
 
 # -- Options for HTML output -------------------------------------------------
 
-html_title = "BFAIR"
+html_title = "incawrapper"
 html_theme = 'sphinx_material'
 html_theme_options = {
-    "repo_url": "https://github.com/AutoFlowResearch/BFAIR",
-    "repo_name": "BFAIR",
+    "repo_url": "https://github.com/AutoFlowResearch/incawrapper",
+    "repo_name": "incawrapper",
     "color_primary": "indigo",
     "color_accent": "pink",
     "globaltoc_depth": 3

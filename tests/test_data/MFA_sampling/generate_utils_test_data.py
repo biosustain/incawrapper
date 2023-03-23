@@ -8,13 +8,13 @@ import pickle
 import pandas as pd
 import pathlib
 import cobra
-from BFAIR.mfa.INCA import INCA_reimport
-from BFAIR.mfa.sampling import (
+from incawrapper.mfa.INCA import INCA_reimport
+from incawrapper.mfa.sampling import (
     replace_biomass_rxn_name,
     add_constraints,
     bound_relaxation,
 )
-from BFAIR.mfa.utils import (
+from incawrapper.mfa.utils import (
     calculate_split_ratio,
     plot_split_ratio,
     get_observable_fluxes,

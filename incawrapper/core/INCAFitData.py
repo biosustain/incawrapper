@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-from BFAIR.mfa.INCA import load_matlab_file
-from BFAIR.mfa.INCA.INCAModel import INCAModel
+from incawrapper.mfa.INCA import load_matlab_file
+from incawrapper.mfa.INCA.INCAModel import INCAModel
 from dataclasses import dataclass
 import pathlib
 from typing import Literal, Dict, Iterable, Callable

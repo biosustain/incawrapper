@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from BFAIR.mfa.INCA.load_matlab_file import load_matlab_file
+from incawrapper.mfa.INCA.load_matlab_file import load_matlab_file
 from typing import List
 import pathlib
 import pandas as pd

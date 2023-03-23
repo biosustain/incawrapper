@@ -1,4 +1,4 @@
-from BFAIR.parsers.data_import_parsers import combine_duplicated_compounds
+from incawrapper.parsers.data_import_parsers import combine_duplicated_compounds
 
 def test_combine_duplicated_compounds():
     '''Test with one duplicated compound'''

@@ -1,7 +1,7 @@
 MFA visualization
 =================
 
-.. currentmodule:: BFAIR.mfa.visualization
+.. currentmodule:: incawrapper.mfa.visualization
 
 Several methods to visualize the calculated fluxes are provided, reshaping the data to fit the input for Escher network visualizations and two different ways to visualize the distribution of sampled fluxes for single reactions and for pathways.
 

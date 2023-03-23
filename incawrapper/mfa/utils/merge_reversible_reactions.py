@@ -2,7 +2,7 @@
 import collections
 import pandas as pd
 import pandera as pa
-import BFAIR.mfa.INCA.dataschemas as dataschemas
+import incawrapper.mfa.INCA.dataschemas as dataschemas
 
 class Reaction():
     """Class to parse a reaction string into reactants and products. Only used for detection

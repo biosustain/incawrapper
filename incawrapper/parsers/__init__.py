@@ -1,4 +1,4 @@
-from BFAIR.parsers.data_import_parsers import (
+from incawrapper.parsers.data_import_parsers import (
     reaction_parser,
     modelReactions_file_parser,
     atomMapping_reactions2_file_parser,

@@ -9,13 +9,13 @@ with open("README.md", "r") as doc:
 
 version = re.search(
     r'^__version__\s*=\s*"(.*)"',
-    open("BFAIR/__init__.py").read(),
+    open("incawrapper/__init__.py").read(),
     re.M,
 ).group(1)
 
 
 setup(
-    name="BFAIR",
+    name="incawrapper",
     version=version,
     author="AutoFlow",
     author_email="TBD",
@@ -24,7 +24,7 @@ setup(
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/AutoFlowResearch/BFAIR",
+    url="https://github.com/AutoFlowResearch/incawrapper",
     packages=find_packages(),
     license="MIT",
     classifiers=[

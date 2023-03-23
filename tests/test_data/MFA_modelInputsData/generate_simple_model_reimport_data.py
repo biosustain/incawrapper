@@ -5,7 +5,7 @@ import logging
 # set working directory to the root of the repository
 os.chdir(dotenv.find_dotenv().replace(".env", ""))
 
-from BFAIR.mfa import INCA
+from incawrapper.mfa import INCA
 
 # Loading data
 modelReaction_data_I = pd.read_csv(

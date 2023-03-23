@@ -7,7 +7,7 @@ import os
 # from freezegun import freeze_time
 # import datetime
 import pandas as pd
-from BFAIR.mfa.INCA import INCA_reimport
+from incawrapper.mfa.INCA import INCA_reimport
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 

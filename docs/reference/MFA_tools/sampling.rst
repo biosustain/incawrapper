@@ -1,7 +1,7 @@
 MFA sampling
 ============
 
-.. currentmodule:: BFAIR.mfa.sampling
+.. currentmodule:: incawrapper.mfa.sampling
 
 Tools were set up to facilitate the analysis of the fluxes calculated in a metabolic flux analysis. Some tools that can help adapting naming conventions if different models were used and identifying exchange fluxes, i.e. fluxes with non-overlapping forward- and reverse reactions, are presented first, followed by methods to add the MFA-calculated fluxes as constraints to a COBRA model and how to deal with infeasible solutions.
 

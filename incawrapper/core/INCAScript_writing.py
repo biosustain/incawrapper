@@ -7,10 +7,10 @@ import time
 import tempfile
 import matlab.engine
 import ast
-import BFAIR.mfa.utils.chemical_formula as chemical_formula
+import incawrapper.mfa.utils.chemical_formula as chemical_formula
 import collections
-from BFAIR.mfa.INCA.INCAScript import INCAScript
-from BFAIR.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
+from incawrapper.mfa.INCA.INCAScript import INCAScript
+from incawrapper.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
 import logging
 import warnings
 

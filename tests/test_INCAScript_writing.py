@@ -1,5 +1,5 @@
 import pandera as pa
-from BFAIR.mfa.INCA.INCAScript_writing import (
+from incawrapper.mfa.INCA.INCAScript_writing import (
     define_experiment,
     define_reactions,
     define_flux_measurements,

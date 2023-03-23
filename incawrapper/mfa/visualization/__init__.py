@@ -2,7 +2,7 @@
 Tools to visualize flux distributions"""
 
 
-from BFAIR.mfa.visualization.distributions import (
+from incawrapper.mfa.visualization.distributions import (
     sampled_fluxes_minrange,
     show_reactions,
     plot_sampled_reaction_fluxes,

@@ -2,7 +2,7 @@ import pathlib
 import time
 import tempfile
 import matlab.engine
-from BFAIR.mfa.INCA.INCAScript import INCAScript
+from incawrapper.mfa.INCA.INCAScript import INCAScript
 
 
 def run_inca(

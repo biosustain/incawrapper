@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 import pickle
 import pathlib
-import BFAIR.exometabolomics as exometabolomics
+import incawrapper.exometabolomics as exometabolomics
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 

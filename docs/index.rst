@@ -1,7 +1,7 @@
-BFAIR
+incawrapper
 =====
 
-BFAIR (Big and :abbr:`FAIR (findable, accessible, interoperable, and reusable)` omics data handling) is an informatics pipeline for sample submission, metadata tracking, raw data
+incawrapper (Big and :abbr:`FAIR (findable, accessible, interoperable, and reusable)` omics data handling) is an informatics pipeline for sample submission, metadata tracking, raw data
 processing, and results retrieval.
 
 Documentation

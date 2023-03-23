@@ -8,13 +8,13 @@ import pickle
 import pandas as pd
 import pathlib
 import cobra
-from BFAIR.mfa.INCA import INCA_reimport
-from BFAIR.mfa.sampling import (
+from incawrapper.mfa.INCA import INCA_reimport
+from incawrapper.mfa.sampling import (
     replace_biomass_rxn_name,
     add_constraints,
     bound_relaxation,
 )
-from BFAIR.mfa.visualization import (
+from incawrapper.mfa.visualization import (
     reshape_fluxes_escher,
     sampled_fluxes_minrange,
     show_reactions,

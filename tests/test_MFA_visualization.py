@@ -5,7 +5,7 @@ import cobra
 import matplotlib
 import pandas as pd
 from numpy import ndarray
-from BFAIR.mfa.visualization import (
+from incawrapper.mfa.visualization import (
     reshape_fluxes_escher,
     sampled_fluxes_minrange,
     show_reactions,
@@ -15,7 +15,7 @@ from BFAIR.mfa.visualization import (
     show_subsystems,
     plot_subsystem_fluxes,
 )
-from BFAIR.mfa.visualization.distributions import (
+from incawrapper.mfa.visualization.distributions import (
     _sampled_reaction_fit
 )
 

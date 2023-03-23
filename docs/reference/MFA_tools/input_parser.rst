@@ -1,13 +1,13 @@
 MFA input data processing
 =========================
 
-.. currentmodule:: BFAIR.mfa.INCA
+.. currentmodule:: incawrapper.mfa.INCA
 
 Metabolic flux analysis prerequisites
 -------------------------------------
 
 In order to run a metabolic flux analysis (MFA), we need the information that is listed below.
-Except for atom mapping, all the other inputs can be prepared automatically using BFAIR.
+Except for atom mapping, all the other inputs can be prepared automatically using incawrapper.
 
 * Metabolic model info - ``INCA.parse_cobra_model``
 * Atom mapping info - not automatically available yet
@@ -34,7 +34,7 @@ Standard input parsers
 
 Parsers for standard input formats are provided.
 
-.. currentmodule:: BFAIR.parsers
+.. currentmodule:: incawrapper.parsers
 
 .. autosummary::
    :toctree: generated/

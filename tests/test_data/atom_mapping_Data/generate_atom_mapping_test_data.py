@@ -2,8 +2,8 @@ import pickle
 import os
 import pandas as pd
 import pathlib
-from BFAIR.mfa.INCA import INCA_input_parser
-from BFAIR.atom_mapping import (MolfileDownloader,
+from incawrapper.mfa.INCA import INCA_input_parser
+from incawrapper.atom_mapping import (MolfileDownloader,
                                 write_rxn_files,
                                 obtain_atom_mappings,
                                 parse_reaction_mappings,

@@ -1,7 +1,7 @@
 import pytest
 import pathlib
 import os 
-from BFAIR.mfa.INCA.INCAMonteCarloResults import INCAMonteCarloResults
+from incawrapper.mfa.INCA.INCAMonteCarloResults import INCAMonteCarloResults
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 

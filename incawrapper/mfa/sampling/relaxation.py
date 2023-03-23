@@ -1,4 +1,4 @@
-from BFAIR.mfa.sampling.constraints import timer, _reshape_fluxes
+from incawrapper.mfa.sampling.constraints import timer, _reshape_fluxes
 import pandas as pd
 import re
 from cobra.exceptions import Infeasible

@@ -1,5 +1,5 @@
 import altair as alt
-from BFAIR.mfa.INCA.INCAResults import INCAResults
+from incawrapper.mfa.INCA.INCAResults import INCAResults
 import numpy as np
 import pandas as pd
 from typing import Union, Tuple

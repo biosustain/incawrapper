@@ -1,5 +1,5 @@
 """INCA reaction input parser.
-Methods to prepare  reaction input data to fit the BFAIR INCA tools format.
+Methods to prepare  reaction input data to fit the incawrapper INCA tools format.
 """
 
 import pandas as pd

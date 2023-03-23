@@ -1,5 +1,5 @@
 import pytest
-import BFAIR.mfa.utils.chemical_formula as chemical_formula
+import incawrapper.mfa.utils.chemical_formula as chemical_formula
 
 
 def test_create_compound_dict_creates_correct_dict():

@@ -6,7 +6,7 @@ from typing import Tuple
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 
-from BFAIR.mfa.visualization.diagnositics import plot_residuals_vs_fitted, plot_norm_probplot
+from incawrapper.mfa.visualization.diagnositics import plot_residuals_vs_fitted, plot_norm_probplot
 
 
 def test_plot_residuals_vs_fitted(inca_results_simple_model):

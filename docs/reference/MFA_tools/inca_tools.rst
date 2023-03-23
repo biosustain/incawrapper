@@ -1,12 +1,12 @@
 INCA
 ====
 
-.. currentmodule:: BFAIR.mfa.INCA
+.. currentmodule:: incawrapper.mfa.INCA
 
 Prerequisites
 -------------
 
-The BFAIR :abbr:`MFA (metabolic flux analysis)` tools use the software
+The incawrapper :abbr:`MFA (metabolic flux analysis)` tools use the software
 :abbr:`INCA (Isotopomer Network Compartmental Analysis)` in MATLAB and
 subsequently re-import its output before processing the data. To make
 full use of these tools you will have to have both INCA and MATLAB
@@ -49,17 +49,17 @@ That should do the trick.
 Modules
 -------
 
-.. currentmodule:: BFAIR.mfa.INCA.INCAScript_generator
+.. currentmodule:: incawrapper.mfa.INCA.INCAScript_generator
 
 .. autodata:: script_generator_descr
    :annotation:
 
-.. currentmodule:: BFAIR.mfa.INCA.INCA_reimport
+.. currentmodule:: incawrapper.mfa.INCA.INCA_reimport
 
 .. autodata:: reimport_descr
    :annotation:
 
-.. currentmodule:: BFAIR.mfa.INCA
+.. currentmodule:: incawrapper.mfa.INCA
 
 INCA script generation
 ----------------------

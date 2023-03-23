@@ -1,5 +1,5 @@
 import pytest
-from BFAIR.mfa.INCA.INCAScript import INCAScript
+from incawrapper.mfa.INCA.INCAScript import INCAScript
 
 def test_INCAScript_initialises():
     """Test that INCAScript initialises correctly and is an instance of INCAScript"""

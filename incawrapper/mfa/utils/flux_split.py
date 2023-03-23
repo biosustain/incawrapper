@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from BFAIR.mfa.visualization.distributions import _reduce_sampled_fluxes
+from incawrapper.mfa.visualization.distributions import _reduce_sampled_fluxes
 
 
 def _prepare_input_fluxes(sampled_fluxes, flux):

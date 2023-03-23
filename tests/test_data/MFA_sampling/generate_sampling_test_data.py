@@ -8,8 +8,8 @@ import pickle
 import pandas as pd
 import pathlib
 import cobra
-from BFAIR.mfa.INCA import INCA_reimport
-from BFAIR.mfa.sampling import (
+from incawrapper.mfa.INCA import INCA_reimport
+from incawrapper.mfa.sampling import (
     rxn_coverage,
     split_lumped_rxns,
     split_lumped_reverse_rxns,

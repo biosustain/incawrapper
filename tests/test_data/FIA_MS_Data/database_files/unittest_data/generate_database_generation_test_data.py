@@ -11,7 +11,7 @@ import os
 import cobra
 import shutil
 from cobra.core.formula import Formula
-from BFAIR.FIA_MS.database_construction import (
+from incawrapper.FIA_MS.database_construction import (
     print_formula,
     zero_charge,
     is_valid,

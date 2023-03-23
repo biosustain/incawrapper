@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from BFAIR.mfa.INCA.INCAResults import INCAResults
+from incawrapper.mfa.INCA.INCAResults import INCAResults
 
 def idv_barplot(ax, grp: pd.DataFrame):
     # set width of bars

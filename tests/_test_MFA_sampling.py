@@ -3,7 +3,7 @@ import pickle
 import pathlib
 import cobra
 import pandas as pd
-from BFAIR.mfa.sampling import (
+from incawrapper.mfa.sampling import (
     model_rxn_overlap,
     rxn_coverage,
     split_lumped_rxns,

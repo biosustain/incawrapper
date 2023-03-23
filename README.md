@@ -1,21 +1,21 @@
-# BFAIR
+# incawrapper
 Big and F.A.I.R. Omics Data. This package provides tools for high throughput metabolomics analysis, both targeted and untargeted, making use of (and facilitating) different types of metabolic models. For a detailed documentation, please check [our ReadtheDocs](https://bfair.readthedocs.io/en/latest/index.html).
 
 ## Installation
-For now, in order to install the BFAIR package, [clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) onto your machine. Once ready, find the path to the base folder of your BFAIR clone and pip install the package like this
-`>>> pip install /path/to/BFAIR/base/folder`
-Once released, BFAIR will be pip-installable. In a terminal, write
-`>>> pip install BFAIR`
+For now, in order to install the incawrapper package, [clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) onto your machine. Once ready, find the path to the base folder of your incawrapper clone and pip install the package like this
+`>>> pip install /path/to/incawrapper/base/folder`
+Once released, incawrapper will be pip-installable. In a terminal, write
+`>>> pip install incawrapper`
 
 ## Features
-BFAIR provides a metabolomics analysis toolbox including, but not limited to:
+incawrapper provides a metabolomics analysis toolbox including, but not limited to:
 - Tools for analyzing untargeted FIA-MS metabolomics data
 - Tools for a general analysis of targeted metabolomics
 - A full metabolic flux analysis (MFA) workflow combined with our sister-software [SmartPeak](https://github.com/AutoFlowResearch/SmartPeak)
 - Input preparation for the MFA workflow, including exometabolomics analysis, COBRA model parsing, MDV parsing and automated atom mapping
 
 ## Examples
-Extensive examples can be found in the "example notebooks" section of [our documentation](https://bfair.readthedocs.io/en/latest/index.html). These are Jupyter Notebooks presenting a typical use case for each of the described modules. The notebooks can be found in [this location](https://github.com/AutoFlowResearch/BFAIR/tree/develop/docs/examples) in the repository.
+Extensive examples can be found in the "example notebooks" section of [our documentation](https://bfair.readthedocs.io/en/latest/index.html). These are Jupyter Notebooks presenting a typical use case for each of the described modules. The notebooks can be found in [this location](https://github.com/AutoFlowResearch/incawrapper/tree/develop/docs/examples) in the repository.
 
 ## Contributing
 We welcome all contributions.  Please follow the guidelines below when contributing code.

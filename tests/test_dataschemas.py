@@ -1,6 +1,6 @@
 import pandera as pa
 import pandas as pd
-from BFAIR.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema
+from incawrapper.mfa.INCA.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema
 import pytest
 
 def test_FluxMeasurementsSchema_accepts_ints(flux_measurements_test):

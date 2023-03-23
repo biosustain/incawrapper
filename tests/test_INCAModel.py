@@ -1,7 +1,7 @@
 import pytest
 import pathlib
 import os 
-from BFAIR.mfa.INCA.INCAModel import INCAModel
+from incawrapper.mfa.INCA.INCAModel import INCAModel
 
 current_dir = str(pathlib.Path(__file__).parent.absolute())
 

@@ -3,7 +3,7 @@ import pickle
 import pathlib
 import matplotlib
 import pandas as pd
-from BFAIR.mfa.utils import (
+from incawrapper.mfa.utils import (
     calculate_split_ratio,
     plot_split_ratio,
     get_observable_fluxes,

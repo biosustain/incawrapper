@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from BFAIR.mfa.INCA import load_matlab_file
+from incawrapper.mfa.INCA import load_matlab_file
 from dataclasses import dataclass
 import pathlib
 from typing import Literal, Dict, List

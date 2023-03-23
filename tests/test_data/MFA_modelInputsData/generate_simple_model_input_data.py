@@ -1,6 +1,6 @@
 # %%
 import pandas as pd
-from BFAIR.parsers import modelReactions_file_parser, atomMapping_reactions2_file_parser, atom_mapping_metabolites_file_parser
+from incawrapper.parsers import modelReactions_file_parser, atomMapping_reactions2_file_parser, atom_mapping_metabolites_file_parser
 import dotenv
 import os
 

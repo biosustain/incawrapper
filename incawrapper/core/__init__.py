@@ -1,15 +1,15 @@
 """INCA tools.
 Writes MATLAB scripts, executes them and reimports the data"""
 
-from BFAIR.mfa.INCA.INCAScript_generator import (
+from incawrapper.mfa.INCA.INCAScript_generator import (
     INCAScript,
     script_generator_descr,
 )
-from BFAIR.mfa.INCA.INCA_reimport import (
+from incawrapper.mfa.INCA.INCA_reimport import (
     INCA_reimport,
     reimport_descr,
 )
-from BFAIR.mfa.INCA.INCA_input_parser import parse_cobra_model
+from incawrapper.mfa.INCA.INCA_input_parser import parse_cobra_model
 
 __version__ = "1.0.0"
 

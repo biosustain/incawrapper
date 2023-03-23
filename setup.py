@@ -39,11 +39,14 @@ setup(
         "pandera",
         "matlabengine", # matlab engine requires python 3.8 <
         "scipy",
+        "requests", # required for atommapping
+        "altair",
     ],
     extra_require={
         "develop": [
             "pytest",
             "ipykernel",
+            "python-dotenv",
         ],
     },
     include_package_data=True,

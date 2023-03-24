@@ -1,4 +1,4 @@
-import incawrapper.mfa.utils.merge_reversible_reactions as mrr
+import incawrapper.utils.merge_reversible_reactions as mrr
 import pandas as pd
 
 def test_Reaction_is_inverse():

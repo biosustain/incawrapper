@@ -14,7 +14,7 @@ from incawrapper.mfa.sampling import (
     add_constraints,
     bound_relaxation,
 )
-from incawrapper.mfa.utils import (
+from incawrapper.utils import (
     calculate_split_ratio,
     plot_split_ratio,
     get_observable_fluxes,

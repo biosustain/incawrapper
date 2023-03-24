@@ -9,10 +9,16 @@ from incawrapper.core.INCAResults import INCAResults
 from incawrapper.core.INCAScript import INCAScript
 current_dir = pathlib.Path(__file__).parent
 
+@pytest.fixture
+def inca_results_simple_model_filename():
+    """Filename for the simple model results .mat file"""
+    return current_dir.parent / "docs"/"examples"/"Literature data"/"simple model"/"simple_model_quikstart.mat"
+
 
 @pytest.fixture
-def inca_results_simple_model():
-    return INCAResults(current_dir.parent / "docs"/"examples"/"Literature data"/"simple model"/"simple_model_quikstart.mat")
+def inca_results_simple_model(inca_results_simple_model_filename):
+    """Create an INCAResults object from the simple model results .mat file."""
+    return INCAResults(inca_results_simple_model_filename)
 
 
 @pytest.fixture

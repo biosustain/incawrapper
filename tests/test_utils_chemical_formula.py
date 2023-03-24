@@ -1,5 +1,5 @@
 import pytest
-import incawrapper.mfa.utils.chemical_formula as chemical_formula
+import incawrapper.utils.chemical_formula as chemical_formula
 
 
 def test_create_compound_dict_creates_correct_dict():
@@ -8,7 +8,7 @@ def test_create_compound_dict_creates_correct_dict():
     assert compound_dict == {"C": 6, "H": 12, "O": 6}
 
 
-def test_create_compound_dict_no_multiplier():
+def test_create_compound_dict_no_stoichiometric_coefficient():
     formula = "C6HO6"
     compound_dict = chemical_formula._create_compound_dict(formula)
     assert compound_dict == {"C": 6, "H": 1, "O": 6}

@@ -47,6 +47,7 @@ setup(
             "pytest",
             "ipykernel",
             "python-dotenv",
+            "openpyxl",
         ],
     },
     include_package_data=True,

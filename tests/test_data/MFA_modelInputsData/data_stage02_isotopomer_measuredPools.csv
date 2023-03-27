@@ -1,1 +1,0 @@
-The query executed did not return any data.

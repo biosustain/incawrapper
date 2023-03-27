@@ -26,7 +26,7 @@ jobs:
             sudo apt install -y python3-pip
             sudo pip install pipenv
             pipenv install dist/*
-            pipenv install pytest 
+            pipenv install pytest
 workflows:
   main:
     jobs:

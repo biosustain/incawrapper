@@ -5,4 +5,4 @@ API Reference
    :maxdepth: 2
 
    introduction
-   MFA_tools/index
+   core

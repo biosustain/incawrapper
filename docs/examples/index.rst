@@ -5,10 +5,8 @@ Example Notebooks
    :maxdepth: 2
 
    introduction
-   cobra_model_parser
+   Quick_start
    MFA_INCA_example
-   MFA_INCA_data_reimport
-   MFA_compatibility
-   MFA_feasibility_and_sampling
-   MFA_pathway_distributions
-   MFA_full_workflow
+   Monte_carlo_sampling
+   Published_data_examples_C_necator
+   Published_data_examples_neural_cells

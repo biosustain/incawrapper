@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_and_test_linux:
+  install_and_test_linux:
     docker:
       - image: cimg/python:3.10.0
     steps:
@@ -12,7 +12,22 @@ jobs:
       - run:
           command: |
             pytest
+  build:
+    docker:
+      - image: cimg/python3.10.0
+    steps:
+      - checkout
+      - run:
+          command: |
+            python3 setup.py sdist bdist_wheel
+            sudo add-apt-repository universe -y
+            sudo apt-get update
+            sudo apt install -y python3-pip
+            sudo pip install pipenv
+            pipenv install dist/*
+            pipenv install pytest 
 workflows:
   main:
     jobs:
-      - build_and_test_linux
+      - install_and_test_linux
+      - build

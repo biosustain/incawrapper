@@ -1,9 +1,11 @@
 version: 2.1
 
+orbs:
+  python_linux: circleci/python@2.1.1
+
 jobs:
   install_and_test_linux:
-    docker:
-      - image: cimg/python:3.10.0
+    executor: python_linux/default
     steps:
       - checkout # checkout source code to working directory
       - run:
@@ -13,8 +15,7 @@ jobs:
           command: |
             pytest
   build:
-    docker:
-      - image: cimg/python3.10.0
+    executor: python_linux/default
     steps:
       - checkout
       - run:

@@ -18,7 +18,7 @@ jobs:
       - run:
           command: | # Run test suite
             pipenv run pytest
- workflows:
+workflows:
   main:
     jobs:
       - build_and_test_linux

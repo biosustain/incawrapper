@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build_and_test_linux:
     docker:
-      - image: cimg/python:3.11.0
+      - image: cimg/python:3.10.0
     steps:
       - checkout # checkout source code to working directory
       - run:

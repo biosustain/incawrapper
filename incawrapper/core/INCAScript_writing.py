@@ -5,7 +5,6 @@ from typing import Dict, Iterable, Literal, Union, List, Optional
 import pathlib
 import time
 import tempfile
-import matlab.engine
 import ast
 import incawrapper.utils.chemical_formula as chemical_formula
 import collections

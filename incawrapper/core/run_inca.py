@@ -1,8 +1,25 @@
 import pathlib
 import time
 import tempfile
-import matlab.engine
 from incawrapper.core.INCAScript import INCAScript
+from warnings import warn
+
+# The run_inca module requires the matlabengine package. This package 
+# requires a matlab installation. The following try-except block will
+# allows users to use the incawrapper package without matlab installed.
+try:
+    import matlab.engine
+    MATLAB_AVAILABLE = True
+except ImportError:
+    MATLAB_AVAILABLE = False
+    warn(
+        "Could not import run_inca module. This is not a problem if you "
+        "do not want to run INCA scripts from python. However, if you "
+        "wish to run INCA you need to install the matlabengine package. This"
+        "can be done by running 'pip install incawrapper[matlab]'. NB: This "
+        "requires that matlab is installed."
+    )
+
 
 def run_inca(
     inca_script: INCAScript,
@@ -25,23 +42,28 @@ def run_inca(
     -------
     None"""
 
-    # Check if the INCA base directory is a pathlib.Path object
-    if type(INCA_base_directory) is not pathlib.Path:
-        INCA_base_directory = pathlib.Path(INCA_base_directory)
+    if MATLAB_AVAILABLE:
+        # Check if the INCA base directory is a pathlib.Path object
+        if type(INCA_base_directory) is not pathlib.Path:
+            INCA_base_directory = pathlib.Path(INCA_base_directory)
 
-    if execution_directory is None:
-        # Run the INCA script in a temporary directory
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_dir = pathlib.Path(temp_dir)
-            _exercute_inca(inca_script, INCA_base_directory, temp_dir)
+        if execution_directory is None:
+            # Run the INCA script in a temporary directory
+            with tempfile.TemporaryDirectory() as temp_dir:
+                temp_dir = pathlib.Path(temp_dir)
+                _exercute_inca(inca_script, INCA_base_directory, temp_dir)
+        else:
+            # Check if the exercution directory is a pathlib.Path object
+            if type(execution_directory) is not pathlib.Path:
+                execution_directory = pathlib.Path(execution_directory)
+            
+            # Run the INCA script in the specified directory
+            _exercute_inca(inca_script, INCA_base_directory, execution_directory)
     else:
-        # Check if the exercution directory is a pathlib.Path object
-        if type(execution_directory) is not pathlib.Path:
-            execution_directory = pathlib.Path(execution_directory)
-        
-        # Run the INCA script in the specified directory
-        _exercute_inca(inca_script, INCA_base_directory, execution_directory)
-
+        raise ImportError(
+            "The matlabengine package is not installed. This is required to run INCA "
+            "from python."
+        )
 
 def _exercute_inca(inca_script: INCAScript, INCA_base_directory:pathlib.Path, dir: pathlib.Path):
     """Run INCA with a given INCA script in a specified directory. This function is not intended to be called directly, 

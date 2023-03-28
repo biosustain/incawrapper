@@ -634,4 +634,5 @@ __all__ = [
     "define_options",
     "define_runner",
     "create_inca_script_from_data",
+    "modify_class_instance",
 ]

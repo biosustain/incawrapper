@@ -8,8 +8,8 @@ back to Python for further analysis and simply saved as .csv files. Furthermore,
 export results from INCA runs entirely done through the GUI to Python.
 
 .. toctree::
+   :numbered: 3
    :maxdepth: 1
-   :caption: Contents:
 
    install
    examples/Quick_start
@@ -18,7 +18,6 @@ export results from INCA runs entirely done through the GUI to Python.
    incawrapper_and_the_incagui
    examples/index
    developer/index
-   reference/index
 
 
 Indices and tables

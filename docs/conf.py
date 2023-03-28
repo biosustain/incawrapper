@@ -3,6 +3,7 @@
 import sys
 from pathlib import Path
 
+ROOT_DIR = Path(__file__).parents[1].resolve()
 sys.path.insert(0, str(Path("..").resolve()))
 
 # -- Project information -----------------------------------------------------
@@ -24,11 +25,19 @@ extensions = [
     "sphinx.ext.intersphinx",
     "numpydoc",
     "nbsphinx",
+    "autoapi.extension"
 ]
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 autosummary_generate = True
 numpydoc_show_class_members = False
+
+# Document Python Code
+autoapi_dirs = [ROOT_DIR / "incawrapper"]
+autoapi_add_toctree_entry = True
+
+# Enable typehints
+autodoc_typehints = "signature"
 
 # -- Options for HTML output -------------------------------------------------
 

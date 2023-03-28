@@ -1,7 +1,19 @@
-Installation
-===============
+Pre-requisites and installation
+===============================
 
-incawrapper requires Python 3.6. The recommended installation method is `pip <https://pip.pypa.io/en/stable/>`_.
+Pre-requisites
+----------------
+To fully use the incawrapper you need to install the following software:
+
+* Python
+* matlab (>2022b this allows installation of the matlabengine package through pip)
+* INCA software (https://mfa.vueinnovations.com/)
+
+Both matlab and INCA are commercial software and the each user needs to acquire a license. The incawrapper can be used without a matlab or INCA license, but will not be able to run INCA (See below).
+
+How to install
+----------------
+incawrapper requires Python. The recommended installation method is `pip <https://pip.pypa.io/en/stable/>`_.
 
 .. code-block:: bash
 
@@ -16,17 +28,13 @@ Alternatively, you can download the source code from `GitHub <github.com/biosust
     pip install incawrapper[matlab]
 
 
-To run INCA you furthermore need to install matlab (>2022b this allows installation of the matlabengine 
-package through pip) and the INCA software (https://mfa.vueinnovations.com/).
-
 Use without matlab
 -------------------
-The incawrapper can be used analyse INCA output files (.mat) without matlab. In that case install the package without the matlab extras:
-using the following command:
+The incawrapper can be used analyse INCA output files (.mat) without matlab. In that case install the package without the matlab using the following command:
 
 .. code-block:: bash
 
     pip install incawrapper
 
-The incawrapper can then be used to read INCA output files and to create a INCA scripts, but will not be able 
+With this installation the incawrapper can read INCA output files and to create a INCA scripts, but will not be able 
 to run INCA.

@@ -1,5 +1,66 @@
 # incawrapper
-Big and F.A.I.R. Omics Data. This package provides tools for high throughput metabolomics analysis, both targeted and untargeted, making use of (and facilitating) different types of metabolic models. For a detailed documentation, please check [our ReadtheDocs](https://bfair.readthedocs.io/en/latest/index.html).
+incawrapper is a Python package which wraps for the matlab application INCA. INCA is a tool for
+13C metabolic flux analysis [1,2]. The incawrapper package allows to import data,
+setup the model and run INCA all from within Python. The results can be exported
+back to Python for further analysis and simply saved as .csv files. Furthermore, it is possible to 
+export results from INCA runs entirely done through the GUI to Python. 
+
+## What can the incawrapper do for me?
+- Provide an Python interface use INCA 100% independent of the INCA GUI
+- Provide a data structure that can be imported to INCA
+- Provide methods for exporting results from INCA to Python
+- Provide methods for plotting results from INCA in Python
+- Provide methods for creating INCA models with data, which can then be used in the INCA GUI
+- Run both Isotopically Non-Stationary (INS) and Isotopically Stationary (IS) MFA
+- Estimate fluxes and confidence intervals through the following INCA algorithms: estimate, parameter continuation, and Monte Carlo sampling
+
+## What can the incawrapper NOT do for me?
+- Integration of NMR data
+- Simulation of experiments 
+- Optimization of experimental design
+
+## How to use it?
+This is an extremely quick show case of the incawrapper for more extensive examples please see our documentation page. 
+
+First, load your data typically atom mapped reactions, tracers information, flux measurements and MS measurements into pandas dataframes.
+```python
+import pandas as pd
+tracers_data = pd.read_csv("tracers.csv", 
+    converters={'atom_mdv':ast.literal_eval, 'atom_ids':ast.literal_eval} # a trick to read lists from csv
+)
+reactions_data = pd.read_csv("reactions.csv")
+flux_data = pd.read_csv("flux_measurements.csv")
+ms_data = pd.read_csv("ms_measurements.csv", 
+   converters={'labelled_atom_ids': ast.literal_eval} # a trick to read lists from csv
+)
+```
+Then create the inca script and specify the options and which INCA algorithms to execute.
+```python
+import incawrapper
+output_file = "name/of/results/file.mat"
+script = incawrapper.create_inca_script_from_data(reactions_data, tracers_data, flux_data, ms_data, experiment_ids=["exp1"])
+script.add_to_block("options", incawrapper.define_options(fit_starts=5,sim_na=False))
+script.add_to_block("runner", incawrapper.define_runner(output_file, run_estimate=True, run_simulation=True, run_continuation=True))
+```
+Now you are ready to run the inca script.
+```python
+from incawrapper import run_inca
+inca_directory = "path/to/inca/files"
+run_inca(script, INCA_base_directory=inca_directory)
+```
+INCA will now run in the background and execute the specified algorithms and store the results in the `output_file`. This file can be open in the INCA GUI (using Open Flux Map) or imported into Python:
+```python
+res = incawrapper.INCAResults(output_file)
+res.fitdata.fitted_parameters.head()
+```
+|    | type      | id      | eqn                |      val |       std |      lb |       ub |   free |...|
+|---:|:----------|:--------|:-------------------|---------:|----------:|--------:|---------:|-------:|--:|
+|  0 | Net flux  | R1      | A -> B             | 10       | 1e-05     | 9.99998 | 10       |      0 |...|
+|  1 | Net flux  | R2 net  | B <-> D            |  6.08415 | 0.0680021 | 5.9477  |  6.2182  |      1 |...|
+|  2 | Exch flux | R2 exch | B <-> D            |  6.62023 | 0.330634  | 6.00107 |  7.35286 |      1 |...|
+|  3 | Net flux  | R3      | B -> C + E         |  1.95792 | 0.0340011 | 1.8909  |  2.02615 |      1 |...|
+|  4 | Net flux  | R4      | B + C -> D + E + E |  1.95792 | 0.0340011 | 1.8909  |  2.02615 |      0 |...|
+
 
 ## Installation
 For now, in order to install the incawrapper package, [clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) onto your machine. Once ready, find the path to the base folder of your incawrapper clone and pip install the package like this
@@ -7,12 +68,6 @@ For now, in order to install the incawrapper package, [clone this repository](ht
 Once released, incawrapper will be pip-installable. In a terminal, write
 `>>> pip install incawrapper`
 
-## Features
-incawrapper provides a metabolomics analysis toolbox including, but not limited to:
-- Tools for analyzing untargeted FIA-MS metabolomics data
-- Tools for a general analysis of targeted metabolomics
-- A full metabolic flux analysis (MFA) workflow combined with our sister-software [SmartPeak](https://github.com/AutoFlowResearch/SmartPeak)
-- Input preparation for the MFA workflow, including exometabolomics analysis, COBRA model parsing, MDV parsing and automated atom mapping
 
 ## Examples
 Extensive examples can be found in the "example notebooks" section of [our documentation](https://bfair.readthedocs.io/en/latest/index.html). These are Jupyter Notebooks presenting a typical use case for each of the described modules. The notebooks can be found in [this location](https://github.com/AutoFlowResearch/incawrapper/tree/develop/docs/examples) in the repository.

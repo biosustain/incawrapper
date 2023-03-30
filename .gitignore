@@ -150,6 +150,9 @@ dev_*
 
 # ignores inca_script.m files that are generated during documentation build, but are not needed
 inca_script.m
+metabolites/
+unmappedRXNs/
+mappedRXNs/
 
 # ignores temporary files creates while files are open
 ~$*

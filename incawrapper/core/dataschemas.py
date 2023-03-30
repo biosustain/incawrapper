@@ -53,7 +53,7 @@ the labelling group. This is done supplying a list two numbers, e.g. [0.01, 0.99
 group (equivalent to columns of the same name in the INCA GUI). The simplest way to use this column is to specify the purity of the labelling 
 group. This is done supplying a list two numbers, e.g. `[0.5, 0.95]` specifies 95% of the compound will be fully labelled in this labelling 
 group. If different atom positions has different purity create a different labelling group for each position. For further description please 
-refer to the INCA manual. Currently, the INCA parser only supports `atom_mdv` of length 2 for each labelling group."""
+refer to the INCA manual. Currently, the incawrapper only supports `atom_mdv` of length 2 for each labelling group."""
         ),
     }
 )

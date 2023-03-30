@@ -1,6 +1,6 @@
 # incawrapper
 incawrapper is a Python package which wraps for the matlab application INCA. INCA is a tool for
-13C metabolic flux analysis [1,2]. The incawrapper package allows to import data,
+13C metabolic flux analysis. The incawrapper package allows to import data,
 setup the model and run INCA all from within Python. The results can be exported
 back to Python for further analysis and simply saved as .csv files. Furthermore, it is possible to 
 export results from INCA runs entirely done through the GUI to Python. 
@@ -45,7 +45,7 @@ script.add_to_block("runner", incawrapper.define_runner(output_file, run_estimat
 Now you are ready to run the inca script.
 ```python
 from incawrapper import run_inca
-inca_directory = "path/to/inca/files"
+inca_directory = "path/to/inca/installation"
 run_inca(script, INCA_base_directory=inca_directory)
 ```
 INCA will now run in the background and execute the specified algorithms and store the results in the `output_file`. This file can be open in the INCA GUI (using Open Flux Map) or imported into Python:

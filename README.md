@@ -6,12 +6,12 @@ back to Python for further analysis and simply saved as .csv files. Furthermore,
 export results from INCA runs entirely done through the GUI to Python. 
 
 ## What can the incawrapper do for me?
-- Provide an Python interface use INCA 100% independent of the INCA GUI
+- Provide a Python interface to use INCA 100% independent of the INCA GUI
 - Provide a data structure that can be imported to INCA
 - Provide methods for exporting results from INCA to Python
 - Provide methods for plotting results from INCA in Python
 - Provide methods for creating INCA models with data, which can then be used in the INCA GUI
-- Run both Isotopically Non-Stationary (INS) and Isotopically Stationary (IS) MFA
+- Run both Isotopically Non-Stationary (INS) and Isotopically Stationary (IS) 13C-MFA
 - Estimate fluxes and confidence intervals through the following INCA algorithms: estimate, parameter continuation, and Monte Carlo sampling
 
 ## What can the incawrapper NOT do for me?
@@ -64,13 +64,14 @@ res.fitdata.fitted_parameters.head()
 
 ## Installation
 For now, in order to install the incawrapper package, [clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) onto your machine. Once ready, find the path to the base folder of your incawrapper clone and pip install the package like this
-`>>> pip install /path/to/incawrapper/base/folder`
+`>>> cd /path/to/incawrapper/base/folder`
+`>>> pip install ".[matlab]`
 Once released, incawrapper will be pip-installable. In a terminal, write
-`>>> pip install incawrapper`
+`>>> pip install incawrapper[matlab]`
 
 
-## Examples
-Extensive examples can be found in the "example notebooks" section of [our documentation](https://bfair.readthedocs.io/en/latest/index.html). These are Jupyter Notebooks presenting a typical use case for each of the described modules. The notebooks can be found in [this location](https://github.com/AutoFlowResearch/incawrapper/tree/develop/docs/examples) in the repository.
+## Documentation and examples
+Example use cases and a description of the API can be found in [our documentation](https://incawrapper.readthedocs.io/en/latest/index.html) (not uploaded yet).
 
 ## Contributing
 We welcome all contributions.  Please follow the guidelines below when contributing code.

@@ -3,7 +3,7 @@ import numpy as np
 from incawrapper.core import load_matlab_file
 from dataclasses import dataclass
 import pathlib
-from typing import Literal, Dict, Iterable, Callable
+from typing import Dict, Iterable, Callable
 import scipy.stats
 
 @dataclass
@@ -11,43 +11,118 @@ class INCAFitData:
     """
     This class parses the output from INCA and stores the data in a dataclass. On init the class
     loads the matlab file and parses the data into several pandas dataframe, which can be accessed
-    via the class attributes. The class also contains the INCAModel class, which can be accessed
-    via the model attribute. This contains information about the model which was fitted.
+    via the class attributes. This class is not intended to be used directly, but rather through
+    the INCAResults class.
+
+    Parameters
+    ----------
+    inca_matlab_file : pathlib.Path
+        The path to the matlab file containing the INCA output.
+
+    Attributes
+    ----------
+    raw
+    alpha
+    chi2
+    degrees_of_freedom
+    expected_chi2
+    fitted_parameters
+    measurements_and_fit_overview
+    measurements_and_fit_detailed
+
+    Notes
+    -----
+    The data in the this object is directly parsed from the matlab file and is not modified
+    by the incawrapper package. Thus, please refer to the INCA documentation for more information
+    on how they are calculated.
     """
 
     inca_matlab_file: pathlib.Path
+    """The path to the matlab file containing the INCA output."""
 
-    def __post_init__(self):
-        self.raw: Dict = load_matlab_file.load_matlab_file(self.inca_matlab_file)['f']
-        """Dict: This attribute contains the raw fitdata from the INCA output."""
+    @property
+    def raw(self) -> Dict:
+        """Gets the raw parsed matlab structure that contains the fitting results.
 
-        self.fitted_parameters: pd.DataFrame = self._parse_fitted_parameters()
-        """pd.DataFrame: This attribute contains the fitted parameters from the INCA output.
-        
-        The columns of the dataframe are:
-        - type: type of the parameter (Flux, Pool, or MS)
-        - id: id of the parameter (flux, pool, or MS)
-        - eqn: reaction equation of the flux. For pools and MS this is empty
-        - val: fitted value of the parameter
-        - std: estimated standard deviation of the fitted value
-        - lb: lower bound of the fitted value (Obtained from continuation or monte carlo simulation)
-        - ub: upper bound of the fitted value (Obtained from continuation or monte carlo simulation)
-        - unit: unit of the parameter
-        - free: boolean indicating if the parameter was fitted or not"""
+        Returns
+        -------
+        Dict
+            This attribute contains the raw fitdata from the INCA output."""
+        return load_matlab_file.load_matlab_file(self.inca_matlab_file)['f']
 
-        self.measurements_and_fit_overview: pd.DataFrame = self._parse_measurements_and_fit_overview()
-        """pd.DataFrame: This attribute contains an overview of the measurements and their overall fit"""
+    @property
+    def alpha(self) -> float:
+        """Gets the alpha value used for to obtain the confidence intervals.
 
-        self.measurements_and_fit_detailed: pd.DataFrame = self._parse_measurements_and_fit_detailed()
-        self.alpha: float = self.raw["alf"]
-        self.chi2: float = self.raw["chi2"]
-        self.degrees_of_freedom: int = self.raw["dof"]
-        self.expected_chi2: Iterable[float, float] = self.raw["Echi2"]
-
-
-    def _parse_fitted_parameters(self):
+        Returns
+        -------
+        float
+            This attribute contains the alpha value used for to obtain the confidence intervals.
         """
-        This function parses the fitted parameters from the INCA output
+        return self.raw["alf"]
+    
+    @property
+    def chi2(self) -> float:
+        """Gets the chi2 value of the fit.
+
+        Returns
+        -------
+        float
+            This attribute contains the chi2 value of the fit.
+        """
+        return self.raw["chi2"]
+    
+    @property
+    def degrees_of_freedom(self) -> int:
+        """Gets the degrees of freedom of the fit.
+
+        Returns
+        -------
+        int
+            This attribute contains the degrees of freedom of the fit.
+        """
+
+        return self.raw["dof"]
+    
+    @property
+    def expected_chi2(self) -> Iterable[float]:
+        """Gets the expected chi2 interval of the fit. The first value is the lower bound and the second
+        value is the upper bound.
+
+        Returns
+        -------
+        Iterable[float]
+            This attribute contains the expected chi2 interval of the fit.
+        """
+        return self.raw["Echi2"]
+
+    @property
+    def fitted_parameters(self) -> pd.DataFrame:
+        """
+        Gets the fitted parameters and their associated standard error, lower bound, upper bound and other
+        information. This information is equivalent to the table shown in the main window of the Flux 
+        Estimation tab in the INCA GUI.
+        
+        Returns
+        -------
+        pd.DataFrame
+            This attribute contains the fitted parameters from the INCA output.
+            The columns of the dataframe are:
+            * type: type of the parameter (Flux, Pool, or MS)
+            * id: id of the parameter (flux, pool, or MS)
+            * eqn: reaction equation of the flux. For pools and MS this is empty
+            * val: fitted value of the parameter
+            * std: estimated standard deviation of the fitted value
+            * lb: lower bound of the fitted value (Obtained from continuation or monte carlo simulation)
+            * ub: upper bound of the fitted value (Obtained from continuation or monte carlo simulation)
+            * unit: unit of the parameter
+            * free: boolean indicating if the parameter was fitted or not
+            * cor: correlation vector for this parameter to the other fitted parameters. The order matches
+            the order of the other parameters in the dataframe 
+            * cov: covariance vector similar to the cor column
+            * vals: value of the parameter of each restart of the estimation algorithm (length of vals is 
+            equal to the number of fit_starts option)
+            * base: don't know what this is
         """
         df = pd.DataFrame.from_records(self.raw["par"]).reindex(
             columns=[
@@ -70,10 +145,10 @@ class INCAFitData:
             ]
         )
         return df
-
-    def _parse_measurements_and_fit_overview(self):
+    @property
+    def measurements_and_fit_overview(self):
         """
-        This function parse an overview of the measurements and their overall fit,
+        Gets an overview of the measurements and their overall fit,
         i.e. the conbined values accross all data points in the measurement. For
         example if the same flux or fragment is measured multiple times in the same
         experiment. Further for fragements this combines all the all mass isopote
@@ -81,16 +156,29 @@ class INCAFitData:
         """
         overview = pd.DataFrame.from_records(self.raw["mnt"]).drop(
             columns=["res"]
-        )  # drop the residuals infomation. This is accessed seperatly
+        )  # drop the residuals infomation. This is accessed seperatly through the measurements_and_fit_detailed attribute
         return overview
 
-    def _parse_measurements_and_fit_detailed(self):
+    @property
+    def measurements_and_fit_detailed(self) -> pd.DataFrame:
         """
-        This function parses an overview of a specific quantity (Flux, MS, or Pool).
-        It is used by specific functions to parse the fluxes, MS, and pools.
+        Gets a dataframe all measuremets, their associatted fitted value and weighted residuals.
 
-        Returns:
-            df: pandas dataframe to be futher processed by the specific functions
+        Returns
+        -------
+        pd.DataFame
+            This attribute contains an overview of the measurements and their overall fit. The columns 
+            of the dataframe are:
+            * expt: experiment id
+            * id: measurement id
+            * type: measurement type (Flux, Fragment, or pool size)
+            * time: time of measurement
+            * data: measured data
+            * std: standard deviation of the measurement
+            * fit: fitted data
+            * weigthed residual: residual value of the fit weighted by the standard deviation of the measurement
+            * cont: contribution of the measurement to each fitted parameter.
+            * base: DONT know what this is
         """
         detailed_info = np.array([])
         for measurement in self.raw["mnt"]:
@@ -121,33 +209,6 @@ class INCAFitData:
         )
         return df
 
-    def get_measurements_and_fit_detailed(self, quantity: Literal["Flux", "Fragment", "Pool"]):
-        """
-        Return a copy of the measurements and fit detailed dataframe which only contain 
-        the desired quantity. 
-
-        output:
-            df: pandas dataframe with the following columns:
-                expt: experiment id
-                id: measurement id
-                type: measurement type (Flux or Fragment)
-                time: time of measurement
-                data: measured data
-                std: standard deviation of the measurement
-                fit: fitted data
-                weigthed residual: residual value of the fit weighted by the standard deviation of the measurement
-                cont: contribution of the measurement to each fitted parameter.
-                base: DONT know what this is
-        """
-        df = (
-            self.measurements_and_fit_detailed
-            .query(f"type == '{quantity}'")
-            .copy()
-        )
-
-        if quantity in ["Flux", "Pool"]:
-            df = df.drop(columns=["peak"])
-        return df
 
     def get_goodness_of_fit(self)->None:
         """

@@ -1,26 +1,39 @@
+"""This module contains functions that write the matlab script blocks for the INCA script."""
 import pandas as pd
 import pandera as pa
 import pandera.typing as pat
-from typing import Dict, Iterable, Literal, Union, List, Optional
+from typing import Dict, Literal, Union, List, Optional
 import pathlib
-import time
-import tempfile
-import ast
 import incawrapper.utils.chemical_formula as chemical_formula
 import collections
 from incawrapper.core.INCAScript import INCAScript
 from incawrapper.core.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
-import logging
 import warnings
 
 @pa.check_input(ReactionsSchema)
 def define_reactions(model_reactions: pd.DataFrame) -> str:
-    def create_reaction(reaction_equation: str, reaction_id: str) -> str:
-        """Parse a reaction string into a function call of the INCA reaction."""
-        return f"reaction('{reaction_equation}', ['id'], ['{reaction_id}'])"
+    """Write the matlab script block that to define the reactions in the model. The all reactions
+    has to defined at once, so it is not possible to add reactions to the script block later on.
+    
+    Parameters
+    ----------
+    model_reactions: pd.DataFrame
+        A dataframe with the reactions in the model. The dataframe is validated using the
+        ReactionsSchema upon input.
+    
+    Returns
+    -------
+    str
+        The matlab script block that defines the reactions in the model.
+    """
 
     reaction_func_calls = model_reactions.apply(
-        lambda row: create_reaction(row["rxn_eqn"], row["rxn_id"]), axis=1
+        lambda row: instantiate_inca_class_call(
+            inca_class='reaction', 
+            S="'"+row["rxn_eqn"]+"'", 
+            id="'" + row["rxn_id"] + "'",
+        ), 
+        axis=1
     )
 
     script = "% Create reactions\nr = [...\n"

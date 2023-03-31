@@ -65,7 +65,7 @@ res.fitdata.fitted_parameters.head()
 ## Installation
 For now, in order to install the incawrapper package, [clone this repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) onto your machine. Once ready, find the path to the base folder of your incawrapper clone and pip install the package like this
 `>>> cd /path/to/incawrapper/base/folder`
-`>>> pip install ".[matlab]`
+`>>> pip install ".[matlab]"`
 Once released, incawrapper will be pip-installable. In a terminal, write
 `>>> pip install incawrapper[matlab]`
 

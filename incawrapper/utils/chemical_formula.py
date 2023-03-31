@@ -1,5 +1,6 @@
 import re
 from typing import Dict
+import collections
 
 
 def _create_compound_dict(
@@ -63,4 +64,34 @@ def subtract_formula(
 
     return new_formula
 
-__all__ = ["subtract_formula", "create_formula_from_dict"]
+
+def get_unlabelled_atom_ids(molecular_formula: str, labelled_atom_ids: str) -> str:
+    """
+    Get the unlabelled atoms in a molecule by substrating the labelled atoms.
+
+    Parameters
+    ----------
+    molecular_formula: str
+        The molecular formula of the molecule.
+    labelled_atom_ids: str
+        The labelled atoms in the molecule.
+
+    Returns
+    -------
+    unlabelled_atom_ids: str
+        A molecular formula string of the unlabelled atoms.
+    """
+
+    labelled_atom_ids_formula = create_formula_from_dict(
+        collections.Counter(labelled_atom_ids)
+    )
+    unlabelled_atom_ids_formula = subtract_formula(
+        molecular_formula,
+        labelled_atom_ids_formula,
+    )
+
+    return unlabelled_atom_ids_formula
+
+
+
+__all__ = ["subtract_formula", "create_formula_from_dict", "get_unlabelled_atom_ids"]

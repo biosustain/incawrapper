@@ -16,7 +16,7 @@ def test_get_metabolite_ids(inca_results_simple_model):
     expected_metabolite_ids = [
         'A', 'B', 'C', 'D', 'E', 'F'
     ]
-    assert inca_results_simple_model.model.get_metabolite_ids() == expected_metabolite_ids
+    assert inca_results_simple_model.model.metabolite_ids == expected_metabolite_ids
 
 # def test_wrong_file_type():
 #     """

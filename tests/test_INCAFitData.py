@@ -14,7 +14,7 @@ def test_parses_fitted_parameters(inca_results_simple_model_filename):
     """
     data = INCAFitData(inca_results_simple_model_filename)
     assert type(data.fitted_parameters) == pd.DataFrame
-    assert data.fitted_parameters.shape[0] == 6
+    assert data.fitted_parameters.shape[0] == 7
 
 
 

@@ -1,11 +1,28 @@
-"""This module contains functions that write the matlab script blocks for the INCA script."""
+"""This module contains functions that write the matlab script blocks for the INCA script.
+
+**matlab variable naming convention:**
+
+Many of the functions in this module relies on a naming convention for the matlab variables. The
+naming convention is as follows:
+
+* `r`: is the matlab variable that contains the reactions in the model.
+* `e_<experiment_id>`: is the matlab variable that contains the experiment with the id give by
+    `<experiment_id>`.
+* `f_<experiment_id>`: is the matlab variable that contains the flux measurements for the
+    experiment with the id give by `<experiment_id>`.
+* `ms_<experiment_id>`: is the matlab variable that contains the mass spectrometry measurements for
+    the experiment with the id give by `<experiment_id>`.
+* `p_<experiment_id>`: is the matlab variable that contains the pool size measurements for the
+    experiment with the id give by `<experiment_id>`.
+* `m`: is the matlab variable that contains the model.
+
+"""
 import pandas as pd
 import pandera as pa
 import pandera.typing as pat
-from typing import Dict, Literal, Union, List, Optional
+from typing import Dict, Union, List, Optional
 import pathlib
 import incawrapper.utils.chemical_formula as chemical_formula
-import collections
 from incawrapper.core.INCAScript import INCAScript
 from incawrapper.core.dataschemas import ReactionsSchema, TracerSchema, FluxMeasurementsSchema, MSMeasurementsSchema, PoolSizeMeasurementsSchema
 import warnings
@@ -46,11 +63,41 @@ def define_reactions(model_reactions: pd.DataFrame) -> str:
 
 @pa.check_input(TracerSchema)
 def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
-    """Define the tracers used in one experiment. Multiple experiments
-    are handled in the define_experiments function."""
+    """Writes a matlab script which defines the tracers used in one experiment. To define multiple 
+    experiments this function has to be called multiple times. Most users will use this function 
+    implicitly through the `create_inca_script_from_data()` function.
+    
+    Parameters
+    ----------
+    tracers: pd.DataFrame
+        A dataframe with the tracers used in the model. The dataframe is validated using the 
+        TracerSchema
+    experiment_id: str
+        The experiment id used to subset the tracers dataframe.
+    
+    Returns
+    -------
+    str
+        The matlab script block that defines the tracers used in one experiment.
+    """
 
     def create_tracer(tracer_id: str, met_id: str, atom_ids: List) -> str:
-        """Parse a tracer into a string format readable by INCA."""
+        """Parse a tracer into a string format readable by INCA.
+        
+        Parameters
+        ----------
+        tracer_id: str
+            The unique id of the tracer, e.g. [1,2]Glc
+        met_id: str
+            The id of the metabolite which tracer is mass isotopomer of.
+        atom_ids: List
+            A list of the atom ids (numbers) that are labelled in the tracer.
+
+        Returns
+        -------
+        str
+            A string of matlab code that one tracer molecule.
+        """
         atom_ids_string = " ".join(str(x) for x in atom_ids)
         return f"'{tracer_id}: {met_id} @ {atom_ids_string}'"
 
@@ -111,8 +158,22 @@ def define_tracers(tracers: pd.DataFrame, experiment_id: str) -> str:
 def define_flux_measurements(
     flux_measurements: pd.DataFrame, experiment_id: str
 ) -> str:
-    """Define the flux measurements used in one experiment. Multiple experiments
-    is handled in the define_experiments function."""
+    """Define the flux measurements used in one experiment. Most users will use this function 
+    implicitly through the `create_inca_script_from_data()` function.
+    
+    Parameters
+    ----------
+    flux_measurements: pd.DataFrame
+        A dataframe with the flux measurements used in the model. The dataframe is validated using the
+        FluxMeasurementsSchema
+    experiment_id: str
+        The experiment id used to subset the flux measurements dataframe.
+    
+    Returns
+    -------
+    str
+        The matlab script block that defines the flux measurements used in one experiment.
+    """
 
     def create_flux(rxn_id: str, flux: float, flux_std_error: float) -> str:
         """Parse a flux measurement into a string format readable by INCA."""
@@ -142,8 +203,22 @@ pa.check_input(PoolSizeMeasurementsSchema)
 def define_pool_measurements(
         pool_measurements: pd.DataFrame, experiment_id: str
 )-> str:
-    """Define the pool measurements used in one experiment. Multiple experiments
-    is handled in the define_experiments function."""
+    """Define the pool measurements used in one experiment. Most users will use this function 
+    implicitly through the `create_inca_script_from_data()` function.
+    
+    Parameters
+    ----------
+    pool_measurements: pd.DataFrame
+        A dataframe with the pool measurements used in the model. The dataframe is validated using the
+        PoolSizeMeasurementsSchema
+    experiment_id: str
+        The experiment id used to subset the pool measurements dataframe.
+    
+    Returns
+    -------
+    str
+        The matlab script block that defines the pool measurements used in one experiment.
+    """
 
     pools_subset = pool_measurements[
         pool_measurements["experiment_id"] == experiment_id
@@ -172,24 +247,55 @@ def define_pool_measurements(
 
 
 def modify_class_instance(
-    class_name: Literal['rates', 'states'],
-    sub_class_name: Literal[None, 'flx'],
+    class_name: str,
+    sub_class_name: Union[str, None],
     instance_id: str,
     properties: Dict,
-):
+) -> str:
     """Modify properties of a class instance in the model. This is useful for
-    example to set the flux of a reaction to zero or specify a bounds 
-    for a reaction.
+    example to set the flux of a reaction to zero, specify a bounds 
+    for a reaction, or to set metabolite as unbalanced.
 
-    e.g. 
-    modify_class('rates', 'flx', 'R_EX_glc__D_e', {'lb': -10, 'ub': 0})
-    modify_class('rates', 'flx', 'R_EX_glc__D_e', {'val': 0, 'fix': TRUE})
-    modify_class('states', None, 'glc__D_e', {'val': 0, 'fix': TRUE})
-    
+    Parameters
+    ----------
+    class_name : str
+        The name of the class to modify.
+    sub_class_name : str or None
+        The name of the sub class to modify. In some cases the class is split into
+        sub classes. For example the class `rates` has a sub class `flx` for fluxes.
+        If the class does not have sub classes, set this to None.
+    instance_id : str
+        The id of the instance to modify. For example the id of a reaction or a 
+        metabolite id.
+    properties : dict
+        A dictionary with the properties to modify. The keys are the property names
+        and the values are the new values for the property.
+
+    Returns
+    -------
+    str
+        A string with the INCA script that modifies the class instance.
+
+    Notes
+    -----
     Look in the INCA documentation for a list of all possible properties for the class
-    (<path-to-inca-folder>/doc/inca/class/)."""
+    (`<path-to-inca-folder>/doc/inca/class/`).
 
+    Examples
+    -------- 
+    >>> modify_class('rates', 'flx', 'R_EX_glc__D_e', {'lb': -10, 'ub': 0})
+    '''index_R_EX_glc__D_e = find(strcmp(m.rates.id, 'R_EX_glc__D_e'));
+    m.rates(index_R_EX_glc__D_e).flx.lb = -10;
+    m.rates(index_R_EX_glc__D_e).flx.ub = 0;'''
+    >>> modify_class('rates', 'flx', 'R_EX_glc__D_e', {'val': 0, 'fix': True})
+    '''index_R_EX_glc__D_e = find(strcmp(m.rates.id, 'R_EX_glc__D_e'));
+    m.rates(index_R_EX_glc__D_e).flx.val = 0;
+    m.rates(index_R_EX_glc__D_e).flx.fix = true;'''
+    >>> modify_class('states', None, 'glc__D_e', {'bal': True})
+    '''index_glc__D_e = find(strcmp(m.states.id, 'glc__D_e'));
+    m.states(index_glc__D_e).bal = true;'''
 
+    """
     tmp_script = f"index_{instance_id} = find(strcmp(m.{class_name}.id, '{instance_id}'));\n"
     for k, v in properties.items():
         if isinstance(v, bool):
@@ -201,33 +307,6 @@ def modify_class_instance(
             tmp_script += f"m.{class_name}(index_{instance_id}).{k} = {v};\n"
 
     return tmp_script
-
-def get_unlabelled_atom_ids(molecular_formula: str, labelled_atom_ids: str) -> str:
-    """
-    Get the unlabelled atoms in a molecule by substrating the labelled atoms.
-
-    Parameters
-    ----------
-        molecular_formula: str
-            The molecular formula of the molecule.
-        labelled_atom_ids: str
-            The labelled atoms in the molecule.
-
-    Returns
-    -------
-        unlabelled_atom_ids: str
-            A molecular formula string of the unlabelled atoms.
-    """
-    formula_dict = chemical_formula._create_compound_dict(molecular_formula)
-    labelled_atom_ids_formula = chemical_formula.create_formula_from_dict(
-        collections.Counter(labelled_atom_ids)
-    )
-    unlabelled_atom_ids_formula = chemical_formula.subtract_formula(
-        molecular_formula,
-        labelled_atom_ids_formula,
-    )
-
-    return unlabelled_atom_ids_formula
 
 
 def _fill_mass_isotope_gaps_in_group(ms_measurements):
@@ -259,6 +338,21 @@ def _fill_mass_isotope_gaps_in_group(ms_measurements):
 
 @pa.check_input(MSMeasurementsSchema)
 def fill_all_mass_isotope_gaps(ms_measurements: pd.DataFrame) -> pd.DataFrame:
+    """Loops over the ms_measurements dataframe and insert nan values for missing mass isotope measurements.
+    
+    Parameters
+    ----------
+    ms_measurements : pandas.DataFrame
+        A dataframe with the ms_measurement data. The dataframe will be validated using
+        the MSMeasurementsSchema.
+
+    Returns
+    -------
+    pandas.DataFrame
+        A dataframe with the same columns as the input dataframe but with gaps in the 
+        mass_isotope column filled with consecutive integers starting from 0 and nan
+        in the intensity and intensity_std_error columns for the missing values.
+    """
     groupby_cols = ["experiment_id", "ms_id", "measurement_replicate", 'time']
     out = (ms_measurements
         .groupby(groupby_cols)
@@ -276,7 +370,23 @@ def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
     class. The propeties are defined in INCA as two successive arguments, the first
     argument is the name of the property and the second argument is the value of the 
     property. The properties of a specific class' can be found in the INCA documentation
-    (<inca folder>/doc/inca/class)."""
+    (<inca folder>/doc/inca/class).
+    
+    Parameters
+    ----------
+    inca_class : str
+        The name of the INCA class.
+    S : str
+        The string that defines the class. The type of S depends on the class, but in
+        most cases it is a string.
+    **kwargs
+        Define any properties of the class using keyword arguments.
+        
+    Returns
+    -------
+    str
+        A string creates an instance of the INCA class.
+    """
 
     kwargs_str = ", ".join([f"'{k}', {v}" for k, v in kwargs.items()])
     if not kwargs:
@@ -288,20 +398,35 @@ def instantiate_inca_class_call(inca_class: str, S, **kwargs) -> str:
 
 
 @pa.check_input(MSMeasurementsSchema)
-def _define_measured_ms_fragments(
+def _define_ms_fragments(
     ms_measurements: pd.DataFrame, experiment_id: str
 ) -> str:
     """INCA's data model distinguishes between the ms fragments and the measurements of
-    the fragments. This function defines the possible ms fragments that was measured,
-    in one experiment. Multiple experiments is handled in the define_experiments function.
+    the fragments. This function defines the ms fragments for one experiment. The actual
+    measurements are defined in the _define_ms_measurements function.
+
+    Parameters
+    ----------
+    ms_measurements : pandas.DataFrame
+        A dataframe with the ms_measurement data. The dataframe will be validated using
+        the MSMeasurementsSchema.
+    experiment_id : str
+        The id of the experiment for which to define ms fragments.
+    
+    Returns
+    -------
+    str
+        A string that defines the ms fragments that was measured in one experiment.
     """
 
-    def create_ms(
+    def _create_ms(
         ms_id: str,
         met_id: str,
         labelled_atom_ids: List,
         unlabelled_atoms: Optional[str] = None,
     ) -> str:
+        """Create a string that defines one ms fragment."""
+
         labelled_atom_ids_string = " ".join(str(x) for x in labelled_atom_ids)
         ms_fragment_string = f"'{ms_id}: {met_id} @ {labelled_atom_ids_string}'"
 
@@ -311,6 +436,7 @@ def _define_measured_ms_fragments(
             )
         return instantiate_inca_class_call("msdata", ms_fragment_string)
 
+    # subset the ms measurements to contain only one experiment
     ms_measurements_subset = ms_measurements[
         ms_measurements["experiment_id"] == experiment_id
     ]
@@ -326,19 +452,22 @@ def _define_measured_ms_fragments(
     )
 
     for ms_id, ms_df in ms_measurements_subset.groupby("ms_id"):
-        ms_df = ms_df.iloc[0]
-        if not "unlabelled_atoms" in ms_df.index:
-            tmp_script += create_ms(
+        # The ms_measurements dataframe contains multiple rows for each ms_id. The
+        # information about the ms fragment is the same for all rows, so we only need
+        # to use the first row.
+        fragment_info = ms_df.iloc[0]
+        if not "unlabelled_atoms" in fragment_info.index:
+            tmp_script += _create_ms(
                 ms_id,
-                ms_df["met_id"],
-                ms_df["labelled_atom_ids"],
+                fragment_info["met_id"],
+                fragment_info["labelled_atom_ids"],
             )
         else:
-            tmp_script += create_ms(
+            tmp_script += _create_ms(
                 ms_id,
-                ms_df["met_id"],
-                ms_df["labelled_atom_ids"],
-                ms_df["unlabelled_atoms"],
+                fragment_info["met_id"],
+                fragment_info["labelled_atom_ids"],
+                fragment_info["unlabelled_atoms"],
             )
 
         tmp_script += ",...\n"
@@ -354,7 +483,21 @@ def matlab_column_vector(lst: List[float]) -> str:
 @pa.check_input(MSMeasurementsSchema)
 def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
     """Defines measurements of ms fragments. This is done by updating the msdata objects
-    of the individuals ms fragements."""
+    of the individuals ms fragements.
+    
+    Parameters
+    ----------
+    ms_measurements : pandas.DataFrame
+        A dataframe with the ms_measurement data. The dataframe will be validated using
+        the MSMeasurementsSchema.
+    experiment_id : str
+        The id of the experiment for which to define ms measurements.
+    
+    Returns
+    -------
+    str
+        A string that defines all the ms measurements for one experiment.
+    """
     
     def add_idvs_to_msdata(
 		experiment_id: str,
@@ -363,10 +506,11 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
     ) -> str:
         """Write a line of matlab code to add measurements of one ms fragment to the
         msdata object. ALL measurements related that fragment has to be written in one
-        line. Theses multiple measurements can either originate from replicated 
-        measurements or from multiple time points. The idv() INCA class interprets 
-        one idv of a timepoint or replicate as a column vector. Therefore the python 
-        lists are converted into matlab column vectors.
+        line. Multiple measurements of a fragments can either originate from replicated 
+        measurements or from multiple time points. 
+        
+        The idv() INCA class interprets one idv of a timepoint or replicate as a column 
+        vector. Therefore the python lists are converted into matlab column vectors.
 
         Each measurement is given a unique id. This is done by concatenating the
         experiment_id, ms_id, time and replicate number.
@@ -430,15 +574,34 @@ def _define_ms_measurements(ms_measurements: pd.DataFrame, experiment_id: str) -
     return tmp_script
 
 def define_ms_data(ms_measurements: pd.DataFrame, experiment_id: str) -> str:
-    """Wrapper function to define both the msdata objects and the ms measurements."""
+    """Wrapper function that first fills the mass isopomer measurement gaps, then the msdata objects (fragments) 
+    and finally defines the ms measurements. Most users will use this function implicitly when using the
+    define_ms_data_from_csv function.
+    
+    Parameters
+    ----------
+    ms_measurements : pandas.DataFrame
+        A dataframe with the ms_measurement data. The dataframe will be validated using
+        the MSMeasurementsSchema.
+    experiment_id : str
+        The id of the experiment for which to define ms measurements.
+    
+    Returns
+    -------
+    str
+        A string that defines all the ms fragments and measurements for one experiment.
+    """
     ms_measurements = fill_all_mass_isotope_gaps(ms_measurements)
-    tmp_script = _define_measured_ms_fragments(ms_measurements, experiment_id)
+    tmp_script = _define_ms_fragments(ms_measurements, experiment_id)
     tmp_script += _define_ms_measurements(ms_measurements, experiment_id)
     return tmp_script
 
 def _inverse_dict(d):
     """Return a dictionary with the keys as the elements of the lists and the values 
-    as the keys of the original dictionary. Examples:
+    as the keys of the original dictionary. 
+    
+    Examples
+    --------
     >>> inverse_dict({'flux': ['exp1', 'exp2'], 'ms': ["exp2", "exp3"]})
     {'exp1': ['flux'], 'exp2': ['flux', 'ms'], 'exp3': ['ms']}
     """
@@ -455,6 +618,14 @@ def make_experiment_data_config(
     pool_measurements: Union[pd.DataFrame, None] = None,
     nmr_measurements: Union[pd.DataFrame, None] = None,
 ) -> Dict:
+    """Create a dictionary that defines which measurements are available for each experiment. Most users 
+    will use this function implicitly through the `create_inca_script_from_data()` function.
+
+    Examples
+    --------
+    >>> make_experimental_data_config(flux_measurements, ms_measurements)
+    {'exp1': ['flux'], 'exp2': ['flux', 'ms'], 'exp3': ['ms']} 
+    """
 
     experiments_with_measurement_type = dict() # type: Dict[str, List[str]]
     if flux_measurements is not None:
@@ -475,18 +646,48 @@ def define_experiment(
     experiment_id: str, measurement_types: List
 ) -> str:
     """Write a line of matlab code to define an experiment. The experiment requires
-    a tracer object to be instantiated earlier in the matlab script."""
+    a tracer object to be instantiated earlier in the matlab script this done through
+    the `define_tracers()` function. This funciton relies on a variable naming convention
+    in the matlab script discussed in the module docstring. Most users will use this function 
+    implicitly through the `create_inca_script_from_data()` function. 
+    
+    Parameters
+    ----------
+    experiment_id : str
+        The id of the experiment to define.
+    measurement_types : List[str]
+        A list of measurement types that are available for this experiment. The measurement
+        types has to be one of the following: 'data_flx', 'data_ms', 'data_cxn', 'data_nmr'.
+
+    Returns
+    -------
+    str
+        A string of matlab code that defines an experiment. 
+
+    Raises
+    ------
+    ValueError
+        If the measurement type is not one of the valid types.
+    NotImplementedError
+        If the measurement type is 'data_nmr' as this is not yet supported.
+    """
 
     data_list = list()
     for measurement_type in measurement_types:
         if measurement_type == "data_flx":
             data_list.extend(["'data_flx'", f"f_{experiment_id}"])
-        if measurement_type == "data_ms":
+        elif measurement_type == "data_ms":
             data_list.extend(["'data_ms'", f"ms_{experiment_id}"])
-        if measurement_type == "data_cxn":
+        elif measurement_type == "data_cxn":
             data_list.extend(["'data_cxn'", f"p_{experiment_id}"])
-        if measurement_type == "data_nmr":
-            data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
+        elif measurement_type == "data_nmr":
+            raise NotImplementedError("NMR data is not yet supported")
+            # data_list.extend(["'data_nmr'", f"nmr_{experiment_id}"])
+        else:
+            raise ValueError(
+                f"Unknown measurement type {measurement_type}. Valid types are: 'data_flx', "
+                "'data_ms', 'data_cxn'."
+            )
     data_list_str = ", ".join(data_list)
 
     return f"e_{experiment_id} = experiment(t_{experiment_id}, 'id', '{experiment_id}', {data_list_str});\n"
@@ -494,8 +695,20 @@ def define_experiment(
 def define_model(
     experiment_ids: List[str]
 ) -> str:
-    """Write a line of matlab code to define a model. The model requires
-    a tracer object to be instantiated earlier in the matlab script."""
+    """Write a line of matlab code to define a model. The functions relies on a variable naming
+    convention in the matlab script discussed in the module docstring. Most users will use this function 
+    implicitly through the `create_inca_script_from_data()` function.
+    
+    Parameters
+    ----------
+    experiment_ids : List[str]
+        A list of experiment ids that should be included in the model.
+        
+    Returns
+    -------
+    str
+        A string of matlab code that defines a model.
+    """
 
     experiment_list = list()
     for experiment_id in experiment_ids:
@@ -508,7 +721,20 @@ def define_model(
 def define_options(**kwargs):
     """Write a line of matlab code to define options for the model.
     The available options can be found in the INCA documentation.
-    <inca-folder>/doc/inca/class/@option/option.html"""
+    `<inca-folder>/doc/inca/class/@option/option.html`. NB this function
+    contains NO validation that the options are valid.
+    
+    Parameters
+    ----------
+    **kwargs
+        Keyword arguments that are passed to the matlab option class. If you want to set the 
+        fit_starts options to 10 simply pass `fit_starts=10` to this function.
+        
+    Returns
+    -------
+    str
+        A string of matlab code that updates the options in the model.
+    """
     for k, v in kwargs.items():
         # matlab does not like True/False, it wants true/false
         if isinstance(v, bool):
@@ -526,21 +752,27 @@ def define_runner(
         run_montecarlo: bool = False,
     ) -> str:
         """
-        Generate a MATLAB script that specifies operations to be performed with the model defined in the INCA script.
+        Generate a MATLAB script that specifies which algorithms to be performed with the model.
 
         Parameters
         ----------
         output_filename : pathlib.Path
             Path to the output file. The output file will be a .mat file.
-        run_continuation : bool, optional
-            Whether to run parameter continuation with the settings defined in the INCA script, default True.
+        run_estimate : bool, optional
+            Whether to run flux estimation. Default True.
         run_simulation : bool, optional
-            Whether to run a simulation with the settings defined in the INCA script, default True.
-            This is necessary for a fluxmap to be loaded into INCA.
-
+            Whether to run a simulation. Default True. This is necessary for a fluxmap to be loaded 
+            into INCA.
+        run_continuation : bool, optional
+            Whether to run parameter continuation. Default False.
+        run_montecarlo : bool, optional
+            Whether to run Monte Carlo algorithm. Default False.
+        
         Returns
         -------
-        String
+        str
+            A string of matlab code that specifies which algorithms to be performed with the model and 
+            where to save the results.
         """
 
         if run_montecarlo and not run_estimate:

@@ -4,7 +4,6 @@ pytfa >= 0.9.3
 pandas >= 1.1.5
 matplotlib >= 3.2.2
 sympy >= 1.5.1
-pyopenms >= 2.6.0
 molmass >= 2020.6.10
 escher >= 1.6.0
 freezegun >= 1.1.0

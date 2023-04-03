@@ -9,8 +9,8 @@ sys.path.insert(0, str(Path("..").resolve()))
 # -- Project information -----------------------------------------------------
 
 project = 'incawrapper'
-copyright = '2021, AutoFlowResearch'
-author = 'AutoFlowResearch'
+copyright = '2021, Biosustain'
+author = 'Biosustain'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
@@ -44,7 +44,7 @@ autodoc_typehints = "signature"
 html_title = "incawrapper"
 html_theme = 'sphinx_material'
 html_theme_options = {
-    "repo_url": "https://github.com/AutoFlowResearch/incawrapper",
+    "repo_url": "https://github.com/biosustain/incawrapper",
     "repo_name": "incawrapper",
     "color_primary": "indigo",
     "color_accent": "pink",

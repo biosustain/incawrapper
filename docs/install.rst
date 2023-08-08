@@ -7,6 +7,7 @@ To fully use the incawrapper you need to install the following software:
 
 * Python
 * matlab (>2022b this allows installation of the matlabengine package through pip)
+* matlab Statistics and Machine Learning Toolbox and Optimization Toolbox (installed through the matlab Add-on manager)
 * INCA software (https://mfa.vueinnovations.com/)
 
 Both matlab and INCA are commercial software and the each user needs to acquire a license. The incawrapper can be used without a matlab or INCA license, but will not be able to run INCA (See below).

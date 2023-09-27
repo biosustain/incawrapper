@@ -31,7 +31,7 @@ __version__ = "0.0.1"
 
 
 class MolfileDownloader:
-    def __init__(self, metabolite_data, db_preference=(0, 1, 2, 3)):
+    def __init__(self, metabolite_data, base_path, db_preference=(0, 1, 2, 3)):
         """ Class to find and download metabolite structures in
         Molfile format.
 
@@ -57,16 +57,29 @@ class MolfileDownloader:
 
         self.metabolite_data = metabolite_data
         self.db_preference = db_preference
+        self.base_path = base_path
 
     def generate_molfile_database(self):
         """ Main method that calls other methods and performs
         most sanity checks on obtained files.
 
+        Parameters
+        ----------
+        base_path : str
+            Path to the base directory.
+
         Outputs
         -------
         Molfiles : .mol files
         """
+        
         print("Fetching metabolite structures...")
+
+        # move to base path
+        if self.base_path is not None:
+            os.chdir(self.base_path)
+        else:
+            raise RuntimeError("Base path not specified")
 
         if not os.path.isdir("metabolites"):
             os.mkdir("metabolites")
@@ -190,7 +203,7 @@ class MolfileDownloader:
                 break
 
 
-def write_rxn_files(rxn_data):
+def write_rxn_files(rxn_data, base_path):
     """ Generates RXN files in RDT suitable format.
     Requires Molfiles of all metabolites to be present
     in the working directory/metabolites folder.
@@ -200,6 +213,8 @@ def write_rxn_files(rxn_data):
     rxn_data : pandas.DataFrame
         Dataframe that contains information about reactions
         in the model. Obtained from INCA_input_parser module.
+    base_path : str
+        Path to the base directory.
 
     Outputs
     -------
@@ -207,6 +222,13 @@ def write_rxn_files(rxn_data):
     """
     met_filter = ["h_e", "h_c", "h_p", "h2_e", "h2_c", "h2_p"]
     biomass_filter = ["Biomass", "biomass", "BIOMASS"]
+
+    # move to base path
+    if base_path is not None:
+        os.chdir(base_path)
+    else:
+        raise RuntimeError("Base path not specified")
+
 
     if not os.path.isdir("unmappedRxns"):
         os.mkdir("unmappedRxns")
@@ -289,7 +311,7 @@ def write_rxn_files(rxn_data):
     print(f"Generated {len(os.listdir('unmappedRxns'))}/{rxn_data.shape[0]}")
 
 
-def obtain_atom_mappings(max_time=120):
+def obtain_atom_mappings(base_path, max_time=120):
     """ Performs atom mapping by using RDT.
     Only maps reactions that are available in .rxn format,
     in the working_directory/unmappedRxns folder.
@@ -299,6 +321,8 @@ def obtain_atom_mappings(max_time=120):
     max_time : int, optional
         Specifies time limit for single reaction mapping
         in seconds. Default: 120s.
+    base_path : str
+        Path to the base directory.
 
     Outputs
     -------
@@ -307,6 +331,12 @@ def obtain_atom_mappings(max_time=120):
         Mappings in SMILES format
     pictures of mappings : .png files
     """
+    # move to base path
+    if base_path is not None:
+        os.chdir(base_path)
+    else:
+        raise RuntimeError("Base path not specified")
+
     # Check if Java is installed
     if os.system("java -version") != 0:
         raise RuntimeError("Java installation not found")
@@ -331,6 +361,7 @@ def obtain_atom_mappings(max_time=120):
         os.makedirs("mappedRxns/pngFiles")
 
     rxn_list = os.listdir("unmappedRxns")
+    print(rxn_list)
 
     # Change working dir to keep the output organized
     os.chdir("mappedRxns")
@@ -628,6 +659,44 @@ def parse_reaction_mappings():
     return mapping_data
 
 
+def parse_reaction_mappings(mapped_rxn_path, rxn_data):
+    """
+    """
+    if not os.path.isdir("mappedRxns"):
+        raise RuntimeError(
+            "'mappedRxns' directory not present in current working directory"
+        )
+
+    rxn_list = sorted(os.listdir(mapped_rxn_path))
+    rxn_list = [rxn[:-4] for rxn in rxn_list]
+    rxn_mapping = {
+        'rxn_id': [],
+        'equation': [],
+    }
+    for _, rxn in rxn_data.iterrows():
+        rxn_id = rxn['rxn_id']
+        if rxn_id in rxn_list:
+            rxn_file_path = f'/Users/krv114/Documents/GitHub/incawrapper/mappedRxns/rxnFiles/{rxn_id}.rxn'
+            rxn_equation_unmapped = rxn['equation']
+            try:
+                equation = parse_single_reaction_mappings(
+                    rxn_file_path, rxn_equation_unmapped)
+                if equation is None:
+                    continue
+                else:
+                    rxn_mapping['rxn_id'].append(rxn_id)
+                    rxn_mapping['equation'].append(equation)
+            except Exception as e:
+                print(f'Could not parse {rxn_id}, ', e)
+                continue
+        else:
+            print(f'{rxn_id} not mapped')
+            continue
+    rxn_mapping = pd.DataFrame(rxn_mapping)
+
+    return rxn_mapping
+
+
 def parse_metabolite_mappings():
     """ Parses metabolite mapping and symmetry data into
     INCA suitable format. Requires all Molfiles to be present
@@ -780,13 +849,15 @@ def check_symmetry(met_filename):
     return symmetrical
 
 
-def clean_output(metabolites=True, reactions=True, mappings=True, csv=True):
+def clean_output(base_path, metabolites=True, reactions=True, mappings=True, csv=False):
     """ Utility function.
     Deletes all possible output of other mapping functions.
     Deletes everything by default.
 
     Parameters
     ----------
+    base_path : str
+        Path to the base directory.
     metabolites : bool, optional
         Removes /metabolites folder recursively.
     reactions : bool, optional
@@ -796,6 +867,7 @@ def clean_output(metabolites=True, reactions=True, mappings=True, csv=True):
     csv : bool, optional
         Removes MappingReactions.csv and MappingMetabolites.csv.
     """
+    # mo
     if metabolites:
         shutil.rmtree("metabolites")
     if reactions:

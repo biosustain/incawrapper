@@ -421,7 +421,230 @@ def obtain_atom_mappings(base_path, max_time=120):
     os.remove("RDT.jar")
 
 
-def parse_reaction_mappings():
+def parse_single_reaction_mappings(rxn_file_path, rxn_equation_unmapped):
+    """
+    Parses single reaction mapping from mapped RXN file
+    to a dataframe in suitable format for INCA. Requires
+    mapped RXN file to be present in the working_dir/
+    mappedRxns/rxnFiles folder. For unmapped reactions,
+    data is picked from working_dir/unmappedRxns folder
+    and all mapping data is represented as blanks.
+
+    Parameters
+    ----------
+    rxn_file_path : str
+
+    Returns
+    -------
+    mapping_data : pandas.DataFrame
+        Reaction mapping data.
+    """
+
+    keys = [
+        "rxn_id",
+        "reactants_stoichiometry_tracked",
+        "products_stoichiometry_tracked",
+        "reactants_ids_tracked",
+        "products_ids_tracked",
+        "reactants_mapping",
+        "products_mapping",
+        "rxn_equation",
+        "reactants_elements_tracked",
+        "products_elements_tracked",
+        "reactants_positions_tracked",
+        "products_positions_tracked",
+    ]
+    mapping_dict_tmp = {}
+    mapping_dict = {k: [] for k in keys}
+    met_mapping = []
+    react_cnt = 0
+    prod_cnt = 0
+    productBool = False
+    rxn = ''
+
+    with open(f"{rxn_file_path}", "r") as f:
+        lines = f.readlines()
+        for j, line in enumerate(lines):
+            if line.rstrip() == "$RXN":
+                # Extract number of reactants
+                react_lim = int(lines[j + 4].split()[0])
+                # Extract number of products
+                prod_lim = int(lines[j + 4].split()[1])
+            if line.rstrip() == "$MOL":
+                met_id = lines[j + 1].rstrip()
+
+            # Hard-coded, since 16 columns is standard for Molfile
+            # atom rows,
+            # and 15 can occur if we have >100 atoms on one side (cols
+            # merge)
+            if len(line.split()) in (15, 16):
+                atom_row = line.split()
+                if atom_row[3] == "C":
+                    # Split columns if they get merged
+                    if atom_row[-3][0] == "0":
+                        atom_row[-3] = atom_row[-3][1:]
+                    met_mapping.append(atom_row[-3])
+
+                # Check if reached the last atom row
+                if len(lines[j + 1].split()) not in (15, 16):
+                    # Check if current metabolite is reactant or
+                    # product
+                    if not productBool:
+                        # Check if any carbons are present
+                        if met_mapping:
+                            c_tracked = ["C" for atom in met_mapping]
+                            pos_tracked = list(range(len(met_mapping)))
+                            mapping_dict[
+                                "reactants_ids_tracked"
+                            ].append(met_id)
+                            mapping_dict["reactants_mapping"].append(
+                                met_mapping
+                            )
+                            mapping_dict[
+                                "reactants_elements_tracked"
+                            ].append(c_tracked)
+                            mapping_dict[
+                                "reactants_positions_tracked"
+                            ].append(pos_tracked)
+                        react_cnt += 1
+                        if react_cnt == react_lim:
+                            productBool = True
+
+                    # Assign metabolite to products if reached reactant
+                    # limit
+                    else:
+                        if met_mapping:
+                            c_tracked = ["C" for atom in met_mapping]
+                            pos_tracked = list(range(len(met_mapping)))
+                            mapping_dict[
+                                "products_ids_tracked"
+                            ].append(met_id)
+                            mapping_dict["products_mapping"].append(
+                                met_mapping
+                            )
+                            mapping_dict[
+                                "products_elements_tracked"
+                            ].append(c_tracked)
+                            mapping_dict[
+                                "products_positions_tracked"
+                            ].append(pos_tracked)
+                        prod_cnt += 1
+
+                        if prod_cnt == prod_lim:
+                            react_stoich = [
+                                "-1"
+                                for met in range(
+                                    len(
+                                        mapping_dict[
+                                            "reactants_mapping"
+                                        ]
+                                    )
+                                )
+                            ]
+                            prod_stoich = [
+                                "1"
+                                for met in range(
+                                    len(
+                                        mapping_dict[
+                                            "products_mapping"
+                                        ]
+                                    )
+                                )
+                            ]
+                            mapping_dict[
+                                "reactants_stoichiometry_tracked"
+                            ] = react_stoich
+                            mapping_dict[
+                                "products_stoichiometry_tracked"
+                            ] = prod_stoich
+
+                    met_mapping = []
+
+    mapping_dict["rxn_id"] = rxn[:-4]
+    mapping_dict_tmp[0] = mapping_dict
+    mapping_data = pd.DataFrame.from_dict(mapping_dict_tmp, "index")
+
+    # alphabet for number-letter matching. Max capacity is 63 characters,
+    # which is a limit set in INCA for this format.
+    alphabet = (
+        list(map(chr, range(97, 123)))
+        + list(map(chr, range(65, 91)))
+        + list(map(chr, range(48, 58)))
+        + ["_"]
+    )
+
+    # Loop through all reactions
+    for i, rxn in mapping_data.iterrows():
+        try:
+            # Convert number mappings to letters
+            carbons_list = [
+                atom for met in rxn["reactants_mapping"] for atom in met
+            ]
+            carbon_map_dict = dict(zip(carbons_list, alphabet))
+
+            # Generate a reaction equation
+            reaction_str = ""
+            if len(rxn["reactants_mapping"]) < 1 and len(
+                rxn["products_mapping"]
+            ) < 1:
+                return None
+            for j, met in enumerate(rxn["reactants_mapping"]):
+                reactant_str = " ("
+                if j != 0:
+                    reaction_str += " + "
+                reaction_str += str(
+                    abs(
+                        float(
+                            rxn["reactants_stoichiometry_tracked"][j]))) + '*'
+                reaction_str += rxn["reactants_ids_tracked"][j]
+                for k, atom in enumerate(met):
+                    if k != 0:
+                        reactant_str += " "
+                    reactant_str += f"C{str(k+1)}:"
+                    reactant_str += carbon_map_dict[atom]
+                reactant_str += ")"
+                reaction_str += reactant_str
+            
+            if '<' in rxn_equation_unmapped:
+                reaction_str += ' <-> '
+            else:
+                reaction_str += ' -> '
+
+            for j, met in enumerate(rxn["products_mapping"]):
+                product_str = " ("
+                if j != 0:
+                    reaction_str += " + "
+                reaction_str += str(
+                    abs(
+                        float(
+                            rxn["products_stoichiometry_tracked"][j]))) + '*'
+                reaction_str += rxn["products_ids_tracked"][j]
+                for k, atom in enumerate(met):
+                    if k != 0:
+                        product_str += " "
+                    product_str += f"C{str(k+1)}:"
+                    product_str += carbon_map_dict[atom]
+                product_str += ")"
+                reaction_str += product_str
+            
+            mapping_data.at[i, "rxn_equation"] = reaction_str
+
+        except KeyError:
+            if len(carbons_list) > 63:
+                print(
+                    f'Reaction {rxn["rxn_id"]} contains '
+                    f"more than 63 carbon atoms"
+                )
+            else:
+                # Mostly happens when one of the metabolites has (R)
+                # group in the Molfile, and other has a C in that spot
+                print(f'{rxn["rxn_id"]} has unmapped carbon(-s)')
+            reaction_str = None
+
+    return reaction_str
+
+
+def parse_reaction_mappings_old():
     """ Parses reaction mappings from mapped RXN files
     to a dataframe in suitable format for INCA. Requires
     all mapped RXN files to be present in the working_dir/

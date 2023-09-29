@@ -9,12 +9,12 @@ export results from INCA runs entirely done through the GUI to Python.
 
 What can the incawrapper do for me?
 -----------------------------------
-* Provide an Python interface use INCA 100% independent of the INCA GUI
+* Provide a Python interface to use INCA 100% independent of the INCA GUI
 * Provide a data structure that can be imported to INCA
 * Provide methods for exporting results from INCA to Python
 * Provide methods for plotting results from INCA in Python
 * Provide methods for creating INCA models with data, which can then be used in the INCA GUI
-* Run both Isotopically Non-Stationary (INS) and Isotopically Stationary (IS) MFA
+* Run both Isotopically Non-Stationary (INS) and Isotopically Stationary (IS) 13C-MFA
 * Estimate fluxes and confidence intervals through the following INCA algorithms: estimate, parameter continuation, and Monte Carlo sampling
 
 What can the incawrapper NOT do for me?

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from incawrapper.core import load_matlab_file
 from dataclasses import dataclass
 import pathlib
@@ -82,3 +83,39 @@ class INCAModel:
             Dataframe with the states
         """
         return pd.DataFrame.from_records(self.raw["states"])
+    
+    @property
+    def reactions(self) -> pd.DataFrame:
+        """
+        Get a data frame with the reactions and the set flux value. For estimation proceedures the set flux
+        value is the initial guess, and for simulation it is the value used for the simulation. 
+
+        Returns
+        -------
+        pd.DataFrame
+            Dataframe with the reactions
+        """
+        ids = self._extract_reaction_ids()
+        fluxes = self._extra_set_flux_values()
+        return pd.DataFrame(
+            {'rxn_id': ids, 'flux': fluxes}
+        )
+
+    def _extract_reaction_ids(self)->List[str]:
+        """Extract the reaction ids from the raw model data. Reactions that are reversible has two ids
+        one for the forward and one for exchange direction.""" 
+        reaction_ids = []
+        for rate in self.raw['rates']:
+            if type(rate['flx']) == dict:
+                reaction_ids.append(rate['id'])
+            if type(rate['flx']) == np.ndarray:
+                for direction in rate['flx']:
+                    reaction_ids.append(direction['id'])
+        return reaction_ids
+
+    def _extra_set_flux_values(self):
+        """Extra the set fluxes from a inca model rates object. A vector of all the set fluxes
+        is stored in each rate object. Here we simply extract the information from the first. 
+        The order of the fluxes is the same as the order of the reaction ids."""
+        return self.raw['rates'][0]['flx']['val']
+

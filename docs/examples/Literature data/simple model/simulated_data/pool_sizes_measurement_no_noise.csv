@@ -1,0 +1,3 @@
+met_id,pool_size,experiment_id,pool_size_std_error
+B,100,exp1,0.015
+F,100,exp1,0.015

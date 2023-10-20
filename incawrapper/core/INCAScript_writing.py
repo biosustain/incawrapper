@@ -285,15 +285,15 @@ def modify_class_instance(
     -------- 
     >>> modify_class('rates', 'flx', 'R_EX_glc__D_e', {'lb': -10, 'ub': 0})
     '''index_R_EX_glc__D_e = find(strcmp(m.rates.id, 'R_EX_glc__D_e'));
-    m.rates(index_R_EX_glc__D_e).flx.lb = -10;
-    m.rates(index_R_EX_glc__D_e).flx.ub = 0;'''
+    m.rates.flx.lb(index_R_EX_glc__D_e) = -10;
+    m.rates.flx.ub(index_R_EX_glc__D_e) = 0;'''
     >>> modify_class('rates', 'flx', 'R_EX_glc__D_e', {'val': 0, 'fix': True})
     '''index_R_EX_glc__D_e = find(strcmp(m.rates.id, 'R_EX_glc__D_e'));
-    m.rates(index_R_EX_glc__D_e).flx.val = 0;
-    m.rates(index_R_EX_glc__D_e).flx.fix = true;'''
+    m.rates.flx.val(index_R_EX_glc__D_e) = 0;
+    m.rates.flx.fix(index_R_EX_glc__D_e) = true;'''
     >>> modify_class('states', None, 'glc__D_e', {'bal': True})
     '''index_glc__D_e = find(strcmp(m.states.id, 'glc__D_e'));
-    m.states(index_glc__D_e).bal = true;'''
+    m.states.bal(index_glc__D_e) = true;'''
 
     """
     tmp_script = f"index_{instance_id} = find(strcmp(m.{class_name}.id, '{instance_id}'));\n"
@@ -302,9 +302,9 @@ def modify_class_instance(
             v = f"{str(v).lower()}"
         
         if sub_class_name is not None:
-            tmp_script += f"m.{class_name}(index_{instance_id}).{sub_class_name}.{k} = {v};\n"
+            tmp_script += f"m.{class_name}.{sub_class_name}.{k}(index_{instance_id}) = {v};\n"
         else:
-            tmp_script += f"m.{class_name}(index_{instance_id}).{k} = {v};\n"
+            tmp_script += f"m.{class_name}.{k}(index_{instance_id}) = {v};\n"
 
     return tmp_script
 

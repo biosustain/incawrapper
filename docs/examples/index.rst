@@ -17,4 +17,4 @@ You can find their mail addresses on the biosustain website
    :maxdepth: 1
 
    Published_data_examples_C_necator
-   Published_data_examples_neural_cells
+   inst_mfa

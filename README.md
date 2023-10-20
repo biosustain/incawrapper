@@ -70,6 +70,10 @@ Once released, incawrapper will be pip-installable. In a terminal, write
 `>>> pip install incawrapper[matlab]`
 
 
+## Supported Matlab and INCA versions
+Both Matlab and INCA requires licenses which makes it difficult to automate testing of verison compatibility. For that reason will we only ensure compatibility with one INCA and one Matlab version. **Currently supporting:** **Matlab 2023a**, and **INCA v2.2**.
+
+
 ## Documentation and examples
 Example use cases and a description of the API can be found in [our documentation](https://incawrapper.readthedocs.io/en/latest/index.html) (not uploaded yet).
 

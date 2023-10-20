@@ -57,13 +57,13 @@ def test_INCAScript_matlab_script():
 % MODEL BLOCK
 
 
-m.rates.flx.val = mod2stoich(m); % make sure the fluxes are feasible
-
 % MODEL MODIFICATIONS BLOCK
 
 
 % OPTIONS BLOCK
 
+
+mod2stoich(m); % make sure the fluxes are feasible
 
 % RUNNER BLOCK
 """

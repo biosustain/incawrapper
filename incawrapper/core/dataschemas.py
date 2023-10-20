@@ -8,6 +8,14 @@ ContainListsCheck = pa.Check(
     error="The column must contain python lists",
 )
 
+ValidateArrowsCheck = pa.Check(
+    lambda x: any(s in x for s in ("->", "<->")),
+    element_wise=True,
+    title='Validate arrows',
+    description="Check if all elements of the column are valid reaction arrows",
+    error="The column must contain valid reaction arrows: ->, <->",
+)
+
 # experiment_id column are used in multiple schemas therefore it is defined here
 ExperimentIdColumn = pa.Column(
     pa.String, 
@@ -26,11 +34,10 @@ MetaboliteIdColumn = pa.Column(
 
 # Define the schema for the model reactions
 ReactionsSchema = pa.DataFrameSchema(
-    # TODO: Add validation for reaction arrow
     # TODO: Add validation for id uniqueness
     columns={
         "rxn_id": ReactionIDColumn,
-        "rxn_eqn": pa.Column(pa.String, required=True, description="The reaction equation with atom map. Allowed reaction arrows: ->, <->."),
+        "rxn_eqn": pa.Column(pa.String, required=True, checks=ValidateArrowsCheck, description="The reaction equation with atom map. Allowed reaction arrows: ->, <->."),
     }
 )
 

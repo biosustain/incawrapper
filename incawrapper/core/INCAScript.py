@@ -39,11 +39,11 @@ class INCAScript:
             pool_sizes="% POOL_SIZES BLOCK\n",
             experiments="% EXPERIMENTAL_DATA BLOCK\n",
             model="% MODEL BLOCK\n",
-            _verify_model=(
-                "m.rates.flx.val = mod2stoich(m); % make sure the fluxes are feasible"
-            ),
             model_modifications="% MODEL MODIFICATIONS BLOCK\n",
             options="% OPTIONS BLOCK\n",
+            _verify_model=(
+                "mod2stoich(m); % make sure the fluxes are feasible"
+            ),
             runner="% RUNNER BLOCK\n",
         )
 
@@ -58,6 +58,7 @@ class INCAScript:
             "experiments",
             "options",
             "model",
+            "model_modifications",
             "runner",
         ],
         matlab_script_block: str,

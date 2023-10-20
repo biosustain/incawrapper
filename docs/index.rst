@@ -5,7 +5,9 @@ incawrapper is a Python package which wraps for the matlab application INCA. INC
 13C metabolic flux analysis [1,2]. The incawrapper package allows to import data,
 setup the model and run INCA all from within Python. The results can be exported
 back to Python for further analysis and simply saved as .csv files. Furthermore, it is possible to 
-export results from INCA runs entirely done through the GUI to Python. 
+export results from INCA runs entirely done through the GUI to Python.
+
+The INCAWrapper code is freely available under an MIT License. However, to run INCA, you need a MATLAB and INCA licenses. Additionally, methods using COBRA tools need a GUROBI license. An INCA license is free for non-commercial use at `mfa.vueinnovations.com <mfa.vueinnovations.com>`_ and GUROBI offers free academic licenses at `gurobi.com <gurobi.com>`_.
 
 What can the incawrapper do for me?
 -----------------------------------

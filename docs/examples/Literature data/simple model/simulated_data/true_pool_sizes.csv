@@ -1,0 +1,7 @@
+bal,fix,id,lb,met,opt,phase,type,ub,unit,val,base
+1,0,A,0,A,1,[],src,inf,[],1,"{'id': array([], dtype=float64)}"
+1,0,B,0,B,1,[],int,inf,[],100,"{'id': array([], dtype=float64)}"
+1,0,C,0,C,1,[],int,inf,[],1,"{'id': array([], dtype=float64)}"
+1,0,D,0,D,1,[],int,inf,[],1,"{'id': array([], dtype=float64)}"
+1,0,E,0,E,1,[],snk,inf,[],1,"{'id': array([], dtype=float64)}"
+1,0,F,0,F,1,[],snk,inf,[],100,"{'id': array([], dtype=float64)}"

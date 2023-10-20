@@ -31,7 +31,7 @@ def _idv_barplot(ax, grp: pd.DataFrame):
     return ax.legend()
 
 
-def plot_idv_barplot(res: INCAResults, id: str, time: int = 0, ax: plt.Axes = None):
+def plot_idv_bar(res: INCAResults, id: str, time: int = 0, ax: plt.Axes = None):
     grp = res.fitdata.measurements_and_fit_detailed.groupby(["id", "time"]).get_group((id, time))
     
     if ax is None:
@@ -40,4 +40,4 @@ def plot_idv_barplot(res: INCAResults, id: str, time: int = 0, ax: plt.Axes = No
     ax.set_title(id)
     return ax
 
-__all__ = ["plot_idv_barplot"]
+__all__ = ["plot_idv_bar"]

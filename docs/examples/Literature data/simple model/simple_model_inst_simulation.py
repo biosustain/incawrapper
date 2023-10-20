@@ -81,7 +81,7 @@ new_ms_data = pd.concat([*collector_new_ms_data], ignore_index=True)
 
 
 # %%
-output_file = pathlib.Path(data_folder / "simple_model_simulation.mat")
+output_file = pathlib.Path(data_folder / "simple_model_inst_simulation.mat")
 script = incawrapper.create_inca_script_from_data(
     reactions_data=reactions_data, 
     tracer_data=tracers_data, 

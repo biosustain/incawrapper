@@ -14,7 +14,6 @@ conda:
 
 python:
   virtualenv:
-    system_site_packages: false
     extras: ['-vvv']
   pip_install: true
   requirements_file: docs/requirements.txt

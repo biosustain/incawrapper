@@ -13,7 +13,6 @@ conda:
   environment: env.yml
 
 python:
-  setup_py_install: true
   virtualenv:
     system_site_packages: false
     extras: ['-vvv']

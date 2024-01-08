@@ -10,7 +10,6 @@ If you have any questions, please contact the students currently working on inca
 You can find their mail addresses on the biosustain website
 
 - Matthias Mattanovich
-- Ricardo Hernández Medina
 - Viktor Hesselberg-Thomsen
 
 .. toctree::

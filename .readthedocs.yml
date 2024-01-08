@@ -1,6 +1,9 @@
 # .readthedocs.yml
 version: 2
 
+conda:
+  environment: env.yml
+
 build:
   os: ubuntu-22.04
   tools:
@@ -8,9 +11,6 @@ build:
 
 sphinx:
   configuration: docs/conf.py
-
-conda:
-  environment: env.yml
 
 python:
   install:

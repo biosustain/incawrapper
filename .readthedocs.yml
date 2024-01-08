@@ -11,3 +11,5 @@ conda:
 python:
    install:
       - requirements: docs/requirements.txt
+submodules:
+   exclude: all

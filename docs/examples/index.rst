@@ -1,5 +1,5 @@
-Example Notebooks
-=================
+Example analysis notebooks
+==========================
 
 We provide example Jupyter notebooks for how to the incawrapper. These notebooks
 represent different functionalities of incawrapper and can be used as templates for your own analysis.

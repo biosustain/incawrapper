@@ -1,8 +1,8 @@
 # .readthedocs.yml
 version: 2
 
-conda:
-  environment: env.yml
+# conda:
+#   environment: env.yml
 
 build:
   os: ubuntu-22.04

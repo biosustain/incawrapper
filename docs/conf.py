@@ -25,7 +25,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "numpydoc",
     "nbsphinx",
-    #"autoapi.extension"
+    "autoapi.extension"
 ]
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

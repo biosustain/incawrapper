@@ -31,7 +31,7 @@ __version__ = "0.0.1"
 
 
 class MolfileDownloader:
-    def __init__(self, metabolite_data, base_path, db_preference=(0, 1, 2, 3)):
+    def __init__(self, metabolite_data, base_path, db_preference=(0, 1)):
         """ Class to find and download metabolite structures in
         Molfile format.
 
@@ -49,10 +49,8 @@ class MolfileDownloader:
             3: CHEBI database
         """
         self.database_dict = {
-            0: "get_from_inchi_key",
-            1: "get_from_kegg",
-            2: "get_from_hmdb",
-            3: "get_from_chebi",
+            0: "get_from_kegg",
+            1: "get_from_chebi",
         }
 
         self.metabolite_data = metabolite_data
@@ -72,7 +70,7 @@ class MolfileDownloader:
         -------
         Molfiles : .mol files
         """
-        
+
         print("Fetching metabolite structures...")
 
         # move to base path
@@ -89,31 +87,26 @@ class MolfileDownloader:
         for i, met in self.metabolite_data.iterrows():
             self.filename = met.met_id + ".mol"
 
-            get_from_inchi_keyBool = False
             get_from_keggBool = False
-            get_from_hmdbBool = False
             get_from_chebiBool = False
 
             # Check for annotations and set bool values for those
             # present.
-            if "inchi_key" in met.annotations:
-                self.inchi_key = met.annotations["inchi_key"][0]
-                get_from_inchi_keyBool = True  # noqa: F841
             if "kegg.compound" in met.annotations:
-                self.keggIDs = [
-                    keggID for keggID in met.annotations["kegg.compound"]
-                ]
+                if isinstance(met.annotations["kegg.compound"], str):
+                    self.keggIDs = [met.annotations["kegg.compound"]]
+                elif isinstance(met.annotations["kegg.compound"], list):
+                    self.keggIDs = [
+                        keggID for keggID in met.annotations["kegg.compound"]
+                    ]
                 get_from_keggBool = True  # noqa: F841
-            if "hmdb" in met.annotations:
-                self.hmdbIDnums = [
-                    "0" * (7 - len(hmdbID[4:])) + hmdbID[4:]
-                    for hmdbID in met.annotations["hmdb"]
-                ]
-                get_from_hmdbBool = True  # noqa: F841
             if "chebi" in met.annotations:
-                self.chebiIDs = [
-                    chebiID for chebiID in met.annotations["chebi"]
-                ]
+                if isinstance(met.annotations["chebi"], str):
+                    self.chebiIDs = [met.annotations["chebi"]]
+                elif isinstance(met.annotations["chebi"], list):
+                    self.chebiIDs = [
+                        chebiID for chebiID in met.annotations["chebi"]
+                    ]
                 get_from_chebiBool = True  # noqa: F841
 
             # Call helper functions according to order of preference
@@ -148,23 +141,23 @@ class MolfileDownloader:
             f"{self.metabolite_data.shape[0]} metabolites"
         )
 
-    def get_from_inchi_key(self):
-        """ Helper method to obtain InChI string from InChI key,
-        and generate the Molfile from the string.
-        """
-        url = (
-            f"https://cactus.nci.nih.gov/chemical/"
-            f"structure/{self.inchi_key}/stdinchi"
-        )
-        r = requests.get(url, allow_redirects=False)
-        inchi_string = r.text
-
-        try:
-            molfile = Chem.inchi.MolFromInchi(inchi_string)
-            with open(f"metabolites/{self.filename}", "w+") as f:
-                print(Chem.MolToMolBlock(molfile), file=f)
-        except BaseException:
-            return
+#    def get_from_inchi_key(self):
+#        """ Helper method to obtain InChI string from InChI key,
+#        and generate the Molfile from the string.
+#        """
+#        url = (
+#            f"https://cactus.nci.nih.gov/chemical/"
+#            f"structure/{self.inchi_key}/stdinchi"
+#        )
+#        r = requests.get(url, allow_redirects=False)
+#        inchi_string = r.text
+#
+#        try:
+#            molfile = Chem.inchi.MolFromInchi(inchi_string)
+#            with open(f"metabolites/{self.filename}", "w+") as f:
+#                print(Chem.MolToMolBlock(molfile), file=f)
+#        except BaseException:
+#            return
 
     def get_from_kegg(self):
         """ Helper method to obtain Molfile from KEGG Compound database
@@ -179,15 +172,15 @@ class MolfileDownloader:
             if os.path.getsize(f"metabolites/{self.filename}") != 0:
                 break
 
-    def get_from_hmdb(self):
-        """ Helper method to obtain Molfile from HMDB database
-        """
-        for hmdbID in self.hmdbIDnums:
-            url = f"https://hmdb.ca/structures/metabolites/HMDB{hmdbID}.mol"
-            r = requests.get(url, allow_redirects=False)
-            open(f"metabolites/{self.filename}", "wb").write(r.content)
-            if os.path.getsize(f"metabolites/{self.filename}") != 0:
-                break
+#    def get_from_hmdb(self):
+#        """ Helper method to obtain Molfile from HMDB database
+#        """
+#        for hmdbID in self.hmdbIDnums:
+#            url = f"https://hmdb.ca/structures/metabolites/HMDB{hmdbID}.mol"
+#            r = requests.get(url, allow_redirects=False)
+#            open(f"metabolites/{self.filename}", "wb").write(r.content)
+#            if os.path.getsize(f"metabolites/{self.filename}") != 0:
+#                break
 
     def get_from_chebi(self):
         """ Helper method to obtain Molfile from CHEBI database
@@ -229,7 +222,6 @@ def write_rxn_files(rxn_data, base_path):
     else:
         raise RuntimeError("Base path not specified")
 
-
     if not os.path.isdir("unmappedRxns"):
         os.mkdir("unmappedRxns")
 
@@ -237,11 +229,11 @@ def write_rxn_files(rxn_data, base_path):
 
     for i, rxn in rxn_data.iterrows():
         # Filter out biomass reaction
-        if any(biomass_id in rxn.rxn_id for biomass_id in biomass_filter):
-            print(f"Excluded {rxn.rxn_id} reaction from mapping")
-            continue
+        #if any(biomass_id in str(rxn.rxn_id) for biomass_id in biomass_filter):
+        #    print(f"Excluded {rxn.rxn_id} reaction from mapping")
+        #    continue
 
-        rxn_filename = rxn.rxn_id + ".rxn"
+        rxn_filename = str(rxn.rxn_id) + ".rxn"
         # Use copies to avoid messing up the original dataframe
         reactants = rxn.reactants_ids.copy()
         reactants_st = [
@@ -388,6 +380,9 @@ def obtain_atom_mappings(base_path, max_time=120):
                         ],
                         timeout=max_time,
                     )
+            except subprocess.TimeoutExpired:
+                print(f"Mapping of {rxnFile} timed out")
+                continue
             except BaseException:
                 continue
         # Obtain filenames of generated files and simplify them to respective
@@ -897,9 +892,9 @@ def parse_reaction_mappings(mapped_rxn_path, rxn_data):
         'equation': [],
     }
     for _, rxn in rxn_data.iterrows():
-        rxn_id = rxn['rxn_id']
+        rxn_id = str(rxn['rxn_id'])
         if rxn_id in rxn_list:
-            rxn_file_path = f'/Users/krv114/Documents/GitHub/incawrapper/mappedRxns/rxnFiles/{rxn_id}.rxn'
+            rxn_file_path = f'{mapped_rxn_path}/{rxn_id}.rxn'
             rxn_equation_unmapped = rxn['equation']
             try:
                 equation = parse_single_reaction_mappings(

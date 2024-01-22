@@ -39,6 +39,7 @@ Overview of the documentation
    monte_carlo_sampling
    atom_mapping_example_notebook
    incawrapper_and_the_incagui
+   options
    Low_level_api
    examples/index
    developer/index

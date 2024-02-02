@@ -37,7 +37,6 @@ Overview of the documentation
    input_data
    multiple_experiments
    monte_carlo_sampling
-   atom_mapping_example_notebook
    incawrapper_and_the_incagui
    Low_level_api
    examples/index

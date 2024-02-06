@@ -1,0 +1,93 @@
+mass_isotope,intensity_std_error,ms_id,experiment_id,met_id,labelled_atom_ids,unlabelled_atoms,time,measurement_replicate,intensity
+0,0.003,Alanine232,fructose,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.6854092385644582
+0,0.003,Alanine260,fructose,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.4785469238495909
+0,0.003,Glycine218,fructose,GL,[2],C8H24ONSi2,inf,1,0.740879432425822
+0,0.003,Glycine246,fructose,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.6545194521293812
+0,0.003,Valine260,fructose,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.6083725782093383
+0,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.42476058021377866
+0,0.003,Leucine274,fructose,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.5651190746161302
+0,0.003,Isoleucine274,fructose,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.5691499818908586
+0,0.003,Methionine320,fructose,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.5652649939325882
+0,0.003,Serine362,fructose,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.5421821480519834
+0,0.003,Serine390,fructose,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.5099186549654843
+0,0.003,Threonine376,fructose,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.5514343637559386
+0,0.003,Threonine404,fructose,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.4770716776339227
+0,0.003,Phenylalanine302,fructose,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.6041282956699963
+0,0.003,Phenylalanine308,fructose,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.4774629870700885
+0,0.003,Phenylalanine336,fructose,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.3960721301947837
+0,0.003,Asparticacid302,fructose,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.616660736130577
+0,0.003,Asparticacid390,fructose,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.5502715639321872
+0,0.003,Asparticacid418,fructose,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.47606568508225977
+0,0.003,Glutamicacid330,fructose,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.5589489930699244
+0,0.003,Glutamicacid432,fructose,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.48499030325147685
+0,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.432348144709068
+0,0.003,Histidine440,fructose,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.3619868929868763
+1,0.003,Alanine232,fructose,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.21988722369686456
+1,0.003,Alanine260,fructose,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.3714996044584085
+1,0.003,Glycine218,fructose,GL,[2],C8H24ONSi2,inf,1,0.17702589890946935
+1,0.003,Glycine246,fructose,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.2433001774523891
+1,0.003,Valine260,fructose,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.27069284173350083
+1,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.38247219240545993
+1,0.003,Leucine274,fructose,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.2946874264939488
+1,0.003,Isoleucine274,fructose,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.29428027824819836
+1,0.003,Methionine320,fructose,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.2970275791304648
+1,0.003,Serine362,fructose,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.291487864557604
+1,0.003,Serine390,fructose,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.30931387581811737
+1,0.003,Threonine376,fructose,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.2823043428767806
+1,0.003,Threonine404,fructose,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.32471153283043674
+1,0.003,Phenylalanine302,fructose,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2771666792567188
+1,0.003,Phenylalanine308,fructose,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.3349325810356526
+1,0.003,Phenylalanine336,fructose,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.36648757296792484
+1,0.003,Asparticacid302,fructose,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.26765442739837597
+1,0.003,Asparticacid390,fructose,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.2817469516724447
+1,0.003,Asparticacid418,fructose,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.3240596075470513
+1,0.003,Glutamicacid330,fructose,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.2974961994673157
+1,0.003,Glutamicacid432,fructose,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.3113241154577925
+1,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.3625518686267266
+1,0.003,Histidine440,fructose,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.35464392763477226
+2,0.003,Alanine232,fructose,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.0769261718168328
+2,0.003,Alanine260,fructose,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.11091509033658191
+2,0.003,Glycine246,fructose,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.08125478891789517
+2,0.003,Valine260,fructose,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.09402355557740256
+2,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.14043976514359222
+2,0.003,Leucine274,fructose,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10659168893874642
+2,0.003,Isoleucine274,fructose,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10422419134774873
+2,0.003,Methionine320,fructose,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.10346126278139822
+2,0.003,Serine362,fructose,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.12073475146261656
+2,0.003,Serine390,fructose,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.1286521086955171
+2,0.003,Threonine376,fructose,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.12109927628094373
+2,0.003,Threonine404,fructose,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.13866834000885753
+2,0.003,Phenylalanine302,fructose,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.09189658026363666
+2,0.003,Phenylalanine308,fructose,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.13649900799939713
+2,0.003,Phenylalanine336,fructose,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.16674514044983668
+2,0.003,Asparticacid302,fructose,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.0900899028110666
+2,0.003,Asparticacid390,fructose,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.12198857052284545
+2,0.003,Asparticacid418,fructose,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.1393717574169879
+2,0.003,Glutamicacid330,fructose,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.10851120445226706
+2,0.003,Glutamicacid432,fructose,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.14192208642126725
+2,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.14919246501415415
+2,0.003,Histidine440,fructose,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.18611020556867147
+3,0.003,Alanine260,fructose,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.03266829962095966
+3,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.042039667995362816
+3,0.003,Leucine274,fructose,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.02745404613460929
+3,0.003,Isoleucine274,fructose,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.026566158339132107
+3,0.003,Methionine320,fructose,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.02796314474246957
+3,0.003,Threonine404,fructose,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.045717402495834676
+3,0.003,Phenylalanine308,fructose,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.04034095243092207
+3,0.003,Phenylalanine336,fructose,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.054345421795802734
+3,0.003,Asparticacid390,fructose,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.035682458119229495
+3,0.003,Asparticacid418,fructose,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.04629282902291853
+3,0.003,Glutamicacid330,fructose,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.028490000634593445
+3,0.003,Glutamicacid432,fructose,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.04664493048555837
+3,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.04426745908637546
+3,0.003,Histidine440,fructose,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.07066389276687818
+4,0.003,Valine260,fructose,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.003948623520787678
+4,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.008673894178764234
+4,0.003,Leucine274,fructose,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.0052588261232825
+4,0.003,Phenylalanine308,fructose,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.008964394206886888
+4,0.003,Asparticacid418,fructose,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.011371670784244
+4,0.003,Glutamicacid330,fructose,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.005572798044377341
+4,0.003,Glutamicacid432,fructose,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.012044527619610723
+4,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.009777583973561474
+5,0.003,Valine288,fructose,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.001415230268984298
+5,0.003,Histidine338,fructose,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.0016274931342893403

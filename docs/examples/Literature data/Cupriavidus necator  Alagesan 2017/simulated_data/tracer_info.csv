@@ -1,0 +1,4 @@
+experiment_id,met_id,tracer_id,atom_ids,atom_mdv,enrichment
+fructose,FRU.ext,D-[1-13C]fructose,[1],"[0.01, 0.99]",1
+glycerol,GLY.ext,"[1,2-13C]glycerol","[1, 2]","[0.01, 0.99]",1
+glycerolandCO2,GLY.ext,"[1,2-13C]glycerol","[1, 2]","[0.01, 0.99]",1

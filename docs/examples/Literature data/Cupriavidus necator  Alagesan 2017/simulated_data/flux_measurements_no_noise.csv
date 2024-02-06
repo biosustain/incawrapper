@@ -1,0 +1,4 @@
+rxn_id,flux,experiment_id,flux_std_error
+R72,20.440465390741828,fructose,0.061321396172225484
+ex_1,100.0,fructose,0.3
+ex_2,126.96795173666497,fructose,0.3809038552099949

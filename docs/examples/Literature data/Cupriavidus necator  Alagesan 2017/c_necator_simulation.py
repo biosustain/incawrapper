@@ -4,8 +4,8 @@ metabolism in Cupriavidus necator H16. Metabolomics 14, 9 (2018).
 https://doi.org/10.1007/s11306-017-1302-z). The data set is used to validate the INCAWrapper for 
 medium size models. 
 
-The simulation mimicks a single experiment where C. necator is grown with labelled frucotse and 
-unlabelled glycerol. We simulated MS measurements of the amino acids and a few 
+The simulation mimicks a two parallel experiments where C. necator is grown with labelled frucotse and 
+labelled glycerol. We simulated MS measurements of the amino acids and a few 
 exchanges fluxes are measured. To increase the information about the systems we simulate measurements 
 of CO2 exchange flux. To do this we added one additional reaction to the original model, i.e. 
 CO2 -> CO2.ext. The script will create a simulated data set and save it to the
@@ -31,7 +31,7 @@ fragments = pd.read_csv(
     sep="\t",
     converters={"labelled_atoms": ast.literal_eval},
 )
-USE_EXPERIMENT = "fructose"
+USE_EXPERIMENT = ["simulation1", "simulation2"]
 
 
 # %% Read and process reaction data
@@ -56,27 +56,32 @@ reacts_processed = reacts_added_co2_exchange.copy()
 tracer_info = pd.DataFrame.from_dict(
     {
         "experiment_id": [
-            "fructose",
-            "glycerol",
-            "glycerolandCO2",
+            "simulation1",
+            "simulation1",
+            "simulation2",
+            "simulation2",
         ],
-        "met_id": ["FRU.ext", "GLY.ext", "GLY.ext"],
+        "met_id": ["FRU.ext", "GLY.ext", "FRU.ext", "GLY.ext"],
         "tracer_id": [
             "D-[1-13C]fructose",
             "[1,2-13C]glycerol",
+            "[1,6-13C]fructose",
             "[1,2-13C]glycerol",
         ],
         "atom_ids": [
             [1],
             [1, 2],
+            [1, 6],
             [1, 2],
         ],
         "atom_mdv": [
-            [0.01, 0.99],
-            [0.01, 0.99],
-            [0.01, 0.99],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
         ],
         "enrichment": [
+            1,
             1,
             1,
             1,
@@ -119,10 +124,8 @@ def parse_mdv_raw_to_long(df: pd.DataFrame, experiment_id: str) -> pd.DataFrame:
 
 
 mdvs_long = pd.DataFrame()
-for sheet in xl_file.sheet_names:
-    df = xl_file.parse(sheet)
-    df = parse_mdv_raw_to_long(df, experiment_id=sheet)
-    mdvs_long = pd.concat([mdvs_long, df])
+mdvs_raw = xl_file.parse("fructose")
+mdvs_long = parse_mdv_raw_to_long(mdvs_raw, experiment_id="fructose")
 mdvs_long.reset_index(drop=True, inplace=True)
 
 
@@ -153,7 +156,7 @@ def mass_isotope_to_int(mass_isotope: str) -> int:
 
 
 mdvs_long["mass_isotope"] = mdvs_long["mass_isotope"].apply(mass_isotope_to_int)
-ms_data = (
+ms_data_one_exp = (
     mdvs_long.merge(
         fragments[["fragment_id", "labelled_atoms", "unlabelled_atoms"]],
         on="fragment_id",
@@ -168,13 +171,19 @@ ms_data = (
     .drop(columns=["Amino Acid", "m/z"])
 )
 
-ms_data["time"] = np.inf
-ms_data["measurement_replicate"] = 1
-ms_data = ms_data.query('ms_id != "Methionine292"')
+ms_data_one_exp["time"] = np.inf
+ms_data_one_exp["measurement_replicate"] = 1
+ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')
 
 # replace measured values with NaN
-ms_data["intensity"] = np.nan
-ms_data["intensity_std_error"] = np.nan
+ms_data_one_exp["intensity"] = np.nan
+ms_data_one_exp["intensity_std_error"] = np.nan
+
+# Create a set of measurement per experiment
+ms_data = pd.DataFrame()
+for experiment_id in USE_EXPERIMENT:
+    ms_data_one_exp["experiment_id"] = experiment_id
+    ms_data = pd.concat([ms_data, ms_data_one_exp])
 
 # %% Setup the INCA simulation script
 output_file = pathlib.Path(data_folder / "c_necator_simulation.mat")
@@ -182,7 +191,7 @@ script = incawrapper.create_inca_script_from_data(
     reactions_data=reacts_processed,
     tracer_data=tracer_info,
     ms_measurements=ms_data,
-    experiment_ids=[USE_EXPERIMENT],
+    experiment_ids=USE_EXPERIMENT,
 )
 script.add_to_block(
     "options", incawrapper.define_options(sim_more=True, sim_na=True, sim_ss=True)
@@ -250,12 +259,15 @@ simulated_mdv = (
 
 
 # %% Flux measurement
-flux_measurements = true_fluxes.query(
-    "rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']"
-).assign(
-    experiment_id=USE_EXPERIMENT,
-)
-flux_measurements["flux_std_error"] = flux_measurements["flux"] * 0.003
+
+# The exchange fluxes are measured to the same value in both parallel experiments
+flux_measurements = pd.DataFrame()
+for experiment_id in USE_EXPERIMENT:
+    # fetch the flux measurements
+    fluxes = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']").copy()
+    fluxes["experiment_id"] = experiment_id
+    fluxes["flux_std_error"] = fluxes["flux"] * 0.003
+    flux_measurements = pd.concat([flux_measurements, fluxes])
 # %%
 
 # save ground truth values and simulated data

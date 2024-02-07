@@ -1,4 +1,5 @@
-"""Utils.
+"""
+Utils.
 """
 from .chemical_formula import *
 from .merge_reversible_reactions import *

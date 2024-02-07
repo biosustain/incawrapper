@@ -1,4 +1,4 @@
-sphinx==6.2.1
+sphinx==7.2.6
 git+https://github.com/bashtage/sphinx-material.git
 numpydoc>=1.1
 nb2plots>=0.6

@@ -42,7 +42,7 @@ Overview of the documentation
    Low_level_api
    examples/index
    developer/index
-   API </autoapi/index.rst> 
+   API <./autoapi/index.rst> 
 
 
 References

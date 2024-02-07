@@ -5,8 +5,10 @@ https://doi.org/10.1007/s11306-017-1302-z). The data set is used to validate the
 medium size models. 
 
 The simulation mimicks a single experiment where C. necator is grown with labelled frucotse and 
-unlabelled glycerol. The isotopomer distributions are moeasured of the amino acids and a few 
-exchanges fluxes are measured. The script will create a simulated data set and save it to the
+unlabelled glycerol. We simulated MS measurements of the amino acids and a few 
+exchanges fluxes are measured. To increase the information about the systems we simulate measurements 
+of CO2 exchange flux. To do this we added one additional reaction to the original model, i.e. 
+CO2 -> CO2.ext. The script will create a simulated data set and save it to the
 simulated_data folder. The script also saves the model specification tables for later use.
 
 The INCAWrapper does not include a good API for simulation, thus this is sometimes a bit hacky 
@@ -38,17 +40,19 @@ reacts_renamed = reacts.copy().rename(
     columns={"Reaction ID": "rxn_id", "Equations (Carbon atom transition)": "rxn_eqn"}
 )
 reacts_merged = incawrapper.utils.merge_reaverible_reaction(reacts_renamed)
-# add row to specify the exchange reactions
+# Add CO2 exchange reaction
 co2_exchange_reaction = pd.DataFrame(
     {
-        "rxn_id": "ex_3",
-        "rxn_eqn": "CO2 -> ",
+        "rxn_id": ["ex_3"],
+        "rxn_eqn": ["CO2 -> CO2.ext"],
     }
 )
-reacts_processed = reacts_merged.copy()
+reacts_added_co2_exchange = pd.concat([reacts_merged, co2_exchange_reaction])
+reacts_processed = reacts_added_co2_exchange.copy()
 
 # %% Setup tracer data
-# We will setup the tracer data as done in the tutorial.
+# We will setup the tracer data as done in the tutorial. However we will only
+# simulate the fructose experiment.
 tracer_info = pd.DataFrame.from_dict(
     {
         "experiment_id": [
@@ -87,7 +91,6 @@ tracer_info = pd.DataFrame.from_dict(
 # we with to simulate. In our case easiest way to do this is to
 # create the ms_data table as done in the tutorial and then
 # remove the measurements.
-
 
 # Code from the tutorial
 def parse_mdv_raw_to_long(df: pd.DataFrame, experiment_id: str) -> pd.DataFrame:
@@ -165,14 +168,15 @@ ms_data = (
     .drop(columns=["Amino Acid", "m/z"])
 )
 
-
-ms_data["intensity"] = np.nan
-ms_data["intensity_std_error"] = np.nan
 ms_data["time"] = np.inf
 ms_data["measurement_replicate"] = 1
 ms_data = ms_data.query('ms_id != "Methionine292"')
 
-# %%
+# replace measured values with NaN
+ms_data["intensity"] = np.nan
+ms_data["intensity_std_error"] = np.nan
+
+# %% Setup the INCA simulation script
 output_file = pathlib.Path(data_folder / "c_necator_simulation.mat")
 script = incawrapper.create_inca_script_from_data(
     reactions_data=reacts_processed,
@@ -191,43 +195,30 @@ script.add_to_block(
 # In the following we set the flux distribution that we wish to simulate.
 # To avoid having to specify a feasible flux distribution we will guess
 # a flux distribution, fix the input flux value and then find the nearest
-# feasible flux distribution. Futhermore, we specify some pool sizes to
-# make the simulation more interesting.
+# feasible flux distribution.
 
 # find number of reactions in the model
 n_reactions = reacts_processed.shape[0]
 n_reverse_reactions = reacts_processed["rxn_eqn"].str.contains("<->").sum()
 total_fluxes = n_reactions + n_reverse_reactions
 
-# We will now find random values for all fluxes, then INCA will find the
-# nearest feasible flux distribution and simulate that.
-np.random.seed(834059)
-fluxes = np.array([100] * total_fluxes)  # np.random.uniform(0, 200, total_fluxes)
+# Guess that all fluxes are 100
+fluxes = np.array([100] * total_fluxes)
 # %%
 
-set_co2_unbalanced_code = incawrapper.modify_class_instance(
-    class_name="states",
-    sub_class_name=None,
-    instance_id="CO2",
-    properties={"bal": False},
-)
-# In the experiment we simulate fructose is NOT awailable, thus we force the
-# fructose uptake reaction (index 1) to be zero.
+# This section of the INCA script defines the flux distribution that we wish to simulate.
 script.add_to_block(
     block_name="model_modifications",
     matlab_script_block="""
 m.rates.flx.val = ["""
     + " ".join(fluxes.astype(str))
     + """];
-m.rates(1).flx.fix = true; % fix the value so it not change when finding the nearest feasible flux distribution
+m.rates(1).flx.fix = true; % fix the value so it does not change when finding the nearest feasible flux distribution
 """
-    + set_co2_unbalanced_code
     + """% Find nearest feasible flux solution
 m.rates.flx.val = transpose(mod2stoich(m));
 """,
 )
-# %%
-script.save_script(output_folder / "simulation_script.m")
 # %%
 # Now we can run the INCA script
 import dotenv
@@ -237,8 +228,7 @@ inca_directory = pathlib.Path(
 )
 incawrapper.run_inca(script, INCA_base_directory=inca_directory)
 
-
-# %%
+# %% Process the simulated data
 res = incawrapper.INCAResults(output_file)
 simulated_data = res.simulation.simulated_data
 
@@ -260,7 +250,9 @@ simulated_mdv = (
 
 
 # %% Flux measurement
-flux_measurements = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72']").assign(
+flux_measurements = true_fluxes.query(
+    "rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']"
+).assign(
     experiment_id=USE_EXPERIMENT,
 )
 flux_measurements["flux_std_error"] = flux_measurements["flux"] * 0.003

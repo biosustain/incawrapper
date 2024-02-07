@@ -58,3 +58,4 @@ R69,CPADR5P (abcdefghijkl) -> INDG (abcdfghijkl) + CO2 (e)
 R70,INDG (abcdfghijkl) -> TRP (abcdfghijkl) 
 R71,R5P (abcde) + MTHF (f)-> HIS (edcbaf)
 R72,ACCOA -> PHB_B
+ex_3,CO2 -> CO2.ext

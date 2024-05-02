@@ -42,6 +42,7 @@ USE_EXPERIMENT = [
     "simulation8",
     "simulation9",
 ]
+USE_TIMEPOINTS = [np.inf]  # set to [np.inf] for steady state simulation
 
 
 # %% Read and process reaction data
@@ -206,7 +207,6 @@ ms_data_one_exp = (
     .drop(columns=["Amino Acid", "m/z"])
 )
 
-ms_data_one_exp["time"] = np.inf
 ms_data_one_exp["measurement_replicate"] = 1
 ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')
 
@@ -217,8 +217,10 @@ ms_data_one_exp["intensity_std_error"] = np.nan
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()
 for experiment_id in USE_EXPERIMENT:
-    ms_data_one_exp["experiment_id"] = experiment_id
-    ms_data = pd.concat([ms_data, ms_data_one_exp])
+    for time in USE_TIMEPOINTS:
+        ms_data_one_exp["time"] = time
+        ms_data_one_exp["experiment_id"] = experiment_id
+        ms_data = pd.concat([ms_data, ms_data_one_exp])
 
 # %% Setup the INCA simulation script
 output_file = pathlib.Path(data_folder / "c_necator_simulation.mat")
@@ -229,8 +231,12 @@ script = incawrapper.create_inca_script_from_data(
     experiment_ids=USE_EXPERIMENT,
 )
 script.add_to_block(
-    "options", incawrapper.define_options(sim_more=True, sim_na=True, sim_ss=True)
+    "options",
+    incawrapper.define_options(
+        sim_more=True, sim_na=True, sim_ss=np.inf in USE_TIMEPOINTS
+    ),
 )
+print(script)
 script.add_to_block(
     "runner",
     incawrapper.define_runner(output_file, run_estimate=False, run_simulation=True),

@@ -1,185 +1,461 @@
 mass_isotope,intensity_std_error,ms_id,experiment_id,met_id,labelled_atom_ids,unlabelled_atoms,time,measurement_replicate,intensity
-0,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.3495249463465862
-0,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.13550853198130366
-0,0.003,Glycine218,simulation1,GL,[2],C8H24ONSi2,inf,1,0.47228246369281673
-0,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.29195932566818844
-0,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.15820713939978426
-0,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.06133587153967564
-0,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10096976857340022
-0,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.08774189270930899
-0,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.1492026220248688
-0,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.24378953469354686
-0,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.19641274567590167
-0,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.16670394403921118
-0,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.10191240027864962
-0,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2578656939542115
-0,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.055626157885870484
-0,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.03286069684759349
-0,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.27475400454197213
-0,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.16635241840082488
-0,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.10169749941488239
-0,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.1318201662894251
-0,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.07315858949328259
-0,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.07567136640741348
-0,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.06368167896424008
-1,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.353267620867824
-1,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.3859459210188175
-1,0.003,Glycine218,simulation1,GL,[2],C8H24ONSi2,inf,1,0.3927121153509863
-1,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.38759907846359243
-1,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.28868664882762496
-1,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.22462181174933726
-1,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.24146293957835857
-1,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.24151553586968202
-1,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.3349956028848196
-1,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.45855142885095584
-1,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.2618930855156271
-1,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3430042105894612
-1,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.2547134494590654
-1,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.39620067126286973
-1,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.1682484167703479
-1,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.11308284468805128
-1,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.39496999141742783
-1,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.3422923809335573
-1,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.2541833439709967
-1,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3022448211684661
-1,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.21557471582381466
-1,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.2512464007498932
-1,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.20965187035015492
-2,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.22384944454996936
-2,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.33972556504274265
-2,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.23883390669454813
-2,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.2939798866264778
-2,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.3202049370889639
-2,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.29205013678490593
-2,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.30158539129364725
-2,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.30531767842787483
-2,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.19564440791524007
-2,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.3471778093932808
-2,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.2893767359094257
-2,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.31464187773896973
-2,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2507501357609871
-2,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.23107259360753943
-2,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.2007031362017745
-2,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.23953614232613574
-2,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.28913028085459197
-2,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.31420386545514345
-2,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3041038180997042
-2,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.2889284566715933
-2,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.25070668257832546
-2,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.2289952128680593
-3,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.10210066967486466
-3,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.24040947761632378
-3,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.21531884834819381
-3,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.22167826356734646
-3,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.14902940983283558
-3,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.20873763421223945
-3,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.21909829798950758
-3,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.22795641137798225
-3,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.137962274400592
-3,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.20883879861185167
-3,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.176421738040241
-3,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.2313685599848112
-3,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.23202867112348902
-3,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.24361226819777895
-4,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.06750183713049882
-4,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.1122097868725059
-4,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10486193689208376
-4,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.16955534537392036
-4,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.08455255269475839
-4,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.06419032752208448
-4,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.12384022504186606
-4,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.13099735449511068
-5,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.03193606586224759
-5,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.04491139400242245
-0,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.2760554453516089
-0,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.0448238742381147
-0,0.003,Glycine218,simulation2,GL,[2],C8H24ONSi2,inf,1,0.4408450859184784
-0,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.23774962738114355
-0,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.09868754811037729
-0,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.016024165869045644
-0,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.05477282161701703
-0,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.03808187386683033
-0,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.050954730238197146
-0,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.06171040270207441
-0,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.020347136902655067
-0,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.0916091906224533
-0,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.033745689956975834
-0,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2177294514896288
-0,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.00019784160845778958
-0,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,4.596804625928095e-05
-0,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.218571692684045
-0,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.09141601595342427
-0,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.033674531021455255
-0,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.06295557442852921
-0,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.030672026524383514
-0,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.03979058531651607
-0,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.00044532167179287896
-1,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.3950672865301874
-1,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.416994052876592
-1,0.003,Glycine218,simulation2,GL,[2],C8H24ONSi2,inf,1,0.4179566633403938
-1,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.40951495112813174
-1,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.26305699797791954
-1,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.16885278485144356
-1,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.18990094911528788
-1,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.17375988325472871
-1,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.22782331233312195
-1,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.5772964420414206
-1,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.34991019392294714
-1,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3158123087087469
-1,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.20927159264640988
-1,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.41275202432471586
-1,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.019577020784412088
-1,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.004871961093472946
-1,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.41551890461946756
-1,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.3151526570259682
-1,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.2088326246364531
-1,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.2466429953247187
-1,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.14743035557719206
-1,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.18510659456866999
-1,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.04147510692231884
-2,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.24585276127600875
-2,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.37497417339314076
-2,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.26212178065444613
-2,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.31774372308682086
-2,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.32708354334202766
-2,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.29338600030302653
-2,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.3031992518785749
-2,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.35804067550481156
-2,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.22986664838825438
-2,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.3951317110476613
-2,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3414998921939192
-2,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.34756926262625754
-2,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2670768845338519
-2,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.1241478524318842
-2,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.06023413077603953
-2,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.2643748163396835
-2,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.34098841945498265
-2,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.34691959345985557
-2,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3379004056206715
-2,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.2770502628965157
-2,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.26858041052819137
-2,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.19738816596188347
-3,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.12017936179569508
-3,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.29229512981190875
-3,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.25815680227347193
-3,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.2760721043922225
-3,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.24794947881150628
-3,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.2540269998836912
-3,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.2805185508385462
-3,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.21009379154070143
-3,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.16938568399355466
-3,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.25394224160217105
-3,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.23268820014601993
-3,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.2776536182055823
-3,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.2361641842475004
-3,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.33043228316398465
-4,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.08343188742513097
-4,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.14115219725392145
-4,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.13994422763871675
-4,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.28619679691101046
-4,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.1082325013505925
-4,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.08897048411148233
-4,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.16872009248528552
-4,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.17975056542027185
-5,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.042170090818090575
-5,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.06716791857858413
+0,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.6702122739788364
+0,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.44159964074463676
+0,0.003,Glycine218,simulation1,GL,[2],C8H24ONSi2,inf,1,0.7318373363040446
+0,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.5997332479503558
+0,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.5816938559354824
+0,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.383275281247062
+0,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.515522185502744
+0,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.469480236504942
+0,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.47299207203129634
+0,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.5364516349261444
+0,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.4710058985832194
+0,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.46518102550992757
+0,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3789338996673876
+0,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.5559677900032269
+0,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.4469072430924088
+0,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.3476597728872163
+0,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.5661581290112688
+0,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.4642001065646679
+0,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.37813484850063506
+0,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.5081144430757252
+0,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.38531283288628915
+0,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.4105603694107948
+0,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.34583947662060077
+1,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.23101833184697984
+1,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.39013283115905556
+1,0.003,Glycine218,simulation1,GL,[2],C8H24ONSi2,inf,1,0.18428679805664072
+1,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.28356417951346735
+1,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.2866070809106554
+1,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.3953371924451512
+1,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.32015462153388385
+1,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.34206607531434796
+1,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.34192948790849864
+1,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.2951229471809811
+1,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.31558302979049235
+1,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3254483103244781
+1,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3509272076368849
+1,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.3113364722026132
+1,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.3411809130883585
+1,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.36587982907756444
+1,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.3021327502733918
+1,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.32479401419172665
+1,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.3502132570215252
+1,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3220871077963061
+1,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.3437683337453483
+1,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.3668705830239517
+1,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.3522579973324201
+2,0.003,Alanine232,simulation1,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.07948282199870337
+2,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.12352106744553001
+2,0.003,Glycine246,simulation1,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.0902506384067018
+2,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.10107986565926111
+2,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.15891856168984791
+2,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.12219531209830561
+2,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.13783044880042472
+2,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.13459919031492631
+2,0.003,Serine362,simulation1,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.12188164480253896
+2,0.003,Serine390,simulation1,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.14866309216899498
+2,0.003,Threonine376,simulation1,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.14587117404349936
+2,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.1791646951307798
+2,0.003,Phenylalanine302,simulation1,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.10064602687007414
+2,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.14999284509997587
+2,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.1916575953054195
+2,0.003,Asparticacid302,simulation1,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.10029007969985615
+2,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.146535189644539
+2,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.1795842612890456
+2,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.1252681325704188
+2,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.1780837997186458
+2,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.15976841692388827
+2,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.1936290272483068
+3,0.003,Alanine260,simulation1,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.036931826473115166
+3,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.04933006788446409
+3,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.033861363095699766
+3,0.003,Isoleucine274,simulation1,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.04018978803770742
+3,0.003,Methionine320,simulation1,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.03985884428267256
+3,0.003,Threonine404,simulation1,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.06654010918649671
+3,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.04775603584275962
+3,0.003,Phenylalanine336,simulation1,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.07011228415569817
+3,0.003,Asparticacid390,simulation1,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.04883165263821397
+3,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.06712796843093168
+3,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.03552480292450161
+3,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.0672877772555167
+3,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.04916510273088868
+3,0.003,Histidine440,simulation1,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.07722686157697639
+4,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.004643546670808741
+4,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.010967317076490334
+4,0.003,Leucine274,simulation1,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.006987615816761912
+4,0.003,Phenylalanine308,simulation1,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.011553996691748102
+4,0.003,Asparticacid418,simulation1,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.019391138768656734
+4,0.003,Glutamicacid330,simulation1,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.007552592793451782
+4,0.003,Glutamicacid432,simulation1,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.019734022166643737
+4,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.011347573879440118
+5,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.001885666486689528
+5,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.001984751746601371
+0,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.46732449292051237
+0,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.42670159453329604
+0,0.003,Glycine218,simulation2,GL,[2],C8H24ONSi2,inf,1,0.6042117029784793
+0,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.533750521774683
+0,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.28281784540175003
+0,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.2582334703692159
+0,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.25885838135523903
+0,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.28235924743028606
+0,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.48175018676689935
+0,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.509032827685331
+0,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.4782847524848659
+0,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.4012365859613103
+0,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3543060039785925
+0,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.49500856027879475
+0,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.30165002602967816
+0,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.27767641344790495
+0,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.5056493821533092
+0,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.4003905055171019
+0,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.353558885216943
+0,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3472094261801942
+0,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.26250665028701015
+0,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.4606615260714207
+0,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.4067090749810305
+1,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.3870055996995676
+1,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.4041609282854269
+1,0.003,Glycine218,simulation2,GL,[2],C8H24ONSi2,inf,1,0.286771536074316
+1,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.3306274214018972
+1,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.4127962260760353
+1,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.4076544984062957
+1,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.4017773987917439
+1,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.39698291849844036
+1,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.35254179190201534
+1,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.3129323849069334
+1,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.31780353134085115
+1,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3585146189452411
+1,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3653860449871356
+1,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.3500362868893657
+1,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.37984412035683196
+1,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.3737507448111811
+1,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.34332933659715015
+1,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.35778620170799214
+1,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.3646399126548804
+1,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3909664726480295
+1,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.36716719903213496
+1,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.3476882260787613
+1,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.34289267088731534
+2,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.10769086762708528
+2,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.12350593231550254
+2,0.003,Glycine246,simulation2,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.10223223879339463
+2,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.2189823685858791
+2,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.23459492281301664
+2,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.23539825944851964
+2,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.22143627822918038
+2,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.12131345085209354
+2,0.003,Serine362,simulation2,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.1270843417832695
+2,0.003,Serine390,simulation2,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.14263606281932603
+2,0.003,Threonine376,simulation2,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.16347444511127857
+2,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.18543125385318623
+2,0.003,Phenylalanine302,simulation2,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.11516842635269117
+2,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.21270606338241202
+2,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.22572284039493845
+2,0.003,Asparticacid302,simulation2,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.11259681774463433
+2,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.16397312914584675
+2,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.1857883440968825
+2,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.18553352236458243
+2,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.23099714202547564
+2,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.13946709948960745
+2,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.16753471949472565
+3,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.03783037502121519
+3,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.07521210895951255
+3,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.07855678262510488
+3,0.003,Isoleucine274,simulation2,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.07522056706205887
+3,0.003,Methionine320,simulation2,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.0358504491516973
+3,0.003,Threonine404,simulation2,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.06947892836207314
+3,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.07824595639779863
+3,0.003,Phenylalanine336,simulation2,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.08888689477595671
+3,0.003,Asparticacid390,simulation2,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.05841769308762363
+3,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.07009054151235847
+3,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.0587909091194915
+3,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.0973503177071842
+3,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.04140609443278989
+3,0.003,Histidine440,simulation2,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.06112527839450033
+4,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.016674591238914988
+4,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.02003927472583786
+4,0.003,Leucine274,simulation2,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.020819522030779747
+4,0.003,Phenylalanine308,simulation2,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.021904115283510082
+4,0.003,Asparticacid418,simulation2,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.02019281345914802
+4,0.003,Glutamicacid330,simulation2,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.01446376451838275
+4,0.003,Glutamicacid432,simulation2,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.031753843072033876
+4,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.009017899671303693
+5,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.00364643207283629
+5,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.0015343476337785617
+0,0.003,Alanine232,simulation3,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.47495639520384453
+0,0.003,Alanine260,simulation3,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.4433400929324686
+0,0.003,Glycine218,simulation3,GL,[2],C8H24ONSi2,inf,1,0.6793840330011274
+0,0.003,Glycine246,simulation3,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.6265469271844254
+0,0.003,Valine260,simulation3,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.29213070179968736
+0,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.2726845112354271
+0,0.003,Leucine274,simulation3,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.2177124861061808
+0,0.003,Isoleucine274,simulation3,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.29714024576098
+0,0.003,Methionine320,simulation3,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.4616467357484128
+0,0.003,Serine362,simulation3,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.5630706146445614
+0,0.003,Serine390,simulation3,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.535472590677292
+0,0.003,Threonine376,simulation3,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.4154557677265019
+0,0.003,Threonine404,simulation3,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3812681288208069
+0,0.003,Phenylalanine302,simulation3,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.6338941525960463
+0,0.003,Phenylalanine308,simulation3,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.20229312152765733
+0,0.003,Phenylalanine336,simulation3,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.19008040671507714
+0,0.003,Asparticacid302,simulation3,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.5921444714636793
+0,0.003,Asparticacid390,simulation3,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.4145797035468987
+0,0.003,Asparticacid418,simulation3,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.3804641555066029
+0,0.003,Glutamicacid330,simulation3,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.33013486158161814
+0,0.003,Glutamicacid432,simulation3,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.26637158016020446
+0,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.3887576071704811
+0,0.003,Histidine440,simulation3,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.3285737457797036
+1,0.003,Alanine232,simulation3,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.3747682956613577
+1,0.003,Alanine260,simulation3,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.3844443994041023
+1,0.003,Glycine218,simulation3,GL,[2],C8H24ONSi2,inf,1,0.22640735728198186
+1,0.003,Glycine246,simulation3,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.2582580935241547
+1,0.003,Valine260,simulation3,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.40356083309439755
+1,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.39799274592096906
+1,0.003,Leucine274,simulation3,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.37515159999000774
+1,0.003,Isoleucine274,simulation3,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.3865280125014074
+1,0.003,Methionine320,simulation3,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.34537443071150403
+1,0.003,Serine362,simulation3,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.26582087536855414
+1,0.003,Serine390,simulation3,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.2774931204997385
+1,0.003,Threonine376,simulation3,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.34377858682962437
+1,0.003,Threonine404,simulation3,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3480064980992459
+1,0.003,Phenylalanine302,simulation3,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.2498049467555623
+1,0.003,Phenylalanine308,simulation3,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.3737224598311976
+1,0.003,Phenylalanine336,simulation3,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.3628159334004726
+1,0.003,Asparticacid302,simulation3,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.27864569130168587
+1,0.003,Asparticacid390,simulation3,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.3430822204556827
+1,0.003,Asparticacid418,simulation3,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.34729886675879446
+1,0.003,Glutamicacid330,simulation3,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.38352039388463616
+1,0.003,Glutamicacid432,simulation3,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.35959746054190744
+1,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.35032957165705364
+1,0.003,Histidine440,simulation3,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.3413992901068326
+2,0.003,Alanine232,simulation3,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.11174267526796401
+2,0.003,Alanine260,simulation3,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.12543009646695882
+2,0.003,Glycine246,simulation3,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.09034251643924812
+2,0.003,Valine260,simulation3,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.21504501327797612
+2,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.22633909470974645
+2,0.003,Leucine274,simulation3,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.2630592242467287
+2,0.003,Isoleucine274,simulation3,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.21443633822214347
+2,0.003,Methionine320,simulation3,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.13936702632051462
+2,0.003,Serine362,simulation3,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.1250430731317703
+2,0.003,Serine390,simulation3,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.1331621291798051
+2,0.003,Threonine376,simulation3,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.1636362526097527
+2,0.003,Threonine404,simulation3,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.1786195954152806
+2,0.003,Phenylalanine302,simulation3,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.09121884427758123
+2,0.003,Phenylalanine308,simulation3,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.2639392926780197
+2,0.003,Phenylalanine336,simulation3,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.26987013523372116
+2,0.003,Asparticacid302,simulation3,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.09939502136862895
+2,0.003,Asparticacid390,simulation3,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.1641625981996757
+2,0.003,Asparticacid418,simulation3,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.17904487348806597
+2,0.003,Glutamicacid330,simulation3,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.19718353369016983
+2,0.003,Glutamicacid432,simulation3,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.2293777034263203
+2,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.18325933866215455
+2,0.003,Histidine440,simulation3,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.20970910500863582
+3,0.003,Alanine260,simulation3,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.03834932334383692
+3,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.07719986036180758
+3,0.003,Leucine274,simulation3,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10570652320336876
+3,0.003,Isoleucine274,simulation3,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.07657524214472265
+3,0.003,Methionine320,simulation3,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.04207842830753198
+3,0.003,Threonine404,simulation3,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.06710716414215366
+3,0.003,Phenylalanine308,simulation3,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.11376558267839193
+3,0.003,Phenylalanine336,simulation3,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.1230152338794853
+3,0.003,Asparticacid390,simulation3,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.05815976609534193
+3,0.003,Asparticacid418,simulation3,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.06768782872469961
+3,0.003,Glutamicacid330,simulation3,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.06758508321850042
+3,0.003,Glutamicacid432,simulation3,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.09999423792877705
+3,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.05925081515829864
+3,0.003,Histidine440,simulation3,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.08451159588102455
+4,0.003,Valine260,simulation3,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.017365853147045
+4,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.020932656636216716
+4,0.003,Leucine274,simulation3,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.030355799508329014
+4,0.003,Phenylalanine308,simulation3,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.035689690932973445
+4,0.003,Asparticacid418,simulation3,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.019734354275227378
+4,0.003,Glutamicacid330,simulation3,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.017493865332836638
+4,0.003,Glutamicacid432,simulation3,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.033393221299259326
+4,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.015081371624200146
+5,0.003,Valine288,simulation3,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.004103547665491704
+5,0.003,Histidine338,simulation3,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.0028471616739032682
+0,0.003,Alanine232,simulation4,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.7017053859280534
+0,0.003,Alanine260,simulation4,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.6192563671125361
+0,0.003,Glycine218,simulation4,GL,[2],C8H24ONSi2,inf,1,0.7437863103759772
+0,0.003,Glycine246,simulation4,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.5976562862770385
+0,0.003,Valine260,simulation4,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.6376455636253475
+0,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.5627234494057941
+0,0.003,Leucine274,simulation4,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.5837629429714385
+0,0.003,Isoleucine274,simulation4,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.5514555598669433
+0,0.003,Methionine320,simulation4,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.6203595062320987
+0,0.003,Serine362,simulation4,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.6289032599865416
+0,0.003,Serine390,simulation4,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.4177646119774909
+0,0.003,Threonine376,simulation4,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.5218825357432492
+0,0.003,Threonine404,simulation4,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.4290709881170456
+0,0.003,Phenylalanine302,simulation4,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.559879232695193
+0,0.003,Phenylalanine308,simulation4,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.22054446638524824
+0,0.003,Phenylalanine336,simulation4,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.17070131926326565
+0,0.003,Asparticacid302,simulation4,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.5840145264222255
+0,0.003,Asparticacid390,simulation4,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.5207820513330145
+0,0.003,Asparticacid418,simulation4,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.4281662137646439
+0,0.003,Glutamicacid330,simulation4,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.5897517307920136
+0,0.003,Glutamicacid432,simulation4,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.45842345924652667
+0,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.29396958099451187
+0,0.003,Histidine440,simulation4,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.2558520631057022
+1,0.003,Alanine232,simulation4,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.20700795034524172
+1,0.003,Alanine260,simulation4,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.26663855995549246
+1,0.003,Glycine218,simulation4,GL,[2],C8H24ONSi2,inf,1,0.17469164506556303
+1,0.003,Glycine246,simulation4,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.28718936936294803
+1,0.003,Valine260,simulation4,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.2508092854905771
+1,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.29762905933683736
+1,0.003,Leucine274,simulation4,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.2834811363321296
+1,0.003,Isoleucine274,simulation4,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.3036965019284232
+1,0.003,Methionine320,simulation4,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.2605427161018674
+1,0.003,Serine362,simulation4,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.23277138731115088
+1,0.003,Serine390,simulation4,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.3685097506286447
+1,0.003,Threonine376,simulation4,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.29821198318158476
+1,0.003,Threonine404,simulation4,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.33863036618267983
+1,0.003,Phenylalanine302,simulation4,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.3093230512828997
+1,0.003,Phenylalanine308,simulation4,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.48741405815991645
+1,0.003,Phenylalanine336,simulation4,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.42837793479025005
+1,0.003,Asparticacid302,simulation4,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.2909399060928569
+1,0.003,Asparticacid390,simulation4,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.2976190167837359
+1,0.003,Asparticacid418,simulation4,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.3379457915157177
+1,0.003,Glutamicacid330,simulation4,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.27775559877933953
+1,0.003,Glutamicacid432,simulation4,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.3215492417983339
+1,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.44953938379692504
+1,0.003,Histidine440,simulation4,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.42299291659603744
+2,0.003,Alanine232,simulation4,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.07494159607044933
+2,0.003,Alanine260,simulation4,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.08898927682059547
+2,0.003,Glycine246,simulation4,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.08890713926165814
+2,0.003,Valine260,simulation4,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.08795638377182124
+2,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.10589005224883175
+2,0.003,Leucine274,simulation4,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.101728025963663
+2,0.003,Isoleucine274,simulation4,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.10953833340135552
+2,0.003,Methionine320,simulation4,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.09139003090086889
+2,0.003,Serine362,simulation4,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.10591223066266961
+2,0.003,Serine390,simulation4,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.1462815077326205
+2,0.003,Threonine376,simulation4,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.12882654506689273
+2,0.003,Threonine404,simulation4,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.15861618715375367
+2,0.003,Phenylalanine302,simulation4,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.09935829611466188
+2,0.003,Phenylalanine308,simulation4,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.2035210125213785
+2,0.003,Phenylalanine336,simulation4,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.2690348804685477
+2,0.003,Asparticacid302,simulation4,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.0959275972157482
+2,0.003,Asparticacid390,simulation4,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.12964033506269268
+2,0.003,Asparticacid418,simulation4,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.1591805477345168
+2,0.003,Glutamicacid330,simulation4,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.10135613248807761
+2,0.003,Glutamicacid432,simulation4,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.15082417922113778
+2,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.1819777153473816
+2,0.003,Histidine440,simulation4,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.207662442027795
+3,0.003,Alanine260,simulation4,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.02105821714731873
+3,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.02760458092780433
+3,0.003,Leucine274,simulation4,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.025458258306183954
+3,0.003,Isoleucine274,simulation4,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.02880629773302576
+3,0.003,Methionine320,simulation4,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.022900488907782665
+3,0.003,Threonine404,simulation4,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.055127929039711386
+3,0.003,Phenylalanine308,simulation4,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.06913248996310874
+3,0.003,Phenylalanine336,simulation4,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.09763764456011927
+3,0.003,Asparticacid390,simulation4,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.039996284201488944
+3,0.003,Asparticacid418,simulation4,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.055713315940794296
+3,0.003,Glutamicacid330,simulation4,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.025418430962302382
+3,0.003,Glutamicacid432,simulation4,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.05168120689596791
+3,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.05881196396635828
+3,0.003,Histidine440,simulation4,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.08325378941227062
+4,0.003,Valine260,simulation4,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.0034013348538612194
+4,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.005248497580107738
+4,0.003,Leucine274,simulation4,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.004779128727081115
+4,0.003,Phenylalanine308,simulation4,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.01603247046505985
+4,0.003,Asparticacid418,simulation4,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.01500784486074397
+4,0.003,Glutamicacid330,simulation4,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.004879120531838684
+4,0.003,Glutamicacid432,simulation4,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.01383126718836133
+4,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.013119339723454278
+5,0.003,Valine288,simulation4,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.0008015624985186195
+5,0.003,Histidine338,simulation4,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.002250777414783189
+0,0.003,Alanine232,simulation5,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.6425313569076703
+0,0.003,Alanine260,simulation5,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.6179403638764364
+0,0.003,Glycine218,simulation5,GL,[2],C8H24ONSi2,inf,1,0.6317688420534595
+0,0.003,Glycine246,simulation5,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.5955570057154228
+0,0.003,Valine260,simulation5,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.5346362187878423
+0,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.514174594014024
+0,0.003,Leucine274,simulation5,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.5105888206049526
+0,0.003,Isoleucine274,simulation5,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.4714677987968269
+0,0.003,Methionine320,simulation5,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.5884976702546345
+0,0.003,Serine362,simulation5,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.4607949602975741
+0,0.003,Serine390,simulation5,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.4411784055675487
+0,0.003,Threonine376,simulation5,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.4872757099687502
+0,0.003,Threonine404,simulation5,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.45944361723990784
+0,0.003,Phenylalanine302,simulation5,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.5578243501909925
+0,0.003,Phenylalanine308,simulation5,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.16613107203803826
+0,0.003,Phenylalanine336,simulation5,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.15893210268474514
+0,0.003,Asparticacid302,simulation5,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.5793315954227714
+0,0.003,Asparticacid390,simulation5,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.48624820035580063
+0,0.003,Asparticacid418,simulation5,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.45847479666530416
+0,0.003,Glutamicacid330,simulation5,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.49225752891603813
+0,0.003,Glutamicacid432,simulation5,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.4113351567656607
+0,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.31384023998712507
+0,0.003,Histidine440,simulation5,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.27660344587957353
+1,0.003,Alanine232,simulation5,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.253566310741853
+1,0.003,Alanine260,simulation5,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.26801130443039445
+1,0.003,Glycine218,simulation5,GL,[2],C8H24ONSi2,inf,1,0.264642860940445
+1,0.003,Glycine246,simulation5,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.28934558093874446
+1,0.003,Valine260,simulation5,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.31682307858018355
+1,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.32479187471626636
+1,0.003,Leucine274,simulation5,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.32661262913887346
+1,0.003,Isoleucine274,simulation5,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.3464641384097706
+1,0.003,Methionine320,simulation5,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.28731281158965927
+1,0.003,Serine362,simulation5,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.34628250750438516
+1,0.003,Serine390,simulation5,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.3546306370873971
+1,0.003,Threonine376,simulation5,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.3196193139852582
+1,0.003,Threonine404,simulation5,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.3306582918238156
+1,0.003,Phenylalanine302,simulation5,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.3111019600402673
+1,0.003,Phenylalanine308,simulation5,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.40635548753678935
+1,0.003,Phenylalanine336,simulation5,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.39647403015120103
+1,0.003,Asparticacid302,simulation5,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.2949742062322782
+1,0.003,Asparticacid390,simulation5,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.31897882787499166
+1,0.003,Asparticacid418,simulation5,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.32999261517571343
+1,0.003,Glutamicacid330,simulation5,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.3353441740724913
+1,0.003,Glutamicacid432,simulation5,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.34233538282948317
+1,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.4640299274658647
+1,0.003,Histidine440,simulation5,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.43635372953311236
+2,0.003,Alanine232,simulation5,ALA,"[2, 3]",C8H26ONSi2,inf,1,0.08231522742541507
+2,0.003,Alanine260,simulation5,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.08893035262108212
+2,0.003,Glycine246,simulation5,GL,"[1, 2]",C8H24O2NSi2,inf,1,0.08875951582069527
+2,0.003,Valine260,simulation5,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.11231724117629806
+2,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.12012212945513019
+2,0.003,Leucine274,simulation5,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.1215187482519734
+2,0.003,Isoleucine274,simulation5,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.13421239526270884
+2,0.003,Methionine320,simulation5,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.09381991127368912
+2,0.003,Serine362,simulation5,SER,"[2, 3]",C14H40O2NSi3,inf,1,0.13485778738966722
+2,0.003,Serine390,simulation5,SER,"[1, 2, 3]",C14H40O3NSi3,inf,1,0.14108505349643394
+2,0.003,Threonine376,simulation5,THR,"[2, 3, 4]",C14H42O2NSi3,inf,1,0.136157082408799
+2,0.003,Threonine404,simulation5,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.1454903085598042
+2,0.003,Phenylalanine302,simulation5,PHE,"[1, 2]",C12H32O2NSi2,inf,1,0.09948842843940398
+2,0.003,Phenylalanine308,simulation5,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.2822485294009685
+2,0.003,Phenylalanine336,simulation5,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.28812399883555695
+2,0.003,Asparticacid302,simulation5,ASP,"[1, 2]",C12H32O2NSi2,inf,1,0.0962390899144487
+2,0.003,Asparticacid390,simulation5,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.13688626753893263
+2,0.003,Asparticacid418,simulation5,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.14614377765324782
+2,0.003,Glutamicacid330,simulation5,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.12734974457162873
+2,0.003,Glutamicacid432,simulation5,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.1656185709824886
+2,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.1596029873144367
+2,0.003,Histidine440,simulation5,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.1885024185574023
+3,0.003,Alanine260,simulation5,ALA,"[1, 2, 3]",C8H26O2NSi2,inf,1,0.021083091317251976
+3,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.03305069397576457
+3,0.003,Leucine274,simulation5,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.03337262829278472
+3,0.003,Isoleucine274,simulation5,ILE,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.0383190101418906
+3,0.003,Methionine320,simulation5,MET,"[2, 3, 4, 5]",C6H24NSiS,inf,1,0.025243672101926164
+3,0.003,Threonine404,simulation5,THR,"[1, 2, 3, 4]",C14H42O3NSi3,inf,1,0.04899361940849408
+3,0.003,Phenylalanine308,simulation5,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.10761594450722566
+3,0.003,Phenylalanine336,simulation5,PHE,"[1, 2, 3, 4, 5, 6, 7, 8, 9]",C8H30O2NSi2,inf,1,0.11447812100813537
+3,0.003,Asparticacid390,simulation5,ASP,"[2, 3, 4]",C14H40O3NSi3,inf,1,0.044468636105878354
+3,0.003,Asparticacid418,simulation5,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.04957475242218522
+3,0.003,Glutamicacid330,simulation5,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.03611594772046435
+3,0.003,Glutamicacid432,simulation5,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.05965999103037993
+3,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.05068178169294839
+3,0.003,Histidine440,simulation5,HIS,"[1, 2, 3, 4, 5, 6]",C14H42O2N3Si3,inf,1,0.07421485043249829
+4,0.003,Valine260,simulation5,VAL,"[2, 3, 4, 5]",C8H30ONSi2,inf,1,0.0056415681057419426
+4,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.006668385278971326
+4,0.003,Leucine274,simulation5,LEU,"[2, 3, 4, 5, 6]",C8H32ONSi2,inf,1,0.006722667488930813
+4,0.003,Phenylalanine308,simulation5,PHE,"[2, 3, 4, 5, 6, 7, 8, 9]",C8H30ONSi2,inf,1,0.030119078322071544
+4,0.003,Asparticacid418,simulation5,ASP,"[1, 2, 3, 4]",C14H40O4NSi3,inf,1,0.01259313851284427
+4,0.003,Glutamicacid330,simulation5,GLU,"[2, 3, 4, 5]",C12H36O2NSi2,inf,1,0.007532200203091095
+4,0.003,Glutamicacid432,simulation5,GLU,"[1, 2, 3, 4, 5]",C14H42O4NSi3,inf,1,0.01650334365013104
+4,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.010038518704748681
+5,0.003,Valine288,simulation5,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,inf,1,0.0010491828170096382
+5,0.003,Histidine338,simulation5,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,inf,1,0.0015996480793729157

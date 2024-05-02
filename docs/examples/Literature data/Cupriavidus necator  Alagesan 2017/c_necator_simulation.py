@@ -31,7 +31,13 @@ fragments = pd.read_csv(
     sep="\t",
     converters={"labelled_atoms": ast.literal_eval},
 )
-USE_EXPERIMENT = ["simulation1", "simulation2"]
+USE_EXPERIMENT = [
+    "simulation1",
+    "simulation2",
+    "simulation3",
+    "simulation4",
+    "simulation5",
+]
 
 
 # %% Read and process reaction data
@@ -57,30 +63,35 @@ tracer_info = pd.DataFrame.from_dict(
     {
         "experiment_id": [
             "simulation1",
-            "simulation1",
             "simulation2",
-            "simulation2",
+            "simulation3",
+            "simulation4",
+            "simulation5",
         ],
-        "met_id": ["FRU.ext", "GLY.ext", "FRU.ext", "GLY.ext"],
+        "met_id": ["FRU.ext"] * 5,
         "tracer_id": [
             "D-[1-13C]fructose",
-            "[1,2-13C]glycerol",
-            "[1,6-13C]fructose",
-            "[1,2-13C]glycerol",
+            "D-[2-13C]fructose",
+            "D-[3-13C]fructose",
+            "D-[4-13C]fructose",
+            "D-[5-13C]fructose",
         ],
         "atom_ids": [
             [1],
-            [1, 2],
-            [1, 6],
-            [1, 2],
+            [2],
+            [3],
+            [4],
+            [5],
         ],
         "atom_mdv": [
             [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
+            [0.0, 1.0],
         ],
         "enrichment": [
+            1,
             1,
             1,
             1,

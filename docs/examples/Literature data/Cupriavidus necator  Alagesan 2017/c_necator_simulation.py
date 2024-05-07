@@ -32,20 +32,43 @@ fragments = pd.read_csv(
     converters={"labelled_atoms": ast.literal_eval},
 )
 USE_EXPERIMENT = [
-    # "simulation1",
-    # "simulation2",
-    # "simulation3",
-    # "simulation4",
-    # "simulation5",
-    # "simulation6",
-    # "simulation7",
-    # "simulation8",
-    # "simulation9",
-    "inst1",
-    "inst2",
+    "simulation1",
+    "simulation2",
+    "simulation3",
+    "simulation4",
+    "simulation5",
+    "simulation6",
+    "simulation7",
+    "simulation8",
+    "simulation9",
+    # "inst1",
+    # "inst2",
 ]
-USE_TIMEPOINTS = [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
+USE_TIMEPOINTS = [
+    np.inf
+]  # [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
 
+met_abbriviations = {
+    "Alanine": "ALA",
+    "Aspartic acid": "ASP",
+    "Glycine": "GLY",
+    "Glutamic acid": "GLU",
+    "Histidine": "HIS",
+    "Isoleucine": "ILE",
+    "Leucine": "LEU",
+    "Methionine": "MET",
+    "Phenylalanine": "PHE",
+    "Serine": "SER",
+    "Threonine": "THR",
+    "Valine": "VAL",
+    "Arginine": "ARG",
+    "Lysine": "LYS",
+    "Proline": "PRO",
+    "Tyrosine": "TYR",
+    "Asparagine": "ASN",
+    "Glutamine": "GLN",
+    "Cysteine": "CYS",
+}
 
 # %% Read and process reaction data
 reacts = pd.read_excel(data_folder / "reactions.xlsx")
@@ -53,15 +76,31 @@ reacts_renamed = reacts.copy().rename(
     columns={"Reaction ID": "rxn_id", "Equations (Carbon atom transition)": "rxn_eqn"}
 )
 reacts_merged = incawrapper.utils.merge_reaverible_reaction(reacts_renamed)
-# Add CO2 exchange reaction
+
+# Create CO2 exchange reaction
 co2_exchange_reaction = pd.DataFrame(
     {
         "rxn_id": ["ex_3"],
-        "rxn_eqn": ["CO2 -> CO2.ext"],
+        "rxn_eqn": ["CO2 (a) -> CO2.ext (a)"],
     }
 )
-reacts_added_co2_exchange = pd.concat([reacts_merged, co2_exchange_reaction])
-reacts_processed = reacts_added_co2_exchange.copy()
+
+# Create biomass drain reaction
+biomass_drain = (
+    "2*" + " + 2*".join([aa for name, aa in met_abbriviations.items()]) + " -> BIOMASS"
+)
+biomass_drain_reaction = pd.DataFrame(
+    {
+        "rxn_id": ["ex_4"],
+        "rxn_eqn": [biomass_drain],
+    }
+)
+
+# Add the exchange reactions to the model
+reacts_added_exchanges = pd.concat(
+    [reacts_merged, co2_exchange_reaction, biomass_drain_reaction]
+)
+reacts_processed = reacts_added_exchanges.copy()
 
 # %% Setup tracer data
 # We will setup the tracer data as done in the tutorial. However we will only
@@ -178,20 +217,6 @@ mdvs_long = parse_mdv_raw_to_long(mdvs_raw, experiment_id="fructose")
 mdvs_long.reset_index(drop=True, inplace=True)
 
 
-met_abbriviations = {
-    "Alanine": "ALA",
-    "Aspartic acid": "ASP",
-    "Glycine": "GL",
-    "Glutamic acid": "GLU",
-    "Histidine": "HIS",
-    "Isoleucine": "ILE",
-    "Leucine": "LEU",
-    "Methionine": "MET",
-    "Phenylalanine": "PHE",
-    "Serine": "SER",
-    "Threonine": "THR",
-    "Valine": "VAL",
-}
 mdvs_long["met_id"] = mdvs_long["Amino Acid"].map(met_abbriviations)
 
 
@@ -226,6 +251,21 @@ ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')
 # replace measured values with NaN
 ms_data_one_exp["intensity"] = np.nan
 ms_data_one_exp["intensity_std_error"] = np.nan
+
+# Add CO2 measurements
+co2_ms_data = pd.DataFrame(
+    {
+        "ms_id": ["CO2"] * 2,
+        "met_id": ["CO2.ext"] * 2,
+        "mass_isotope": [0, 1],
+        "intensity": [np.nan] * 2,
+        "intensity_std_error": [np.nan] * 2,
+        "labelled_atom_ids": [[1], [1]],
+        "unlabelled_atoms": ["O2"] * 2,
+        "measurement_replicate": 1,
+    }
+)
+ms_data_one_exp = pd.concat([ms_data_one_exp, co2_ms_data])
 
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()
@@ -323,7 +363,9 @@ simulated_mdv = (
 flux_measurements = pd.DataFrame()
 for experiment_id in USE_EXPERIMENT:
     # fetch the flux measurements
-    fluxes = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']").copy()
+    fluxes = true_fluxes.query(
+        "rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3', 'ex_4']"
+    ).copy()
     fluxes["experiment_id"] = experiment_id
     fluxes["flux_std_error"] = fluxes["flux"] * 0.003
     flux_measurements = pd.concat([flux_measurements, fluxes])
@@ -349,9 +391,10 @@ if np.inf not in USE_TIMEPOINTS:
 
 # save ground truth values and simulated data
 simulated_mdv.to_csv(output_folder / "mdv_no_noise.csv", index=False)
-pool_sizes_measurement.to_csv(
-    output_folder / "pool_sizes_measurement_no_noise.csv", index=False
-)
+if np.inf not in USE_TIMEPOINTS:
+    pool_sizes_measurement.to_csv(
+        output_folder / "pool_sizes_measurement_no_noise.csv", index=False
+    )
 flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index=False)
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 

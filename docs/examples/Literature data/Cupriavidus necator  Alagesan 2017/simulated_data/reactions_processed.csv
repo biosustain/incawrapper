@@ -58,4 +58,5 @@ R69,CPADR5P (abcdefghijkl) -> INDG (abcdfghijkl) + CO2 (e)
 R70,INDG (abcdfghijkl) -> TRP (abcdfghijkl) 
 R71,R5P (abcde) + MTHF (f)-> HIS (edcbaf)
 R72,ACCOA -> PHB_B
-ex_3,CO2 -> CO2.ext
+ex_3,CO2 (a) -> CO2.ext (a)
+ex_4,2*ALA + 2*ASP + 2*GLY + 2*GLU + 2*HIS + 2*ILE + 2*LEU + 2*MET + 2*PHE + 2*SER + 2*THR + 2*VAL + 2*ARG + 2*LYS + 2*PRO + 2*TYR + 2*ASN + 2*GLN + 2*CYS -> BIOMASS

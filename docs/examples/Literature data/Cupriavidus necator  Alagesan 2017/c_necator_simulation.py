@@ -21,6 +21,41 @@ import pathlib
 import incawrapper
 from incawrapper import run_inca
 import ast
+import re
+
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
+def extract_metabolite_ids_and_numbers(rxn_eqn):
+    # This pattern matches any word followed by a space and parentheses enclosing any characters
+    rxn_eqn = rxn_eqn.replace(".ext", "")
+    pattern = r"(\w+)\s\((\w+)\)"
+    ids_and_atom_mapping = re.findall(pattern, rxn_eqn)
+
+    # count the length of the atom mapping
+    ids_and_n_carbons = [
+        (met_id, len(atom_mapping)) for met_id, atom_mapping in ids_and_atom_mapping
+    ]
+    return ids_and_n_carbons
+
+
+# testing the function
+assert extract_metabolite_ids_and_numbers("FRU.ext (abcdef) -> F6P (abcdef)") == [
+    ("FRU", 6),
+    ("F6P", 6),
+]
+assert extract_metabolite_ids_and_numbers("FRU.ext (abcdef) -> 2*F6P (abcdef)") == [
+    ("FRU", 6),
+    ("F6P", 6),
+]
+
+assert extract_metabolite_ids_and_numbers("FRU.ext  -> F6P (abcdef)") == [("F6P", 6)]
 
 # %%
 data_folder = pathlib.Path(__file__).parent
@@ -49,6 +84,8 @@ USE_TIMEPOINTS = [
     0.5,
     1,
 ]  # [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
+
+MEASURE_ALL_METABOLITES = True
 
 met_abbriviations = {
     "Alanine": "ALA",
@@ -79,6 +116,16 @@ reacts_renamed = reacts.copy().rename(
 )
 reacts_merged = incawrapper.utils.merge_reaverible_reaction(reacts_renamed)
 
+# %% Extract metabolite ids and number of carbons
+met_ids_and_n_carbons = (
+    reacts_merged["rxn_eqn"]
+    .apply(extract_metabolite_ids_and_numbers)
+    .explode()
+    .dropna()
+    .unique()
+)
+print(met_ids_and_n_carbons)
+# %%
 # Create CO2 exchange reaction
 co2_exchange_reaction = pd.DataFrame(
     {
@@ -301,6 +348,25 @@ if np.inf not in USE_TIMEPOINTS:
     )
 else:
     ms_data_one_exp = pd.concat([ms_data_one_exp, co2_ms_data])
+
+if MEASURE_ALL_METABOLITES:
+    # overwrite ms_data_one_exp with all metabolites
+    ms_data_one_exp = pd.DataFrame()
+    for met, n_carbons in met_ids_and_n_carbons:
+        met_data = pd.DataFrame(
+            {
+                "ms_id": [met] * n_carbons,
+                "met_id": [met] * n_carbons,
+                "mass_isotope": list(np.arange(n_carbons)),
+                "intensity": [np.nan] * n_carbons,
+                "intensity_std_error": [np.nan] * n_carbons,
+                "labelled_atom_ids": [list(np.arange(n_carbons) + 1)] * n_carbons,
+                "unlabelled_atoms": [""] * n_carbons,
+                "measurement_replicate": 1,
+            }
+        )
+        ms_data_one_exp = pd.concat([ms_data_one_exp, met_data])
+
 
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()

@@ -6,7 +6,9 @@ AKG,1,0.015,inst1
 ALA,1,0.015,inst1
 ANTHR,1,0.015,inst1
 ARG,1,0.015,inst1
+ASN,1,0.015,inst1
 ASP,1,0.015,inst1
+BIOMASS,1,0.015,inst1
 CHRM,1,0.015,inst1
 CIT,1,0.015,inst1
 CO2,1,0.015,inst1
@@ -21,6 +23,7 @@ FRU,1,0.015,inst1
 G3P,1,0.015,inst1
 G6P,1,0.015,inst1
 GL,1,0.015,inst1
+GLN,1,0.015,inst1
 GLU,1,0.015,inst1
 GLY,1,0.015,inst1
 GLY,1,0.015,inst1
@@ -61,7 +64,9 @@ AKG,1,0.015,inst2
 ALA,1,0.015,inst2
 ANTHR,1,0.015,inst2
 ARG,1,0.015,inst2
+ASN,1,0.015,inst2
 ASP,1,0.015,inst2
+BIOMASS,1,0.015,inst2
 CHRM,1,0.015,inst2
 CIT,1,0.015,inst2
 CO2,1,0.015,inst2
@@ -76,6 +81,7 @@ FRU,1,0.015,inst2
 G3P,1,0.015,inst2
 G6P,1,0.015,inst2
 GL,1,0.015,inst2
+GLN,1,0.015,inst2
 GLU,1,0.015,inst2
 GLY,1,0.015,inst2
 GLY,1,0.015,inst2

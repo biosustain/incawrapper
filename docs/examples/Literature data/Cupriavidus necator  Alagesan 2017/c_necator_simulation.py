@@ -32,20 +32,22 @@ fragments = pd.read_csv(
     converters={"labelled_atoms": ast.literal_eval},
 )
 USE_EXPERIMENT = [
-    "simulation1",
-    "simulation2",
-    "simulation3",
-    "simulation4",
-    "simulation5",
-    "simulation6",
-    "simulation7",
-    "simulation8",
-    "simulation9",
-    # "inst1",
-    # "inst2",
+    # "simulation1",
+    # "simulation2",
+    # "simulation3",
+    # "simulation4",
+    # "simulation5",
+    # "simulation6",
+    # "simulation7",
+    # "simulation8",
+    # "simulation9",
+    "inst1",
+    "inst2",
 ]
 USE_TIMEPOINTS = [
-    np.inf
+    0.1,
+    0.5,
+    1,
 ]  # [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
 
 met_abbriviations = {
@@ -265,7 +267,40 @@ co2_ms_data = pd.DataFrame(
         "measurement_replicate": 1,
     }
 )
-ms_data_one_exp = pd.concat([ms_data_one_exp, co2_ms_data])
+
+if np.inf not in USE_TIMEPOINTS:
+    # Add pyruvate measurements
+    pyr_ms_data = pd.DataFrame(
+        {
+            "ms_id": ["Pyruvate"] * 4,
+            "met_id": ["PYR"] * 4,
+            "mass_isotope": [0, 1, 2, 3],
+            "intensity": [np.nan] * 4,
+            "intensity_std_error": [np.nan] * 4,
+            "labelled_atom_ids": [[1, 2, 3]] * 4,
+            "unlabelled_atoms": ["H4O3"] * 4,
+            "measurement_replicate": 1,
+        }
+    )
+
+    # Add oxaloacetate measurements
+    oaa_ms_data = pd.DataFrame(
+        {
+            "ms_id": ["Oxaloacetate"] * 5,
+            "met_id": ["OAA"] * 5,
+            "mass_isotope": [0, 1, 2, 3, 4],
+            "intensity": [np.nan] * 5,
+            "intensity_std_error": [np.nan] * 5,
+            "labelled_atom_ids": [[1, 2, 3, 4]] * 5,
+            "unlabelled_atoms": ["H4O5"] * 5,
+            "measurement_replicate": 1,
+        }
+    )
+    ms_data_one_exp = pd.concat(
+        [ms_data_one_exp, co2_ms_data, pyr_ms_data, oaa_ms_data]
+    )
+else:
+    ms_data_one_exp = pd.concat([ms_data_one_exp, co2_ms_data])
 
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()

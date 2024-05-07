@@ -32,17 +32,19 @@ fragments = pd.read_csv(
     converters={"labelled_atoms": ast.literal_eval},
 )
 USE_EXPERIMENT = [
-    "simulation1",
-    "simulation2",
-    "simulation3",
-    "simulation4",
-    "simulation5",
-    "simulation6",
-    "simulation7",
-    "simulation8",
-    "simulation9",
+    # "simulation1",
+    # "simulation2",
+    # "simulation3",
+    # "simulation4",
+    # "simulation5",
+    # "simulation6",
+    # "simulation7",
+    # "simulation8",
+    # "simulation9",
+    "inst1",
+    "inst2",
 ]
-USE_TIMEPOINTS = [np.inf]  # set to [np.inf] for steady state simulation
+USE_TIMEPOINTS = [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
 
 
 # %% Read and process reaction data
@@ -64,7 +66,7 @@ reacts_processed = reacts_added_co2_exchange.copy()
 # %% Setup tracer data
 # We will setup the tracer data as done in the tutorial. However we will only
 # simulate the fructose experiment.
-tracer_info = pd.DataFrame.from_dict(
+tracer_info_all = pd.DataFrame.from_dict(
     {
         "experiment_id": [
             "simulation1",
@@ -76,8 +78,10 @@ tracer_info = pd.DataFrame.from_dict(
             "simulation7",
             "simulation8",
             "simulation9",
+            "inst1",
+            "inst2",
         ],
-        "met_id": ["FRU.ext"] * 6 + ["GLY.ext"] * 3,
+        "met_id": ["FRU.ext"] * 6 + ["GLY.ext"] * 3 + ["FRU.ext", "GLY.ext"],
         "tracer_id": [
             "D-[1-13C]fructose",
             "D-[2-13C]fructose",
@@ -88,6 +92,8 @@ tracer_info = pd.DataFrame.from_dict(
             "[1-13C]-Glycerol",
             "[2-13C]-Glycerol",
             "[3-13C]-Glycerol",
+            "D-[U-13C]fructose",
+            "[U-13C]-Glycerol",
         ],
         "atom_ids": [
             [1],
@@ -99,8 +105,12 @@ tracer_info = pd.DataFrame.from_dict(
             [1],
             [2],
             [3],
+            [1, 2, 3, 4, 5, 6],
+            [1, 2, 3],
         ],
         "atom_mdv": [
+            [0.0, 1.0],
+            [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
@@ -121,10 +131,13 @@ tracer_info = pd.DataFrame.from_dict(
             1,
             1,
             1,
+            1,
+            1,
         ],
     },
     orient="columns",
 )
+tracer_info = tracer_info_all.query("experiment_id in @USE_EXPERIMENT")
 
 # %%
 # INCA only save the simulation for the MDV that are measured.
@@ -265,7 +278,12 @@ m.rates.flx.val = ["""
     + """];
 m.rates(1).flx.fix = true; % fix the value so it does not change when finding the nearest feasible flux distribution
 """
-    + """% Find nearest feasible flux solution
+    +
+    # """
+    # % Set the pool sizes\n""" +
+    # incawrapper.modify_class_instance('states', None, "B", {'val': 100}) +
+    # incawrapper.modify_class_instance('states', None, "F", {'val': 100}) +
+    """% Find nearest feasible flux solution
 m.rates.flx.val = transpose(mod2stoich(m));
 """,
 )
@@ -309,11 +327,31 @@ for experiment_id in USE_EXPERIMENT:
     fluxes["experiment_id"] = experiment_id
     fluxes["flux_std_error"] = fluxes["flux"] * 0.003
     flux_measurements = pd.concat([flux_measurements, fluxes])
+
+# %% Pool sizes measurement
+if np.inf not in USE_TIMEPOINTS:
+    true_pool_sizes = res.model.states
+    pool_sizes_measurement_one_exp = (
+        true_pool_sizes.filter(["met", "val"])
+        .rename(columns={"met": "met_id", "val": "pool_size"})
+        .assign(
+            pool_size_std_error=0.015,
+        )
+    )
+    pool_sizes_measurement = pd.DataFrame()
+    for experiment_id in USE_EXPERIMENT:
+        pool_sizes_measurement_one_exp["experiment_id"] = experiment_id
+        pool_sizes_measurement = pd.concat(
+            [pool_sizes_measurement, pool_sizes_measurement_one_exp]
+        )
+
 # %%
 
 # save ground truth values and simulated data
 simulated_mdv.to_csv(output_folder / "mdv_no_noise.csv", index=False)
-
+pool_sizes_measurement.to_csv(
+    output_folder / "pool_sizes_measurement_no_noise.csv", index=False
+)
 flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index=False)
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 

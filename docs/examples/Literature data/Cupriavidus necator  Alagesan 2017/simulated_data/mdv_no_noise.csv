@@ -91,6 +91,7 @@ mass_isotope,intensity_std_error,ms_id,experiment_id,met_id,labelled_atom_ids,un
 4,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.011347573879440118
 5,0.003,Valine288,simulation1,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,1,inf,0.001885666486689528
 5,0.003,Histidine338,simulation1,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.001984751746601371
+3,0.003,Valine260,simulation1,VAL,"[2, 3, 4, 5]",C8H30ONSi2,1,inf,0.025225878088272216
 0,0.003,Alanine232,simulation2,ALA,"[2, 3]",C8H26ONSi2,1,inf,0.46732449292051237
 0,0.003,Alanine260,simulation2,ALA,"[1, 2, 3]",C8H26O2NSi2,1,inf,0.42670159453329604
 0,0.003,Glycine218,simulation2,GL,[2],C8H24ONSi2,1,inf,0.6042117029784793
@@ -183,6 +184,7 @@ mass_isotope,intensity_std_error,ms_id,experiment_id,met_id,labelled_atom_ids,un
 4,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.009017899671303693
 5,0.003,Valine288,simulation2,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,1,inf,0.00364643207283629
 5,0.003,Histidine338,simulation2,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.0015343476337785617
+3,0.003,Valine260,simulation2,VAL,"[2, 3, 4, 5]",C8H30ONSi2,1,inf,0.06555366201677759
 0,0.003,Alanine232,simulation6,ALA,"[2, 3]",C8H26ONSi2,1,inf,0.6669111825759215
 0,0.003,Alanine260,simulation6,ALA,"[1, 2, 3]",C8H26O2NSi2,1,inf,0.6119441086210439
 0,0.003,Glycine218,simulation6,GL,[2],C8H24ONSi2,1,inf,0.7321730493565122
@@ -275,3 +277,4 @@ mass_isotope,intensity_std_error,ms_id,experiment_id,met_id,labelled_atom_ids,un
 4,0.003,Histidine338,simulation6,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.007309701147642205
 5,0.003,Valine288,simulation6,VAL,"[1, 2, 3, 4, 5]",C8H30O2NSi2,1,inf,0.0010093707172166614
 5,0.003,Histidine338,simulation6,HIS,"[2, 3, 4, 5, 6]",C12H36N3Si2,1,inf,0.0011434851657419985
+3,0.003,Valine260,simulation6,VAL,"[2, 3, 4, 5]",C8H30ONSi2,1,inf,0.02569008213881949

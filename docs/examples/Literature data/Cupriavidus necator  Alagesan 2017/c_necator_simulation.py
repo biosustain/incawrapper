@@ -34,17 +34,19 @@ fragments = pd.read_csv(
 USE_EXPERIMENT = [
     "simulation1",
     "simulation2",
-    "simulation3",
-    "simulation4",
-    "simulation5",
+    # "simulation3",
+    # "simulation4",
+    # "simulation5",
     "simulation6",
-    "simulation7",
-    "simulation8",
-    "simulation9",
+    # "simulation7",
+    # "simulation8",
+    # "simulation9",
     # "inst1",
     # "inst2",
 ]
 USE_TIMEPOINTS = [np.inf]  # set to [0.1, 0.5, 1] for steady state simulation
+FLUX_RELATIVE_MEASUREMENT_ERROR = 0.003
+MDV_ABSOLUTE_MEASUREMENT_ERROR = 0.003
 
 
 # %% Read and process reaction data
@@ -278,12 +280,7 @@ m.rates.flx.val = ["""
     + """];
 m.rates(1).flx.fix = true; % fix the value so it does not change when finding the nearest feasible flux distribution
 """
-    +
-    # """
-    # % Set the pool sizes\n""" +
-    # incawrapper.modify_class_instance('states', None, "B", {'val': 100}) +
-    # incawrapper.modify_class_instance('states', None, "F", {'val': 100}) +
-    """% Find nearest feasible flux solution
+    + """% Find nearest feasible flux solution
 m.rates.flx.val = transpose(mod2stoich(m));
 """,
 )
@@ -313,7 +310,7 @@ simulated_mdv = (
     )
     .drop(columns=["expt", "id", "type", "intensity"])
     .rename(columns={"mdv": "intensity"})
-    .assign(intensity_std_error=0.003)
+    .assign(intensity_std_error=MDV_ABSOLUTE_MEASUREMENT_ERROR)
 )
 
 
@@ -325,39 +322,55 @@ for experiment_id in USE_EXPERIMENT:
     # fetch the flux measurements
     fluxes = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']").copy()
     fluxes["experiment_id"] = experiment_id
-    fluxes["flux_std_error"] = fluxes["flux"] * 0.003
+    fluxes["flux_std_error"] = fluxes["flux"] * FLUX_RELATIVE_MEASUREMENT_ERROR
     flux_measurements = pd.concat([flux_measurements, fluxes])
-
-# %% Pool sizes measurement
-if np.inf not in USE_TIMEPOINTS:
-    true_pool_sizes = res.model.states
-    pool_sizes_measurement_one_exp = (
-        true_pool_sizes.filter(["met", "val"])
-        .rename(columns={"met": "met_id", "val": "pool_size"})
-        .assign(
-            pool_size_std_error=0.015,
-        )
-    )
-    pool_sizes_measurement = pd.DataFrame()
-    for experiment_id in USE_EXPERIMENT:
-        pool_sizes_measurement_one_exp["experiment_id"] = experiment_id
-        pool_sizes_measurement = pd.concat(
-            [pool_sizes_measurement, pool_sizes_measurement_one_exp]
-        )
 
 # %%
 
 # save ground truth values and simulated data
 simulated_mdv.to_csv(output_folder / "mdv_no_noise.csv", index=False)
-pool_sizes_measurement.to_csv(
-    output_folder / "pool_sizes_measurement_no_noise.csv", index=False
-)
 flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index=False)
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 
+# Add noise to the data
+np.random.seed(45244395)  # set seed for reproducibility
+# Absolute error in the MDV measurements
+simulated_mdv_noisy = simulated_mdv.assign(
+    intensity=np.random.normal(
+        simulated_mdv["intensity"], MDV_ABSOLUTE_MEASUREMENT_ERROR
+    )
+)
+simulated_mdv_noisy.to_csv(output_folder / "mdv_noisy.csv", index=False)
+
+# Relative error in the flux measurements
+(
+    flux_measurements.assign(
+        flux=np.random.normal(
+            flux_measurements["flux"], FLUX_RELATIVE_MEASUREMENT_ERROR
+        )
+    ).to_csv(output_folder / "flux_measurements_noisy.csv", index=False)
+)
 
 # save the processed model specification tables for later use
 reacts_processed.to_csv(output_folder / "reactions_processed.csv", index=False)
 tracer_info.to_csv(output_folder / "tracer_info.csv", index=False)
 
+
 # %%
+## format the simulated mdv data for easier manual input to the INCA GUI
+def space_separated_list(x):
+    return " ".join(map(str, x))
+
+
+simulated_mdv_noisy.groupby(["experiment_id", "ms_id"]).agg(
+    {
+        "time": "first",
+        "met_id": "first",
+        "labelled_atom_ids": "first",
+        "unlabelled_atoms": "first",
+        "intensity": space_separated_list,
+        "intensity_std_error": space_separated_list,
+        "mass_isotope": space_separated_list,
+        "measurement_replicate": "first",
+    }
+).reset_index().to_csv(output_folder / "mdv_noisy_for_inca_gui.csv", index=False)

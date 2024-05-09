@@ -21,41 +21,6 @@ import pathlib
 import incawrapper
 from incawrapper import run_inca
 import ast
-import re
-
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
-
-
-def extract_metabolite_ids_and_numbers(rxn_eqn):
-    # This pattern matches any word followed by a space and parentheses enclosing any characters
-    rxn_eqn = rxn_eqn.replace(".ext", "")
-    pattern = r"(\w+)\s\((\w+)\)"
-    ids_and_atom_mapping = re.findall(pattern, rxn_eqn)
-
-    # count the length of the atom mapping
-    ids_and_n_carbons = [
-        (met_id, len(atom_mapping)) for met_id, atom_mapping in ids_and_atom_mapping
-    ]
-    return ids_and_n_carbons
-
-
-# testing the function
-assert extract_metabolite_ids_and_numbers("FRU.ext (abcdef) -> F6P (abcdef)") == [
-    ("FRU", 6),
-    ("F6P", 6),
-]
-assert extract_metabolite_ids_and_numbers("FRU.ext (abcdef) -> 2*F6P (abcdef)") == [
-    ("FRU", 6),
-    ("F6P", 6),
-]
-
-assert extract_metabolite_ids_and_numbers("FRU.ext  -> F6P (abcdef)") == [("F6P", 6)]
 
 # %%
 data_folder = pathlib.Path(__file__).parent
@@ -67,47 +32,20 @@ fragments = pd.read_csv(
     converters={"labelled_atoms": ast.literal_eval},
 )
 USE_EXPERIMENT = [
-    # "simulation1",
-    # "simulation2",
-    # "simulation3",
-    # "simulation4",
-    # "simulation5",
-    # "simulation6",
-    # "simulation7",
-    # "simulation8",
-    # "simulation9",
-    "inst1",
-    "inst2",
+    "simulation1",
+    "simulation2",
+    "simulation3",
+    "simulation4",
+    "simulation5",
+    "simulation6",
+    "simulation7",
+    "simulation8",
+    "simulation9",
+    # "inst1",
+    # "inst2",
 ]
-USE_TIMEPOINTS = [
-    0.1,
-    0.5,
-    1,
-]  # [0.1, 0.5, 1]  # set to [np.inf] for steady state simulation
+USE_TIMEPOINTS = [np.inf]  # set to [0.1, 0.5, 1] for steady state simulation
 
-MEASURE_ALL_METABOLITES = True
-
-met_abbriviations = {
-    "Alanine": "ALA",
-    "Aspartic acid": "ASP",
-    "Glycine": "GLY",
-    "Glutamic acid": "GLU",
-    "Histidine": "HIS",
-    "Isoleucine": "ILE",
-    "Leucine": "LEU",
-    "Methionine": "MET",
-    "Phenylalanine": "PHE",
-    "Serine": "SER",
-    "Threonine": "THR",
-    "Valine": "VAL",
-    "Arginine": "ARG",
-    "Lysine": "LYS",
-    "Proline": "PRO",
-    "Tyrosine": "TYR",
-    "Asparagine": "ASN",
-    "Glutamine": "GLN",
-    "Cysteine": "CYS",
-}
 
 # %% Read and process reaction data
 reacts = pd.read_excel(data_folder / "reactions.xlsx")
@@ -115,41 +53,15 @@ reacts_renamed = reacts.copy().rename(
     columns={"Reaction ID": "rxn_id", "Equations (Carbon atom transition)": "rxn_eqn"}
 )
 reacts_merged = incawrapper.utils.merge_reaverible_reaction(reacts_renamed)
-
-# %% Extract metabolite ids and number of carbons
-met_ids_and_n_carbons = (
-    reacts_merged["rxn_eqn"]
-    .apply(extract_metabolite_ids_and_numbers)
-    .explode()
-    .dropna()
-    .unique()
-)
-print(met_ids_and_n_carbons)
-# %%
-# Create CO2 exchange reaction
+# Add CO2 exchange reaction
 co2_exchange_reaction = pd.DataFrame(
     {
         "rxn_id": ["ex_3"],
-        "rxn_eqn": ["CO2 (a) -> CO2.ext (a)"],
+        "rxn_eqn": ["CO2 -> CO2.ext"],
     }
 )
-
-# Create biomass drain reaction
-biomass_drain = (
-    "2*" + " + 2*".join([aa for name, aa in met_abbriviations.items()]) + " -> BIOMASS"
-)
-biomass_drain_reaction = pd.DataFrame(
-    {
-        "rxn_id": ["ex_4"],
-        "rxn_eqn": [biomass_drain],
-    }
-)
-
-# Add the exchange reactions to the model
-reacts_added_exchanges = pd.concat(
-    [reacts_merged, co2_exchange_reaction, biomass_drain_reaction]
-)
-reacts_processed = reacts_added_exchanges.copy()
+reacts_added_co2_exchange = pd.concat([reacts_merged, co2_exchange_reaction])
+reacts_processed = reacts_added_co2_exchange.copy()
 
 # %% Setup tracer data
 # We will setup the tracer data as done in the tutorial. However we will only
@@ -266,6 +178,20 @@ mdvs_long = parse_mdv_raw_to_long(mdvs_raw, experiment_id="fructose")
 mdvs_long.reset_index(drop=True, inplace=True)
 
 
+met_abbriviations = {
+    "Alanine": "ALA",
+    "Aspartic acid": "ASP",
+    "Glycine": "GL",
+    "Glutamic acid": "GLU",
+    "Histidine": "HIS",
+    "Isoleucine": "ILE",
+    "Leucine": "LEU",
+    "Methionine": "MET",
+    "Phenylalanine": "PHE",
+    "Serine": "SER",
+    "Threonine": "THR",
+    "Valine": "VAL",
+}
 mdvs_long["met_id"] = mdvs_long["Amino Acid"].map(met_abbriviations)
 
 
@@ -300,73 +226,6 @@ ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')
 # replace measured values with NaN
 ms_data_one_exp["intensity"] = np.nan
 ms_data_one_exp["intensity_std_error"] = np.nan
-
-# Add CO2 measurements
-co2_ms_data = pd.DataFrame(
-    {
-        "ms_id": ["CO2"] * 2,
-        "met_id": ["CO2.ext"] * 2,
-        "mass_isotope": [0, 1],
-        "intensity": [np.nan] * 2,
-        "intensity_std_error": [np.nan] * 2,
-        "labelled_atom_ids": [[1], [1]],
-        "unlabelled_atoms": ["O2"] * 2,
-        "measurement_replicate": 1,
-    }
-)
-
-if np.inf not in USE_TIMEPOINTS:
-    # Add pyruvate measurements
-    pyr_ms_data = pd.DataFrame(
-        {
-            "ms_id": ["Pyruvate"] * 4,
-            "met_id": ["PYR"] * 4,
-            "mass_isotope": [0, 1, 2, 3],
-            "intensity": [np.nan] * 4,
-            "intensity_std_error": [np.nan] * 4,
-            "labelled_atom_ids": [[1, 2, 3]] * 4,
-            "unlabelled_atoms": ["H4O3"] * 4,
-            "measurement_replicate": 1,
-        }
-    )
-
-    # Add oxaloacetate measurements
-    oaa_ms_data = pd.DataFrame(
-        {
-            "ms_id": ["Oxaloacetate"] * 5,
-            "met_id": ["OAA"] * 5,
-            "mass_isotope": [0, 1, 2, 3, 4],
-            "intensity": [np.nan] * 5,
-            "intensity_std_error": [np.nan] * 5,
-            "labelled_atom_ids": [[1, 2, 3, 4]] * 5,
-            "unlabelled_atoms": ["H4O5"] * 5,
-            "measurement_replicate": 1,
-        }
-    )
-    ms_data_one_exp = pd.concat(
-        [ms_data_one_exp, co2_ms_data, pyr_ms_data, oaa_ms_data]
-    )
-else:
-    ms_data_one_exp = pd.concat([ms_data_one_exp, co2_ms_data])
-
-if MEASURE_ALL_METABOLITES:
-    # overwrite ms_data_one_exp with all metabolites
-    ms_data_one_exp = pd.DataFrame()
-    for met, n_carbons in met_ids_and_n_carbons:
-        met_data = pd.DataFrame(
-            {
-                "ms_id": [met] * n_carbons,
-                "met_id": [met] * n_carbons,
-                "mass_isotope": list(np.arange(n_carbons)),
-                "intensity": [np.nan] * n_carbons,
-                "intensity_std_error": [np.nan] * n_carbons,
-                "labelled_atom_ids": [list(np.arange(n_carbons) + 1)] * n_carbons,
-                "unlabelled_atoms": [""] * n_carbons,
-                "measurement_replicate": 1,
-            }
-        )
-        ms_data_one_exp = pd.concat([ms_data_one_exp, met_data])
-
 
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()
@@ -464,9 +323,7 @@ simulated_mdv = (
 flux_measurements = pd.DataFrame()
 for experiment_id in USE_EXPERIMENT:
     # fetch the flux measurements
-    fluxes = true_fluxes.query(
-        "rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3', 'ex_4']"
-    ).copy()
+    fluxes = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']").copy()
     fluxes["experiment_id"] = experiment_id
     fluxes["flux_std_error"] = fluxes["flux"] * 0.003
     flux_measurements = pd.concat([flux_measurements, fluxes])
@@ -492,10 +349,9 @@ if np.inf not in USE_TIMEPOINTS:
 
 # save ground truth values and simulated data
 simulated_mdv.to_csv(output_folder / "mdv_no_noise.csv", index=False)
-if np.inf not in USE_TIMEPOINTS:
-    pool_sizes_measurement.to_csv(
-        output_folder / "pool_sizes_measurement_no_noise.csv", index=False
-    )
+pool_sizes_measurement.to_csv(
+    output_folder / "pool_sizes_measurement_no_noise.csv", index=False
+)
 flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index=False)
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 

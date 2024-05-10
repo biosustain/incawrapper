@@ -222,19 +222,19 @@ ms_data_one_exp = (
     .drop(columns=["Amino Acid", "m/z"])
 )
 
-# For the Valine260 fragment the M3 measurement is missing. For the sake of the simulation
-# we will add this measurement so it can be simulated.
-valine260_m3 = pd.DataFrame(
-    {
-        "experiment_id": ["fructose"],
-        "met_id": ["VAL"],
-        "labelled_atom_ids": [[2, 3, 4, 5]],
-        "unlabelled_atoms": ["C8H30ONSi2"],
-        "ms_id": ["Valine260"],
-        "mass_isotope": [3],
-    }
-)
-ms_data_one_exp = pd.concat([ms_data_one_exp, valine260_m3]).reset_index(drop=True)
+# # For the Valine260 fragment the M3 measurement is missing. For the sake of the simulation
+# # we will add this measurement so it can be simulated.
+# valine260_m3 = pd.DataFrame(
+#     {
+#         "experiment_id": ["fructose"],
+#         "met_id": ["VAL"],
+#         "labelled_atom_ids": [[2, 3, 4, 5]],
+#         "unlabelled_atoms": ["C8H30ONSi2"],
+#         "ms_id": ["Valine260"],
+#         "mass_isotope": [3],
+#     }
+# )
+# ms_data_one_exp = pd.concat([ms_data_one_exp, valine260_m3]).reset_index(drop=True)
 
 ms_data_one_exp["measurement_replicate"] = 1
 ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')

@@ -31,7 +31,22 @@ fragments = pd.read_csv(
     sep="\t",
     converters={"labelled_atoms": ast.literal_eval},
 )
-USE_EXPERIMENT = ["simulation1", "simulation2"]
+USE_EXPERIMENT = [
+    "simulation1",
+    "simulation2",
+    # "simulation3",
+    # "simulation4",
+    # "simulation5",
+    "simulation6",
+    # "simulation7",
+    # "simulation8",
+    # "simulation9",
+    # "inst1",
+    # "inst2",
+]
+USE_TIMEPOINTS = [np.inf]  # set to [0.1, 0.5, 1] for steady state simulation
+FLUX_RELATIVE_MEASUREMENT_ERROR = 0.003
+MDV_ABSOLUTE_MEASUREMENT_ERROR = 0.003
 
 
 # %% Read and process reaction data
@@ -53,28 +68,56 @@ reacts_processed = reacts_added_co2_exchange.copy()
 # %% Setup tracer data
 # We will setup the tracer data as done in the tutorial. However we will only
 # simulate the fructose experiment.
-tracer_info = pd.DataFrame.from_dict(
+tracer_info_all = pd.DataFrame.from_dict(
     {
         "experiment_id": [
             "simulation1",
-            "simulation1",
             "simulation2",
-            "simulation2",
+            "simulation3",
+            "simulation4",
+            "simulation5",
+            "simulation6",
+            "simulation7",
+            "simulation8",
+            "simulation9",
+            "inst1",
+            "inst2",
         ],
-        "met_id": ["FRU.ext", "GLY.ext", "FRU.ext", "GLY.ext"],
+        "met_id": ["FRU.ext"] * 6 + ["GLY.ext"] * 3 + ["FRU.ext", "GLY.ext"],
         "tracer_id": [
             "D-[1-13C]fructose",
-            "[1,2-13C]glycerol",
-            "[1,6-13C]fructose",
-            "[1,2-13C]glycerol",
+            "D-[2-13C]fructose",
+            "D-[3-13C]fructose",
+            "D-[4-13C]fructose",
+            "D-[5-13C]fructose",
+            "D-[6-13C]fructose",
+            "[1-13C]-Glycerol",
+            "[2-13C]-Glycerol",
+            "[3-13C]-Glycerol",
+            "D-[U-13C]fructose",
+            "[U-13C]-Glycerol",
         ],
         "atom_ids": [
             [1],
-            [1, 2],
-            [1, 6],
-            [1, 2],
+            [2],
+            [3],
+            [4],
+            [5],
+            [6],
+            [1],
+            [2],
+            [3],
+            [1, 2, 3, 4, 5, 6],
+            [1, 2, 3],
         ],
         "atom_mdv": [
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
+            [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
             [0.0, 1.0],
@@ -85,10 +128,18 @@ tracer_info = pd.DataFrame.from_dict(
             1,
             1,
             1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
         ],
     },
     orient="columns",
 )
+tracer_info = tracer_info_all.query("experiment_id in @USE_EXPERIMENT")
 
 # %%
 # INCA only save the simulation for the MDV that are measured.
@@ -171,7 +222,20 @@ ms_data_one_exp = (
     .drop(columns=["Amino Acid", "m/z"])
 )
 
-ms_data_one_exp["time"] = np.inf
+# # For the Valine260 fragment the M3 measurement is missing. For the sake of the simulation
+# # we will add this measurement so it can be simulated.
+# valine260_m3 = pd.DataFrame(
+#     {
+#         "experiment_id": ["fructose"],
+#         "met_id": ["VAL"],
+#         "labelled_atom_ids": [[2, 3, 4, 5]],
+#         "unlabelled_atoms": ["C8H30ONSi2"],
+#         "ms_id": ["Valine260"],
+#         "mass_isotope": [3],
+#     }
+# )
+# ms_data_one_exp = pd.concat([ms_data_one_exp, valine260_m3]).reset_index(drop=True)
+
 ms_data_one_exp["measurement_replicate"] = 1
 ms_data_one_exp = ms_data_one_exp.query('ms_id != "Methionine292"')
 
@@ -182,8 +246,10 @@ ms_data_one_exp["intensity_std_error"] = np.nan
 # Create a set of measurement per experiment
 ms_data = pd.DataFrame()
 for experiment_id in USE_EXPERIMENT:
-    ms_data_one_exp["experiment_id"] = experiment_id
-    ms_data = pd.concat([ms_data, ms_data_one_exp])
+    for time in USE_TIMEPOINTS:
+        ms_data_one_exp["time"] = time
+        ms_data_one_exp["experiment_id"] = experiment_id
+        ms_data = pd.concat([ms_data, ms_data_one_exp])
 
 # %% Setup the INCA simulation script
 output_file = pathlib.Path(data_folder / "c_necator_simulation.mat")
@@ -194,8 +260,12 @@ script = incawrapper.create_inca_script_from_data(
     experiment_ids=USE_EXPERIMENT,
 )
 script.add_to_block(
-    "options", incawrapper.define_options(sim_more=True, sim_na=True, sim_ss=True)
+    "options",
+    incawrapper.define_options(
+        sim_more=True, sim_na=True, sim_ss=np.inf in USE_TIMEPOINTS
+    ),
 )
+print(script)
 script.add_to_block(
     "runner",
     incawrapper.define_runner(output_file, run_estimate=False, run_simulation=True),
@@ -254,7 +324,7 @@ simulated_mdv = (
     )
     .drop(columns=["expt", "id", "type", "intensity"])
     .rename(columns={"mdv": "intensity"})
-    .assign(intensity_std_error=0.003)
+    .assign(intensity_std_error=MDV_ABSOLUTE_MEASUREMENT_ERROR)
 )
 
 
@@ -266,19 +336,55 @@ for experiment_id in USE_EXPERIMENT:
     # fetch the flux measurements
     fluxes = true_fluxes.query("rxn_id in ['ex_1', 'ex_2', 'R72', 'ex_3']").copy()
     fluxes["experiment_id"] = experiment_id
-    fluxes["flux_std_error"] = fluxes["flux"] * 0.003
+    fluxes["flux_std_error"] = fluxes["flux"] * FLUX_RELATIVE_MEASUREMENT_ERROR
     flux_measurements = pd.concat([flux_measurements, fluxes])
+
 # %%
 
 # save ground truth values and simulated data
 simulated_mdv.to_csv(output_folder / "mdv_no_noise.csv", index=False)
-
 flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index=False)
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 
+# Add noise to the data
+np.random.seed(45244395)  # set seed for reproducibility
+# Absolute error in the MDV measurements
+simulated_mdv_noisy = simulated_mdv.assign(
+    intensity=np.random.normal(
+        simulated_mdv["intensity"], MDV_ABSOLUTE_MEASUREMENT_ERROR
+    )
+)
+simulated_mdv_noisy.to_csv(output_folder / "mdv_noisy.csv", index=False)
+
+# Relative error in the flux measurements
+(
+    flux_measurements.assign(
+        flux=np.random.normal(
+            flux_measurements["flux"], FLUX_RELATIVE_MEASUREMENT_ERROR
+        )
+    ).to_csv(output_folder / "flux_measurements_noisy.csv", index=False)
+)
 
 # save the processed model specification tables for later use
 reacts_processed.to_csv(output_folder / "reactions_processed.csv", index=False)
 tracer_info.to_csv(output_folder / "tracer_info.csv", index=False)
 
+
 # %%
+## format the simulated mdv data for easier manual input to the INCA GUI
+def space_separated_list(x):
+    return " ".join(map(str, x))
+
+
+simulated_mdv_noisy.groupby(["experiment_id", "ms_id"]).agg(
+    {
+        "time": "first",
+        "met_id": "first",
+        "labelled_atom_ids": "first",
+        "unlabelled_atoms": "first",
+        "intensity": space_separated_list,
+        "intensity_std_error": space_separated_list,
+        "mass_isotope": space_separated_list,
+        "measurement_replicate": "first",
+    }
+).reset_index().to_csv(output_folder / "mdv_noisy_for_inca_gui.csv", index=False)

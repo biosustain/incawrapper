@@ -18,10 +18,14 @@ tracers_data = pd.read_csv(data_folder / "tracers.csv",
 )
 reactions_data = pd.read_csv(data_folder / "reactions.csv")
 
+MDV_ABSOLUTE_MEASURMENT_ERROR = 0.003
+FLUX_RELATIVE_MEASUREMENT_ERROR = 0.003
+POOL_SIZES_ABSOLUTE_MEASURMENT_ERROR = 0.015
+
 # %%
-# INCA only save the simulation for the MDV that are measured. 
+# INCA only save the simulation for the MDV that are measured.
 # Thus, we will create some dummy measurements for the MDVs that
-# we with to simulate. 
+# we with to simulate.
 
 n_isotopomers = 4
 def construct_abitrary_ms_measurement(
@@ -44,7 +48,7 @@ def construct_abitrary_ms_measurement(
         'time': [time]*n_isotopomers,
     })
 
-#%%
+# %%
 collector_new_ms_data = []
 for timepoint in np.arange(5):
     collector_new_ms_data.append(
@@ -94,7 +98,7 @@ script.add_to_block("runner", incawrapper.define_runner(output_file, run_estimat
 # In the following we set the flux distribution that we wish to simulate.
 # To avoid having to specify a feasible flux distribution we will guess
 # a flux distribution, fix the input flux value and then find the nearest
-# feasible flux distribution. Futhermore, we specify some pool sizes to 
+# feasible flux distribution. Futhermore, we specify some pool sizes to
 # make the simulation more interesting.
 
 script.add_to_block(
@@ -127,27 +131,27 @@ simulated_data = res.simulation.simulated_data
 true_fluxes = res.model.rates_in_net_exch_format
 true_pool_sizes = res.model.states
 
-#%% Add metadata to the simulated data
+# %% Add metadata to the simulated data
 simulated_mdv = (
     pd.merge(
         new_ms_data,
-        simulated_data, 
-        left_on=['experiment_id', 'ms_id', 'mass_isotope', 'time'],
-        right_on=['expt', 'id', 'mass_isotope', 'time']
-    ).drop(columns=['expt', 'id', 'type', 'intensity'])
-    .rename(columns={'mdv': 'intensity'})
-    .assign(intensity_std_error=0.003)
+        simulated_data,
+        left_on=["experiment_id", "ms_id", "mass_isotope", "time"],
+        right_on=["expt", "id", "mass_isotope", "time"],
+    )
+    .drop(columns=["expt", "id", "type", "intensity"])
+    .rename(columns={"mdv": "intensity"})
+    .assign(intensity_std_error=MDV_ABSOLUTE_MEASURMENT_ERROR)
 )
 
-#%% Pool sizes measurement table
+# %% Pool sizes measurement table
 pool_sizes_measurement = (
-    true_pool_sizes
-    .query("id in ['B', 'F']")
-    .filter(['met', 'val'])
-    .rename(columns={'met': 'met_id', 'val': 'pool_size'})
+    true_pool_sizes.query("id in ['B', 'F']")
+    .filter(["met", "val"])
+    .rename(columns={"met": "met_id", "val": "pool_size"})
     .assign(
-        experiment_id='exp1',
-        pool_size_std_error=0.015,
+        experiment_id="exp1",
+        pool_size_std_error=POOL_SIZES_ABSOLUTE_MEASURMENT_ERROR,
     )
 )
 
@@ -159,7 +163,9 @@ flux_measurements = (
         experiment_id='exp1',
     )
 )
-flux_measurements['flux_std_error'] = flux_measurements['flux'] * 0.003
+flux_measurements["flux_std_error"] = (
+    flux_measurements["flux"] * FLUX_RELATIVE_MEASUREMENT_ERROR
+)
 # %%
 
 # save ground truth values and simulated data
@@ -169,9 +175,50 @@ flux_measurements.to_csv(output_folder / "flux_measurements_no_noise.csv", index
 true_fluxes.to_csv(output_folder / "true_fluxes.csv", index=False)
 true_pool_sizes.to_csv(output_folder / "true_pool_sizes.csv", index=False)
 
+# Set random seed for noise generation
+np.random.seed(890345)
+
+# Add measurement noise
+simulated_mdv_noisy = simulated_mdv.assign(
+    intensity=np.random.normal(
+        simulated_mdv["intensity"], simulated_mdv["intensity_std_error"]
+    )
+)
+simulated_mdv_noisy.to_csv(output_folder / "mdv_noisy.csv", index=False)
+
+# Relative error in the flux measurements
+(
+    flux_measurements.assign(
+        flux=np.random.normal(
+            flux_measurements["flux"], FLUX_RELATIVE_MEASUREMENT_ERROR
+        )
+    ).to_csv(output_folder / "flux_measurements_noisy.csv", index=False)
+)
+
+# Absolute error in the pool size measurements
+(
+    pool_sizes_measurement.assign(
+        pool_size=np.random.normal(
+            pool_sizes_measurement["pool_size"], POOL_SIZES_ABSOLUTE_MEASURMENT_ERROR
+        )
+    ).to_csv(output_folder / "pool_sizes_measurement_noisy.csv", index=False)
+)
+
+
 # %%
-from matplotlib import pyplot as plt
-import seaborn as sns
-g = sns.FacetGrid(simulated_data, col="id", hue="mass_isotope", sharey=False)
-g.map_dataframe(sns.lineplot, x="time", y="mdv")
-plt.legend()
+## format the simulated mdv data for easier manual input to the INCA GUI
+def space_separated_list(x):
+    return " ".join(map(str, x))
+
+
+simulated_mdv_noisy.groupby(["experiment_id", "ms_id", "time"]).agg(
+    {
+        "met_id": "first",
+        "labelled_atom_ids": "first",
+        "unlabelled_atoms": "first",
+        "intensity": space_separated_list,
+        "intensity_std_error": space_separated_list,
+        "mass_isotope": space_separated_list,
+        "measurement_replicate": "first",
+    }
+).reset_index().to_csv(output_folder / "mdv_noisy_for_inca_gui.csv", index=False)

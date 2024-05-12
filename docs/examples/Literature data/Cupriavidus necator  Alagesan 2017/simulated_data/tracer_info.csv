@@ -1,0 +1,4 @@
+experiment_id,met_id,tracer_id,atom_ids,atom_mdv,enrichment
+simulation1,FRU.ext,D-[1-13C]fructose,[1],"[0.0, 1.0]",1
+simulation2,FRU.ext,D-[2-13C]fructose,[2],"[0.0, 1.0]",1
+simulation6,FRU.ext,D-[6-13C]fructose,[6],"[0.0, 1.0]",1

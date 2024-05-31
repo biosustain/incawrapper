@@ -356,13 +356,20 @@ simulated_mdv_noisy = simulated_mdv.assign(
 )
 simulated_mdv_noisy.to_csv(output_folder / "mdv_noisy.csv", index=False)
 
+simulated_mdv_noisy_rounded = (
+    simulated_mdv_noisy.copy().round(4).query("experiment_id == 'simulation1'")
+)
+simulated_mdv_noisy_rounded.to_csv(output_folder / "mdv_noisy_rounded.csv", index=False)
+
 # Relative error in the flux measurements
-(
-    flux_measurements.assign(
-        flux=np.random.normal(
-            flux_measurements["flux"], FLUX_RELATIVE_MEASUREMENT_ERROR
-        )
-    ).to_csv(output_folder / "flux_measurements_noisy.csv", index=False)
+flux_measurements_noisy = flux_measurements.assign(
+    flux=np.random.normal(flux_measurements["flux"], FLUX_RELATIVE_MEASUREMENT_ERROR)
+)
+flux_measurements_noisy.to_csv(
+    output_folder / "flux_measurements_noisy.csv", index=False
+)
+flux_measurements_noisy.query("experiment_id == 'simulation1'").copy().round(4).to_csv(
+    output_folder / "flux_measurements_noisy_rounded.csv", index=False
 )
 
 # save the processed model specification tables for later use
@@ -388,3 +395,20 @@ simulated_mdv_noisy.groupby(["experiment_id", "ms_id"]).agg(
         "measurement_replicate": "first",
     }
 ).reset_index().to_csv(output_folder / "mdv_noisy_for_inca_gui.csv", index=False)
+
+simulated_mdv_noisy.round(4).query("experiment_id == 'simulation1'").groupby(
+    ["experiment_id", "ms_id"]
+).agg(
+    {
+        "time": "first",
+        "met_id": "first",
+        "labelled_atom_ids": "first",
+        "unlabelled_atoms": "first",
+        "intensity": space_separated_list,
+        "intensity_std_error": space_separated_list,
+        "mass_isotope": space_separated_list,
+        "measurement_replicate": "first",
+    }
+).reset_index().to_csv(
+    output_folder / "mdv_noisy_for_inca_gui_rounded.csv", index=False
+)

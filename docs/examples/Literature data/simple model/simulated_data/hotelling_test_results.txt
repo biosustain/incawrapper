@@ -1,0 +1,5 @@
+"value"
+"p_value" 0.364359
+"degree_of_freedom_1" 3
+"degree_of_freedom_2" 5696
+"n_permutations" 1e+06

@@ -10,8 +10,8 @@ if (!requireNamespace("Hotelling", quietly = TRUE)) {
 library(Hotelling)
 
 # Load the MCMC samples
-samples_from_gui <- as.matrix(read.csv("docs/examples/Literature data/simple model/simulated_data/GUI_output.csv", header = TRUE))
-samples_from_wrapper <- as.matrix(read.csv("docs/examples/Literature data/simple model/simulated_data/INCAWrapper_output.csv", header = TRUE))
+samples_from_gui <- as.matrix(read.csv("docs/examples/Literature data/simple model/simulated_data/simple_model_gui_mcmc_results.csv", header = TRUE))
+samples_from_wrapper <- as.matrix(read.csv("docs/examples/Literature data/simple model/simulated_data/simple_model_incawrapper_mcmc_results.csv", header = TRUE))
 
 colnames(samples_from_gui) <- colnames(samples_from_wrapper)
 
@@ -22,7 +22,6 @@ print(free_fluxes)
 
 samples_from_gui_free <- samples_from_gui[, colnames(samples_from_gui) %in% free_fluxes]
 samples_from_wrapper_free <- samples_from_wrapper[, colnames(samples_from_wrapper) %in% free_fluxes]
-
 
 # Compare the MCMC samples using hotelling's T^2 test
 out <- hotelling.test(

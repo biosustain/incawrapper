@@ -51,6 +51,7 @@ results_file = (
     / "c_necator_incawrapper_fluxmap_sample_.mat"
 )
 n_runs = 200
+start_from = 82
 # %%
 # Reading the reactions, tracers, and simulated measurements
 rxn = pd.read_csv(data_directory / "reactions_processed.csv")
@@ -58,9 +59,10 @@ tracers = pd.read_csv(
     data_directory / "tracer_info.csv",
     converters={"atom_ids": ast.literal_eval, "atom_mdv": ast.literal_eval},
 )
-flux_measurements = pd.read_csv(data_directory / "flux_measurements_noisy.csv")
+flux_measurements = pd.read_csv(data_directory / "flux_measurements_noisy_rounded.csv")
 mdv_measurements = pd.read_csv(
-    data_directory / "mdv_noisy.csv", converters={"labelled_atom_ids": ast.literal_eval}
+    data_directory / "mdv_noisy_rounded.csv",
+    converters={"labelled_atom_ids": ast.literal_eval},
 )
 
 # %% [markdown]
@@ -74,7 +76,7 @@ mdv_measurements = pd.read_csv(
 
 # %%
 time_spend = np.array([])
-for i in range(n_runs):
+for i in range(start_from - 1, n_runs):
     start_time = time.time()  # Start timing
 
     print(f"Starting run {i+1}")
@@ -94,7 +96,7 @@ for i in range(n_runs):
     script.add_to_block(
         "options",
         incawrapper.define_options(
-            fit_starts=100,
+            fit_starts=1000,
             sim_ss=True,
             sim_na=True,
             sim_more=True,

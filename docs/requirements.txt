@@ -1,4 +1,6 @@
 pip < 24.1
+setuptools
+wheel
 sphinx==7.2.6
 sphinx-material==0.0.36
 numpydoc>=1.1

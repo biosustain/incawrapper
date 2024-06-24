@@ -6,6 +6,7 @@ import pathlib
 from typing import Dict, Iterable, Callable
 import scipy.stats
 
+
 @dataclass
 class INCAFitData:
     """
@@ -48,7 +49,7 @@ class INCAFitData:
         -------
         Dict
             This attribute contains the raw fitdata from the INCA output."""
-        return load_matlab_file.load_matlab_file(self.inca_matlab_file)['f']
+        return load_matlab_file.load_matlab_file(self.inca_matlab_file)["f"]
 
     @property
     def alpha(self) -> float:
@@ -60,7 +61,7 @@ class INCAFitData:
             This attribute contains the alpha value used for to obtain the confidence intervals.
         """
         return self.raw["alf"]
-    
+
     @property
     def chi2(self) -> float:
         """Gets the chi2 value of the fit.
@@ -71,7 +72,7 @@ class INCAFitData:
             This attribute contains the chi2 value of the fit.
         """
         return self.raw["chi2"]
-    
+
     @property
     def degrees_of_freedom(self) -> int:
         """Gets the degrees of freedom of the fit.
@@ -83,7 +84,7 @@ class INCAFitData:
         """
 
         return self.raw["dof"]
-    
+
     @property
     def expected_chi2(self) -> Iterable[float]:
         """Gets the expected chi2 interval of the fit. The first value is the lower bound and the second
@@ -100,9 +101,9 @@ class INCAFitData:
     def fitted_parameters(self) -> pd.DataFrame:
         """
         Gets the fitted parameters and their associated standard error, lower bound, upper bound and other
-        information. This information is equivalent to the table shown in the main window of the Flux 
+        information. This information is equivalent to the table shown in the main window of the Flux
         Estimation tab in the INCA GUI.
-        
+
         Returns
         -------
         pd.DataFrame
@@ -118,33 +119,38 @@ class INCAFitData:
             * unit: unit of the parameter
             * free: boolean indicating if the parameter was fitted or not
             * cor: correlation vector for this parameter to the other fitted parameters. The order matches
-            the order of the other parameters in the dataframe 
+            the order of the other parameters in the dataframe
             * cov: covariance vector similar to the cor column
-            * vals: value of the parameter of each restart of the estimation algorithm (length of vals is 
+            * vals: value of the parameter of each restart of the estimation algorithm (length of vals is
             equal to the number of fit_starts option)
             * base: don't know what this is
         """
-        df = pd.DataFrame.from_records(self.raw["par"]).reindex(
-            columns=[
-                "type",
-                "id",
-                "eqn",
-                "val",
-                "std",
-                "lb",
-                "ub",
-                "unit",
-                "free",
-                "alf",
-                "chi2s",
-                "cont",
-                "cor",
-                "cov",
-                "vals",
-                "base",
-            ]
+        df = (
+            pd.DataFrame.from_records(self.raw["par"])
+            .reindex(
+                columns=[
+                    "type",
+                    "id",
+                    "eqn",
+                    "val",
+                    "std",
+                    "lb",
+                    "ub",
+                    "unit",
+                    "free",
+                    "alf",
+                    "chi2s",
+                    "cont",
+                    "cor",
+                    "cov",
+                    "vals",
+                    "base",
+                ]
+            )
+            .apply(lambda x: pd.to_numeric(x, errors="ignore"))
         )
         return df
+
     @property
     def measurements_and_fit_overview(self):
         """
@@ -167,7 +173,7 @@ class INCAFitData:
         Returns
         -------
         pd.DataFame
-            This attribute contains an overview of the measurements and their overall fit. The columns 
+            This attribute contains an overview of the measurements and their overall fit. The columns
             of the dataframe are:
             * expt: experiment id
             * id: measurement id
@@ -187,11 +193,9 @@ class INCAFitData:
             pd.DataFrame.from_records(detailed_info)
             # drop the columns which are not needed
             # esens and msens are the sensitivity diagnostics, which are handled seperatly
-            .drop(
-                columns=["esens", "msens", 'cont']
-            ).rename(
-                columns={"val": "weighted residual"}
-            ).reindex(
+            .drop(columns=["esens", "msens", "cont"])
+            .rename(columns={"val": "weighted residual"})
+            .reindex(
                 columns=[
                     "type",
                     "expt",
@@ -209,21 +213,22 @@ class INCAFitData:
         )
         return df
 
-
-    def get_goodness_of_fit(self)->None:
+    def get_goodness_of_fit(self) -> None:
         """
         Return the goodness of fit for the model. This is the chi2 value divided by the degrees of freedom
         """
         fit_accepted = self.expected_chi2[0] <= self.chi2 <= self.expected_chi2[1]
 
         print(
-        f'''Fit accepted: {fit_accepted}
+            f"""Fit accepted: {fit_accepted}
 Confidence level: {self.alpha}
 Chi-square value (SSR): {self.chi2}
-Expected chi-square range: {self.expected_chi2}'''
+Expected chi-square range: {self.expected_chi2}"""
         )
-    
-    def test_normality_of_residuals(self, test_function: Callable = scipy.stats.shapiro, alpha: float = None)->None:
+
+    def test_normality_of_residuals(
+        self, test_function: Callable = scipy.stats.shapiro, alpha: float = None
+    ) -> None:
         """
         Test the normality of the residuals of the model. This is done by default using the Shapiro-Wilk test.
         The user can specify a different test using the test_function argument. The test function should take
@@ -233,10 +238,12 @@ Expected chi-square range: {self.expected_chi2}'''
         """
         if alpha is None:
             alpha = self.alpha
-        
-        residuals = self.measurements_and_fit_detailed['weighted residual']
+
+        residuals = self.measurements_and_fit_detailed["weighted residual"]
         test_statistic, p_value = test_function(residuals)
         # The shapiro test test the null hypothsis that the data is drawn from a normal distribution
-        # Therefore if the p-value is greater than the alpha value the null hypothesis is accepted, i.e. 
+        # Therefore if the p-value is greater than the alpha value the null hypothesis is accepted, i.e.
         # residuals are normally distributed
-        print(f'Residuals are normally distributed: {p_value > alpha} on a {alpha} significance level')
+        print(
+            f"Residuals are normally distributed: {p_value > alpha} on a {alpha} significance level"
+        )

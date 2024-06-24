@@ -8,12 +8,12 @@ sys.path.insert(0, str(Path("..").resolve()))
 
 # -- Project information -----------------------------------------------------
 
-project = 'incawrapper'
-copyright = '2021, Biosustain'
-author = 'Biosustain'
+project = "incawrapper"
+copyright = "2021, Biosustain"
+author = "Biosustain"
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = "0.0.1"
 
 
 # -- General configuration ---------------------------------------------------
@@ -25,10 +25,10 @@ extensions = [
     "sphinx.ext.intersphinx",
     "numpydoc",
     "nbsphinx",
-    "autoapi.extension"
+    #"autoapi.extension",
 ]
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 autosummary_generate = True
 numpydoc_show_class_members = False
 
@@ -42,15 +42,13 @@ autodoc_typehints = "signature"
 # -- Options for HTML output -------------------------------------------------
 
 html_title = "incawrapper"
-html_theme = 'sphinx_material'
+html_theme = "sphinx_material"
 html_theme_options = {
     "repo_url": "https://github.com/biosustain/incawrapper",
     "repo_name": "incawrapper",
     "color_primary": "indigo",
     "color_accent": "pink",
-    "globaltoc_depth": 3
+    "globaltoc_depth": 3,
 }
-html_sidebars = {
-    "**": ["globaltoc.html", "localtoc.html"]
-}
+html_sidebars = {"**": ["globaltoc.html", "localtoc.html"]}
 html_collapsible_definitions = True

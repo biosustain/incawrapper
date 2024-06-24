@@ -21,7 +21,7 @@ def plot_residuals_vs_fitted(inca_results: INCAResults) -> alt.Chart:
     )
 
 
-def plot_norm_probplot(
+def plot_norm_prob(
     inca_results: INCAResults, interactive: bool = False
 ) -> Union[alt.Chart, Tuple[plt.Figure, plt.Axes]]:
 
@@ -75,4 +75,4 @@ def plot_norm_probplot(
     line = alt.Chart(fit_df).mark_line().encode(x="x", y="y")
     return points + line
 
-__all__ = ["plot_residuals_vs_fitted", "plot_norm_probplot"]
+__all__ = ["plot_residuals_vs_fitted", "plot_norm_prob"]

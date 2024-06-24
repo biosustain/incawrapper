@@ -16,17 +16,17 @@ def test_plot_residuals_vs_fitted(inca_results_simple_model):
     """
     assert type(incaviz.plot_residuals_vs_fitted(inca_results_simple_model)) == alt.Chart
 
-def test_plot_norm_probplot_standard_plot(inca_results_simple_model):
+def test_plot_norm_prob_standard_plot(inca_results_simple_model):
     """
-    Tests if the plot_norm_probplot function runs without errors and 
+    Tests if the plot_norm_prob function runs without errors and 
     returns a matplotlib figure
     """
-    assert type(incaviz.plot_norm_probplot(inca_results_simple_model)[0]) == plt.Figure
+    assert type(incaviz.plot_norm_prob(inca_results_simple_model)[0]) == plt.Figure
 
-def test_plot_norm_probplot_interactive_plot(inca_results_simple_model):
+def test_plot_norm_prob_interactive_plot(inca_results_simple_model):
     """
-    Tests if the plot_norm_probplot with interactive option function
+    Tests if the plot_norm_prob with interactive option function
     runs without errors and returns an altair chart
     """
 
-    assert type(incaviz.plot_norm_probplot(inca_results_simple_model, interactive=True)) == alt.LayerChart
+    assert type(incaviz.plot_norm_prob(inca_results_simple_model, interactive=True)) == alt.LayerChart

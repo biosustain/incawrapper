@@ -1,5 +1,5 @@
-__version__ = "1.0.0"
+__version__ = "1.1.1"
 
 from .core import *
 # from . import atommapping
-# from . import utils
+from .utils import *

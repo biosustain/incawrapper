@@ -18,4 +18,3 @@ You can find their mail addresses on the biosustain website
    Published_data_examples_C_necator
    inst_mfa
    validation_toy_model
-   validation_c_necator_model

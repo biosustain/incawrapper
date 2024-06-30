@@ -29,8 +29,14 @@ ReactionIDColumn = pa.Column(
 
 
 MetaboliteIdColumn = pa.Column(
-    pa.String, required=True, 
-    description="Metabolite ID of metabolite which is directly measured or from which the fragment is derived through a derivatization method.")
+    pa.String,
+    required=True,
+    description="Metabolite ID of metabolite which is directly measured or from which the fragment is derived through a derivatization method.",
+    checks=pa.Check.str_matches(
+        r"[\w-]+$",
+        error="The metabolite_id must be a valid MATLAB variable name, legal characters are a-z, A-Z, 0-9, and the underscore character.",
+    ),
+)
 
 # Define the schema for the model reactions
 ReactionsSchema = pa.DataFrameSchema(

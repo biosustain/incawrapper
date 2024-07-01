@@ -182,7 +182,7 @@ class INCAFitData:
             * std: standard deviation of the measurement
             * fit: fitted data
             * weigthed residual: residual value of the fit weighted by the standard deviation of the measurement
-            * cont: contribution of the measurement to each fitted parameter.
+            * cont: the column in the contribution matrix of the measurement.
             * base: DONT know what this is
         """
         detailed_info = np.array([])

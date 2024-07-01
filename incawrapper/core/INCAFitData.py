@@ -121,8 +121,7 @@ class INCAFitData:
             * cor: correlation vector for this parameter to the other fitted parameters. The order matches
             the order of the other parameters in the dataframe
             * cov: covariance vector similar to the cor column
-            * vals: value of the parameter of each restart of the estimation algorithm (length of vals is
-            equal to the number of fit_starts option)
+            * vals: values obtain through continuation method.
             * base: don't know what this is
         """
         df = (
